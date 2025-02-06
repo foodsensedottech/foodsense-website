@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "analyze": "ANALYZE=true next build",
-    "generate-hash": "npx ts-node --project scripts/tsconfig.json scripts/generate-password-hash.ts"
+    "generate-hash": "npx ts-node --project scripts/tsconfig.json scripts/generate-password-hash.ts",
+    "setup-hubspot": "ts-node scripts/setup-hubspot-properties.ts",
+    "setup-hubspot-sequences": "ts-node scripts/setup-hubspot-sequences.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -48,12 +50,15 @@
     "@types/estree": "^1.0.5",
     "@types/json-schema": "^7.0.15",
     "@types/node": "^20.17.17",
+    "@types/node-fetch": "^2.6.12",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "dotenv": "^16.4.7",
     "eslint": "^8.56.0",
     "eslint-config-next": "15.1.6",
+    "node-fetch": "^3.3.2",
     "postcss": "^8",
     "tailwindcss": "^3.4.17",
     "ts-node": "^10.9.2",

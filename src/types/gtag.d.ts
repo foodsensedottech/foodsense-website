@@ -1,11 +1,23 @@
-declare interface Window {
+interface GtagEvent {
+  action: string;
+  category: string;
+  label: string;
+  value: number;
+}
+
+interface WindowWithGtag extends Window {
   gtag: (
-    command: 'config' | 'event',
+    command: 'config' | 'event' | 'js',
     targetId: string,
     config?: {
       page_path?: string;
-      [key: string]: any;
+      send_to?: string;
+      event_category?: string;
+      event_label?: string;
+      value?: number;
     }
   ) => void;
-  dataLayer: any[];
-} 
+  dataLayer: unknown[];
+}
+
+declare let window: WindowWithGtag; 

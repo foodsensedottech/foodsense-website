@@ -98,6 +98,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
+        <AnalyticsProvider />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -122,7 +123,6 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
         <Toaster position="top-center" />
-        <AnalyticsProvider />
         <ScrollTrackingProvider />
       </body>
     </html>
