@@ -18,7 +18,8 @@ export default function Home() {
         <About className="bg-white dark:bg-blue-950/40" />
         <Services className="bg-gray-50 dark:bg-blue-900/40" />
         <Loyalty className="bg-white dark:bg-blue-950/40" />
-        <Testimonials className="bg-white dark:bg-blue-950/40" />
+        {/* Temporarily hide Testimonials */}
+        {/* <Testimonials className="bg-white dark:bg-blue-950/40" /> */}
         <Integrations className="bg-gray-50 dark:bg-blue-900/40" />
         <Blog className="bg-white dark:bg-blue-950/40" />
         <Contact className="bg-gray-50 dark:bg-blue-900/40" />
