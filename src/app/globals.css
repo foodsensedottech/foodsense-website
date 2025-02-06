@@ -3,11 +3,19 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #facc15;  /* Yellow color */
+  --secondary: #1f2937;
+  --dark: #111827;
 }
 
-@media (prefers-color-scheme: dark) {
+.dark {
+  --primary: #facc15;  /* Keep yellow in dark mode */
+  --secondary: #f9fafb;
+  --dark: #111827;
+}
+
+/* Remove these conflicting styles */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
@@ -18,4 +26,4 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
-}
+} */
