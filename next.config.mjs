@@ -11,7 +11,10 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 60,
-    domains: ['images.unsplash.com'],
+    domains: [
+      'images.unsplash.com',
+      'foodsense.tech',
+    ],
   },
   reactStrictMode: true,
   experimental: {
@@ -25,6 +28,20 @@ const nextConfig = {
     // This will suppress all TypeScript errors during build
     // Remove this when you want to enforce strict type checking
     ignoreBuildErrors: true,
+  },
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains'
+          },
+          // ... other security headers
+        ],
+      },
+    ];
   },
 };
 

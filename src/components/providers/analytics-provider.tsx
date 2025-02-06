@@ -4,22 +4,26 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect, Suspense } from 'react';
 
+const isProduction = process.env.NODE_ENV === 'production';
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 function AnalyticsContent() {
+  // Only run in production and when GA is configured
+  if (!isProduction || !GA_MEASUREMENT_ID || process.env.NEXT_PUBLIC_ENABLE_ANALYTICS !== 'true') {
+    return null;
+  }
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (GA_MEASUREMENT_ID && pathname) {
+    if (pathname) {
       // Send pageview with a custom path
       window.gtag('config', GA_MEASUREMENT_ID, {
         page_path: pathname + searchParams.toString(),
       });
     }
   }, [pathname, searchParams]);
-
-  if (!GA_MEASUREMENT_ID) return null;
 
   return (
     <>

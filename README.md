@@ -1,4 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FoodSense Website
+
+A modern restaurant management platform built with Next.js 14.
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+## Deployment
+
+This project is automatically deployed to Vercel through GitHub Actions. 
+
+- Production: [https://foodsense.vercel.app](https://foodsense.vercel.app)
+- Staging: Every PR gets a preview deployment
+
+### Branch Strategy
+- `main` → Production (auto-deploys)
+- `develop` → Staging (optional)
+- Feature branches → PR previews
+
+## Environment Variables
+
+Copy `.env.example` to `.env.local` for local development:
+
+```bash
+cp .env.example .env.local
+```
+
+Required variables are:
+- `NEXT_PUBLIC_BASE_URL`: Your app's URL
+- `NEXTAUTH_URL`: Same as BASE_URL
+- `NEXTAUTH_SECRET`: Auth secret (auto-generated in production)
+
+## Scripts
+
+- `npm run dev`: Start development server
+- `npm run build`: Build for production
+- `npm run start`: Start production server
+- `npm run lint`: Run ESLint
 
 ## Getting Started
 
@@ -34,3 +78,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Analytics
+
+Analytics are enabled in production only. To set up:
+
+1. Get your Google Analytics ID (format: G-XXXXXXXXXX)
+2. Add to Vercel environment variables:
+   - `NEXT_PUBLIC_GA_ID`
+   - `NEXT_PUBLIC_ENABLE_ANALYTICS=true`
+3. Only enabled when:
+   - Environment is production
+   - GA ID is configured
+   - Analytics are explicitly enabled
