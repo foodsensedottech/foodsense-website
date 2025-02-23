@@ -1,80 +1,136 @@
 "use client";
 
-import { useState } from "react";
+import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { ContactFormSchema } from "@/lib/validation/contact-schema";
-import type { ServiceOptionEntry } from "@/types/contentful/service-form-options";
+import type {
+  ContactFormData,
+  DeliveryPartner,
+} from "@/lib/validation/contact-schema";
 import { contactFormSchema } from "@/lib/validation/contact-schema";
-import { formatPhoneNumber } from "@/lib/utils/format-phone";
+import { formatPhoneNumber, parsePhoneNumber } from "@/lib/utils/format-phone";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Spinner } from "@/components/ui/spinner";
 import {
-  RESTAURANT_TYPES,
-  DELIVERY_PARTNERS,
-  POS_SYSTEMS,
-} from "@/lib/hubspot/types";
-import { Input } from "@/components/ui/form/input";
-import { Textarea } from "@/components/ui/form/textarea";
-import { Select } from "@/components/ui/form/select";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { CheckboxGroup } from "@/components/ui/form/checkbox-group";
+import { Textarea } from "@/components/ui/textarea";
+import { FormField } from "@/components/ui/form-field";
+import { useServices } from "@/hooks/use-services";
+import { useToast } from "@/components/providers/toast-provider";
 
-interface ServiceOption {
-  id: string;
-  title: string;
-  description?: string;
-}
+// Options from your preview
+const RESTAURANT_TYPES = [
+  { label: "Dine In", value: "dine_in" },
+  { label: "Fast Casual", value: "fast_casual" },
+  { label: "Quick Service", value: "quick_service" },
+  { label: "Ghost Kitchen", value: "ghost_kitchen" },
+  { label: "Food Truck", value: "food_truck" },
+  { label: "Other", value: "other" },
+];
 
-interface ContactFormProps {
-  services: ServiceOption[];
-}
+const POS_SYSTEMS = [
+  { label: "Toast", value: "toast" },
+  { label: "Clover", value: "clover" },
+  { label: "Square", value: "square" },
+  { label: "LightSpeed", value: "lightspeed" },
+  { label: "SpotOn", value: "spoton" },
+  { label: "QuPOS", value: "qupos" },
+  { label: "Aloha", value: "aloha" },
+  { label: "Xenial", value: "xenial" },
+  { label: "PAR", value: "par" },
+  { label: "NCR", value: "ncr" },
+  { label: "Oracle", value: "oracle" },
+  { label: "Other", value: "other" },
+];
 
-export function ContactForm({ services }: ContactFormProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
-  >("idle");
+const DELIVERY_PARTNERS: Array<{ label: string; value: DeliveryPartner }> = [
+  { label: "UberEats", value: "ubereats" },
+  { label: "DoorDash", value: "doordash" },
+  { label: "GrubHub", value: "grubhub" },
+  { label: "Postmates", value: "postmates" },
+  { label: "Other", value: "other" },
+];
+
+export function ContactForm() {
+  const { services, isLoading: isLoadingServices } = useServices();
+  const [serverError, setServerError] = React.useState<string | null>(null);
+  const { toast } = useToast();
 
   const {
     register,
     handleSubmit,
-    formState: { errors, touchedFields, dirtyFields },
+    formState: { errors, isSubmitting, isDirty },
     setValue,
     watch,
-    reset,
-  } = useForm<ContactFormSchema>({
+    trigger,
+  } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
-    mode: "onChange",
-    delayError: 500,
     defaultValues: {
       name: "",
       email: "",
       phone: "",
       restaurant: "",
       numberOfLocations: 1,
-      monthlyOrders: "",
-      restaurantType: RESTAURANT_TYPES.dine_in,
-      serviceInterests: [],
+      monthlyOrders: 0,
+      restaurantType: "" as ContactFormData["restaurantType"],
+      posSystem: "" as ContactFormData["posSystem"],
       deliveryPartners: [],
-      posSystem: "",
+      serviceInterests: [],
       notes: "",
     },
   });
 
-  const phoneValue = watch("phone");
+  // Handle field validation on blur
+  const handleBlur = async (field: keyof ContactFormData) => {
+    await trigger(field);
+  };
 
-  const onSubmit = async (data: ContactFormSchema) => {
-    console.log("Form submission data:", {
-      deliveryPartners: data.deliveryPartners,
-      serviceInterests: data.serviceInterests,
-    });
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneNumber(e.target.value);
+    e.target.value = formatted;
+    setValue("phone", formatted, { shouldValidate: true });
+  };
+
+  const handlePhonePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pastedText = e.clipboardData.getData("text");
+    const parsedNumber = parsePhoneNumber(pastedText);
+    const formatted = formatPhoneNumber(parsedNumber);
+    setValue("phone", formatted, { shouldValidate: true });
+  };
+
+  const resetForm = () => {
+    setValue("name", "");
+    setValue("email", "");
+    setValue("phone", "");
+    setValue("restaurant", "");
+    setValue("numberOfLocations", 1);
+    setValue("monthlyOrders", 0);
+    setValue("restaurantType", "" as ContactFormData["restaurantType"]);
+    setValue("posSystem", "" as ContactFormData["posSystem"]);
+    setValue("deliveryPartners", []);
+    setValue("serviceInterests", []);
+    setValue("notes", "");
+
+    setServerError(null);
+  };
+
+  const onSubmit = async (data: ContactFormData) => {
     try {
-      setIsSubmitting(true);
-      setSubmitError(null);
-      setSubmitStatus("submitting");
+      setServerError(null);
 
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(data),
       });
 
@@ -84,303 +140,304 @@ export function ContactForm({ services }: ContactFormProps) {
         throw new Error(result.error || "Failed to submit form");
       }
 
-      if (!result.success) {
-        throw new Error(result.error || "Failed to create contact in HubSpot");
-      }
+      toast({
+        title: "Success! 🎉",
+        description: "Thank you for your submission. We'll be in touch soon!",
+        variant: "success",
+        duration: 5000,
+      });
 
-      setSubmitStatus("success");
-      setSubmitSuccess(true);
-      reset();
+      resetForm();
     } catch (error) {
-      setSubmitStatus("error");
-      setSubmitError(
-        error instanceof Error
-          ? error.message
-          : "Unable to submit form. Please try again or contact support."
+      console.error("Form submission error:", error);
+
+      toast({
+        title: "Error",
+        description:
+          error instanceof Error ? error.message : "Failed to submit form",
+        variant: "error",
+        duration: 5000,
+      });
+
+      setServerError(
+        error instanceof Error ? error.message : "Failed to submit form"
       );
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
-  if (submitSuccess) {
-    return (
-      <div className="rounded-lg bg-green-50 p-6 text-center">
-        <svg
-          className="mx-auto h-12 w-12 text-green-400"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M5 13l4 4L19 7"
-          />
-        </svg>
-        <h3 className="mt-3 text-lg font-medium text-green-800">
-          Thank you for your interest!
-        </h3>
-        <p className="mt-2 text-green-700">
-          We&apos;ve received your information and will be in touch shortly.
-        </p>
-      </div>
-    );
-  }
-
-  if (submitError) {
-    return (
-      <div className="rounded-md bg-red-50 p-4 mb-6">
-        <div className="flex">
-          <svg
-            className="h-5 w-5 text-red-400"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <div className="ml-3">
-            <h3 className="text-sm font-medium text-red-800">
-              Submission Error
-            </h3>
-            <p className="text-sm text-red-700 mt-1">{submitError}</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <Input
-        label="Full Name"
-        required
-        {...register("name")}
-        error={errors.name?.message}
-        touched={touchedFields.name}
-        isDirty={dirtyFields.name}
-        disabled={isSubmitting}
-      />
-
-      <Input
-        label="Email"
-        type="email"
-        required
-        {...register("email")}
-        error={errors.email?.message}
-        touched={touchedFields.email}
-        isDirty={dirtyFields.email}
-        disabled={isSubmitting}
-      />
-
-      <Input
-        label="Phone"
-        type="tel"
-        required
-        {...register("phone")}
-        onChange={(e) => {
-          const formatted = formatPhoneNumber(e.target.value);
-          setValue("phone", formatted);
-        }}
-        value={phoneValue}
-        error={errors.phone?.message}
-        touched={touchedFields.phone}
-        isDirty={dirtyFields.phone}
-        disabled={isSubmitting}
-      />
-
-      <Input
-        label="Restaurant Name"
-        required
-        {...register("restaurant")}
-        error={errors.restaurant?.message}
-        touched={touchedFields.restaurant}
-        isDirty={dirtyFields.restaurant}
-        disabled={isSubmitting}
-      />
-
-      <Input
-        label="Number of Locations"
-        type="number"
-        required
-        min={1}
-        {...register("numberOfLocations", { valueAsNumber: true })}
-        error={errors.numberOfLocations?.message}
-        touched={touchedFields.numberOfLocations}
-        isDirty={dirtyFields.numberOfLocations}
-        disabled={isSubmitting}
-      />
-
-      <Input
-        label="Monthly Orders"
-        placeholder="e.g., 1000-2000"
-        {...register("monthlyOrders")}
-        error={errors.monthlyOrders?.message}
-        touched={touchedFields.monthlyOrders}
-        isDirty={dirtyFields.monthlyOrders}
-        disabled={isSubmitting}
-        helpText="Approximate number of orders per month"
-      />
-
-      <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-700">
-          Delivery Partners
-        </label>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {Object.values(DELIVERY_PARTNERS).map((partner) => (
-            <label
-              key={partner}
-              className="flex items-center space-x-2 p-3 border rounded-md hover:bg-gray-50"
-            >
-              <input
-                type="checkbox"
-                value={partner}
-                {...register("deliveryPartners")}
-                disabled={isSubmitting}
-                className="text-blue-600 focus:ring-blue-500"
-              />
-              <span className="text-sm text-gray-900">{partner}</span>
-            </label>
-          ))}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+      {/* Remove the success message div since we're using toast */}
+      {serverError && (
+        <div className="bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300 p-4 rounded-md">
+          {serverError}
         </div>
-        {errors.deliveryPartners && (
-          <p className="text-sm text-red-500">
-            {errors.deliveryPartners.message}
-          </p>
-        )}
+      )}
+
+      {/* Personal Information */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-secondary dark:text-primary">
+          Personal Information
+        </h3>
+
+        <FormField
+          label="Name"
+          error={!!errors.name}
+          helperText={errors.name?.message}
+          className="relative"
+        >
+          <Input
+            {...register("name")}
+            onBlur={() => handleBlur("name")}
+            disabled={isSubmitting}
+            aria-describedby={errors.name ? "name-error" : undefined}
+          />
+        </FormField>
+
+        <FormField
+          label="Email"
+          error={!!errors.email}
+          helperText={errors.email?.message}
+          className="relative"
+        >
+          <Input
+            type="email"
+            {...register("email")}
+            onBlur={() => handleBlur("email")}
+            disabled={isSubmitting}
+            aria-describedby={errors.email ? "email-error" : undefined}
+          />
+        </FormField>
+
+        <FormField
+          label="Phone"
+          error={!!errors.phone}
+          helperText={errors.phone?.message}
+          className="relative"
+        >
+          <Input
+            type="tel"
+            {...register("phone", {
+              onChange: handlePhoneChange,
+            })}
+            onPaste={handlePhonePaste}
+            onBlur={() => handleBlur("phone")}
+            disabled={isSubmitting}
+            placeholder="(555) 555-1234"
+            maxLength={14}
+            aria-describedby={errors.phone ? "phone-error" : undefined}
+          />
+        </FormField>
       </div>
 
-      <Select
-        label="POS System"
-        {...register("posSystem")}
-        error={errors.posSystem?.message}
-        disabled={isSubmitting}
-        options={Object.values(POS_SYSTEMS).map((system) => ({
-          value: system,
-          label: system,
-        }))}
-        placeholder="Select a POS System"
-      />
+      {/* Restaurant Information */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-secondary dark:text-primary">
+          Restaurant Information
+        </h3>
 
-      <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-700">
-          Restaurant Type <span className="text-red-500">*</span>
-        </label>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {Object.entries(RESTAURANT_TYPES).map(([key, value]) => (
-            <label
-              key={key}
-              className="flex items-center space-x-2 p-3 border rounded-md hover:bg-gray-50"
-            >
-              <input
-                type="radio"
-                value={value}
-                {...register("restaurantType")}
-                disabled={isSubmitting}
-                className="text-blue-600 focus:ring-blue-500"
-              />
-              <span className="text-sm text-gray-900">{value}</span>
-            </label>
-          ))}
+        <FormField
+          label="Restaurant Name"
+          error={!!errors.restaurant}
+          helperText={errors.restaurant?.message}
+          className="relative"
+        >
+          <Input
+            {...register("restaurant")}
+            onBlur={() => handleBlur("restaurant")}
+            disabled={isSubmitting}
+            aria-describedby={
+              errors.restaurant ? "restaurant-error" : undefined
+            }
+          />
+        </FormField>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormField
+            label="Number of Locations"
+            error={!!errors.numberOfLocations}
+            helperText={errors.numberOfLocations?.message}
+            className="relative"
+          >
+            <Input
+              type="number"
+              {...register("numberOfLocations", { valueAsNumber: true })}
+              onBlur={() => handleBlur("numberOfLocations")}
+              disabled={isSubmitting}
+              aria-describedby={
+                errors.numberOfLocations ? "numberOfLocations-error" : undefined
+              }
+            />
+          </FormField>
+
+          <FormField
+            label="Monthly Orders"
+            error={!!errors.monthlyOrders}
+            helperText={errors.monthlyOrders?.message}
+            className="relative"
+          >
+            <Input
+              type="number"
+              {...register("monthlyOrders", { valueAsNumber: true })}
+              onBlur={() => handleBlur("monthlyOrders")}
+              disabled={isSubmitting}
+              aria-describedby={
+                errors.monthlyOrders ? "monthlyOrders-error" : undefined
+              }
+            />
+          </FormField>
         </div>
-        {errors.restaurantType && (
-          <p className="text-sm text-red-500">
-            {errors.restaurantType.message}
-          </p>
-        )}
       </div>
 
-      <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-700">
-          Services Interested In <span className="text-red-500">*</span>
-        </label>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {services.map((service) => (
-            <label
-              key={service.id}
-              className="flex items-start space-x-2 p-3 border rounded-md hover:bg-gray-50"
+      {/* Restaurant Type & POS System */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-secondary dark:text-primary">
+          Systems & Services
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormField
+            label="Restaurant Type"
+            error={!!errors.restaurantType}
+            helperText={errors.restaurantType?.message}
+            className="relative"
+          >
+            <Select
+              value={watch("restaurantType")}
+              onValueChange={(value) => {
+                setValue(
+                  "restaurantType",
+                  value as ContactFormData["restaurantType"]
+                );
+                void handleBlur("restaurantType");
+              }}
+              disabled={isSubmitting}
             >
-              <input
-                type="checkbox"
-                value={`${service.id}:${service.title}`}
-                {...register("serviceInterests")}
-                disabled={isSubmitting}
-                className="mt-1 text-blue-600 focus:ring-blue-500"
-              />
-              <div>
-                <span className="text-sm font-medium text-gray-900">
-                  {service.title}
-                </span>
-                {service.description && (
-                  <p className="text-sm text-gray-500">{service.description}</p>
-                )}
+              <SelectTrigger>
+                <SelectValue placeholder="Select type" />
+              </SelectTrigger>
+              <SelectContent>
+                {RESTAURANT_TYPES.map((type) => (
+                  <SelectItem key={type.value} value={type.value}>
+                    {type.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormField>
+
+          <FormField
+            label="POS System"
+            error={!!errors.posSystem}
+            helperText={errors.posSystem?.message}
+            className="relative"
+          >
+            <Select
+              value={watch("posSystem")}
+              onValueChange={(value) => {
+                setValue("posSystem", value as ContactFormData["posSystem"]);
+                void handleBlur("posSystem");
+              }}
+              disabled={isSubmitting}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select POS" />
+              </SelectTrigger>
+              <SelectContent>
+                {POS_SYSTEMS.map((system) => (
+                  <SelectItem key={system.value} value={system.value}>
+                    {system.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormField>
+        </div>
+
+        {/* Delivery Partners and Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormField
+            label="Delivery Partners"
+            error={!!errors.deliveryPartners}
+            helperText={errors.deliveryPartners?.message}
+            className="relative"
+          >
+            <CheckboxGroup
+              options={DELIVERY_PARTNERS}
+              value={watch("deliveryPartners") || []}
+              onChange={(value) =>
+                setValue("deliveryPartners", value as DeliveryPartner[])
+              }
+              onBlur={() => handleBlur("deliveryPartners")}
+              disabled={isSubmitting}
+            />
+          </FormField>
+
+          <FormField
+            label="Services Interested In"
+            error={!!errors.serviceInterests}
+            helperText={errors.serviceInterests?.message}
+            className="relative"
+          >
+            {isLoadingServices ? (
+              <div className="flex items-center justify-center py-4">
+                <Spinner size="md" />
               </div>
-            </label>
-          ))}
+            ) : (
+              <CheckboxGroup
+                options={services}
+                value={watch("serviceInterests") || []}
+                onChange={(value) => setValue("serviceInterests", value)}
+                onBlur={() => handleBlur("serviceInterests")}
+                disabled={isSubmitting}
+              />
+            )}
+          </FormField>
         </div>
-        {errors.serviceInterests && (
-          <p className="text-sm text-red-500">
-            {errors.serviceInterests.message}
-          </p>
-        )}
+
+        {/* Notes */}
+        <FormField
+          label="Additional Notes"
+          error={!!errors.notes}
+          helperText={errors.notes?.message}
+          className="relative"
+        >
+          <Textarea
+            {...register("notes")}
+            placeholder="Any specific requirements or questions?"
+            className="h-32"
+            onBlur={() => handleBlur("notes")}
+            disabled={isSubmitting}
+            aria-describedby={errors.notes ? "notes-error" : undefined}
+          />
+        </FormField>
       </div>
 
-      <Textarea
-        label="Additional Notes"
-        {...register("notes")}
-        error={errors.notes?.message}
-        touched={touchedFields.notes}
-        isDirty={dirtyFields.notes}
-        disabled={isSubmitting}
-        placeholder="Tell us more about your needs..."
-      />
-
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className={`
-          w-full px-4 py-2 text-white font-medium rounded-md
-          ${
-            isSubmitting
-              ? "bg-blue-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-          }
-          transition-colors duration-200
-        `}
-      >
-        {isSubmitting ? (
-          <span className="flex items-center justify-center">
-            <svg
-              className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
-            Submitting...
-          </span>
-        ) : (
-          "Submit"
-        )}
-      </button>
+      {/* Form Actions */}
+      <div className="flex gap-4 justify-end">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => window.history.back()}
+          disabled={isSubmitting}
+        >
+          Cancel
+        </Button>
+        <Button
+          type="submit"
+          disabled={isSubmitting || !isDirty}
+          className="min-w-[100px]"
+        >
+          {isSubmitting ? (
+            <div className="flex items-center gap-2">
+              <Spinner size="sm" />
+              <span>Submitting...</span>
+            </div>
+          ) : (
+            "Submit"
+          )}
+        </Button>
+      </div>
     </form>
   );
 }

@@ -1,23 +1,23 @@
 import { createClient, Entry } from "contentful";
-import { getEnvVar } from "../env";
+import { getEnvVar } from "@/lib/env";
 import type {
   AboutContentType,
   AboutCardContentType,
-} from "@/types/contentful/about";
-import type { HeroContentType } from "@/types/contentful/hero";
+} from '@/lib/contentful/types';
+import type { HeroContentType } from '@/lib/contentful/types';
 import type {
   ServicesContentType,
   ServiceCardContentType,
-} from "@/types/contentful/services";
+} from '@/lib/contentful/types';
 import type {
   TestimonialsContentType,
   TestimonialCardContentType,
-} from "@/types/contentful/testimonials";
+} from '@/lib/contentful/types';
 import type {
   BlogContentType,
   BlogPostContentType,
-} from "@/types/contentful/blog";
-import type { Document } from "@contentful/rich-text-types";
+} from '@/lib/contentful/types';
+import type { PageContentType } from '@/lib/contentful/types';
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID!,
@@ -184,7 +184,7 @@ export async function getServiceOptions(): Promise<ServiceOption[]> {
   try {
     const response = await client.getEntries({
       content_type: "serviceOption",
-      order: "fields.title",
+      order: ["fields.title"] as const,
     });
 
     return response.items.map((item) => ({
@@ -198,26 +198,65 @@ export async function getServiceOptions(): Promise<ServiceOption[]> {
   }
 }
 
-export async function getPageSEO(slug: string) {
+export async function getHomepageData() {
   try {
-    const response = await client.getEntries({
+    // First, get the about section entry
+    const aboutResponse = await client.getEntries<AboutContentType>({
+      content_type: "aboutUsTitleSubtitle",
+      limit: 1,
+    });
+
+    // Then get the about cards
+    const aboutCardsResponse = await client.getEntries<AboutCardContentType>({
+      content_type: "aboutUsCard",
+      order: ["-sys.createdAt"],
+    });
+
+    if (!aboutResponse.items.length) {
+      throw new Error("About section content not found");
+    }
+
+    return {
+      about: aboutResponse.items[0],
+      aboutCards: aboutCardsResponse.items,
+    };
+  } catch (error) {
+    console.error("Error fetching homepage data:", error);
+    throw error;
+  }
+}
+
+export async function getPageData(slug: string) {
+  try {
+    const response = await client.getEntries<PageContentType>({
       content_type: "page",
       "fields.slug": slug,
-      select: ["fields.title", "fields.description", "fields.ogImage"],
+      limit: 1,
     });
 
     if (!response.items.length) {
-      return null;
+      throw new Error(`Page not found: ${slug}`);
     }
 
     const page = response.items[0];
+    if (!page.fields) {
+      throw new Error(`Invalid page data for: ${slug}`);
+    }
+
+    // Type assertion to handle fields
+    const fields = page.fields as {
+      title?: string;
+      description?: string;
+      ogImage?: { fields?: { file?: { url?: string } } };
+    };
+
     return {
-      title: page.fields.title,
-      description: page.fields.description,
-      ogImage: page.fields.ogImage?.fields?.file?.url,
+      title: fields.title || "",
+      description: fields.description || "",
+      ogImage: fields.ogImage?.fields?.file?.url || "",
     };
   } catch (error) {
-    console.error("Error fetching page SEO:", error);
-    return null;
+    console.error(`Error fetching page data for ${slug}:`, error);
+    throw error;
   }
 }

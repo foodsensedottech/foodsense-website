@@ -1,5 +1,5 @@
 import React from 'react';
-import type { AboutFields, AboutEntry } from "@/types/contentful/about";
+import type { AboutFields, AboutEntry } from '@/lib/contentful/types';
 
 interface AboutHeadingProps {
   data: AboutEntry;

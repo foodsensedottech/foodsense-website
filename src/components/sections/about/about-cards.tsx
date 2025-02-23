@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Entry } from 'contentful';
-import type { AboutCardContentType } from '@/types/contentful/about';
+import type { AboutCardContentType } from '@/lib/contentful/types';
 import { AboutCard } from '@/components/sections/about/about-card';
 
 interface AboutCardsProps {

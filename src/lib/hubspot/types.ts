@@ -1,3 +1,7 @@
+// Consolidated HubSpot Types
+
+export * from "@/lib/hubspot/types";
+
 export const RESTAURANT_TYPES = {
   dine_in: "Dine-in",
   fast_casual: "Fast Casual",
@@ -7,7 +11,8 @@ export const RESTAURANT_TYPES = {
   other: "Other",
 } as const;
 
-export type RestaurantType = typeof RESTAURANT_TYPES[keyof typeof RESTAURANT_TYPES];
+export type RestaurantType =
+  (typeof RESTAURANT_TYPES)[keyof typeof RESTAURANT_TYPES];
 
 export interface ContactFormData {
   name: string;
@@ -46,5 +51,82 @@ export const POS_SYSTEMS = {
   other: "Other",
 } as const;
 
-export type POSSystem = typeof POS_SYSTEMS[keyof typeof POS_SYSTEMS];
-export type DeliveryPartner = typeof DELIVERY_PARTNERS[keyof typeof DELIVERY_PARTNERS]; 
+export type POSSystem = (typeof POS_SYSTEMS)[keyof typeof POS_SYSTEMS];
+export type DeliveryPartner =
+  (typeof DELIVERY_PARTNERS)[keyof typeof DELIVERY_PARTNERS];
+
+// Company Properties
+export interface HubSpotCompanyProperties {
+  name: string;
+  number_of_locations: string;
+  average_monthly_orders: string;
+  restaurant_type: string;
+  pos_system?: string;
+  delivery_partners?: string;
+  service_interests?: string;
+  notes?: string;
+}
+
+// Fix HubSpotContactProperties
+export interface HubSpotContactProperties {
+  firstname: string;
+  lastname: string;
+  email: string;
+  company: string;
+  notes?: string;
+}
+
+// Association Types
+export interface AssociationTypes {
+  contact_to_company: {
+    category: "HUBSPOT_DEFINED";
+    typeId: 1;
+  };
+}
+
+// Fix ExtendedHubSpotClient
+export interface ExtendedHubSpotClient {
+  crm: {
+    companies: {
+      basicApi: {
+        create: (data: {
+          properties: HubSpotCompanyProperties;
+        }) => Promise<{ id: string }>;
+        update: (
+          id: string,
+          data: { properties: HubSpotCompanyProperties }
+        ) => Promise<void>;
+        archive: (id: string) => Promise<void>;
+        getById: (
+          id: string
+        ) => Promise<{ id: string; properties: HubSpotCompanyProperties }>;
+      };
+      searchApi: {
+        doSearch: (
+          criteria: unknown
+        ) => Promise<{ results: Array<{ id: string }> }>;
+      };
+    };
+    contacts: {
+      basicApi: {
+        create: (data: {
+          properties: HubSpotContactProperties;
+        }) => Promise<{ id: string }>;
+        update: (
+          id: string,
+          data: { properties: HubSpotContactProperties }
+        ) => Promise<void>;
+      };
+      searchApi: {
+        doSearch: (
+          criteria: unknown
+        ) => Promise<{ results: Array<{ id: string }> }>;
+      };
+    };
+  };
+  apiRequest: (params: {
+    method: string;
+    path: string;
+    body?: unknown;
+  }) => Promise<unknown>;
+}

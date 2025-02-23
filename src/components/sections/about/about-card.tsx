@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Entry } from 'contentful';
-import type { AboutCardContentType, AboutCardFields } from '@/types/contentful/about';
-import { getLucideIcon } from '@/lib/utils/icon-parser';
+import type { AboutCardContentType, AboutCardFields } from '@/lib/contentful/types';
+import { getLucideIcon } from '@/lib/utils';
 
 interface AboutCardProps {
   data: Entry<AboutCardContentType>;

@@ -1,12 +1,25 @@
-import { Metadata } from 'next';
-import { generatePageMetadata } from '@/lib/utils/seo';
+import { Metadata } from "next";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: 'Services | FoodSense',
-    description: 'Restaurant optimization and analytics services provided by FoodSense',
-  }
-}
+export const metadata: Metadata = {
+  title: "Services | FoodSense",
+  description:
+    "Restaurant optimization and analytics services provided by FoodSense",
+  openGraph: {
+    title: "Services | FoodSense",
+    description:
+      "Restaurant optimization and analytics services provided by FoodSense",
+    url: "https://foodsense.tech/services",
+    siteName: "FoodSense",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services | FoodSense",
+    description:
+      "Restaurant optimization and analytics services provided by FoodSense",
+  },
+};
 
 export default function ServicesPage() {
   return (
@@ -17,21 +30,24 @@ export default function ServicesPage() {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-2xl font-semibold mb-4">Menu Optimization</h2>
           <p className="text-gray-600">
-            Data-driven menu analysis and optimization to maximize profitability and customer satisfaction.
+            Data-driven menu analysis and optimization to maximize profitability
+            and customer satisfaction.
           </p>
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-2xl font-semibold mb-4">Cost Management</h2>
           <p className="text-gray-600">
-            Comprehensive cost analysis and management solutions to improve your bottom line.
+            Comprehensive cost analysis and management solutions to improve your
+            bottom line.
           </p>
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-2xl font-semibold mb-4">Analytics Dashboard</h2>
           <p className="text-gray-600">
-            Real-time analytics and reporting to make informed business decisions.
+            Real-time analytics and reporting to make informed business
+            decisions.
           </p>
         </div>
 
@@ -52,10 +68,11 @@ export default function ServicesPage() {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-2xl font-semibold mb-4">Consulting</h2>
           <p className="text-gray-600">
-            Expert consultation on restaurant operations and technology implementation.
+            Expert consultation on restaurant operations and technology
+            implementation.
           </p>
         </div>
       </div>
     </div>
   );
-} 
+}
