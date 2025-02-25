@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "@/components/ui/theme/theme-provider";
 import { validateEnv } from "@/lib/env";
 import { ToastProvider } from "@/components/providers/toast-provider";
 import { Providers } from "./providers";
@@ -114,14 +113,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased bg-background text-foreground">
         <Providers>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <ToastProvider>{children}</ToastProvider>
-          </ThemeProvider>
+          <ToastProvider>{children}</ToastProvider>
         </Providers>
       </body>
     </html>

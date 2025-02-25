@@ -1,6 +1,23 @@
 // Consolidated HubSpot Types
+import { Client } from "@hubspot/api-client";
 
-export * from "@/lib/hubspot/types";
+// Remove the circular reference
+// export * from "@/lib/hubspot/types";
+
+// Add the missing types
+export interface ClientOptions {
+  accessToken: string;
+}
+
+export interface CompanyProperties {
+  [key: string]: string | number | boolean | null;
+}
+
+export interface ContactProperties {
+  [key: string]: string | number | boolean | null;
+}
+
+export type { Client };
 
 export const RESTAURANT_TYPES = {
   dine_in: "Dine-in",
@@ -72,6 +89,7 @@ export interface HubSpotContactProperties {
   firstname: string;
   lastname: string;
   email: string;
+  phone: string;
   company: string;
   notes?: string;
 }

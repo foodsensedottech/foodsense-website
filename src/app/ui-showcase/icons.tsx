@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Icons, Icon, type IconName } from "@/lib/icons";
+import { Icons, Icon, type IconName } from "@/lib/ui-icons";
 
 export function IconShowcase() {
   return (
@@ -17,4 +17,4 @@ export function IconShowcase() {
       ))}
     </div>
   );
-} 
+}

@@ -8,3 +8,6 @@ export default function Home() {
     </BaseLayout>
   );
 }
+
+// Add this export for ISR configuration
+export const revalidate = 3600; // Revalidate at most once per hour

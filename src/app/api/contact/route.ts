@@ -9,6 +9,7 @@ import {
   transformCompanyProperties,
   transformContactProperties,
 } from "@/lib/hubspot/transforms";
+import { parsePhoneNumber } from "@/lib/utils/format-phone";
 
 export async function POST(req: Request) {
   try {
@@ -30,9 +31,12 @@ export async function POST(req: Request) {
       notes: validated.notes,
     });
 
-    // Transform and send to HubSpot
+    // Transform the validated data for HubSpot
     const companyProperties = transformCompanyProperties(validated);
-    const contactProperties = transformContactProperties(validated);
+    const contactProperties = transformContactProperties({
+      ...validated,
+      phone: parsePhoneNumber(validated.phone), // Parse phone number here for HubSpot
+    });
 
     console.log("Transformed company properties:", companyProperties);
     console.log("Transformed contact properties:", contactProperties);

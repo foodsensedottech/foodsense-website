@@ -14,10 +14,10 @@ const Card = React.forwardRef<
       "shadow-sm transition-all duration-300",
       // Hover effects - light mode
       "hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1",
-      // Hover effects - dark mode (stronger glow)
-      "dark:shadow-none dark:hover:shadow-[0_0_30px_-5px] dark:hover:shadow-primary/30",
+      // Hover effects - dark mode (yellow glow)
+      "dark:shadow-none dark:hover:shadow-[0_0_30px_-5px] dark:hover:shadow-yellow-400/30",
       // Border effects
-      "border-border/50 hover:border-primary/50",
+      "border-border/50 hover:border-primary/50 dark:hover:border-yellow-400/50",
       className
     )}
     {...props}

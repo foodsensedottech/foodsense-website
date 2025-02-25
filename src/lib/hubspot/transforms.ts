@@ -1,5 +1,9 @@
 import type { ContactFormData } from "@/lib/validation/contact-schema";
-import type { CompanyProperties, ContactProperties } from "@hubspot/api-client";
+import type {
+  HubSpotCompanyProperties as CompanyProperties,
+  HubSpotContactProperties as ContactProperties,
+} from "./types";
+import { SERVICES } from "@/lib/constants/form-fields";
 
 /**
  * Splits a full name into first and last name
@@ -15,11 +19,19 @@ export function transformName(fullName: string) {
 /**
  * Transforms form data into HubSpot company properties
  */
-export function transformCompanyProperties(data: ContactFormData): CompanyProperties {
+export function transformCompanyProperties(
+  data: ContactFormData
+): CompanyProperties {
   // Single focused log for debugging the transformation
   console.log("🔍 Form Data Transform:", {
     deliveryPartners: data.deliveryPartners,
     serviceInterests: data.serviceInterests,
+  });
+
+  // Map service IDs to their full names
+  const serviceNames = data.serviceInterests.map((id) => {
+    const service = SERVICES.find((s) => s.id === id);
+    return service ? service.name : id;
   });
 
   const transformedData = {
@@ -31,9 +43,7 @@ export function transformCompanyProperties(data: ContactFormData): CompanyProper
     delivery_partners: Array.isArray(data.deliveryPartners)
       ? data.deliveryPartners.join(";")
       : "",
-    interested_services: Array.isArray(data.serviceInterests)
-      ? data.serviceInterests.map((s) => s.split(":")[1]).join(";")
-      : "",
+    interested_services: serviceNames.join(";"),
   };
 
   // Add debug log
@@ -48,7 +58,9 @@ export function transformCompanyProperties(data: ContactFormData): CompanyProper
 /**
  * Transforms form data into HubSpot contact properties
  */
-export function transformContactProperties(data: ContactFormData): ContactProperties {
+export function transformContactProperties(
+  data: ContactFormData
+): ContactProperties {
   // Log name transformation
   const { firstName, lastName } = transformName(data.name);
   console.log("Name transformation:", {

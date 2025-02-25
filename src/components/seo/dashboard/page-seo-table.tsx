@@ -5,7 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/ui/data-display/table";
 
 const pages = [
   {
@@ -69,4 +69,4 @@ export function PageSEOTable() {
       </Table>
     </div>
   );
-} 
+}

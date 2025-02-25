@@ -9,7 +9,7 @@ export default function ContactPage() {
           <h1 className="text-3xl font-bold text-secondary dark:text-primary">
             Contact Us
           </h1>
-          <p className="mt-2 text-muted-foreground">
+          <p className="mt-2 text-muted-foreground dark:text-white">
             Fill out the form below and we&apos;ll get back to you as soon as
             possible.
           </p>
@@ -22,3 +22,6 @@ export default function ContactPage() {
     </main>
   );
 }
+
+// Remove the revalidate export from client component
+// export const revalidate = 3600; // Revalidate at most once per hour

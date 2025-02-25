@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { Icon } from "@/lib/icons";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
+import { smoothScrollToSection } from "@/lib/utils";
 
 interface NavigationItem {
   label: string;
@@ -19,6 +20,21 @@ export function MobileNav({ items }: MobileNavProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const { theme, setTheme } = useTheme();
 
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    // Only handle hash links
+    if (href.includes("#")) {
+      e.preventDefault();
+      const sectionId = href.split("#")[1];
+      smoothScrollToSection(sectionId);
+      setIsOpen(false);
+    } else {
+      setIsOpen(false);
+    }
+  };
+
   return (
     <div className="md:hidden flex items-center gap-2">
       <Button
@@ -27,7 +43,11 @@ export function MobileNav({ items }: MobileNavProps) {
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         className="text-yellow-400"
       >
-        <Icon name={theme === "dark" ? "sun" : "moon"} className="h-5 w-5" />
+        {theme === "dark" ? (
+          <Sun className="h-5 w-5" />
+        ) : (
+          <Moon className="h-5 w-5" />
+        )}
       </Button>
 
       <Button
@@ -37,7 +57,7 @@ export function MobileNav({ items }: MobileNavProps) {
         aria-label="Toggle menu"
         className="text-yellow-400"
       >
-        <Icon name={isOpen ? "x" : "menu"} className="h-6 w-6" />
+        {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
       </Button>
 
       {isOpen && (
@@ -49,7 +69,7 @@ export function MobileNav({ items }: MobileNavProps) {
                 key={item.href}
                 href={item.href}
                 className="text-yellow-400 font-semibold hover:text-yellow-400/80 transition-colors"
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => handleNavClick(e, item.href)}
               >
                 {item.label}
               </Link>

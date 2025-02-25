@@ -1,14 +1,17 @@
 import React from "react";
-import { logger } from '@/lib/utils';
+import { appLogger } from "@/lib/utils";
 
 interface ErrorFallbackProps {
   error: Error;
   resetErrorBoundary?: () => void;
 }
 
-export function ErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps) {
+export function ErrorFallback({
+  error,
+  resetErrorBoundary,
+}: ErrorFallbackProps) {
   React.useEffect(() => {
-    logger.error(error.message, {
+    appLogger.error(error.message, {
       component: "ErrorFallback",
       action: "render",
       metadata: {
@@ -37,4 +40,4 @@ export function ErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps)
       )}
     </div>
   );
-} 
+}

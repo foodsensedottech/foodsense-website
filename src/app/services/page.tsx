@@ -21,6 +21,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 3600; // Revalidate at most once per hour
+
 export default function ServicesPage() {
   return (
     <div className="container mx-auto py-8 px-4">

@@ -1,6 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { logger } from "./logger";
 import type { Metadata } from "next";
 
 export function cn(...inputs: ClassValue[]) {
@@ -26,6 +25,7 @@ export const semanticConfig = {
     hero: "hero-section",
     about: "about-section",
     services: "services-section",
+    testimonials: "testimonials-section",
     contact: "contact-section",
   },
   headingLevels: {
@@ -37,6 +37,17 @@ export const semanticConfig = {
     listTitle: 4,
   },
 } as const;
+
+// Smooth scroll function
+export function smoothScrollToSection(sectionId: string): void {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+}
 
 // Define strict types for logging
 interface LogContext {
@@ -60,7 +71,7 @@ interface Logger {
   debug(message: string, context?: LogContext): void;
 }
 
-export const logger: Logger = {
+export const appLogger: Logger = {
   info(message: string, details?: LogDetails) {
     this.log("info", message, details);
   },
@@ -168,7 +179,7 @@ interface ErrorDetails {
 // Export directly as a const
 export const errorHandler = {
   handleError({ message, severity = "error", context = {} }: ErrorDetails) {
-    logger.error(message, {
+    appLogger.error(message, {
       severity,
       component: context.component || "Unknown",
       action: context.action || "unknown_action",
@@ -226,4 +237,11 @@ export function generatePageMetadata({
       description,
     },
   };
+}
+
+export function ensureAbsoluteUrl(url: string): string {
+  if (url.startsWith("//")) {
+    return `https:${url}`;
+  }
+  return url;
 }

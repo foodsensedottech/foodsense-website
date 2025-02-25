@@ -7,15 +7,21 @@ import {
   ToastTitle,
   ToastDescription,
   ToastViewport,
-} from '@/components/ui/feedback/toast';
+} from "@/components/ui/feedback/toast";
 import type { ToastProps } from "@radix-ui/react-toast";
 
-type ToastOptions = {
-  title?: string;
-  description?: string;
+// Separate the base toast options from Radix props
+interface BaseToastOptions {
+  id?: string;
+  title?: React.ReactNode;
+  description?: React.ReactNode;
   duration?: number;
   variant?: "default" | "success" | "error";
-} & Partial<ToastProps>;
+}
+
+// Combine base options with Radix props, but make them optional
+type ToastOptions = BaseToastOptions &
+  Partial<Omit<ToastProps, keyof BaseToastOptions>>;
 
 const ToastContext = React.createContext<{
   toast: (options: ToastOptions) => void;
@@ -24,10 +30,12 @@ const ToastContext = React.createContext<{
 });
 
 export function ToastProvider({ children }: { children: React.ReactNode }) {
-  const [toasts, setToasts] = React.useState<ToastOptions[]>([]);
+  const [toasts, setToasts] = React.useState<(ToastOptions & { id: string })[]>(
+    []
+  );
 
   const toast = React.useCallback((options: ToastOptions) => {
-    const id = Math.random().toString(36);
+    const id = options.id || Math.random().toString(36);
     const newToast = { ...options, id };
     setToasts((prev) => [...prev, newToast]);
 
@@ -41,14 +49,20 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     <ToastContext.Provider value={{ toast }}>
       <RadixToastProvider>
         {children}
-        {toasts.map((toast) => (
-          <Toast key={toast.id} variant={toast.variant}>
-            {toast.title && <ToastTitle>{toast.title}</ToastTitle>}
-            {toast.description && (
-              <ToastDescription>{toast.description}</ToastDescription>
-            )}
-          </Toast>
-        ))}
+        {toasts.map((toast) => {
+          // Extract the properties we need to pass as props
+          const { id, variant, title, description, ...toastProps } = toast;
+
+          // Only pass valid props to the Toast component
+          return (
+            <Toast key={id} variant={variant} {...toastProps}>
+              {title && <ToastTitle>{title}</ToastTitle>}
+              {description && (
+                <ToastDescription>{description}</ToastDescription>
+              )}
+            </Toast>
+          );
+        })}
         <ToastViewport />
       </RadixToastProvider>
     </ToastContext.Provider>

@@ -1,21 +1,30 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   productionBrowserSourceMaps: false,
+  eslint: {
+    // Disable ESLint during production builds
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'images.ctfassets.net',
+        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'downloads.ctfassets.net',
+        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'assets.ctfassets.net',
+        pathname: '/**',
       },
     ],
+    domains: ['images.ctfassets.net'],
   },
   webpack: (config, { dev, isServer }) => {
     // Ignore punycode warning
@@ -40,4 +49,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig 
+module.exports = nextConfig; 

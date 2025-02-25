@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { servicesSchema } from "@/lib/constants/form-fields";
 
 // Helper regex patterns
 const PHONE_REGEX = /^\(\d{3}\) \d{3}-\d{4}$/;
@@ -28,6 +29,9 @@ export const contactFormSchema = z.object({
       NAME_REGEX,
       "Name can only contain letters, spaces, hyphens and apostrophes"
     )
+    .refine((name) => name.trim().split(/\s+/).length >= 2, {
+      message: "Please enter both first and last name",
+    })
     .transform((str) => str.trim()),
 
   email: z
@@ -35,6 +39,10 @@ export const contactFormSchema = z.object({
     .email("Please enter a valid email address")
     .min(5, "Email is required")
     .max(100, "Email must be less than 100 characters")
+    .regex(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "Please enter a valid email address"
+    )
     .transform((str) => str.toLowerCase().trim()),
 
   phone: z
@@ -45,7 +53,7 @@ export const contactFormSchema = z.object({
   // Restaurant Info
   restaurant: z
     .string()
-    .min(2, "Restaurant name must be at least 2 characters")
+    .min(3, "Restaurant name must be at least 3 characters")
     .max(100, "Restaurant name must be less than 100 characters")
     .transform((str) => str.trim()),
 
@@ -84,10 +92,7 @@ export const contactFormSchema = z.object({
   // Multi-select
   deliveryPartners: deliveryPartnersSchema,
 
-  serviceInterests: z
-    .array(z.string())
-    .min(1, "Select at least one service")
-    .max(5, "Maximum 5 services allowed"),
+  serviceInterests: servicesSchema.min(1, "Select at least one service"),
 
   // Optional
   notes: z

@@ -30,12 +30,15 @@ const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
                 child.props.className,
                 error && "border-destructive focus-visible:ring-destructive"
               ),
-            });
+            } as React.HTMLAttributes<HTMLElement>);
           }
           return child;
         })}
         {error && (
-          <p id={`${id}-error`} className="text-sm font-medium text-destructive">
+          <p
+            id={`${id}-error`}
+            className="text-sm font-medium text-destructive"
+          >
             {error}
           </p>
         )}

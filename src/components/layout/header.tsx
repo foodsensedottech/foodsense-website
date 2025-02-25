@@ -6,19 +6,31 @@ import { Logo } from "@/components/ui/media/logo";
 import { MobileNav } from "@/components/ui/navigation/mobile-nav";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
-import { Icon } from "@/lib/icons";
+import { Icon } from "@/lib/ui-icons";
+import { smoothScrollToSection } from "@/lib/utils";
 
 const NAVIGATION_ITEMS = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Testimonials", href: "/testimonials" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact Us", href: "/contact" },
+  { label: "About", href: "/#about-section" },
+  { label: "Services", href: "/#services-section" },
+  { label: "Testimonials", href: "/#testimonials-section" },
+  { label: "Contact Us", href: "/#contact-section" },
 ];
 
 export function Header() {
   const { theme, setTheme } = useTheme();
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    // Only handle hash links
+    if (href.includes("#")) {
+      e.preventDefault();
+      const sectionId = href.split("#")[1];
+      smoothScrollToSection(sectionId);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[#1e3a5f]/10">
@@ -38,6 +50,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className="text-yellow-400 font-semibold hover:text-yellow-400/80 transition-colors"
+                onClick={(e) => handleNavClick(e, item.href)}
               >
                 {item.label}
               </Link>

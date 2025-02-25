@@ -22,7 +22,7 @@ import {
 import { Checkbox } from "@/components/ui/form/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/form/radio-group";
 import { useTheme } from "next-themes";
-import { Icon } from "@/lib/icons";
+import { Icon } from "@/lib/ui-icons";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 

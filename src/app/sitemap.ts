@@ -1,48 +1,37 @@
-import { MetadataRoute } from 'next';
-import { getClient } from '@/lib/contentful/client';
+import { MetadataRoute } from "next";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Get all dynamic routes from Contentful
-  const services = await getClient().getEntries({ content_type: 'service' });
-  const blogs = await getClient().getEntries({ content_type: 'blogPost' });
+export default function sitemap(): MetadataRoute.Sitemap {
+  // Base URL from environment variable or default to localhost
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://foodsense.tech";
 
   // Static routes
-  const staticRoutes = [
+  const routes = [
     {
-      url: 'https://foodsense.tech',
+      url: `${baseUrl}`,
       lastModified: new Date(),
-      changeFrequency: 'daily' as const,
+      changeFrequency: "daily" as const,
       priority: 1,
     },
     {
-      url: 'https://foodsense.tech/about',
+      url: `${baseUrl}/about`,
       lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
+      changeFrequency: "weekly" as const,
       priority: 0.8,
     },
     {
-      url: 'https://foodsense.tech/contact',
+      url: `${baseUrl}/services`,
       lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
       priority: 0.5,
     },
+    // Add any other static routes here
   ];
 
-  // Dynamic routes from services
-  const serviceRoutes = services.items.map((service) => ({
-    url: `https://foodsense.tech/services/${service.fields.slug}`,
-    lastModified: new Date(service.sys.updatedAt),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }));
-
-  // Dynamic routes from blog posts
-  const blogRoutes = blogs.items.map((blog) => ({
-    url: `https://foodsense.tech/blog/${blog.fields.slug}`,
-    lastModified: new Date(blog.sys.updatedAt),
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }));
-
-  return [...staticRoutes, ...serviceRoutes, ...blogRoutes];
-} 
+  return routes;
+}

@@ -1,10 +1,10 @@
-import { Inter } from 'next/font/google';
-import { Header } from './header';
-import { Footer } from './footer';
-import { ThemeProvider } from '@/components/providers/theme-provider';
-import { ToastProvider } from '@/components/providers/toast-provider';
+import { Inter } from "next/font/google";
+import { Header } from "./header";
+import { Footer } from "./footer";
+import { ThemeProvider } from "@/components/ui/theme/theme-provider";
+import { ToastProvider } from "@/components/providers/toast-provider";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -22,4 +22,4 @@ export function RootLayout({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
-} 
+}

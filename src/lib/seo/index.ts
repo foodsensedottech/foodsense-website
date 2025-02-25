@@ -1,6 +1,6 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
-type OpenGraphType = 'article' | 'website' | 'blog';
+type OpenGraphType = "article" | "website";
 
 interface GenerateMetadataProps {
   title: string;
@@ -33,14 +33,14 @@ export function generatePageMetadata({
   const url = canonicalUrl || `https://foodsense.tech${path}`;
 
   const defaultJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'FoodSense',
-    url: 'https://foodsense.tech',
-    logo: 'https://foodsense.tech/logo.png',
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "FoodSense",
+    url: "https://foodsense.tech",
+    logo: "https://foodsense.tech/logo.png",
     sameAs: [
-      'https://twitter.com/foodsense',
-      'https://linkedin.com/company/foodsense',
+      "https://twitter.com/foodsense",
+      "https://linkedin.com/company/foodsense",
     ],
   };
 
@@ -56,16 +56,16 @@ export function generatePageMetadata({
       title,
       description,
       url,
-      siteName: 'FoodSense',
-      type: (openGraph?.type || 'website') as OpenGraphType,
-      images: openGraph?.images?.map(image => ({
+      siteName: "FoodSense",
+      type: (openGraph?.type || "website") as OpenGraphType,
+      images: openGraph?.images?.map((image) => ({
         url: image,
         width: 1200,
         height: 630,
         alt: title,
       })) || [
         {
-          url: 'https://foodsense.tech/og-image.jpg',
+          url: "https://foodsense.tech/og-image.jpg",
           width: 1200,
           height: 630,
           alt: title,
@@ -73,21 +73,30 @@ export function generatePageMetadata({
       ],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
-      images: openGraph?.images || ['/og-image.jpg'],
-      creator: '@foodsense',
+      images: openGraph?.images || ["/og-image.jpg"],
+      creator: "@foodsense",
     },
     other: {
-      'google-site-verification': process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-      'keywords-extra': searchTerms?.join(', '),
+      ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+        ? {
+            "google-site-verification":
+              process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+          }
+        : {}),
+      ...(searchTerms?.length
+        ? { "keywords-extra": searchTerms.join(", ") }
+        : {}),
+      "script:ld+json": JSON.stringify(jsonLd || defaultJsonLd),
     },
     verification: {
-      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-    },
-    other: {
-      'script:ld+json': JSON.stringify(jsonLd || defaultJsonLd),
+      ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+        ? {
+            google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+          }
+        : {}),
     },
   };
-} 
+}

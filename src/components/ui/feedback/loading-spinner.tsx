@@ -1,4 +1,4 @@
-import { Icon } from "@/lib/icons";
+import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface LoadingSpinnerProps {
@@ -12,13 +12,12 @@ const sizes = {
   lg: "h-8 w-8",
 };
 
-export function LoadingSpinner({ 
-  size = "md", 
-  className 
+export function LoadingSpinner({
+  size = "md",
+  className,
 }: LoadingSpinnerProps) {
   return (
-    <Icon
-      name="spinner"
+    <Loader2
       className={cn(
         "animate-spin text-muted-foreground",
         sizes[size],
@@ -26,4 +25,4 @@ export function LoadingSpinner({
       )}
     />
   );
-} 
+}

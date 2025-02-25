@@ -1,52 +1,56 @@
-"use client";
+import { HeroSection } from "./hero";
+import { AboutSection } from "./about/about-section";
+import { ServicesSection } from "./services";
+import { TestimonialsSection } from "./testimonials";
+import { ContactSection } from "./contact";
+import {
+  getHeroContent,
+  getAboutContent,
+  getServicesContent,
+  getTestimonialsContent,
+} from "@/lib/contentful/client";
+import { SectionLoading } from "@/components/ui/layout/section-loading";
 
-import { motion } from "framer-motion";
+export async function HomeContent() {
+  try {
+    const [heroContent, aboutContent, servicesContent, testimonialsContent] =
+      await Promise.all([
+        getHeroContent(),
+        getAboutContent(),
+        getServicesContent(),
+        getTestimonialsContent(),
+      ]);
 
-export function HomeContent() {
-  return (
-    <div className="container mx-auto py-10">
-      <motion.section 
-        className="space-y-6"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <motion.h1 
-          className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          Welcome to FoodSense
-        </motion.h1>
-        <motion.p 
-          className="text-lg text-muted-foreground"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
-          We help you grow your restaurant.
-        </motion.p>
-        <motion.div
-          className="flex gap-4 mt-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-        >
-          <a 
-            href="/contact" 
-            className="bg-yellow-400 text-[#1e3a5f] px-6 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors"
-          >
-            Get Started
-          </a>
-          <a 
-            href="/about" 
-            className="border border-yellow-400 text-yellow-400 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400/10 transition-colors"
-          >
-            Learn More
-          </a>
-        </motion.div>
-      </motion.section>
-    </div>
-  );
-} 
+    if (
+      !heroContent ||
+      !aboutContent.heading ||
+      !servicesContent.heading ||
+      !testimonialsContent.heading
+    ) {
+      return <SectionLoading />;
+    }
+
+    return (
+      <>
+        <HeroSection data={heroContent} />
+        <AboutSection
+          heading={aboutContent.heading}
+          cards={aboutContent.cards || []}
+        />
+        <ServicesSection
+          heading={servicesContent.heading}
+          cards={servicesContent.cards || []}
+        />
+        <TestimonialsSection
+          heading={testimonialsContent.heading}
+          cards={testimonialsContent.cards || []}
+        />
+        <ContactSection />
+        {/* Other sections will be added here */}
+      </>
+    );
+  } catch (error) {
+    console.error("Error loading content:", error);
+    return <SectionLoading />;
+  }
+}

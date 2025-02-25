@@ -1,50 +1,47 @@
+"use client";
+
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { FormLabel } from "./form-label";
 
-interface FormFieldProps extends React.HTMLAttributes<HTMLDivElement> {
+interface FormFieldProps {
   label: string;
-  error?: boolean;
-  helperText?: string;
+  error?: string;
   required?: boolean;
+  className?: string;
+  children: React.ReactNode;
 }
 
 export function FormField({
   label,
   error,
-  helperText,
   required,
   className,
   children,
-  ...props
 }: FormFieldProps) {
   const id = React.useId();
-  const helperId = `${id}-helper`;
-  const errorId = `${id}-error`;
 
   return (
-    <div className={cn("space-y-2", className)} {...props}>
-      <FormLabel
+    <div className="space-y-2">
+      <label
         htmlFor={id}
-        className={cn(error && "text-destructive")}
-        isRequired={required}
+        className="block text-sm font-medium text-gray-700 dark:text-gray-200"
       >
         {label}
-      </FormLabel>
-
-      <div className="relative">{children}</div>
-
-      {helperText && (
+        {required && <span className="text-red-500 ml-1">*</span>}
+      </label>
+      {React.isValidElement(children)
+        ? React.cloneElement(children, {
+            id,
+            "aria-describedby": error ? `${id}-error` : undefined,
+            "aria-invalid": error ? "true" : undefined,
+          } as React.HTMLAttributes<HTMLElement>)
+        : children}
+      {error && (
         <p
-          id={error ? errorId : helperId}
-          className={cn(
-            "text-sm",
-            error
-              ? "text-destructive dark:text-red-400"
-              : "text-muted-foreground"
-          )}
+          id={`${id}-error`}
+          className="text-sm text-red-600 dark:text-red-400"
         >
-          {helperText}
+          {error}
         </p>
       )}
     </div>
