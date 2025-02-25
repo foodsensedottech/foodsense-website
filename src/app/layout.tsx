@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { validateEnv } from "@/lib/env";
 import { ToastProvider } from "@/components/providers/toast-provider";
 import { Providers } from "./providers";
+import { AnalyticsProvider } from "@/lib/analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -115,6 +116,7 @@ export default function RootLayout({
         <Providers>
           <ToastProvider>{children}</ToastProvider>
         </Providers>
+        <AnalyticsProvider />
       </body>
     </html>
   );
