@@ -4,7 +4,6 @@ import React from "react";
 import type { AboutCardFields } from "@/lib/contentful/types";
 import type { AboutIconName } from "@/lib/about-icons";
 import { getAboutIcon } from "@/lib/about-icons";
-import type { ContentfulEntry } from "contentful";
 
 // Define the ContentfulEntry type here to match the one in client.ts
 type ContentfulEntry<T> = {
