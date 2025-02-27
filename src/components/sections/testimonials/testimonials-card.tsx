@@ -46,7 +46,9 @@ export function TestimonialsCard({ data }: TestimonialsCardProps) {
           "{testimonialQuote}"
         </p>
         <div className="text-center">
-          <p className="font-semibold text-secondary">{businessOwner}</p>
+          <p className="font-semibold text-secondary dark:text-white">
+            {businessOwner}
+          </p>
           <p className="text-gray-500 dark:text-gray-400 text-sm">
             {businessName}
           </p>
@@ -91,7 +93,9 @@ export function TestimonialsCard({ data }: TestimonialsCardProps) {
           />
         </div>
         <div>
-          <p className="font-semibold text-secondary">{businessOwner}</p>
+          <p className="font-semibold text-secondary dark:text-white">
+            {businessOwner}
+          </p>
           <p className="text-gray-500 dark:text-gray-400 text-sm">
             {businessName}
           </p>

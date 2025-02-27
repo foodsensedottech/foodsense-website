@@ -4,6 +4,7 @@ import React from "react";
 import type { AboutCardFields } from "@/lib/contentful/types";
 import type { AboutIconName } from "@/lib/about-icons";
 import { getAboutIcon } from "@/lib/about-icons";
+import type { ContentfulEntry } from "contentful";
 
 // Define the ContentfulEntry type here to match the one in client.ts
 type ContentfulEntry<T> = {
@@ -34,7 +35,7 @@ export function AboutCard({ data }: AboutCardProps) {
   return (
     <div className="p-6 rounded-lg bg-white dark:bg-white/10 shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 dark:hover:shadow-[0_0_30px_-5px] dark:hover:shadow-yellow-400/30 dark:hover:border-yellow-400/50">
       <IconComponent className="w-8 h-8 mb-4 text-primary" aria-hidden="true" />
-      <h3 className="text-xl font-semibold mb-2 text-secondary">
+      <h3 className="text-xl font-semibold mb-2 text-secondary dark:text-white">
         {fields.title}
       </h3>
       <p className="text-gray-600 dark:text-gray-300">{fields.description}</p>

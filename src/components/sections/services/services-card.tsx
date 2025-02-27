@@ -22,7 +22,7 @@ export function ServicesCard({ data }: ServicesCardProps) {
   if (!servicesThumbnail?.fields?.file?.url) {
     return (
       <div className="p-6 rounded-lg bg-white dark:bg-white/10 shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 dark:hover:shadow-[0_0_30px_-5px] dark:hover:shadow-yellow-400/30 dark:hover:border-yellow-400/50 max-w-sm w-full">
-        <h3 className="text-xl font-semibold mb-2 text-secondary">
+        <h3 className="text-xl font-semibold mb-2 text-secondary dark:text-white">
           {servicesTitle?.toString() || ""}
         </h3>
         <p className="text-gray-600 dark:text-gray-300">
@@ -49,7 +49,7 @@ export function ServicesCard({ data }: ServicesCardProps) {
           onLoad={() => setIsLoading(false)}
         />
       </div>
-      <h3 className="text-xl font-semibold mb-2 text-secondary">
+      <h3 className="text-xl font-semibold mb-2 text-secondary dark:text-white">
         {servicesTitle?.toString() || ""}
       </h3>
       <p className="text-gray-600 dark:text-gray-300">
