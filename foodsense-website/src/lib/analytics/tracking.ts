@@ -1,4 +1,4 @@
-export type EventNames =
+type EventNames =
   | "page_view"
   | "scroll_to_contact"
   | "form_start"
@@ -8,13 +8,9 @@ export type EventNames =
   | "menu_interaction"
   | "cta_click"
   | "external_link_click"
-  | "conversion"
-  | "scroll_depth"
-  | "section_view"
-  | "user_engagement"
-  | "bounce";
+  | "conversion";
 
-export interface AnalyticsEvent {
+interface AnalyticsEvent {
   event_category?: string;
   event_label?: string;
   value?: number;

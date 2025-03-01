@@ -2,18 +2,13 @@
 
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
-import React, { useEffect } from "react";
-import { initializeClarity } from "./clarity-config";
+import React from "react";
 
 export function AnalyticsProvider(): React.ReactNode {
-  useEffect(() => {
-    // Initialize Clarity with custom configurations
-    initializeClarity();
-  }, []);
-
   return (
     <React.Fragment>
       <Analytics />
+
       {/* Microsoft Clarity */}
       <Script strategy="afterInteractive" id="microsoft-clarity">
         {`
@@ -24,6 +19,7 @@ export function AnalyticsProvider(): React.ReactNode {
           })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_ID}");
         `}
       </Script>
+
       {/* Google Analytics */}
       <Script
         strategy="lazyOnload"
@@ -39,7 +35,33 @@ export function AnalyticsProvider(): React.ReactNode {
             gtag('js', new Date());
             gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}', {
               page_path: window.location.pathname,
+              anonymize_ip: true,
+              cookie_flags: 'SameSite=None;Secure',
             });
+          `,
+        }}
+      />
+
+      {/* Privacy-focused settings for both analytics */}
+      <Script
+        id="analytics-settings"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            // Set privacy settings for Clarity
+            if (typeof clarity === 'function') {
+              clarity("consent");
+              clarity("set", "disable_cookies", true);
+            }
+
+            // Set privacy settings for GA4
+            if (typeof gtag === 'function') {
+              gtag('consent', 'default', {
+                'analytics_storage': 'granted',
+                'ad_storage': 'denied',
+                'personalization_storage': 'denied'
+              });
+            }
           `,
         }}
       />
