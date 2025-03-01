@@ -2,11 +2,15 @@
   "name": "foodsense-website",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "clear-cache": "rm -rf .next/cache",
     "build": "npm run clear-cache && CONTENTFUL_CACHE_BUST=$(date +%s) next build",
-    "vercel-build": "npm run clear-cache && next build",
+    "vercel-build": "npm install && npm run clear-cache && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
