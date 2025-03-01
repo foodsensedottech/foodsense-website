@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "framework": "nextjs",
+  "buildCommand": "cd foodsense-website && npm install --no-workspaces && npm run build",
+  "outputDirectory": "foodsense-website/.next"
+} 
