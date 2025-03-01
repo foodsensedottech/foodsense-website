@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "npm run vercel-build",
-  "installCommand": "npm install",
+  "buildCommand": "cd foodsense-website && npm install && npm run vercel-build",
+  "installCommand": "cd foodsense-website && npm install",
   "framework": "nextjs",
-  "outputDirectory": ".next"
+  "outputDirectory": "foodsense-website/.next"
 } 

@@ -1,0 +1,9 @@
+{
+  "name": "foodsense-website-root",
+  "private": true,
+  "workspaces": ["foodsense-website"],
+  "scripts": {
+    "build": "cd foodsense-website && npm install && npm run build",
+    "vercel-build": "cd foodsense-website && npm install && npm run vercel-build"
+  }
+}
