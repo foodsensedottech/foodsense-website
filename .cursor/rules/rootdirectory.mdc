@@ -1,0 +1,30 @@
+---
+description: 
+globs: 
+---
+
+# Root Directory Configuration
+
+@foodsense-website /Users/esfabionopablo/Documents/FoodSense/Foodsense Website/foodsense-website
+
+# Important Directories
+src/app/**/*
+src/components/**/*
+src/lib/**/*
+src/styles/**/*
+
+# File Patterns
+*.tsx
+*.ts
+*.css
+*.json
+
+# Special Files
+package.json
+tsconfig.json
+next.config.js
+.env*
+
+# Excluded Directories
+node_modules/
+.next/
