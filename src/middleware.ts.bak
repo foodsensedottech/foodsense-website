@@ -1,0 +1,18 @@
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+// Minimal middleware to avoid edge runtime errors
+export function middleware(request: NextRequest) {
+  const response = NextResponse.next();
+
+  // Add basic security headers
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("X-Frame-Options", "SAMEORIGIN");
+
+  return response;
+}
+
+// Apply only to main routes, avoid complex patterns
+export const config = {
+  matcher: ["/api/:path*"],
+};

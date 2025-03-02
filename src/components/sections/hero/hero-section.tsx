@@ -12,26 +12,30 @@ interface HeroSectionProps {
 
 export function HeroSection({ data }: HeroSectionProps) {
   if (!data?.fields) {
+    console.warn("HeroSection: No fields in data");
     return null;
   }
 
-  // Add logging to debug the structure
-  console.log("Hero Data:", JSON.stringify(data, null, 2));
+  const { heroHeading, heroSubheading, backgroundImage } = data.fields;
 
-  // Use type assertion to handle the discrepancy
-  const fields = data.fields as any;
-  const heroHeading = fields.heroHeading;
-  const heroSubheading = fields.heroSubheading;
-  const backgroundImage = fields.backgroundImage;
+  // Debug logging
+  console.log("Hero Data:", {
+    heroHeading,
+    heroSubheading,
+    backgroundImage: {
+      url: backgroundImage?.fields?.file?.url,
+      title: backgroundImage?.fields?.title,
+    },
+  });
 
-  // Use optional chaining to safely access nested properties
+  // Safely access the image URL using optional chaining
   const imageUrl = backgroundImage?.fields?.file?.url;
   const imageAlt = backgroundImage?.fields?.title || "Hero background";
 
   return (
     <section
       id={semanticConfig.sections.hero}
-      className="relative min-h-[80vh] md:min-h-[70vh] lg:min-h-[80vh] flex items-center justify-center py-20"
+      className="relative h-[500px] sm:h-[550px] md:h-[600px] lg:h-[650px] xl:h-[700px] flex items-center justify-center"
     >
       <HeroBackground imageUrl={imageUrl} imageAlt={imageAlt} />
       <HeroContent title={heroHeading} subtitle={heroSubheading} />

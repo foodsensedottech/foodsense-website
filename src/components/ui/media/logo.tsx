@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -10,39 +9,32 @@ interface LogoProps {
 }
 
 export function Logo({ variant = "header", className }: LogoProps) {
-  const [isLoading, setIsLoading] = useState(true);
+  // Use the appropriate logo based on variant
+  const logoSrc =
+    variant === "footer" ? "/logo/footer-logo.png" : "/logo/logo.png";
 
-  const src = variant === "footer" 
-    ? "/images/logo/footer-logo.png"
-    : "/images/logo/logo.png";
-
-  const dimensions = variant === "footer"
-    ? { height: 194, width: 194 }
-    : { height: 64, width: 155 };
+  // Set dimensions based on variant while respecting the original dimensions
+  const dimensions =
+    variant === "footer"
+      ? { height: 194, width: 194 } // Contain the footer logo within this area
+      : { height: 64, width: 155 }; // Contain the header logo within this area
 
   return (
-    <div 
-      className={className}
+    <div
+      className={cn("relative flex items-center justify-center", className)}
       style={{
-        position: 'relative',
         height: `${dimensions.height}px`,
         width: `${dimensions.width}px`,
       }}
     >
       <Image
-        src={src}
+        src={logoSrc}
         alt="FoodSense Logo"
         fill
         sizes={`${dimensions.width}px`}
-        className={cn(
-          "object-contain",
-          "transition-opacity duration-200",
-          isLoading ? "opacity-0" : "opacity-100"
-        )}
-        priority={true}
-        quality={90}
-        onLoad={() => setIsLoading(false)}
+        priority={variant === "header"} // Priority load for header logo
+        className="object-contain" // This ensures the logo maintains its aspect ratio
       />
     </div>
   );
-} 
+}

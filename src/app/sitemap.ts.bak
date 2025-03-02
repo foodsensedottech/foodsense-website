@@ -1,3 +1,7 @@
+// This file has been renamed to avoid conflicts with next-sitemap
+// If you need to use the App Router sitemap generation, rename this file back to sitemap.ts
+// and remove the next-sitemap package and configuration
+
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {

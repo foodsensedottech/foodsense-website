@@ -147,18 +147,29 @@ export async function getHeroContent() {
 
     // More careful type conversion
     const item = response.items[0];
+    const fields = item.fields as HeroFields;
+
+    // Debug logging
+    console.log("Hero Content Response:", {
+      heroHeading: fields.heroHeading,
+      heroSubheading: fields.heroSubheading,
+      backgroundImage: {
+        url: fields.backgroundImage?.fields?.file?.url,
+        title: fields.backgroundImage?.fields?.title,
+      },
+    });
 
     // Create a new object with the expected structure
     return {
       sys: item.sys,
       fields: {
-        heroHeading: item.fields.heroHeading,
-        heroSubheading: item.fields.heroSubheading,
-        backgroundImage: item.fields.backgroundImage,
-        seoMetadata: item.fields.seoMetadata,
-      } as unknown as HeroFields,
+        heroHeading: fields.heroHeading,
+        heroSubheading: fields.heroSubheading,
+        backgroundImage: fields.backgroundImage,
+        seoMetadata: fields.seoMetadata,
+      },
       metadata: item.metadata,
-    } as unknown as HeroContentType;
+    } as HeroContentType;
   } catch (error) {
     console.error("Error fetching hero content:", error);
     return null;
@@ -417,19 +428,18 @@ export async function getAboutContent() {
 
 export async function getServicesContent() {
   try {
-    const heading = await getServicesHeading();
-    const cards = await getServicesCards();
+    const [headingResponse, cardsResponse] = await Promise.all([
+      getServicesHeading(),
+      getServicesCards(),
+    ]);
 
     return {
-      heading,
-      cards,
+      heading: headingResponse,
+      cards: cardsResponse || [],
     };
   } catch (error) {
     console.error("Error fetching services content:", error);
-    return {
-      heading: null,
-      cards: [],
-    };
+    return null;
   }
 }
 

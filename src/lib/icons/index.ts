@@ -1,37 +1,25 @@
-import {
-  Computer,
-  Rocket,
-  Star,
-  LineChart,
-  ChefHat,
-  TrendingUp,
-  Users,
-  Settings,
-  type LucideIcon,
-  type LucideProps,
-} from "lucide-react";
+import type { LucideIcon, LucideProps } from "lucide-react";
+import { Star } from "lucide-react";
 
-// Define icon map with explicit typing
-const iconMap = {
-  Computer,
-  Rocket,
-  Star,
-  LineChart,
-  ChefHat,
-  TrendingUp,
-  Users,
-  Settings,
-} as const;
+// Import all icon-related exports
+export * from "./common-icons";
+export * from "./ui-icons";
+export * from "./about-icons";
+export * from "./types";
 
-// Create a type for valid icon names
-type IconName = keyof typeof iconMap;
-
-// Export the getIcon function with proper typing
+// Re-export the getIcon function with proper typing
 export function getIcon(name: string | undefined): LucideIcon {
-  const cleanName = name?.replace("#", "").trim() || "";
-  return (iconMap[cleanName as IconName] || Star) as LucideIcon;
+  if (!name) return Star;
+  const cleanName = name.replace("#", "").trim();
+
+  // Import the icon dynamically from lucide-react
+  try {
+    const icon = require(`lucide-react`)[cleanName];
+    return icon || Star;
+  } catch {
+    return Star;
+  }
 }
 
-// Export types and constants
-export type { IconName, LucideProps };
-export { iconMap };
+// Export types
+export type { LucideIcon, LucideProps };

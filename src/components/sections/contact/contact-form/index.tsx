@@ -303,8 +303,8 @@ export function ContactForm() {
           >
             <CheckboxGroup
               options={SERVICES.map((service) => ({
-                label: service.name,
-                value: service.id,
+                label: service.label,
+                value: service.value,
               }))}
               value={watch("serviceInterests")}
               onChange={(value) =>

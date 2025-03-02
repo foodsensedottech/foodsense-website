@@ -1,26 +1,33 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import type { Metadata } from "next";
 
+// Utility for combining Tailwind classes
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const zIndex = {
-  background: 0,
-  overlay: 10,
-  content: 20,
-  contentTop: 30,
-  navigation: 50,
-} as const;
+// Utility for handling errors
+export function handleError(error: unknown): string {
+  if (error instanceof Error) return error.message;
+  return String(error);
+}
 
+// Utility for smooth scrolling to sections
+export function smoothScrollToSection(sectionId: string) {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
+// Utility for ensuring absolute URLs
+export function ensureAbsoluteUrl(url: string): string {
+  if (!url) return "";
+  return url.startsWith("http") ? url : `https:${url}`;
+}
+
+// Semantic configuration for sections
 export const semanticConfig = {
-  landmarks: {
-    header: "site-header",
-    nav: "site-navigation",
-    main: "main-content",
-    footer: "site-footer",
-  },
   sections: {
     hero: "hero-section",
     about: "about-section",
@@ -28,220 +35,65 @@ export const semanticConfig = {
     testimonials: "testimonials-section",
     contact: "contact-section",
   },
-  headingLevels: {
-    siteName: 1,
-    pageTitle: 1,
-    sectionTitle: 2,
-    subsectionTitle: 3,
-    cardTitle: 3,
-    listTitle: 4,
+  about: {
+    heading: "About Us",
+    description: "Learn more about our mission and values",
   },
-} as const;
-
-// Smooth scroll function
-export function smoothScrollToSection(sectionId: string): void {
-  const element = document.getElementById(sectionId);
-  if (element) {
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }
-}
-
-// Define strict types for logging
-interface LogContext {
-  component?: string;
-  action?: string;
-  severity?: "info" | "warn" | "error" | "critical";
-  metadata?: Record<string, unknown>;
-}
-
-type LogLevel = "info" | "warn" | "error";
-
-interface LogDetails extends LogContext {
-  timestamp?: string;
-}
-
-interface Logger {
-  info(message: string, details?: LogDetails): void;
-  warn(message: string, details?: LogDetails): void;
-  error(message: string | Error, details?: LogDetails): void;
-  log(level: LogLevel, message: string, details?: LogDetails): void;
-  debug(message: string, context?: LogContext): void;
-}
-
-export const appLogger: Logger = {
-  info(message: string, details?: LogDetails) {
-    this.log("info", message, details);
+  services: {
+    heading: "Our Services",
+    description: "Explore our range of services",
   },
-
-  warn(message: string, details?: LogDetails) {
-    const metadata = {
-      timestamp: new Date().toISOString(),
-      component: details?.component || "Unknown",
-      ...details?.metadata,
-    };
-
-    if (process.env.NODE_ENV === "production") {
-      // Send warning to logging service
-      return;
-    }
-    console.warn(`[WARN] ${details?.component}: ${message}`, metadata);
+  testimonials: {
+    heading: "Testimonials",
+    description: "What our clients say about us",
   },
-
-  error(message: string | Error, details?: LogDetails) {
-    const errorMessage = message instanceof Error ? message.message : message;
-    const errorMetadata = {
-      timestamp: new Date().toISOString(),
-      component: details?.component || "Unknown",
-      action: details?.action || "unknown_action",
-      ...details?.metadata,
-    };
-
-    if (process.env.NODE_ENV === "production") {
-      // Integration with error tracking service
-      return;
-    }
-    console.error(`[ERROR] ${details?.component}: ${errorMessage}`, {
-      error: message,
-      ...errorMetadata,
-    });
-  },
-
-  log(level: LogLevel, message: string, details?: LogDetails) {
-    const logData = {
-      timestamp: new Date().toISOString(),
-      component: details?.component || "Unknown",
-      ...details,
-    };
-
-    if (process.env.NODE_ENV === "production") {
-      return;
-    }
-    console[level](`[${level.toUpperCase()}] ${message}`, logData);
-  },
-
-  debug(message: string, context?: LogContext) {
-    if (process.env.NODE_ENV !== "production") {
-      console.log(`[DEBUG] ${context?.component || "App"}: ${message}`, {
-        timestamp: new Date().toISOString(),
-        ...context,
-      });
-    }
+  contact: {
+    heading: "Contact Us",
+    description: "Get in touch with our team",
   },
 };
 
-export function formatPhoneNumber(value: string): string {
-  // Remove all non-digits
-  const digits = value.replace(/\D/g, "");
+// Z-index utility
+export const zIndex = {
+  modal: 50,
+  overlay: 40,
+  dropdown: 30,
+  header: 20,
+  content: 10,
+  contentTop: 15,
+  base: 1,
+};
 
-  // Format as (555) 555-4444
-  if (digits.length <= 3) {
-    return digits;
-  } else if (digits.length <= 6) {
-    return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+// Throttle utility
+export function throttle<T extends (...args: any[]) => any>(
+  func: T,
+  limit: number
+): (...args: Parameters<T>) => void {
+  let inThrottle: boolean;
+  let lastResult: ReturnType<T>;
+
+  return function (this: any, ...args: Parameters<T>): void {
+    if (!inThrottle) {
+      inThrottle = true;
+      lastResult = func.apply(this, args);
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
+}
+
+export function formatPhoneNumber(value: string): string {
+  // Remove all non-numeric characters
+  const numbers = value.replace(/\D/g, "");
+
+  // Format the number as (XXX) XXX-XXXX
+  if (numbers.length <= 3) {
+    return numbers;
+  } else if (numbers.length <= 6) {
+    return `(${numbers.slice(0, 3)}) ${numbers.slice(3)}`;
   } else {
-    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(
+    return `(${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(
       6,
       10
     )}`;
   }
-}
-
-export function parsePhoneNumber(value: string): string {
-  // Handle common phone number formats:
-  // (555) 555-1234
-  // 555-555-1234
-  // 5555551234
-  // +1 555 555 1234
-  // 1-555-555-1234
-  return value
-    .replace(/\+1[\s-]?/, "") // Remove +1 prefix
-    .replace(/^1[\s-]?/, "") // Remove leading 1
-    .replace(/[^\d]/g, ""); // Remove all non-digits
-}
-
-export type ErrorSeverity = "info" | "warn" | "error" | "critical";
-
-interface ErrorContext {
-  component?: string;
-  action?: string;
-  [key: string]: unknown;
-}
-
-interface ErrorDetails {
-  message: string;
-  severity?: ErrorSeverity;
-  context?: ErrorContext;
-}
-
-// Export directly as a const
-export const errorHandler = {
-  handleError({ message, severity = "error", context = {} }: ErrorDetails) {
-    appLogger.error(message, {
-      severity,
-      component: context.component || "Unknown",
-      action: context.action || "unknown_action",
-      metadata: context,
-    });
-  },
-
-  monitorAsync: async <T>(fn: () => Promise<T>): Promise<T> => {
-    try {
-      return await fn();
-    } catch (error) {
-      errorHandler.handleError({
-        message: error instanceof Error ? error.message : "Unknown error",
-        severity: "error",
-        context: {
-          component: "AsyncMonitor",
-          action: "execute",
-        },
-      });
-      throw error;
-    }
-  },
-};
-
-// Export a single function for simpler use cases
-export const handleError = errorHandler.handleError;
-
-interface PageMetadata {
-  title: string;
-  description: string;
-  path?: string;
-}
-
-export function generatePageMetadata({
-  title,
-  description,
-  path = "",
-}: PageMetadata): Metadata {
-  const url = process.env.NEXT_PUBLIC_BASE_URL || "https://foodsense.tech";
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      url: `${url}${path}`,
-      siteName: "FoodSense",
-      locale: "en_US",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
-  };
-}
-
-export function ensureAbsoluteUrl(url: string): string {
-  if (url.startsWith("//")) {
-    return `https:${url}`;
-  }
-  return url;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { appLogger } from "@/lib/utils";
+import { appLogger } from "@/lib/logger";
 
 interface ErrorFallbackProps {
   error: Error;

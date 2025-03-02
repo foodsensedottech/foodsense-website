@@ -6,11 +6,11 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
-  { title: "Home", href: "#home" },
-  { title: "About", href: "#about" },
-  { title: "Services", href: "#services" },
-  { title: "Testimonials", href: "#testimonials" },
-  { title: "Contact", href: "#contact" },
+  { title: "Home", href: "#hero-section" },
+  { title: "About", href: "#about-section" },
+  { title: "Services", href: "#services-section" },
+  { title: "Testimonials", href: "#testimonials-section" },
+  { title: "Contact", href: "#contact-section" },
 ];
 
 export function MobileNav() {

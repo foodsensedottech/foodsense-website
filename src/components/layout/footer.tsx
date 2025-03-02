@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { Logo } from "@/components/ui/media/logo";
-import { Icon } from "@/lib/ui-icons";
+import { Linkedin, Instagram } from "lucide-react";
 import { smoothScrollToSection } from "@/lib/utils";
 
 export function Footer() {
@@ -112,7 +112,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="hover:text-yellow-400/80 transition-colors"
               >
-                <Icon name="linkedin" className="h-6 w-6" />
+                <Linkedin className="h-6 w-6" />
                 <span className="sr-only">LinkedIn</span>
               </Link>
               <Link
@@ -121,7 +121,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="hover:text-yellow-400/80 transition-colors"
               >
-                <Icon name="instagram" className="h-6 w-6" />
+                <Instagram className="h-6 w-6" />
                 <span className="sr-only">Instagram</span>
               </Link>
             </div>

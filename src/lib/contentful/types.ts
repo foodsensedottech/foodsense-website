@@ -99,9 +99,10 @@ export interface ServicesTitleFields extends ContentfulEntryFields {
 }
 
 export interface ServicesCardFields extends ContentfulEntryFields {
-  servicesTitle: string; // 10-50 chars
-  servicesDescription: string; // 25-175 chars
-  servicesThumbnail: {
+  title: string;
+  description: string;
+  lucideIcon: string;
+  thumbnail?: {
     fields: {
       file: {
         url: string;

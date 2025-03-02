@@ -6,7 +6,7 @@ export const DELIVERY_PARTNERS = [
   { label: "DoorDash", value: "doordash" },
   { label: "GrubHub", value: "grubhub" },
   { label: "Postmates", value: "postmates" },
-  { label: "Other", value: "other" }
+  { label: "Other", value: "other" },
 ] as const;
 
 export const POS_SYSTEMS = [
@@ -21,7 +21,7 @@ export const POS_SYSTEMS = [
   { label: "PAR", value: "par" },
   { label: "NCR", value: "ncr" },
   { label: "Oracle", value: "oracle" },
-  { label: "Other", value: "other" }
+  { label: "Other", value: "other" },
 ] as const;
 
 export const RESTAURANT_TYPES = [
@@ -30,59 +30,73 @@ export const RESTAURANT_TYPES = [
   { label: "Quick Service", value: "quick_service" },
   { label: "Ghost Kitchen", value: "ghost_kitchen" },
   { label: "Food Truck", value: "food_truck" },
-  { label: "Other", value: "other" }
+  { label: "Other", value: "other" },
 ] as const;
 
 export const SERVICES = [
   {
-    id: "new-restaurant",
-    name: "New Restaurant Opening/Restaurant Upgrades"
+    label: "New Restaurant Opening/Restaurant Upgrades",
+    value: "new-restaurant",
   },
   {
-    id: "increase-sales",
-    name: "Increase Sales and Profits on 3rd Party Delivery"
+    label: "Increase Sales and Profits on 3rd Party Delivery",
+    value: "increase-sales",
   },
   {
-    id: "market-analysis",
-    name: "Market and Competitor Pricing Analysis"
+    label: "Market and Competitor Pricing Analysis",
+    value: "market-analysis",
   },
   {
-    id: "customer-loyalty",
-    name: "Customer Loyalty and Reputation Management"
+    label: "Customer Loyalty and Reputation Management",
+    value: "customer-loyalty",
   },
   {
-    id: "profitability",
-    name: "Profitability Analysis"
-  }
+    label: "Profitability Analysis",
+    value: "profitability",
+  },
 ] as const;
 
 // Type helpers for our form
-export type DeliveryPartner = typeof DELIVERY_PARTNERS[number]["value"];
-export type PosSystem = typeof POS_SYSTEMS[number]["value"];
-export type RestaurantType = typeof RESTAURANT_TYPES[number]["value"];
+export type DeliveryPartner = (typeof DELIVERY_PARTNERS)[number]["value"];
+export type PosSystem = (typeof POS_SYSTEMS)[number]["value"];
+export type RestaurantType = (typeof RESTAURANT_TYPES)[number]["value"];
+export type ServiceType = (typeof SERVICES)[number]["value"];
 
 // Create Zod schemas from our constants
-export const deliveryPartnersSchema = z.array(z.enum([
-  "ubereats", "doordash", "grubhub", "postmates", "other"
-]));
+export const deliveryPartnersSchema = z.array(
+  z.enum(["ubereats", "doordash", "grubhub", "postmates", "other"])
+);
 
 export const posSystemSchema = z.enum([
-  "toast", "clover", "square", "lightspeed", "spoton",
-  "qupos", "aloha", "xenial", "par", "ncr", "oracle", "other"
+  "toast",
+  "clover",
+  "square",
+  "lightspeed",
+  "spoton",
+  "qupos",
+  "aloha",
+  "xenial",
+  "par",
+  "ncr",
+  "oracle",
+  "other",
 ]);
 
 export const restaurantTypeSchema = z.enum([
-  "dine_in", "fast_casual", "quick_service",
-  "ghost_kitchen", "food_truck", "other"
+  "dine_in",
+  "fast_casual",
+  "quick_service",
+  "ghost_kitchen",
+  "food_truck",
+  "other",
 ]);
 
-// Add type and schema for services
-export type ServiceType = typeof SERVICES[number]["id"];
-
-export const servicesSchema = z.array(z.enum([
-  "new-restaurant",
-  "increase-sales", 
-  "market-analysis",
-  "customer-loyalty",
-  "profitability"
-])); 
+export const servicesSchema = z.array(
+  z.enum([
+    "new-restaurant",
+    "increase-sales",
+    "market-analysis",
+    "customer-loyalty",
+    "profitability",
+  ])
+);

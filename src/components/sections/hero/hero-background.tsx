@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn, ensureAbsoluteUrl } from "@/lib/utils";
 
 interface HeroBackgroundProps {
   imageUrl?: string;
@@ -11,12 +11,15 @@ interface HeroBackgroundProps {
 }
 
 export function HeroBackground({ imageUrl, imageAlt }: HeroBackgroundProps) {
-  // Convert protocol-relative URL to HTTPS
-  const absoluteImageUrl = imageUrl?.startsWith("//")
-    ? `https:${imageUrl}`
-    : imageUrl;
+  // Debug logging
+  console.log("HeroBackground Props:", { imageUrl, imageAlt });
+
+  // Ensure we have an absolute URL with HTTPS
+  const absoluteImageUrl = imageUrl ? ensureAbsoluteUrl(imageUrl) : undefined;
+  console.log("Processed Image URL:", absoluteImageUrl);
 
   if (!absoluteImageUrl) {
+    console.warn("No image URL available, showing fallback");
     return (
       <div className="absolute inset-0 z-0 bg-gray-900">
         <div className="absolute inset-0 bg-black/50" />
@@ -37,8 +40,8 @@ export function HeroBackground({ imageUrl, imageAlt }: HeroBackgroundProps) {
           alt={imageAlt}
           fill
           priority
+          sizes="100vw"
           className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
           quality={90}
         />
         <div className="absolute inset-0 bg-black/50" />

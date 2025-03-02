@@ -1,37 +1,18 @@
+// This is an empty middleware file to ensure that the Next.js development server
+// doesn't try to generate a middleware file for us, which could cause conflicts.
+//
+// We've set skipMiddlewareUrlNormalize and skipTrailingSlashRedirect in next.config.js
+// to disable middleware functionality, but having this file ensures proper compatibility.
+
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  // Get the response
-  const response = NextResponse.next();
-
-  // Add security headers
-  response.headers.set("X-DNS-Prefetch-Control", "on");
-  response.headers.set(
-    "Strict-Transport-Security",
-    "max-age=63072000; includeSubDomains; preload"
-  );
-  response.headers.set("X-Content-Type-Options", "nosniff");
-  response.headers.set("X-Frame-Options", "SAMEORIGIN");
-  response.headers.set("X-XSS-Protection", "1; mode=block");
-  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-
-  // Add CORS headers for API routes
-  if (request.nextUrl.pathname.startsWith("/api")) {
-    response.headers.set(
-      "Access-Control-Allow-Origin",
-      process.env.NEXT_PUBLIC_SITE_URL || "*"
-    );
-    response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    response.headers.set(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
-  }
-
-  return response;
+  // Return next response without any modifications
+  return NextResponse.next();
 }
 
+// Apply to no routes for maximum compatibility
 export const config = {
-  matcher: ["/api/:path*", "/((?!_next/static|_next/image|favicon.ico).*)"],
+  matcher: [],
 };

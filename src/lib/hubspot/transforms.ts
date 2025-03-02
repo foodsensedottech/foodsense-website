@@ -28,10 +28,10 @@ export function transformCompanyProperties(
     serviceInterests: data.serviceInterests,
   });
 
-  // Map service IDs to their full names
-  const serviceNames = data.serviceInterests.map((id) => {
-    const service = SERVICES.find((s) => s.id === id);
-    return service ? service.name : id;
+  // Map service values to their labels
+  const serviceLabels = data.serviceInterests.map((value) => {
+    const service = SERVICES.find((s) => s.value === value);
+    return service ? service.label : value;
   });
 
   const transformedData = {
@@ -43,7 +43,7 @@ export function transformCompanyProperties(
     delivery_partners: Array.isArray(data.deliveryPartners)
       ? data.deliveryPartners.join(";")
       : "",
-    interested_services: serviceNames.join(";"),
+    interested_services: serviceLabels.join(";"),
   };
 
   // Add debug log

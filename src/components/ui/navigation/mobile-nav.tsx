@@ -19,6 +19,11 @@ interface MobileNavProps {
 export function MobileNav({ items }: MobileNavProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -37,18 +42,20 @@ export function MobileNav({ items }: MobileNavProps) {
 
   return (
     <div className="md:hidden flex items-center gap-2">
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        className="text-yellow-400"
-      >
-        {theme === "dark" ? (
-          <Sun className="h-5 w-5" />
-        ) : (
-          <Moon className="h-5 w-5" />
-        )}
-      </Button>
+      {mounted && (
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="text-yellow-400"
+        >
+          {theme === "dark" ? (
+            <Sun className="h-5 w-5" />
+          ) : (
+            <Moon className="h-5 w-5" />
+          )}
+        </Button>
+      )}
 
       <Button
         variant="ghost"

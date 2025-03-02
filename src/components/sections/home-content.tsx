@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { HeroSection } from "./hero";
 import { AboutSection } from "./about/about-section";
 import { ServicesSection } from "./services";
@@ -23,30 +24,39 @@ export async function HomeContent() {
 
     if (
       !heroContent ||
-      !aboutContent.heading ||
-      !servicesContent.heading ||
-      !testimonialsContent.heading
+      !aboutContent?.heading ||
+      !servicesContent?.heading ||
+      !testimonialsContent?.heading
     ) {
       return <SectionLoading />;
     }
 
     return (
       <>
-        <HeroSection data={heroContent} />
-        <AboutSection
-          heading={aboutContent.heading}
-          cards={aboutContent.cards || []}
-        />
-        <ServicesSection
-          heading={servicesContent.heading}
-          cards={servicesContent.cards || []}
-        />
-        <TestimonialsSection
-          heading={testimonialsContent.heading}
-          cards={testimonialsContent.cards || []}
-        />
-        <ContactSection />
-        {/* Other sections will be added here */}
+        <Suspense fallback={<SectionLoading />}>
+          <HeroSection data={heroContent} />
+        </Suspense>
+        <Suspense fallback={<SectionLoading />}>
+          <AboutSection
+            heading={aboutContent.heading}
+            cards={aboutContent.cards || []}
+          />
+        </Suspense>
+        <Suspense fallback={<SectionLoading />}>
+          <ServicesSection
+            heading={servicesContent.heading}
+            cards={servicesContent.cards || []}
+          />
+        </Suspense>
+        <Suspense fallback={<SectionLoading />}>
+          <TestimonialsSection
+            heading={testimonialsContent.heading}
+            cards={testimonialsContent.cards || []}
+          />
+        </Suspense>
+        <Suspense fallback={<SectionLoading />}>
+          <ContactSection />
+        </Suspense>
       </>
     );
   } catch (error) {

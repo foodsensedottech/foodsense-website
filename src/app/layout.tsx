@@ -1,35 +1,11 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { ClientProviders } from "@/components/providers/client-providers";
+import "./globals.css";
 import { validateEnv } from "@/lib/env";
-import { ToastProvider } from "@/components/providers/toast-provider";
-import { Providers } from "./providers";
-import { AnalyticsProvider } from "@/lib/analytics";
+import { cn } from "@/lib/utils";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-  preload: false,
-  adjustFontFallback: false,
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-  preload: false,
-  adjustFontFallback: false,
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-  preload: false,
-  adjustFontFallback: false,
-});
+const inter = Inter({ subsets: ["latin"] });
 
 try {
   // Validate environment variables at build/runtime
@@ -47,44 +23,50 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_BASE_URL || "https://foodsense.tech"
   ),
   title: {
-    default: "FoodSense - Restaurant Consulting",
     template: "%s | FoodSense",
+    default: "FoodSense - Restaurant Analytics and Insights",
   },
   description:
-    "We help independent restaurants improve their sales and customer engagement with the use of enterprise-grade technology.",
-  keywords: [
-    "restaurant online ordering",
-    "food near me",
-    "menu optimization",
-    "restaurant growth",
-    "restaurant technology",
-    "restaurant consulting",
-    "restaurant Google My Business",
-  ],
-  authors: [{ name: "FoodSense" }],
-  creator: "FoodSense",
+    "FoodSense helps restaurants optimize their operations with data-driven insights and analytics.",
   openGraph: {
-    type: "website",
-    locale: "en_US",
+    title: "FoodSense - Restaurant Analytics and Insights",
+    description:
+      "FoodSense helps restaurants optimize their operations with data-driven insights and analytics.",
     url: "https://foodsense.tech",
-    title: "FoodSense - Restaurant Consulting",
-    description: "We help independent restaurants.",
     siteName: "FoodSense",
+    locale: "en_US",
+    type: "website",
     images: [
       {
-        url: "/images/og-image.jpg",
+        url: "/images/og/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "FoodSense - Restaurant Consulting",
+        alt: "FoodSense",
       },
     ],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "FoodSense - Restaurant Consulting",
-    description: "We help independent restaurants.",
-    images: ["/images/twitter-image.jpg"],
+  icons: {
+    icon: [
+      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/icons/apple-icon.png" },
+      { url: "/icons/icon-180.png", sizes: "180x180", type: "image/png" },
+    ],
+    other: [
+      {
+        rel: "apple-touch-icon",
+        url: "/icons/apple-touch-icon.png",
+      },
+      {
+        rel: "mask-icon",
+        url: "/icons/safari-pinned-tab.svg",
+        color: "#1e3a5f",
+      },
+    ],
   },
+  manifest: "/manifest.json",
   robots: {
     index: true,
     follow: true,
@@ -96,6 +78,13 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  twitter: {
+    title: "FoodSense",
+    card: "summary_large_image",
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
 };
 
 export default function RootLayout({
@@ -104,19 +93,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${inter.variable}`}
-      suppressHydrationWarning
-    >
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-      </head>
-      <body className="font-sans antialiased bg-background text-foreground">
-        <Providers>
-          <ToastProvider>{children}</ToastProvider>
-        </Providers>
-        <AnalyticsProvider />
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn(inter.className, "antialiased")}>
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );

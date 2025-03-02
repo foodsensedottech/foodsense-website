@@ -1,10 +1,14 @@
+import { Suspense } from "react";
 import { BaseLayout } from "@/components/layout";
 import { HomeContent } from "@/components/sections/home-content";
+import { SectionLoading } from "@/components/ui/layout/section-loading";
 
 export default function Home() {
   return (
     <BaseLayout>
-      <HomeContent />
+      <Suspense fallback={<SectionLoading />}>
+        <HomeContent />
+      </Suspense>
     </BaseLayout>
   );
 }

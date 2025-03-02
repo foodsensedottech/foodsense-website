@@ -22,7 +22,7 @@ import {
 import { Checkbox } from "@/components/ui/form/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/form/radio-group";
 import { useTheme } from "next-themes";
-import { Icon } from "@/lib/ui-icons";
+import { Sun, Moon } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
@@ -42,10 +42,11 @@ export default function UIShowcase() {
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
-              <Icon
-                name={theme === "dark" ? "sun" : "moon"}
-                className="h-5 w-5"
-              />
+              {theme === "dark" ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
             </Button>
           </div>
 
