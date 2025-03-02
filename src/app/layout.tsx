@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClientProviders } from "@/components/providers/client-providers";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { validateEnv } from "@/lib/env";
 import { cn } from "@/lib/utils";
@@ -96,6 +97,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.className, "antialiased")}>
         <ClientProviders>{children}</ClientProviders>
+        <SpeedInsights />
       </body>
     </html>
   );
