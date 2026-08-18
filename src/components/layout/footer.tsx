@@ -46,6 +46,22 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  href="/franchisees"
+                  className="hover:text-yellow-400/80 transition-colors"
+                >
+                  Multi-Unit Franchisees
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/es/franchisees"
+                  className="hover:text-yellow-400/80 transition-colors"
+                >
+                  Franquiciatarios (ES)
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/#about-section"
                   className="hover:text-yellow-400/80 transition-colors"
                   onClick={(e) => handleNavClick(e, "/#about-section")}

@@ -16,6 +16,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
+  { label: "Multi-Unit", href: "/franchisees" },
   { label: "About", href: "#about-section" },
   { label: "Services", href: "#services-section" },
   { label: "Testimonials", href: "#testimonials-section" },
@@ -35,14 +36,17 @@ export function Header() {
     e: React.MouseEvent<HTMLAnchorElement>,
     item: NavItem
   ) => {
+    if (!item.href.startsWith("#")) {
+      analytics.trackMenuInteraction(item.label);
+      return;
+    }
+
     e.preventDefault();
 
     if (isHomePage) {
-      // If on home page, smooth scroll to section
       const sectionId = item.href.replace("#", "");
       smoothScrollToSection(sectionId);
     } else {
-      // If on other pages, navigate to home page with hash
       window.location.href = `/${item.href}`;
     }
 
@@ -65,22 +69,56 @@ export function Header() {
           <Logo variant="header" />
         </Link>
         <nav className="hidden lg:flex items-center space-x-8 text-sm font-semibold">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={isHomePage ? item.href : `/${item.href}`}
-              className={`transition-colors hover:text-foreground/80 ${
-                pathname === item.href
-                  ? "text-foreground"
-                  : "text-foreground/60"
-              }`}
-              onClick={(e) => handleNavClick(e, item)}
-            >
-              {item.label}
-            </a>
-          ))}
+          {navItems.map((item) => {
+            const href = item.href.startsWith("#")
+              ? isHomePage
+                ? item.href
+                : `/${item.href}`
+              : item.href;
+            const isActive =
+              item.href === "/franchisees" &&
+              (pathname === "/franchisees" || pathname.startsWith("/es/franchisees"));
+
+            return item.href.startsWith("#") ? (
+              <a
+                key={item.href}
+                href={href}
+                className={`transition-colors hover:text-foreground/80 ${
+                  pathname === item.href
+                    ? "text-foreground"
+                    : "text-foreground/60"
+                }`}
+                onClick={(e) => handleNavClick(e, item)}
+              >
+                {item.label}
+              </a>
+            ) : (
+              <Link
+                key={item.href}
+                href={href}
+                className={`transition-colors hover:text-foreground/80 ${
+                  isActive ? "text-foreground" : "text-foreground/60"
+                }`}
+                onClick={() => analytics.trackMenuInteraction(item.label)}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
         <div className="ml-auto flex items-center space-x-4">
+          {pathname.includes("franchisees") ? (
+            <Link
+              href={
+                pathname.startsWith("/es/")
+                  ? "/franchisees"
+                  : "/es/franchisees"
+              }
+              className="hidden sm:inline text-sm font-semibold text-foreground/70 hover:text-foreground"
+            >
+              {pathname.startsWith("/es/") ? "EN" : "ES"}
+            </Link>
+          ) : null}
           <ThemeToggle />
           <Button onClick={handleGetStartedClick}>Get Started</Button>
           <MobileNav />

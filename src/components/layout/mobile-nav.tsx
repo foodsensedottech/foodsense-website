@@ -1,16 +1,18 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
-  { title: "Home", href: "#hero-section" },
-  { title: "About", href: "#about-section" },
-  { title: "Services", href: "#services-section" },
-  { title: "Testimonials", href: "#testimonials-section" },
-  { title: "Contact", href: "#contact-section" },
+  { title: "Home", href: "/" },
+  { title: "Multi-Unit", href: "/franchisees" },
+  { title: "About", href: "/#about-section" },
+  { title: "Services", href: "/#services-section" },
+  { title: "Testimonials", href: "/#testimonials-section" },
+  { title: "Contact", href: "/contact" },
 ];
 
 export function MobileNav() {
@@ -47,7 +49,7 @@ export function MobileNav() {
 
           <nav className="mt-8 flex flex-col space-y-4">
             {menuItems.map((item) => (
-              <a
+              <Link
                 key={item.title}
                 href={item.href}
                 className={cn(
@@ -56,15 +58,10 @@ export function MobileNav() {
                   "hover:bg-secondary/10 dark:hover:bg-secondary-dark/20",
                   "focus:outline-none focus-visible:ring focus-visible:ring-primary/20"
                 )}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const element = document.querySelector(item.href);
-                  element?.scrollIntoView({ behavior: "smooth" });
-                  setOpen(false);
-                }}
+                onClick={() => setOpen(false)}
               >
                 {item.title}
-              </a>
+              </Link>
             ))}
           </nav>
         </Dialog.Content>
