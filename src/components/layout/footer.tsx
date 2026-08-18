@@ -2,16 +2,22 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Logo } from "@/components/ui/media/logo";
 import { Linkedin, Instagram } from "lucide-react";
+import { getFranchiseeCopy } from "@/lib/franchisees/copy";
 import { smoothScrollToSection } from "@/lib/utils";
 
 export function Footer() {
+  const pathname = usePathname();
+  const isSpanish = pathname === "/es" || pathname.startsWith("/es/");
+  const copy = getFranchiseeCopy(isSpanish ? "es" : "en");
+  const homePath = isSpanish ? "/es" : "/";
+
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
-    // Only handle hash links
     if (href.includes("#")) {
       e.preventDefault();
       const sectionId = href.split("#")[1];
@@ -23,60 +29,66 @@ export function Footer() {
     <footer className="bg-[#1e3a5f] text-yellow-400">
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Logo and Tagline */}
           <div className="space-y-6">
-            <Link href="/">
+            <Link href={homePath}>
               <div className="w-[194px] h-[194px]">
                 <Logo variant="footer" />
               </div>
             </Link>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Links</h3>
+            <h3 className="font-semibold text-lg mb-4">
+              {isSpanish ? "Enlaces" : "Links"}
+            </h3>
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/"
+                  href={homePath}
                   className="hover:text-yellow-400/80 transition-colors"
                 >
-                  Home
+                  {isSpanish ? "Inicio" : "Home"}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/#about-section"
+                  href={`${homePath}#about-section`}
                   className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) => handleNavClick(e, "/#about-section")}
+                  onClick={(e) =>
+                    handleNavClick(e, `${homePath}#about-section`)
+                  }
                 >
-                  About
+                  {copy.navAbout}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/#franchisee-pains"
+                  href={`${homePath}#franchisee-pains`}
                   className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) => handleNavClick(e, "/#franchisee-pains")}
+                  onClick={(e) =>
+                    handleNavClick(e, `${homePath}#franchisee-pains`)
+                  }
                 >
-                  Pains
+                  {copy.navPains}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/es"
+                  href={isSpanish ? "/" : "/es"}
                   className="hover:text-yellow-400/80 transition-colors"
                 >
-                  Español
+                  {isSpanish ? "English" : "Español"}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/#contact-section"
+                  href={`${homePath}#contact-section`}
                   className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) => handleNavClick(e, "/#contact-section")}
+                  onClick={(e) =>
+                    handleNavClick(e, `${homePath}#contact-section`)
+                  }
                 >
-                  Contact Us
+                  {copy.navContact}
                 </Link>
               </li>
             </ul>
