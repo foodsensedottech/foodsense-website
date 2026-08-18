@@ -25,14 +25,14 @@ export const metadata: Metadata = {
   ),
   title: {
     template: "%s | FoodSense",
-    default: "FoodSense - Restaurant Analytics and Insights",
+    default: "FoodSense | Restaurant Tech for Multi-Unit Franchisees",
   },
   description:
-    "FoodSense helps restaurants optimize their operations with data-driven insights and analytics.",
+    "Next-gen restaurant technology for multi-unit franchisees across the US, Latin America, and the Caribbean. POS, kiosk, payments, and data governance at scale.",
   openGraph: {
-    title: "FoodSense - Restaurant Analytics and Insights",
+    title: "FoodSense | Restaurant Tech for Multi-Unit Franchisees",
     description:
-      "FoodSense helps restaurants optimize their operations with data-driven insights and analytics.",
+      "We turn global enterprise strategy into scalable store-level architecture across POS, kiosk, payments, and data governance.",
     url: "https://foodsense.tech",
     siteName: "FoodSense",
     locale: "en_US",

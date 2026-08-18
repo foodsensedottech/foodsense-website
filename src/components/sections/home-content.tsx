@@ -10,6 +10,7 @@ import {
   getServicesContent,
   getTestimonialsContent,
 } from "@/lib/contentful/client";
+import { applyFranchiseeHomepageHero } from "@/lib/contentful/homepage-hero";
 import { SectionLoading } from "@/components/ui/layout/section-loading";
 
 export async function HomeContent() {
@@ -22,19 +23,25 @@ export async function HomeContent() {
         getTestimonialsContent(),
       ]);
 
+    const hero = applyFranchiseeHomepageHero(heroContent);
+
     if (
-      !heroContent ||
       !aboutContent?.heading ||
       !servicesContent?.heading ||
       !testimonialsContent?.heading
     ) {
-      return <SectionLoading />;
+      return (
+        <>
+          <HeroSection data={hero} />
+          <SectionLoading />
+        </>
+      );
     }
 
     return (
       <>
         <Suspense fallback={<SectionLoading />}>
-          <HeroSection data={heroContent} />
+          <HeroSection data={hero} />
         </Suspense>
         <Suspense fallback={<SectionLoading />}>
           <AboutSection
