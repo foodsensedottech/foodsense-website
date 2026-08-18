@@ -5,15 +5,9 @@ import type {
   FranchiseeTitleEntry,
   FranchiseeTitleFields,
 } from "@/lib/contentful/types";
+import type { FranchiseeLocale } from "@/lib/franchisees/copy";
+import { getFranchiseeCopy } from "@/lib/franchisees/copy";
 
-/**
- * Homepage card sections use the same field shape as About Us:
- * - Title types: heading, subheading (same as aboutUsTitleSubtitle)
- * - Card types: title, description, lucideIcon (same as aboutUsCard)
- *
- * Title types also accept title/description if the Contentful type was
- * created with card field names. See docs/contentful-homepage-cards.md.
- */
 export const FRANCHISEE_CONTENT_TYPES = {
   painsTitle: "franchiseePainsTitle",
   painCard: "franchiseePainCard",
@@ -21,10 +15,7 @@ export const FRANCHISEE_CONTENT_TYPES = {
   offerCard: "franchiseeOfferCard",
 } as const;
 
-function pickString(
-  fields: Record<string, unknown>,
-  keys: string[]
-): string {
+function pickString(fields: Record<string, unknown>, keys: string[]): string {
   for (const key of keys) {
     const value = fields[key];
     if (typeof value === "string" && value.trim()) {
@@ -62,14 +53,48 @@ function normalizeCardFields(
   };
 }
 
+function asEntry<T extends { [key: string]: unknown }>(
+  id: string,
+  fields: T
+): { sys: { id: string }; fields: T } {
+  return { sys: { id }, fields };
+}
+
+function spanishPainsFallback(): {
+  heading: FranchiseeTitleEntry;
+  cards: FranchiseeCardEntry[];
+} {
+  const copy = getFranchiseeCopy("es");
+  const icons = ["Layers", "Percent", "ShieldAlert", "LineChart"];
+  return {
+    heading: asEntry("es-pains-title", {
+      heading: copy.painHeading,
+      subheading: copy.painIntro,
+    }),
+    cards: copy.pains.map((pain, index) =>
+      asEntry(`es-pain-${index}`, {
+        title: pain.title,
+        description: pain.body,
+        lucideIcon: icons[index] || "Star",
+      })
+    ),
+  };
+}
+
+function contentfulLocale(locale?: FranchiseeLocale) {
+  return locale === "es" ? "es" : undefined;
+}
+
 async function getTitle(
-  contentType: string
+  contentType: string,
+  locale?: FranchiseeLocale
 ): Promise<FranchiseeTitleEntry | null> {
-  try {
+  const fetchTitle = async (cfLocale?: string) => {
     const response = await client.getEntries({
       content_type: contentType,
       limit: 1,
       order: ["-sys.updatedAt"],
+      ...(cfLocale ? { locale: cfLocale } : {}),
     });
     const item = response.items[0];
     if (!item) return null;
@@ -82,17 +107,35 @@ async function getTitle(
       fields,
       metadata: item.metadata,
     };
+  };
+
+  try {
+    const localized = await fetchTitle(contentfulLocale(locale));
+    if (localized) return localized;
+    if (locale === "es") return fetchTitle();
+    return null;
   } catch (error) {
     console.error(`Error fetching ${contentType}:`, error);
+    if (locale === "es") {
+      try {
+        return await fetchTitle();
+      } catch {
+        return null;
+      }
+    }
     return null;
   }
 }
 
-async function getCards(contentType: string): Promise<FranchiseeCardEntry[]> {
-  try {
+async function getCards(
+  contentType: string,
+  locale?: FranchiseeLocale
+): Promise<FranchiseeCardEntry[]> {
+  const fetchCards = async (cfLocale?: string) => {
     const response = await client.getEntries({
       content_type: contentType,
       order: ["sys.createdAt"],
+      ...(cfLocale ? { locale: cfLocale } : {}),
     });
     return response.items
       .map((item) => ({
@@ -103,24 +146,50 @@ async function getCards(contentType: string): Promise<FranchiseeCardEntry[]> {
         metadata: item.metadata,
       }))
       .filter((item) => item.fields.title);
+  };
+
+  try {
+    const localized = await fetchCards(contentfulLocale(locale));
+    if (localized.length) return localized;
+    if (locale === "es") return fetchCards();
+    return [];
   } catch (error) {
     console.error(`Error fetching ${contentType}:`, error);
+    if (locale === "es") {
+      try {
+        return await fetchCards();
+      } catch {
+        return [];
+      }
+    }
     return [];
   }
 }
 
-export async function getFranchiseePains() {
+export async function getFranchiseePains(locale: FranchiseeLocale = "en") {
   const [heading, cards] = await Promise.all([
-    getTitle(FRANCHISEE_CONTENT_TYPES.painsTitle),
-    getCards(FRANCHISEE_CONTENT_TYPES.painCard),
+    getTitle(FRANCHISEE_CONTENT_TYPES.painsTitle, locale),
+    getCards(FRANCHISEE_CONTENT_TYPES.painCard, locale),
   ]);
+
+  if (locale === "es") {
+    const englishHeading = getFranchiseeCopy("en").painHeading;
+    const cmsIsEnglish =
+      !heading ||
+      !cards.length ||
+      heading.fields.heading === englishHeading;
+    if (cmsIsEnglish) {
+      return spanishPainsFallback();
+    }
+  }
+
   return { heading, cards };
 }
 
-export async function getFranchiseeOffers() {
+export async function getFranchiseeOffers(locale: FranchiseeLocale = "en") {
   const [heading, cards] = await Promise.all([
-    getTitle(FRANCHISEE_CONTENT_TYPES.offersTitle),
-    getCards(FRANCHISEE_CONTENT_TYPES.offerCard),
+    getTitle(FRANCHISEE_CONTENT_TYPES.offersTitle, locale),
+    getCards(FRANCHISEE_CONTENT_TYPES.offerCard, locale),
   ]);
   return { heading, cards };
 }

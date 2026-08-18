@@ -46,6 +46,15 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  href="/#about-section"
+                  className="hover:text-yellow-400/80 transition-colors"
+                  onClick={(e) => handleNavClick(e, "/#about-section")}
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/#franchisee-pains"
                   className="hover:text-yellow-400/80 transition-colors"
                   onClick={(e) => handleNavClick(e, "/#franchisee-pains")}
@@ -55,24 +64,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/#franchisee-offers"
-                  className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) => handleNavClick(e, "/#franchisee-offers")}
-                >
-                  Offerings
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  className="hover:text-yellow-400/80 transition-colors"
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/es/franchisees"
+                  href="/es"
                   className="hover:text-yellow-400/80 transition-colors"
                 >
                   Español

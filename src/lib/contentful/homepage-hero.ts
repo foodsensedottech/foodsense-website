@@ -1,17 +1,15 @@
-import { franchiseeCopy } from "@/lib/franchisees/copy";
+import { franchiseeCopy, type FranchiseeLocale } from "@/lib/franchisees/copy";
 import type { HeroContentType } from "@/lib/contentful/types";
 
-const copy = franchiseeCopy.en;
-
 /**
- * Homepage hero copy is owned by the multi-unit franchisee ICP.
- * Contentful still supplies the background image (and any extra fields).
- * Keep Contentful `heroFields.heroHeading` / `heroSubheading` in sync with
- * these strings so the CMS preview matches production.
+ * Homepage hero copy is locale-specific. Contentful still supplies the
+ * background image (and any extra fields).
  */
 export function applyFranchiseeHomepageHero(
-  hero: HeroContentType | null
+  hero: HeroContentType | null,
+  locale: FranchiseeLocale = "en"
 ): HeroContentType {
+  const copy = franchiseeCopy[locale];
   return {
     sys: hero?.sys ?? { id: "homepage-hero" },
     metadata: hero?.metadata,
@@ -24,10 +22,11 @@ export function applyFranchiseeHomepageHero(
   };
 }
 
-export const homepageHeroCta = {
-  eyebrow: copy.heroEyebrow,
-  primaryLabel: copy.heroPrimaryCta,
-  primaryHref: "#tech-maturity",
-  secondaryLabel: copy.heroSecondaryCta,
-  trustMetric: copy.trustMetric,
-} as const;
+export function getHomepageHeroCta(locale: FranchiseeLocale = "en") {
+  const copy = franchiseeCopy[locale];
+  return {
+    eyebrow: copy.heroEyebrow,
+    ctaLabel: copy.heroPrimaryCta,
+    ctaHref: "#contact-section",
+  } as const;
+}

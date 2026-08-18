@@ -8,15 +8,18 @@ export const franchiseeCopy = {
       "Next-gen restaurant technology for multi-unit franchisees across the US, Latin America, and the Caribbean. POS, kiosk, payments, and data governance at scale.",
     navLabel: "Multi-Unit",
     otherLocaleLabel: "Español",
-    otherLocaleHref: "/es/franchisees",
+    otherLocaleHref: "/es",
     heroEyebrow: "US · Latin America · Caribbean",
     heroHeadline: "Next-Gen Restaurant Tech for Multi-Unit Franchisees.",
     heroSubheadline:
       "We turn global enterprise strategy into scalable store-level architecture across POS, kiosk, payments, and data governance.",
-    heroPrimaryCta: "Get your Tech Maturity Score",
-    heroSecondaryCta: "Talk to our team",
-    trustMetric:
-      "Scaled technology across 2,200+ restaurants and 39 markets in US & LAC",
+    heroPrimaryCta: "Talk to Our Team",
+    heroSecondaryCta: "Talk to Our Team",
+    getStartedCta: "Get Started",
+    navAbout: "About",
+    navPains: "Pains",
+    navContact: "Contact",
+    trustMetric: "",
     painHeading: "What breaks when you scale past 10 units",
     painIntro:
       "Multi-unit operators need predictable execution, labor efficiency, third-party margin protection, and uniform visibility across stores.",
@@ -32,6 +35,10 @@ export const franchiseeCopy = {
       {
         title: "Vendor lock-in & rogue tooling",
         body: "Store GMs deploy non-compliant apps or unapproved payment processors. Corporate loses control of data, fees, and risk.",
+      },
+      {
+        title: "No single view of the group",
+        body: "Labor, sales, and menu data live in different systems per market. You cannot compare stores, and decisions lag the P&L.",
       },
     ],
     offersHeading: "Packaged systems, not general consulting",
@@ -137,16 +144,19 @@ export const franchiseeCopy = {
       "Tecnología restaurantera de nueva generación para grupos franquiciatarios en EE.UU., Latinoamérica y el Caribe. POS, kiosco, pagos y gobierno de datos a escala.",
     navLabel: "Multi-unidad",
     otherLocaleLabel: "English",
-    otherLocaleHref: "/franchisees",
+    otherLocaleHref: "/",
     heroEyebrow: "EE.UU. · Latinoamérica · Caribe",
     heroHeadline:
       "Tecnología restaurantera de nueva generación para franquiciatarios multi-unidad.",
     heroSubheadline:
       "Convertimos la estrategia empresarial global en arquitectura escalable a nivel de tienda: POS, kiosco, pagos y gobierno de datos.",
-    heroPrimaryCta: "Obtén tu puntaje de madurez tecnológica",
-    heroSecondaryCta: "Habla con el equipo",
-    trustMetric:
-      "Tecnología escalada en más de 2,200 restaurantes y 39 mercados en EE.UU. y LAC",
+    heroPrimaryCta: "Habla con nuestro equipo",
+    heroSecondaryCta: "Habla con nuestro equipo",
+    getStartedCta: "Empezar",
+    navAbout: "Acerca de",
+    navPains: "Retos",
+    navContact: "Contacto",
+    trustMetric: "",
     painHeading: "Qué se rompe al pasar de 10 unidades",
     painIntro:
       "Los operadores multi-unidad necesitan ejecución predecible, eficiencia de labor, protección de margen en delivery y visibilidad uniforme entre tiendas.",
@@ -162,6 +172,10 @@ export const franchiseeCopy = {
       {
         title: "Dependencia de proveedores y herramientas no autorizadas",
         body: "Los gerentes instalan apps no conformes o procesadores de pago no aprobados. Corporativo pierde control de datos, tarifas y riesgo.",
+      },
+      {
+        title: "Sin una vista única del grupo",
+        body: "Labor, ventas y menú viven en sistemas distintos por mercado. No puedes comparar sucursales y las decisiones van detrás del P&L.",
       },
     ],
     offersHeading: "Sistemas empaquetados, no consultoría genérica",

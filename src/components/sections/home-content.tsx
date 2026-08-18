@@ -1,42 +1,40 @@
 import { Suspense } from "react";
 import { HeroSection } from "./hero";
 import { ContactSection } from "./contact";
-import { getHeroContent } from "@/lib/contentful/client";
+import { AboutSection } from "./about";
+import { getAboutCards, getAboutHeading, getHeroContent } from "@/lib/contentful/client";
 import { applyFranchiseeHomepageHero } from "@/lib/contentful/homepage-hero";
-import {
-  getFranchiseeOffers,
-  getFranchiseePains,
-} from "@/lib/contentful/franchisee";
+import { getFranchiseePains } from "@/lib/contentful/franchisee";
 import { SectionLoading } from "@/components/ui/layout/section-loading";
 import { FranchiseePainsSection } from "./franchisees/pains-section";
-import { FranchiseeOffersSection } from "./franchisees/offers-section";
-import { FranchiseeMaturityCta } from "./franchisees/maturity-cta";
+import type { FranchiseeLocale } from "@/lib/franchisees/copy";
 
-export async function HomeContent() {
+interface HomeContentProps {
+  locale?: FranchiseeLocale;
+}
+
+export async function HomeContent({ locale = "en" }: HomeContentProps) {
   try {
-    const [heroContent, pains, offers] = await Promise.all([
+    const [heroContent, aboutHeading, aboutCards, pains] = await Promise.all([
       getHeroContent(),
-      getFranchiseePains(),
-      getFranchiseeOffers(),
+      getAboutHeading(locale),
+      getAboutCards(locale),
+      getFranchiseePains(locale),
     ]);
 
-    const hero = applyFranchiseeHomepageHero(heroContent);
+    const hero = applyFranchiseeHomepageHero(heroContent, locale);
 
     return (
       <>
         <Suspense fallback={<SectionLoading />}>
-          <HeroSection data={hero} />
+          <HeroSection data={hero} locale={locale} />
         </Suspense>
+        {aboutHeading && aboutCards?.length ? (
+          <AboutSection heading={aboutHeading} cards={aboutCards} />
+        ) : null}
         {pains.heading && pains.cards.length > 0 ? (
           <FranchiseePainsSection heading={pains.heading} cards={pains.cards} />
         ) : null}
-        {offers.heading && offers.cards.length > 0 ? (
-          <FranchiseeOffersSection
-            heading={offers.heading}
-            cards={offers.cards}
-          />
-        ) : null}
-        <FranchiseeMaturityCta ctaHref="#contact-section" />
         <Suspense fallback={<SectionLoading />}>
           <ContactSection />
         </Suspense>
@@ -46,7 +44,7 @@ export async function HomeContent() {
     console.error("Error loading content:", error);
     return (
       <>
-        <HeroSection data={applyFranchiseeHomepageHero(null)} />
+        <HeroSection data={applyFranchiseeHomepageHero(null, locale)} locale={locale} />
         <SectionLoading />
       </>
     );

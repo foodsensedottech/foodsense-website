@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BaseLayout } from "@/components/layout";
 import { FranchiseeLanding } from "@/components/sections/franchisees/franchisee-landing";
 import { franchiseeCopy } from "@/lib/franchisees/copy";
 
@@ -21,5 +22,9 @@ export const metadata: Metadata = {
 };
 
 export default function FranchiseesPage() {
-  return <FranchiseeLanding locale="en" />;
+  return (
+    <BaseLayout>
+      <FranchiseeLanding locale="en" />
+    </BaseLayout>
+  );
 }

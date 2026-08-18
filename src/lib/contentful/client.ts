@@ -87,21 +87,23 @@ type ContentfulEntry<T> = {
   [key: string]: any;
 };
 
-export async function getAboutHeading() {
+export async function getAboutHeading(locale: "en" | "es" = "en") {
   try {
     const response = await client.getEntries({
       content_type: "aboutUsTitleSubtitle",
       limit: 1,
-      order: ["-sys.updatedAt"], // Order by most recently updated
+      order: ["-sys.updatedAt"],
+      ...(locale === "es" ? { locale: "es" } : {}),
     });
     console.log("Contentful Raw Response:", JSON.stringify(response, null, 2));
     console.log("First Item:", JSON.stringify(response.items[0], null, 2));
 
-    // More careful type conversion
     const item = response.items[0];
+    if (!item && locale === "es") {
+      return getAboutHeading("en");
+    }
     if (!item) return null;
 
-    // Create a new object with the expected structure
     return {
       sys: item.sys,
       fields: item.fields as unknown as AboutTitleFields,
@@ -109,19 +111,26 @@ export async function getAboutHeading() {
     } as ContentfulEntry<AboutTitleFields>;
   } catch (error) {
     console.error("Error fetching about heading:", error);
+    if (locale === "es") {
+      return getAboutHeading("en");
+    }
     return null;
   }
 }
 
-export async function getAboutCards() {
+export async function getAboutCards(locale: "en" | "es" = "en") {
   try {
     const response = await client.getEntries({
       content_type: "aboutUsCard",
-      order: ["-sys.updatedAt"], // Order by most recently updated
+      order: ["-sys.updatedAt"],
+      ...(locale === "es" ? { locale: "es" } : {}),
     });
     console.log("About Cards Response:", JSON.stringify(response, null, 2));
 
-    // More careful type conversion
+    if (!response.items.length && locale === "es") {
+      return getAboutCards("en");
+    }
+
     return response.items.map((item) => ({
       sys: item.sys,
       fields: item.fields as unknown as AboutCardFields,
@@ -129,6 +138,9 @@ export async function getAboutCards() {
     })) as ContentfulEntry<AboutCardFields>[];
   } catch (error) {
     console.error("Error fetching about cards:", error);
+    if (locale === "es") {
+      return getAboutCards("en");
+    }
     return null;
   }
 }

@@ -17,7 +17,7 @@ export function FranchiseePainsSection({ heading, cards }: PainsSectionProps) {
   return (
     <section
       id="franchisee-pains"
-      className="py-16 bg-white dark:bg-gray-900"
+      className="py-16 bg-gray-50 dark:bg-gray-900"
     >
       <AboutHeading data={heading} />
       <AboutCards data={cards} />
