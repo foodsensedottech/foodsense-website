@@ -21,6 +21,31 @@ export const franchiseeCopy = {
     navOfferings: "Offerings",
     navContact: "Contact",
     trustMetric: "",
+    aboutHeading: "About Us",
+    aboutIntro:
+      "We help restaurant groups turn technology into a repeatable operating advantage across every unit.",
+    aboutCards: [
+      {
+        title: "Proven Results",
+        body: "We have scaled restaurant technology across 2,200+ locations and 39 markets in the US, Latin America, and the Caribbean.",
+        lucideIcon: "LineChart",
+      },
+      {
+        title: "Optimization and Profits",
+        body: "We tighten operations, delivery economics, and store-level execution so extra volume shows up in the P&L.",
+        lucideIcon: "Rocket",
+      },
+      {
+        title: "Customer Reviews & Sentiment",
+        body: "We connect guest feedback to operations so multi-unit groups can see what is working and fix what is not.",
+        lucideIcon: "Star",
+      },
+      {
+        title: "Expertise in Restaurant Tech",
+        body: "POS, kiosk, payments, and data governance — implemented with the same discipline used in enterprise restaurant systems.",
+        lucideIcon: "Computer",
+      },
+    ],
     painHeading: "What breaks when you scale past 10 units",
     painIntro:
       "Multi-unit operators need predictable execution, labor efficiency, third-party margin protection, and uniform visibility across stores.",
@@ -163,6 +188,31 @@ export const franchiseeCopy = {
     navOfferings: "Ofertas",
     navContact: "Contacto",
     trustMetric: "",
+    aboutHeading: "Quiénes somos",
+    aboutIntro:
+      "Ayudamos a grupos restauranteros a convertir la tecnología en una ventaja operativa repetible en cada unidad.",
+    aboutCards: [
+      {
+        title: "Resultados comprobados",
+        body: "Hemos escalado tecnología restaurantera en más de 2,200 sucursales y 39 mercados en EE.UU., Latinoamérica y el Caribe.",
+        lucideIcon: "LineChart",
+      },
+      {
+        title: "Optimización y utilidades",
+        body: "Afinamos operación, economía de delivery y ejecución en tienda para que el volumen extra se vea en el P&L.",
+        lucideIcon: "Rocket",
+      },
+      {
+        title: "Reseñas y sentimiento del cliente",
+        body: "Conectamos la voz del huésped con la operación para que el grupo vea qué funciona y corrija lo que no.",
+        lucideIcon: "Star",
+      },
+      {
+        title: "Experiencia en tecnología restaurantera",
+        body: "POS, kiosco, pagos y gobierno de datos, implementados con la misma disciplina de los sistemas enterprise.",
+        lucideIcon: "Computer",
+      },
+    ],
     painHeading: "Qué se rompe al pasar de 10 unidades",
     painIntro:
       "Los operadores multi-unidad necesitan ejecución predecible, eficiencia de labor, protección de margen en delivery y visibilidad uniforme entre tiendas.",

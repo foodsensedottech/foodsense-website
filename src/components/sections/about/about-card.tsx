@@ -21,12 +21,16 @@ interface AboutCardProps {
 function iconFromTitle(title: string | undefined): LucideIcon | null {
   switch (title) {
     case "Proven Results":
+    case "Resultados comprobados":
       return LineChart;
     case "Optimization and Profits":
+    case "Optimización y utilidades":
       return Rocket;
     case "Customer Reviews & Sentiment":
+    case "Reseñas y sentimiento del cliente":
       return Star;
     case "Expertise in Restaurant Tech":
+    case "Experiencia en tecnología restaurantera":
       return Computer;
     default:
       return null;

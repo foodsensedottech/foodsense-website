@@ -1,6 +1,6 @@
 # Homepage card sections in Contentful
 
-The homepage order is Hero → About → **Pains** → **Offerings** → Contact.
+On `/es`, if Contentful has no Spanish About / Pains / Offerings entries, the site uses hardcoded Spanish fallback copy so the page stays consistent.
 
 | Contentful type | How many | Where it shows |
 | --- | --- | --- |

@@ -99,9 +99,6 @@ export async function getAboutHeading(locale: "en" | "es" = "en") {
     console.log("First Item:", JSON.stringify(response.items[0], null, 2));
 
     const item = response.items[0];
-    if (!item && locale === "es") {
-      return getAboutHeading("en");
-    }
     if (!item) return null;
 
     return {
@@ -111,9 +108,6 @@ export async function getAboutHeading(locale: "en" | "es" = "en") {
     } as ContentfulEntry<AboutTitleFields>;
   } catch (error) {
     console.error("Error fetching about heading:", error);
-    if (locale === "es") {
-      return getAboutHeading("en");
-    }
     return null;
   }
 }
@@ -127,8 +121,8 @@ export async function getAboutCards(locale: "en" | "es" = "en") {
     });
     console.log("About Cards Response:", JSON.stringify(response, null, 2));
 
-    if (!response.items.length && locale === "es") {
-      return getAboutCards("en");
+    if (!response.items.length) {
+      return [];
     }
 
     return response.items.map((item) => ({
@@ -138,9 +132,6 @@ export async function getAboutCards(locale: "en" | "es" = "en") {
     })) as ContentfulEntry<AboutCardFields>[];
   } catch (error) {
     console.error("Error fetching about cards:", error);
-    if (locale === "es") {
-      return getAboutCards("en");
-    }
     return null;
   }
 }
