@@ -11,19 +11,41 @@ import {
   getTestimonialsContent,
 } from "@/lib/contentful/client";
 import { applyFranchiseeHomepageHero } from "@/lib/contentful/homepage-hero";
+import {
+  getFranchiseeOffers,
+  getFranchiseePains,
+} from "@/lib/contentful/franchisee";
 import { SectionLoading } from "@/components/ui/layout/section-loading";
+import { FranchiseePainsSection } from "./franchisees/pains-section";
+import { FranchiseeOffersSection } from "./franchisees/offers-section";
+import { FranchiseeMaturityCta } from "./franchisees/maturity-cta";
 
 export async function HomeContent() {
   try {
-    const [heroContent, aboutContent, servicesContent, testimonialsContent] =
-      await Promise.all([
-        getHeroContent(),
-        getAboutContent(),
-        getServicesContent(),
-        getTestimonialsContent(),
-      ]);
+    const [
+      heroContent,
+      aboutContent,
+      servicesContent,
+      testimonialsContent,
+      pains,
+      offers,
+    ] = await Promise.all([
+      getHeroContent(),
+      getAboutContent(),
+      getServicesContent(),
+      getTestimonialsContent(),
+      getFranchiseePains("en"),
+      getFranchiseeOffers("en"),
+    ]);
 
     const hero = applyFranchiseeHomepageHero(heroContent);
+    const multiUnit = (
+      <>
+        <FranchiseePainsSection heading={pains.heading} cards={pains.cards} />
+        <FranchiseeOffersSection heading={offers.heading} cards={offers.cards} />
+        <FranchiseeMaturityCta />
+      </>
+    );
 
     if (
       !aboutContent?.heading ||
@@ -33,6 +55,7 @@ export async function HomeContent() {
       return (
         <>
           <HeroSection data={hero} />
+          {multiUnit}
           <SectionLoading />
         </>
       );
@@ -43,6 +66,7 @@ export async function HomeContent() {
         <Suspense fallback={<SectionLoading />}>
           <HeroSection data={hero} />
         </Suspense>
+        {multiUnit}
         <Suspense fallback={<SectionLoading />}>
           <AboutSection
             heading={aboutContent.heading}

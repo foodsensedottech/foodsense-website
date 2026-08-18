@@ -247,3 +247,17 @@ export interface BlogPost {
   description: string;
   linkedInUrl: string;
 }
+
+export interface FranchiseeTitleFields extends ContentfulEntryFields {
+  heading: string;
+  subheading: string;
+}
+
+export interface FranchiseeCardFields extends ContentfulEntryFields {
+  title: string;
+  description: string;
+  lucideIcon?: string;
+}
+
+export type FranchiseeTitleEntry = ContentfulEntry<FranchiseeTitleFields>;
+export type FranchiseeCardEntry = ContentfulEntry<FranchiseeCardFields>;

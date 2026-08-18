@@ -30,6 +30,9 @@ export function ensureAbsoluteUrl(url: string): string {
 export const semanticConfig = {
   sections: {
     hero: "hero-section",
+    franchiseePains: "franchisee-pains",
+    franchiseeOffers: "franchisee-offers",
+    techMaturity: "tech-maturity",
     about: "about-section",
     services: "services-section",
     testimonials: "testimonials-section",
