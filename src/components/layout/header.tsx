@@ -16,10 +16,9 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: "Multi-Unit", href: "/franchisees" },
-  { label: "About", href: "#about-section" },
-  { label: "Services", href: "#services-section" },
-  { label: "Testimonials", href: "#testimonials-section" },
+  { label: "Pains", href: "#franchisee-pains" },
+  { label: "Offerings", href: "#franchisee-offers" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "#contact-section" },
 ];
 
@@ -76,8 +75,8 @@ export function Header() {
                 : `/${item.href}`
               : item.href;
             const isActive =
-              item.href === "/franchisees" &&
-              (pathname === "/franchisees" || pathname.startsWith("/es/franchisees"));
+              (item.href === "/about" && pathname === "/about") ||
+              (item.href === "/services" && pathname === "/services");
 
             return item.href.startsWith("#") ? (
               <a
@@ -107,13 +106,9 @@ export function Header() {
           })}
         </nav>
         <div className="ml-auto flex items-center space-x-4">
-          {pathname.includes("franchisees") ? (
+          {pathname === "/" || pathname.includes("franchisees") ? (
             <Link
-              href={
-                pathname.startsWith("/es/")
-                  ? "/franchisees"
-                  : "/es/franchisees"
-              }
+              href={pathname.startsWith("/es/") ? "/" : "/es/franchisees"}
               className="hidden sm:inline text-sm font-semibold text-foreground/70 hover:text-foreground"
             >
               {pathname.startsWith("/es/") ? "EN" : "ES"}

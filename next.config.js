@@ -14,6 +14,16 @@ const nextConfig = {
   skipMiddlewareUrlNormalize: true,
   // Disable middleware
   skipTrailingSlashRedirect: true,
+
+  async redirects() {
+    return [
+      {
+        source: "/franchisees",
+        destination: "/",
+        permanent: false,
+      },
+    ];
+  },
   
   images: {
     remotePatterns: [

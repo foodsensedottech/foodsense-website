@@ -9,9 +9,13 @@ import { getFranchiseeCopy } from "@/lib/franchisees/copy";
 
 interface MaturityCtaProps {
   locale?: FranchiseeLocale;
+  ctaHref?: string;
 }
 
-export function FranchiseeMaturityCta({ locale = "en" }: MaturityCtaProps) {
+export function FranchiseeMaturityCta({
+  locale = "en",
+  ctaHref = "/contact",
+}: MaturityCtaProps) {
   const copy = getFranchiseeCopy(locale);
 
   return (
@@ -34,7 +38,7 @@ export function FranchiseeMaturityCta({ locale = "en" }: MaturityCtaProps) {
           {copy.assessmentIntro}
         </motion.p>
         <Button asChild size="lg">
-          <Link href="/contact">{copy.heroPrimaryCta}</Link>
+          <Link href={ctaHref}>{copy.heroPrimaryCta}</Link>
         </Button>
       </div>
     </section>

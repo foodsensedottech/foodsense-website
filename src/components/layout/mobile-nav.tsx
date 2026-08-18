@@ -8,11 +8,10 @@ import { cn } from "@/lib/utils";
 
 const menuItems = [
   { title: "Home", href: "/" },
-  { title: "Multi-Unit", href: "/franchisees" },
-  { title: "About", href: "/#about-section" },
-  { title: "Services", href: "/#services-section" },
-  { title: "Testimonials", href: "/#testimonials-section" },
-  { title: "Contact", href: "/contact" },
+  { title: "Pains", href: "/#franchisee-pains" },
+  { title: "Offerings", href: "/#franchisee-offers" },
+  { title: "About", href: "/about" },
+  { title: "Contact", href: "/#contact-section" },
 ];
 
 export function MobileNav() {
