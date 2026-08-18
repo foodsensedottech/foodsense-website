@@ -11,8 +11,8 @@ import type {
  * - Title types: heading, subheading (same as aboutUsTitleSubtitle)
  * - Card types: title, description, lucideIcon (same as aboutUsCard)
  *
- * Create these content types in Contentful by duplicating the About Us types.
- * See docs/contentful-homepage-cards.md.
+ * Title types also accept title/description if the Contentful type was
+ * created with card field names. See docs/contentful-homepage-cards.md.
  */
 export const FRANCHISEE_CONTENT_TYPES = {
   painsTitle: "franchiseePainsTitle",
@@ -20,6 +20,47 @@ export const FRANCHISEE_CONTENT_TYPES = {
   offersTitle: "franchiseeOffersTitle",
   offerCard: "franchiseeOfferCard",
 } as const;
+
+function pickString(
+  fields: Record<string, unknown>,
+  keys: string[]
+): string {
+  for (const key of keys) {
+    const value = fields[key];
+    if (typeof value === "string" && value.trim()) {
+      return value;
+    }
+  }
+  return "";
+}
+
+function normalizeTitleFields(
+  fields: Record<string, unknown>
+): FranchiseeTitleFields {
+  return {
+    heading: pickString(fields, ["heading", "Heading", "title", "Title"]),
+    subheading: pickString(fields, [
+      "subheading",
+      "Subheading",
+      "description",
+      "Description",
+    ]),
+  };
+}
+
+function normalizeCardFields(
+  fields: Record<string, unknown>
+): FranchiseeCardFields {
+  return {
+    title: pickString(fields, ["title", "Title"]),
+    description: pickString(fields, ["description", "Description"]),
+    lucideIcon: pickString(fields, [
+      "lucideIcon",
+      "LucideIcon",
+      "lucideicon",
+    ]),
+  };
+}
 
 async function getTitle(
   contentType: string
@@ -32,9 +73,13 @@ async function getTitle(
     });
     const item = response.items[0];
     if (!item) return null;
+    const fields = normalizeTitleFields(
+      (item.fields || {}) as Record<string, unknown>
+    );
+    if (!fields.heading) return null;
     return {
       sys: item.sys,
-      fields: item.fields as FranchiseeTitleFields,
+      fields,
       metadata: item.metadata,
     };
   } catch (error) {
@@ -49,11 +94,15 @@ async function getCards(contentType: string): Promise<FranchiseeCardEntry[]> {
       content_type: contentType,
       order: ["sys.createdAt"],
     });
-    return response.items.map((item) => ({
-      sys: item.sys,
-      fields: item.fields as FranchiseeCardFields,
-      metadata: item.metadata,
-    }));
+    return response.items
+      .map((item) => ({
+        sys: item.sys,
+        fields: normalizeCardFields(
+          (item.fields || {}) as Record<string, unknown>
+        ),
+        metadata: item.metadata,
+      }))
+      .filter((item) => item.fields.title);
   } catch (error) {
     console.error(`Error fetching ${contentType}:`, error);
     return [];

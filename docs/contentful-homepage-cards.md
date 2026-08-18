@@ -8,7 +8,7 @@ In Contentful: **Content model**. Duplicate the existing About types (do not reu
 
 ### Title types (copy `aboutUsTitleSubtitle`)
 
-Keep the same fields: `heading` (Short text) and `subheading` (Long text / Short text — match About).
+Preferred fields: `heading` and `subheading`. If a title type was created with `title` / `description` instead, the site maps those to the heading and intro.
 
 | Name | API identifier |
 | --- | --- |
