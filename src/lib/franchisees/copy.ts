@@ -18,6 +18,7 @@ export const franchiseeCopy = {
     getStartedCta: "Get Started",
     navAbout: "About",
     navPains: "Pains",
+    navOfferings: "Offerings",
     navContact: "Contact",
     trustMetric: "",
     painHeading: "What breaks when you scale past 10 units",
@@ -56,6 +57,10 @@ export const franchiseeCopy = {
       {
         title: "Payment Lifecycle & Wallet Architecture",
         body: "Lower processing fees via RTP/FedNow rails and tighten card/POS payment workflows so every unit runs the same approved stack.",
+      },
+      {
+        title: "Multi-market stack standardization",
+        body: "One approved architecture for US, LATAM, and Caribbean units — localized where it must be, standardized where it counts.",
       },
     ],
     assessmentHeading: "2-minute Technology Maturity Score",
@@ -155,6 +160,7 @@ export const franchiseeCopy = {
     getStartedCta: "Empezar",
     navAbout: "Acerca de",
     navPains: "Retos",
+    navOfferings: "Ofertas",
     navContact: "Contacto",
     trustMetric: "",
     painHeading: "Qué se rompe al pasar de 10 unidades",
@@ -193,6 +199,10 @@ export const franchiseeCopy = {
       {
         title: "Arquitectura de pagos y wallets",
         body: "Menores comisiones con rieles RTP/FedNow y flujos de pago tarjeta/POS unificados para que cada unidad opere el stack aprobado.",
+      },
+      {
+        title: "Estandarización del stack multi-mercado",
+        body: "Una arquitectura aprobada para EE.UU., LATAM y el Caribe: localizada donde debe serlo, estandarizada donde importa.",
       },
     ],
     assessmentHeading: "Puntaje de madurez tecnológica en 2 minutos",

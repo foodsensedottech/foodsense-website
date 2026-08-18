@@ -19,6 +19,7 @@ export function MobileNav() {
     { title: isSpanish ? "Inicio" : "Home", href: homePath },
     { title: copy.navAbout, href: `${homePath}#about-section` },
     { title: copy.navPains, href: `${homePath}#franchisee-pains` },
+    { title: copy.navOfferings, href: `${homePath}#franchisee-offers` },
     { title: copy.navContact, href: `${homePath}#contact-section` },
   ];
 

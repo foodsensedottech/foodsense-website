@@ -1,6 +1,17 @@
 # Homepage card sections in Contentful
 
-The homepage Pains and Offerings blocks use the **same field format** as the About Us cards. The site does not ship fallback copy for those sections. They appear only after you publish matching Contentful entries.
+The homepage order is Hero → About → **Pains** → **Offerings** → Contact.
+
+| Contentful type | How many | Where it shows |
+| --- | --- | --- |
+| Franchisee Pains Title | 1 published entry | Pains section heading |
+| Franchisee Pain Card | 3–4 published entries | Pains cards |
+| Franchisee Offers Title | 1 published entry | Offerings section heading |
+| Franchisee Offer Card | 3–4 published entries | Offerings cards |
+
+Create entries under **Content → Add entry**, then **Publish**. The content model only defines the template.
+
+If Offer Cards are published without an Offers Title, the site uses a default heading so the cards still appear.
 
 ## Duplicate the About Us types
 

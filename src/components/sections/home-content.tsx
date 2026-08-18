@@ -4,9 +4,10 @@ import { ContactSection } from "./contact";
 import { AboutSection } from "./about";
 import { getAboutCards, getAboutHeading, getHeroContent } from "@/lib/contentful/client";
 import { applyFranchiseeHomepageHero } from "@/lib/contentful/homepage-hero";
-import { getFranchiseePains } from "@/lib/contentful/franchisee";
+import { getFranchiseeOffers, getFranchiseePains } from "@/lib/contentful/franchisee";
 import { SectionLoading } from "@/components/ui/layout/section-loading";
 import { FranchiseePainsSection } from "./franchisees/pains-section";
+import { FranchiseeOffersSection } from "./franchisees/offers-section";
 import type { FranchiseeLocale } from "@/lib/franchisees/copy";
 
 interface HomeContentProps {
@@ -15,11 +16,12 @@ interface HomeContentProps {
 
 export async function HomeContent({ locale = "en" }: HomeContentProps) {
   try {
-    const [heroContent, aboutHeading, aboutCards, pains] = await Promise.all([
+    const [heroContent, aboutHeading, aboutCards, pains, offers] = await Promise.all([
       getHeroContent(),
       getAboutHeading(locale),
       getAboutCards(locale),
       getFranchiseePains(locale),
+      getFranchiseeOffers(locale),
     ]);
 
     const hero = applyFranchiseeHomepageHero(heroContent, locale);
@@ -34,6 +36,12 @@ export async function HomeContent({ locale = "en" }: HomeContentProps) {
         ) : null}
         {pains.heading && pains.cards.length > 0 ? (
           <FranchiseePainsSection heading={pains.heading} cards={pains.cards} />
+        ) : null}
+        {offers.heading && offers.cards.length > 0 ? (
+          <FranchiseeOffersSection
+            heading={offers.heading}
+            cards={offers.cards}
+          />
         ) : null}
         <Suspense fallback={<SectionLoading />}>
           <ContactSection />

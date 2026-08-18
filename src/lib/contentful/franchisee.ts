@@ -81,6 +81,27 @@ function spanishPainsFallback(): {
   };
 }
 
+function spanishOffersFallback(): {
+  heading: FranchiseeTitleEntry;
+  cards: FranchiseeCardEntry[];
+} {
+  const copy = getFranchiseeCopy("es");
+  const icons = ["ClipboardCheck", "Store", "Wallet", "Globe"];
+  return {
+    heading: asEntry("es-offers-title", {
+      heading: copy.offersHeading,
+      subheading: copy.offersIntro,
+    }),
+    cards: copy.offers.map((offer, index) =>
+      asEntry(`es-offer-${index}`, {
+        title: offer.title,
+        description: offer.body,
+        lucideIcon: icons[index] || "Star",
+      })
+    ),
+  };
+}
+
 function contentfulLocale(locale?: FranchiseeLocale) {
   return locale === "es" ? "es" : undefined;
 }
@@ -187,9 +208,32 @@ export async function getFranchiseePains(locale: FranchiseeLocale = "en") {
 }
 
 export async function getFranchiseeOffers(locale: FranchiseeLocale = "en") {
+  const copy = getFranchiseeCopy(locale);
   const [heading, cards] = await Promise.all([
     getTitle(FRANCHISEE_CONTENT_TYPES.offersTitle, locale),
     getCards(FRANCHISEE_CONTENT_TYPES.offerCard, locale),
   ]);
+
+  if (locale === "es") {
+    const englishHeading = getFranchiseeCopy("en").offersHeading;
+    const cmsIsEnglish =
+      !heading ||
+      !cards.length ||
+      heading.fields.heading === englishHeading;
+    if (cmsIsEnglish) {
+      return spanishOffersFallback();
+    }
+  }
+
+  if (cards.length && !heading) {
+    return {
+      heading: asEntry(`${locale}-offers-title-fallback`, {
+        heading: copy.offersHeading,
+        subheading: copy.offersIntro,
+      }),
+      cards,
+    };
+  }
+
   return { heading, cards };
 }

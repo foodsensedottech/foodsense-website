@@ -74,6 +74,17 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  href={`${homePath}#franchisee-offers`}
+                  className="hover:text-yellow-400/80 transition-colors"
+                  onClick={(e) =>
+                    handleNavClick(e, `${homePath}#franchisee-offers`)
+                  }
+                >
+                  {copy.navOfferings}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href={isSpanish ? "/" : "/es"}
                   className="hover:text-yellow-400/80 transition-colors"
                 >

@@ -26,6 +26,7 @@ export function Header() {
   const navItems: NavItem[] = [
     { label: copy.navAbout, href: "#about-section" },
     { label: copy.navPains, href: "#franchisee-pains" },
+    { label: copy.navOfferings, href: "#franchisee-offers" },
     { label: copy.navContact, href: "#contact-section" },
   ];
 
