@@ -5,64 +5,21 @@ import type {
   FranchiseeTitleEntry,
   FranchiseeTitleFields,
 } from "@/lib/contentful/types";
-import type { FranchiseeLocale } from "@/lib/franchisees/copy";
-import { getFranchiseeCopy } from "@/lib/franchisees/copy";
 
+/**
+ * Homepage card sections use the same field shape as About Us:
+ * - Title types: heading, subheading (same as aboutUsTitleSubtitle)
+ * - Card types: title, description, lucideIcon (same as aboutUsCard)
+ *
+ * Create these content types in Contentful by duplicating the About Us types.
+ * See docs/contentful-homepage-cards.md.
+ */
 export const FRANCHISEE_CONTENT_TYPES = {
   painsTitle: "franchiseePainsTitle",
   painCard: "franchiseePainCard",
   offersTitle: "franchiseeOffersTitle",
   offerCard: "franchiseeOfferCard",
 } as const;
-
-function asEntry<T extends { [key: string]: any }>(
-  id: string,
-  fields: T
-): { sys: { id: string }; fields: T } {
-  return { sys: { id }, fields };
-}
-
-function fallbackPains(locale: FranchiseeLocale): {
-  heading: FranchiseeTitleEntry;
-  cards: FranchiseeCardEntry[];
-} {
-  const copy = getFranchiseeCopy(locale);
-  const icons = ["Layers", "Percent", "ShieldAlert"];
-  return {
-    heading: asEntry("fallback-pains-title", {
-      heading: copy.painHeading,
-      subheading: copy.painIntro,
-    } satisfies FranchiseeTitleFields),
-    cards: copy.pains.map((pain, index) =>
-      asEntry(`fallback-pain-${index}`, {
-        title: pain.title,
-        description: pain.body,
-        lucideIcon: icons[index],
-      } satisfies FranchiseeCardFields)
-    ),
-  };
-}
-
-function fallbackOffers(locale: FranchiseeLocale): {
-  heading: FranchiseeTitleEntry;
-  cards: FranchiseeCardEntry[];
-} {
-  const copy = getFranchiseeCopy(locale);
-  const icons = ["ClipboardCheck", "Store", "Wallet"];
-  return {
-    heading: asEntry("fallback-offers-title", {
-      heading: copy.offersHeading,
-      subheading: copy.offersIntro,
-    } satisfies FranchiseeTitleFields),
-    cards: copy.offers.map((offer, index) =>
-      asEntry(`fallback-offer-${index}`, {
-        title: offer.title,
-        description: offer.body,
-        lucideIcon: icons[index],
-      } satisfies FranchiseeCardFields)
-    ),
-  };
-}
 
 async function getTitle(
   contentType: string
@@ -86,15 +43,12 @@ async function getTitle(
   }
 }
 
-async function getCards(
-  contentType: string
-): Promise<FranchiseeCardEntry[] | null> {
+async function getCards(contentType: string): Promise<FranchiseeCardEntry[]> {
   try {
     const response = await client.getEntries({
       content_type: contentType,
-      order: ["sys.createdAt", "-sys.updatedAt"],
+      order: ["sys.createdAt"],
     });
-    if (!response.items.length) return null;
     return response.items.map((item) => ({
       sys: item.sys,
       fields: item.fields as FranchiseeCardFields,
@@ -102,32 +56,22 @@ async function getCards(
     }));
   } catch (error) {
     console.error(`Error fetching ${contentType}:`, error);
-    return null;
+    return [];
   }
 }
 
-export async function getFranchiseePains(locale: FranchiseeLocale = "en") {
-  const fallback = fallbackPains(locale);
+export async function getFranchiseePains() {
   const [heading, cards] = await Promise.all([
     getTitle(FRANCHISEE_CONTENT_TYPES.painsTitle),
     getCards(FRANCHISEE_CONTENT_TYPES.painCard),
   ]);
-  return {
-    heading: heading ?? fallback.heading,
-    cards: cards?.length ? cards : fallback.cards,
-    fromCms: Boolean(heading && cards?.length),
-  };
+  return { heading, cards };
 }
 
-export async function getFranchiseeOffers(locale: FranchiseeLocale = "en") {
-  const fallback = fallbackOffers(locale);
+export async function getFranchiseeOffers() {
   const [heading, cards] = await Promise.all([
     getTitle(FRANCHISEE_CONTENT_TYPES.offersTitle),
     getCards(FRANCHISEE_CONTENT_TYPES.offerCard),
   ]);
-  return {
-    heading: heading ?? fallback.heading,
-    cards: cards?.length ? cards : fallback.cards,
-    fromCms: Boolean(heading && cards?.length),
-  };
+  return { heading, cards };
 }

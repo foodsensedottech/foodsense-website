@@ -80,9 +80,10 @@ The website uses Contentful as a headless CMS to manage all content, allowing no
 
 1. **Hero Section**: Main banner with heading, subheading, and background image
 2. **About Section**: Company information with cards highlighting key points
-3. **Services Section**: Service offerings with descriptions and images
-4. **Testimonials Section**: Client testimonials with ratings and images
-5. **Contact Section**: Contact information and form
+3. **Homepage Pains / Offerings**: Same title + card format as About Us (`franchiseePainsTitle`, `franchiseePainCard`, `franchiseeOffersTitle`, `franchiseeOfferCard`). Setup steps: `docs/contentful-homepage-cards.md`
+4. **Services Section**: Service offerings with descriptions and images
+5. **Testimonials Section**: Client testimonials with ratings and images
+6. **Contact Section**: Contact information and form
 
 Example of fetching content from Contentful:
 

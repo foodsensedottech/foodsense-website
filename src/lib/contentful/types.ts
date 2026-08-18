@@ -256,7 +256,7 @@ export interface FranchiseeTitleFields extends ContentfulEntryFields {
 export interface FranchiseeCardFields extends ContentfulEntryFields {
   title: string;
   description: string;
-  lucideIcon?: string;
+  lucideIcon: string;
 }
 
 export type FranchiseeTitleEntry = ContentfulEntry<FranchiseeTitleFields>;

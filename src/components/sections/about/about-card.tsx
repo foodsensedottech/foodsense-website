@@ -2,9 +2,9 @@
 
 import React from "react";
 import type { AboutCardFields } from "@/lib/contentful/types";
-import { LineChart, Rocket, Star, Computer } from "lucide-react";
+import { LucideIcons } from "@/lib/icons";
+import { Computer, LineChart, Rocket, Star, type LucideIcon } from "lucide-react";
 
-// Define the ContentfulEntry type here to match the one in client.ts
 type ContentfulEntry<T> = {
   sys: {
     id: string;
@@ -18,38 +18,49 @@ interface AboutCardProps {
   data: ContentfulEntry<AboutCardFields>;
 }
 
+function toLucideExportName(name: string): string {
+  const cleaned = name.replace("#", "").trim();
+  if (!cleaned) return "";
+  if (/[-_\s]/.test(cleaned)) {
+    return cleaned
+      .split(/[-_\s]+/)
+      .filter(Boolean)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join("");
+  }
+  return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+}
+
+function iconFromCms(name: string | undefined): LucideIcon | null {
+  if (!name) return null;
+  const exportName = toLucideExportName(name);
+  const icon = (LucideIcons as Record<string, unknown>)[exportName];
+  return typeof icon === "function" ? (icon as LucideIcon) : null;
+}
+
+function iconFromTitle(title: string | undefined): LucideIcon | null {
+  switch (title) {
+    case "Proven Results":
+      return LineChart;
+    case "Optimization and Profits":
+      return Rocket;
+    case "Customer Reviews & Sentiment":
+      return Star;
+    case "Expertise in Restaurant Tech":
+      return Computer;
+    default:
+      return null;
+  }
+}
+
 export function AboutCard({ data }: AboutCardProps) {
   const fields = data.fields;
-
-  // Directly map icons based on title
-  const getIcon = React.useMemo(() => {
-    switch (fields.title) {
-      case "Proven Results":
-        return (
-          <LineChart className="w-8 h-8 mb-4 text-primary" aria-hidden="true" />
-        );
-      case "Optimization and Profits":
-        return (
-          <Rocket className="w-8 h-8 mb-4 text-primary" aria-hidden="true" />
-        );
-      case "Customer Reviews & Sentiment":
-        return (
-          <Star className="w-8 h-8 mb-4 text-primary" aria-hidden="true" />
-        );
-      case "Expertise in Restaurant Tech":
-        return (
-          <Computer className="w-8 h-8 mb-4 text-primary" aria-hidden="true" />
-        );
-      default:
-        return (
-          <Star className="w-8 h-8 mb-4 text-primary" aria-hidden="true" />
-        );
-    }
-  }, [fields.title]);
+  const Icon =
+    iconFromCms(fields.lucideIcon) || iconFromTitle(fields.title) || Star;
 
   return (
     <div className="p-6 rounded-lg bg-white dark:bg-white/10 shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 dark:hover:shadow-[0_0_30px_-5px] dark:hover:shadow-yellow-400/30 dark:hover:border-yellow-400/50">
-      {getIcon}
+      <Icon className="w-8 h-8 mb-4 text-primary" aria-hidden="true" />
       <h3 className="text-xl font-semibold mb-2 text-secondary dark:text-white">
         {fields.title}
       </h3>

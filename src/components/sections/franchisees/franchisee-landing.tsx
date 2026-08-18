@@ -18,15 +18,19 @@ interface FranchiseeLandingProps {
 export async function FranchiseeLanding({ locale }: FranchiseeLandingProps) {
   const [heroContent, pains, offers] = await Promise.all([
     getHeroContent(),
-    getFranchiseePains(locale),
-    getFranchiseeOffers(locale),
+    getFranchiseePains(),
+    getFranchiseeOffers(),
   ]);
 
   return (
     <BaseLayout>
       <HeroSection data={applyFranchiseeHomepageHero(heroContent)} />
-      <FranchiseePainsSection heading={pains.heading} cards={pains.cards} />
-      <FranchiseeOffersSection heading={offers.heading} cards={offers.cards} />
+      {pains.heading && pains.cards.length > 0 ? (
+        <FranchiseePainsSection heading={pains.heading} cards={pains.cards} />
+      ) : null}
+      {offers.heading && offers.cards.length > 0 ? (
+        <FranchiseeOffersSection heading={offers.heading} cards={offers.cards} />
+      ) : null}
       <FranchiseeMaturityCta locale={locale} />
     </BaseLayout>
   );

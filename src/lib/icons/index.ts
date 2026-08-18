@@ -8,14 +8,30 @@ export * from "./about-icons";
 export * from "./types";
 
 // Re-export the getIcon function with proper typing
+function toLucideExportName(name: string): string {
+  const cleaned = name.replace("#", "").trim();
+  if (!cleaned) return "";
+  if (/[-_\s]/.test(cleaned)) {
+    return cleaned
+      .split(/[-_\s]+/)
+      .filter(Boolean)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join("");
+  }
+  return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+}
+
 export function getIcon(name: string | undefined): LucideIcon {
   if (!name) return Star;
-  const cleanName = name.replace("#", "").trim();
+  const exportName = toLucideExportName(name);
 
-  // Import the icon dynamically from lucide-react
   try {
-    const icon = require(`lucide-react`)[cleanName];
-    return icon || Star;
+    const icons = require("lucide-react") as Record<string, unknown>;
+    const icon = icons[exportName];
+    if (typeof icon === "function") {
+      return icon as LucideIcon;
+    }
+    return Star;
   } catch {
     return Star;
   }

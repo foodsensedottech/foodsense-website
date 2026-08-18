@@ -5,8 +5,8 @@ import type {
   FranchiseeCardEntry,
   FranchiseeTitleEntry,
 } from "@/lib/contentful/types";
-import { FranchiseeSectionHeading } from "./section-heading";
-import { FranchiseeContentCards } from "./content-cards";
+import { AboutHeading } from "@/components/sections/about/about-heading";
+import { AboutCards } from "@/components/sections/about/about-cards";
 
 interface OffersSectionProps {
   heading: FranchiseeTitleEntry;
@@ -19,8 +19,8 @@ export function FranchiseeOffersSection({ heading, cards }: OffersSectionProps) 
       id="franchisee-offers"
       className="py-16 bg-gray-50 dark:bg-gray-900"
     >
-      <FranchiseeSectionHeading data={heading} />
-      <FranchiseeContentCards data={cards} />
+      <AboutHeading data={heading} />
+      <AboutCards data={cards} />
     </section>
   );
 }

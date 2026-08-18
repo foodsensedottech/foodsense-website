@@ -43,7 +43,7 @@ The endpoint returns `500 Revalidation is not configured` if this variable is mi
      Use the same value as `CONTENTFUL_REVALIDATION_SECRET` in Vercel.
 
    - Triggers: Create, Save, Publish, Unpublish, and Delete for Entries
-   - Content types: all homepage/about types (`heroFields`, `aboutUsTitleSubtitle`, `aboutUsCard`, `servicesTitleAndSubtitle`, `servicesCard`, `testimonialCard`, `testimonialsTitleAndSubtitle`, and others as needed)
+   - Content types: all homepage/about types (`heroFields`, `aboutUsTitleSubtitle`, `aboutUsCard`, `franchiseePainsTitle`, `franchiseePainCard`, `franchiseeOffersTitle`, `franchiseeOfferCard`, `servicesTitleAndSubtitle`, `servicesCard`, `testimonialCard`, `testimonialsTitleAndSubtitle`, and others as needed)
    - Include Entry Body: Yes (used to pick extra paths such as `/about`)
 
 If the payload has no content type, the API still revalidates `/`.
