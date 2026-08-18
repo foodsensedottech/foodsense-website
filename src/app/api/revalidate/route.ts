@@ -36,9 +36,12 @@ function pathsForContentType(contentType: string | undefined): string[] {
   const paths = new Set<string>(["/"]);
 
   switch (contentType) {
-    case "aboutUsCard":
-    case "aboutUsTitleSubtitle":
-      paths.add("/about");
+    case "franchiseePainsTitle":
+    case "franchiseePainCard":
+    case "franchiseeOffersTitle":
+    case "franchiseeOfferCard":
+      paths.add("/franchisees");
+      paths.add("/es/franchisees");
       break;
     case "servicesCard":
     case "servicesTitleAndSubtitle":

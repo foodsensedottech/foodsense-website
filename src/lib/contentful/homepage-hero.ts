@@ -27,7 +27,7 @@ export function applyFranchiseeHomepageHero(
 export const homepageHeroCta = {
   eyebrow: copy.heroEyebrow,
   primaryLabel: copy.heroPrimaryCta,
-  primaryHref: "/franchisees#assessment",
+  primaryHref: "#tech-maturity",
   secondaryLabel: copy.heroSecondaryCta,
   trustMetric: copy.trustMetric,
 } as const;

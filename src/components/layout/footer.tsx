@@ -46,10 +46,28 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/franchisees"
+                  href="/#franchisee-pains"
+                  className="hover:text-yellow-400/80 transition-colors"
+                  onClick={(e) => handleNavClick(e, "/#franchisee-pains")}
+                >
+                  Pains
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/#franchisee-offers"
+                  className="hover:text-yellow-400/80 transition-colors"
+                  onClick={(e) => handleNavClick(e, "/#franchisee-offers")}
+                >
+                  Offerings
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
                   className="hover:text-yellow-400/80 transition-colors"
                 >
-                  Multi-Unit Franchisees
+                  About
                 </Link>
               </li>
               <li>
@@ -57,34 +75,7 @@ export function Footer() {
                   href="/es/franchisees"
                   className="hover:text-yellow-400/80 transition-colors"
                 >
-                  Franquiciatarios (ES)
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/#about-section"
-                  className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) => handleNavClick(e, "/#about-section")}
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/#services-section"
-                  className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) => handleNavClick(e, "/#services-section")}
-                >
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/#testimonials-section"
-                  className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) => handleNavClick(e, "/#testimonials-section")}
-                >
-                  Testimonials
+                  Español
                 </Link>
               </li>
               <li>
