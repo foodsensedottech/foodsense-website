@@ -4,6 +4,8 @@ import { AboutSection } from "@/components/sections/about";
 import { getAboutHeading, getAboutCards } from "@/lib/contentful/client";
 import { semanticConfig } from "@/lib/utils";
 
+export const revalidate = 3600; // Revalidate at most once per hour; Contentful webhooks also call /api/revalidate
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "About | FoodSense",
