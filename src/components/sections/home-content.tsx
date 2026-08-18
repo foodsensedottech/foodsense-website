@@ -68,6 +68,11 @@ export async function HomeContent() {
     );
   } catch (error) {
     console.error("Error loading content:", error);
-    return <SectionLoading />;
+    return (
+      <>
+        <HeroSection data={applyFranchiseeHomepageHero(null)} />
+        <SectionLoading />
+      </>
+    );
   }
 }
