@@ -4,6 +4,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { homepageHeroCta } from "@/lib/contentful/homepage-hero";
 import { smoothScrollToSection } from "@/lib/utils";
 
 interface HeroContentProps {
@@ -19,6 +20,14 @@ export function HeroContent({ title, subtitle }: HeroContentProps) {
 
   return (
     <div className="relative z-10 container mx-auto px-4 text-center">
+      <motion.p
+        className="text-yellow-400 font-semibold tracking-wide uppercase text-sm mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        {homepageHeroCta.eyebrow}
+      </motion.p>
       <motion.h1
         className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
         initial={{ opacity: 0, y: 20 }}
@@ -36,19 +45,39 @@ export function HeroContent({ title, subtitle }: HeroContentProps) {
         {subtitle}
       </motion.p>
       <motion.div
+        className="flex flex-col sm:flex-row gap-3 justify-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <Link href="/#contact-section" onClick={handleContactClick}>
-          <Button
-            size="lg"
-            className="bg-yellow-400 text-[#1e3a5f] hover:bg-yellow-500 dark:bg-yellow-400 dark:text-[#1e3a5f] dark:hover:bg-yellow-500"
-          >
-            Unlock Growth Now 🚀
-          </Button>
-        </Link>
+        <Button
+          asChild
+          size="lg"
+          className="bg-yellow-400 text-[#1e3a5f] hover:bg-yellow-500 dark:bg-yellow-400 dark:text-[#1e3a5f] dark:hover:bg-yellow-500"
+        >
+          <Link href={homepageHeroCta.primaryHref}>
+            {homepageHeroCta.primaryLabel}
+          </Link>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          variant="outline"
+          className="border-white text-white hover:bg-white/10"
+        >
+          <Link href="/#contact-section" onClick={handleContactClick}>
+            {homepageHeroCta.secondaryLabel}
+          </Link>
+        </Button>
       </motion.div>
+      <motion.p
+        className="mt-8 text-yellow-400 font-medium"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
+        {homepageHeroCta.trustMetric}
+      </motion.p>
     </div>
   );
 }
