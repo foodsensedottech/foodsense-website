@@ -3,7 +3,7 @@
 import React from "react";
 import type { AboutCardFields } from "@/lib/contentful/types";
 import { getCardIcon } from "@/lib/about-icons";
-import { Computer, LineChart, Rocket, Star, type LucideIcon } from "lucide-react";
+import { ClipboardCheck, LineChart, ListChecks, Star, Users, type LucideIcon } from "lucide-react";
 
 type ContentfulEntry<T> = {
   sys: {
@@ -23,15 +23,15 @@ function iconFromTitle(title: string | undefined): LucideIcon | null {
     case "Proven Results":
     case "Resultados comprobados":
       return LineChart;
-    case "Optimization and Profits":
-    case "Optimización y utilidades":
-      return Rocket;
-    case "Customer Reviews & Sentiment":
-    case "Reseñas y sentimiento del cliente":
-      return Star;
-    case "Expertise in Restaurant Tech":
-    case "Experiencia en tecnología restaurantera":
-      return Computer;
+    case "Vendor Assessment and Restaurant Tech Implementation":
+    case "Evaluación de vendors e implementación de tecnología restaurantera":
+      return ClipboardCheck;
+    case "Project and Program Management":
+    case "Gestión de proyectos y programas":
+      return ListChecks;
+    case "Intersection between Technology and Operations":
+    case "Intersección entre tecnología y operaciones":
+      return Users;
     default:
       return null;
   }

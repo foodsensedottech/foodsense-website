@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import { AboutSection } from "@/components/sections/about";
-import { getAboutHeading, getAboutCards } from "@/lib/contentful/client";
+import { getAboutContent } from "@/lib/contentful/about";
 import { semanticConfig } from "@/lib/utils";
 
 export const revalidate = 3600; // Revalidate at most once per hour; Contentful webhooks also call /api/revalidate
@@ -15,8 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const heading = await getAboutHeading();
-  const cards = await getAboutCards();
+  const about = await getAboutContent("en");
 
   return (
     <article className="container mx-auto">
@@ -31,7 +30,9 @@ export default async function AboutPage() {
         <h2 id="about-heading" className="section-title">
           Our Story
         </h2>
-        {heading && cards && <AboutSection heading={heading} cards={cards} />}
+        {about.heading && about.cards.length > 0 && (
+          <AboutSection heading={about.heading} cards={about.cards} />
+        )}
       </section>
 
       <section aria-labelledby="team-heading" className="team-section">

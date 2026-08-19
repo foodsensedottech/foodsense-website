@@ -1,6 +1,6 @@
 # Homepage card sections in Contentful
 
-On `/es`, if Contentful has no Spanish About / Pains / Offerings entries, the site uses hardcoded Spanish fallback copy so the page stays consistent.
+Homepage About copy is owned in code (`Who We Are` plus four mission cards) so English and Spanish stay consistent. You can later paste the same copy into Contentful About Us entries if you want the CMS to own it.
 
 | Contentful type | How many | Where it shows |
 | --- | --- | --- |

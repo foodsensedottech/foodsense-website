@@ -1,4 +1,3 @@
-import { getAboutCards, getAboutHeading } from "@/lib/contentful/client";
 import type {
   AboutCardFields,
   AboutTitleFields,
@@ -7,13 +6,6 @@ import type {
 import type { FranchiseeLocale } from "@/lib/franchisees/copy";
 import { getFranchiseeCopy } from "@/lib/franchisees/copy";
 
-const ENGLISH_ABOUT_CARD_TITLES = new Set([
-  "Proven Results",
-  "Optimization and Profits",
-  "Customer Reviews & Sentiment",
-  "Expertise in Restaurant Tech",
-]);
-
 function asEntry<T extends { [key: string]: unknown }>(
   id: string,
   fields: T
@@ -21,45 +13,20 @@ function asEntry<T extends { [key: string]: unknown }>(
   return { sys: { id }, fields };
 }
 
-function spanishAboutFallback(): {
-  heading: ContentfulEntry<AboutTitleFields>;
-  cards: ContentfulEntry<AboutCardFields>[];
-} {
-  const copy = getFranchiseeCopy("es");
+export async function getAboutContent(locale: FranchiseeLocale = "en") {
+  const copy = getFranchiseeCopy(locale);
   return {
-    heading: asEntry("es-about-title", {
+    heading: asEntry(`${locale}-about-title`, {
       heading: copy.aboutHeading,
       subheading: copy.aboutIntro,
-    }),
-    cards: copy.aboutCards.map((card, index) =>
-      asEntry(`es-about-${index}`, {
-        title: card.title,
-        description: card.body,
-        lucideIcon: card.lucideIcon,
-      })
+    } satisfies AboutTitleFields),
+    cards: copy.aboutCards.map(
+      (card, index) =>
+        asEntry(`${locale}-about-${index}`, {
+          title: card.title,
+          description: card.body,
+          lucideIcon: card.lucideIcon,
+        } satisfies AboutCardFields)
     ),
   };
-}
-
-function looksEnglishAbout(
-  heading: ContentfulEntry<AboutTitleFields> | null,
-  cards: ContentfulEntry<AboutCardFields>[] | null
-) {
-  const englishHeading = getFranchiseeCopy("en").aboutHeading;
-  if (!heading || !cards?.length) return true;
-  if (heading.fields.heading === englishHeading) return true;
-  return cards.some((card) => ENGLISH_ABOUT_CARD_TITLES.has(card.fields.title));
-}
-
-export async function getAboutContent(locale: FranchiseeLocale = "en") {
-  const [heading, cards] = await Promise.all([
-    getAboutHeading(locale),
-    getAboutCards(locale),
-  ]);
-
-  if (locale === "es" && looksEnglishAbout(heading, cards)) {
-    return spanishAboutFallback();
-  }
-
-  return { heading, cards: cards ?? [] };
 }

@@ -7,6 +7,7 @@ import {
   Globe,
   Layers,
   LineChart,
+  ListChecks,
   Percent,
   Rocket,
   Settings,
@@ -39,6 +40,7 @@ export const CARD_ICONS = {
   Wallet,
   Globe,
   BarChart3,
+  ListChecks,
 } as const;
 
 export type AboutIconName = keyof typeof ABOUT_ICONS;

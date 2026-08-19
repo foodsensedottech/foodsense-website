@@ -41,7 +41,7 @@ export function AboutHeading({ data }: AboutHeadingProps) {
       </motion.h2>
       {subheading && (
         <motion.p
-          className="text-lg text-gray-600 dark:text-gray-300"
+          className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
