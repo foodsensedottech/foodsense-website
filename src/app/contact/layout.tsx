@@ -1,25 +1,26 @@
 import { Metadata } from "next";
+import { getContactHeading } from "@/lib/contentful/contact";
 
-export const metadata: Metadata = {
-  title: "Contact Us | FoodSense",
-  description: "Get in touch with the FoodSense team",
-  openGraph: {
-    title: "Contact Us | FoodSense",
-    description: "Get in touch with the FoodSense team",
-    url: "https://foodsense.tech/contact",
-    siteName: "FoodSense",
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Contact Us | FoodSense",
-    description: "Get in touch with the FoodSense team",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const heading = await getContactHeading();
+  const title = heading?.fields?.heading;
+  const description = heading?.fields?.subheading;
 
-// Add revalidation at the layout level (server component)
-export const revalidate = 3600; // Revalidate at most once per hour
+  return {
+    title: title ? `${title} | FoodSense` : undefined,
+    description: description || undefined,
+    openGraph: {
+      title: title ? `${title} | FoodSense` : undefined,
+      description: description || undefined,
+      url: "https://foodsense.tech/contact",
+      siteName: "FoodSense",
+      locale: "en_US",
+      type: "website",
+    },
+  };
+}
+
+export const revalidate = 3600;
 
 export default function ContactLayout({
   children,

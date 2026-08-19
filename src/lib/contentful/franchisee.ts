@@ -1,9 +1,11 @@
 import client from "@/lib/contentful/client";
+import {
+  normalizeCardFields,
+  normalizeTitleFields,
+} from "@/lib/contentful/fields";
 import type {
   FranchiseeCardEntry,
-  FranchiseeCardFields,
   FranchiseeTitleEntry,
-  FranchiseeTitleFields,
 } from "@/lib/contentful/types";
 
 export const FRANCHISEE_CONTENT_TYPES = {
@@ -13,45 +15,7 @@ export const FRANCHISEE_CONTENT_TYPES = {
   offerCard: "franchiseeOfferCard",
 } as const;
 
-function pickString(fields: Record<string, unknown>, keys: string[]): string {
-  for (const key of keys) {
-    const value = fields[key];
-    if (typeof value === "string" && value.trim()) {
-      return value;
-    }
-  }
-  return "";
-}
-
-function normalizeTitleFields(
-  fields: Record<string, unknown>
-): FranchiseeTitleFields {
-  return {
-    heading: pickString(fields, ["heading", "Heading", "title", "Title"]),
-    subheading: pickString(fields, [
-      "subheading",
-      "Subheading",
-      "description",
-      "Description",
-    ]),
-  };
-}
-
-function normalizeCardFields(
-  fields: Record<string, unknown>
-): FranchiseeCardFields {
-  return {
-    title: pickString(fields, ["title", "Title"]),
-    description: pickString(fields, ["description", "Description"]),
-    lucideIcon: pickString(fields, [
-      "lucideIcon",
-      "LucideIcon",
-      "lucideicon",
-    ]),
-  };
-}
-
-async function getTitle(
+export async function getTitle(
   contentType: string
 ): Promise<FranchiseeTitleEntry | null> {
   try {
@@ -77,7 +41,7 @@ async function getTitle(
   }
 }
 
-async function getCards(contentType: string): Promise<FranchiseeCardEntry[]> {
+export async function getCards(contentType: string): Promise<FranchiseeCardEntry[]> {
   try {
     const response = await client.getEntries({
       content_type: contentType,

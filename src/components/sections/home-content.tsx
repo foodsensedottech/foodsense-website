@@ -4,6 +4,7 @@ import { ContactSection } from "./contact";
 import { AboutSection } from "./about";
 import { getAboutContent } from "@/lib/contentful/about";
 import { getHeroContent } from "@/lib/contentful/client";
+import { getContactHeading } from "@/lib/contentful/contact";
 import { getFranchiseeOffers, getFranchiseePains } from "@/lib/contentful/franchisee";
 import { SectionLoading } from "@/components/ui/layout/section-loading";
 import { FranchiseePainsSection } from "./franchisees/pains-section";
@@ -11,11 +12,12 @@ import { FranchiseeOffersSection } from "./franchisees/offers-section";
 
 export async function HomeContent() {
   try {
-    const [hero, about, pains, offers] = await Promise.all([
+    const [hero, about, pains, offers, contact] = await Promise.all([
       getHeroContent(),
       getAboutContent(),
       getFranchiseePains(),
       getFranchiseeOffers(),
+      getContactHeading(),
     ]);
 
     return (
@@ -38,7 +40,7 @@ export async function HomeContent() {
           />
         ) : null}
         <Suspense fallback={<SectionLoading />}>
-          <ContactSection />
+          <ContactSection heading={contact} />
         </Suspense>
       </>
     );

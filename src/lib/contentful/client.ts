@@ -28,8 +28,10 @@ import type {
   ServicesTitleEntry,
   ServicesCardEntry,
 } from "@/lib/contentful/types";
-import type { ContactTitleFields } from "@/lib/contentful/types";
-import type { ContactSectionContent } from "@/lib/contentful/types";
+import {
+  normalizeCardFields,
+  normalizeTitleFields,
+} from "@/lib/contentful/fields";
 
 const client = createClient({
   space:
@@ -100,9 +102,14 @@ export async function getAboutHeading() {
     const item = response.items[0];
     if (!item) return null;
 
+    const fields = normalizeTitleFields(
+      (item.fields || {}) as Record<string, unknown>
+    );
+    if (!fields.heading) return null;
+
     return {
       sys: item.sys,
-      fields: item.fields as unknown as AboutTitleFields,
+      fields,
       metadata: item.metadata,
     } as ContentfulEntry<AboutTitleFields>;
   } catch (error) {
@@ -115,7 +122,7 @@ export async function getAboutCards() {
   try {
     const response = await client.getEntries({
       content_type: "aboutUsCard",
-      order: ["-sys.updatedAt"],
+      order: ["sys.createdAt"],
     });
     console.log("About Cards Response:", JSON.stringify(response, null, 2));
 
@@ -123,11 +130,15 @@ export async function getAboutCards() {
       return [];
     }
 
-    return response.items.map((item) => ({
-      sys: item.sys,
-      fields: item.fields as unknown as AboutCardFields,
-      metadata: item.metadata,
-    })) as ContentfulEntry<AboutCardFields>[];
+    return response.items
+      .map((item) => ({
+        sys: item.sys,
+        fields: normalizeCardFields(
+          (item.fields || {}) as Record<string, unknown>
+        ),
+        metadata: item.metadata,
+      }))
+      .filter((item) => item.fields.title) as ContentfulEntry<AboutCardFields>[];
   } catch (error) {
     console.error("Error fetching about cards:", error);
     return null;

@@ -25,7 +25,7 @@ export const assessmentLeadSchema = z.object({
     .min(2)
     .max(120)
     .transform((value) => value.trim()),
-  locale: z.enum(["en", "es"]).default("en"),
+  locale: z.enum(["en"]).default("en"),
   answers: assessmentAnswersSchema,
 });
 

@@ -1,27 +1,15 @@
-"use client";
-import { ContactForm } from "@/components/sections/contact/contact-form";
+import { BaseLayout } from "@/components/layout";
+import { ContactSection } from "@/components/sections/contact";
+import { getContactHeading } from "@/lib/contentful/contact";
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const heading = await getContactHeading();
+
   return (
-    <main className="container mx-auto py-10">
-      <div className="max-w-2xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-secondary dark:text-primary">
-            Contact Us
-          </h1>
-          <p className="mt-2 text-muted-foreground dark:text-white">
-            Fill out the form below and we&apos;ll get back to you as soon as
-            possible.
-          </p>
-        </div>
-
-        <div className="bg-card p-6 rounded-lg shadow-sm">
-          <ContactForm />
-        </div>
-      </div>
-    </main>
+    <BaseLayout>
+      <ContactSection heading={heading} />
+    </BaseLayout>
   );
 }
 
-// Remove the revalidate export from client component
-// export const revalidate = 3600; // Revalidate at most once per hour
+export const revalidate = 3600;
