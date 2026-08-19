@@ -41,8 +41,6 @@ function pathsForContentType(contentType: string | undefined): string[] {
     case "franchiseeOffersTitle":
     case "franchiseeOfferCard":
       paths.add("/franchisees");
-      paths.add("/es");
-      paths.add("/es/franchisees");
       break;
     case "servicesCard":
     case "servicesTitleAndSubtitle":

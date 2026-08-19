@@ -9,31 +9,27 @@ import { ThemeToggle } from "./theme-toggle";
 import { MobileNav } from "./mobile-nav";
 import { Logo } from "@/components/ui/media/logo";
 import { smoothScrollToSection } from "@/lib/utils";
-import { getFranchiseeCopy } from "@/lib/franchisees/copy";
 
 interface NavItem {
   label: string;
   href: string;
 }
 
+const navItems: NavItem[] = [
+  { label: "About", href: "#about-section" },
+  { label: "Pains", href: "#franchisee-pains" },
+  { label: "Offerings", href: "#franchisee-offers" },
+  { label: "Contact", href: "#contact-section" },
+];
+
 export function Header() {
   const pathname = usePathname();
-  const isSpanish = pathname === "/es" || pathname.startsWith("/es/");
-  const copy = getFranchiseeCopy(isSpanish ? "es" : "en");
-  const isHomePage = pathname === "/" || pathname === "/es";
-  const homePath = isSpanish ? "/es" : "/";
-
-  const navItems: NavItem[] = [
-    { label: copy.navAbout, href: "#about-section" },
-    { label: copy.navPains, href: "#franchisee-pains" },
-    { label: copy.navOfferings, href: "#franchisee-offers" },
-    { label: copy.navContact, href: "#contact-section" },
-  ];
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     analytics.trackPageView(pathname);
-    document.documentElement.lang = isSpanish ? "es" : "en";
-  }, [pathname, isSpanish]);
+    document.documentElement.lang = "en";
+  }, [pathname]);
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -47,28 +43,27 @@ export function Header() {
     e.preventDefault();
 
     if (isHomePage) {
-      const sectionId = item.href.replace("#", "");
-      smoothScrollToSection(sectionId);
+      smoothScrollToSection(item.href.replace("#", ""));
     } else {
-      window.location.href = `${homePath}${item.href}`;
+      window.location.href = `/${item.href}`;
     }
 
     analytics.trackMenuInteraction(item.label);
   };
 
   const handleGetStartedClick = () => {
-    analytics.trackCTAClick("header-cta", copy.getStartedCta);
+    analytics.trackCTAClick("header-cta", "Get Started");
     if (isHomePage) {
       smoothScrollToSection("contact-section");
     } else {
-      window.location.href = `${homePath}#contact-section`;
+      window.location.href = "/#contact-section";
     }
   };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center">
-        <Link href={homePath} className="mr-6 flex items-center space-x-2">
+        <Link href="/" className="mr-6 flex items-center space-x-2">
           <Logo variant="header" />
         </Link>
         <nav className="hidden lg:flex items-center space-x-8 text-sm font-semibold">
@@ -76,7 +71,7 @@ export function Header() {
             const href = item.href.startsWith("#")
               ? isHomePage
                 ? item.href
-                : `${homePath}${item.href}`
+                : `/${item.href}`
               : item.href;
 
             return (
@@ -92,14 +87,8 @@ export function Header() {
           })}
         </nav>
         <div className="ml-auto flex items-center space-x-4">
-          <Link
-            href={isSpanish ? "/" : "/es"}
-            className="hidden sm:inline text-sm font-semibold text-foreground/70 hover:text-foreground"
-          >
-            {isSpanish ? "EN" : "ES"}
-          </Link>
           <ThemeToggle />
-          <Button onClick={handleGetStartedClick}>{copy.getStartedCta}</Button>
+          <Button onClick={handleGetStartedClick}>Get Started</Button>
           <MobileNav />
         </div>
       </div>

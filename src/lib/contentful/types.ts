@@ -59,6 +59,8 @@ export interface AboutCardContentType {
 export interface HeroFields extends ContentfulEntryFields {
   heroHeading: string;
   heroSubheading: string;
+  heroEyebrow?: string;
+  heroCta?: string;
   backgroundImage?: {
     fields: {
       file: {

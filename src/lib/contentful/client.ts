@@ -87,13 +87,12 @@ type ContentfulEntry<T> = {
   [key: string]: any;
 };
 
-export async function getAboutHeading(locale: "en" | "es" = "en") {
+export async function getAboutHeading() {
   try {
     const response = await client.getEntries({
       content_type: "aboutUsTitleSubtitle",
       limit: 1,
       order: ["-sys.updatedAt"],
-      ...(locale === "es" ? { locale: "es" } : {}),
     });
     console.log("Contentful Raw Response:", JSON.stringify(response, null, 2));
     console.log("First Item:", JSON.stringify(response.items[0], null, 2));
@@ -112,12 +111,11 @@ export async function getAboutHeading(locale: "en" | "es" = "en") {
   }
 }
 
-export async function getAboutCards(locale: "en" | "es" = "en") {
+export async function getAboutCards() {
   try {
     const response = await client.getEntries({
       content_type: "aboutUsCard",
       order: ["-sys.updatedAt"],
-      ...(locale === "es" ? { locale: "es" } : {}),
     });
     console.log("About Cards Response:", JSON.stringify(response, null, 2));
 
@@ -150,24 +148,23 @@ export async function getHeroContent() {
 
     // More careful type conversion
     const item = response.items[0];
-    const fields = item.fields as HeroFields;
+    const fields = item.fields as HeroFields & Record<string, unknown>;
 
-    // Debug logging
-    console.log("Hero Content Response:", {
-      heroHeading: fields.heroHeading,
-      heroSubheading: fields.heroSubheading,
-      backgroundImage: {
-        url: fields.backgroundImage?.fields?.file?.url,
-        title: fields.backgroundImage?.fields?.title,
-      },
-    });
+    const pick = (...keys: string[]) => {
+      for (const key of keys) {
+        const value = fields[key];
+        if (typeof value === "string" && value.trim()) return value;
+      }
+      return undefined;
+    };
 
-    // Create a new object with the expected structure
     return {
       sys: item.sys,
       fields: {
         heroHeading: fields.heroHeading,
         heroSubheading: fields.heroSubheading,
+        heroEyebrow: pick("heroEyebrow", "eyebrow", "HeroEyebrow"),
+        heroCta: pick("heroCta", "cta", "heroCtaLabel", "primaryCta"),
         backgroundImage: fields.backgroundImage,
         seoMetadata: fields.seoMetadata,
       },

@@ -1,52 +1,147 @@
-# Homepage card sections in Contentful
+# Homepage copy in Contentful
 
-Homepage About copy is owned in code (`Who We Are` plus four mission cards) so English and Spanish stay consistent. You can later paste the same copy into Contentful About Us entries if you want the CMS to own it.
+The homepage reads **only** from Contentful. There is no Spanish site and no fallback marketing copy in the code.
 
-| Contentful type | How many | Where it shows |
-| --- | --- | --- |
-| Franchisee Pains Title | 1 published entry | Pains section heading |
-| Franchisee Pain Card | 3–4 published entries | Pains cards |
-| Franchisee Offers Title | 1 published entry | Offerings section heading |
-| Franchisee Offer Card | 3–4 published entries | Offerings cards |
+Page order: Hero → About → Pains → Offerings → Contact.
 
-Create entries under **Content → Add entry**, then **Publish**. The content model only defines the template.
+Create or edit entries under **Content → Add entry**, then **Publish**. If a description is longer than 255 characters, change that field from Short text to **Long text**.
 
-If Offer Cards are published without an Offers Title, the site uses a default heading so the cards still appear.
+## 1. Hero (`heroFields`)
 
-## Duplicate the About Us types
+Edit the existing Hero entry. Optionally add two Short text fields on the content type, then fill them:
 
-In Contentful: **Content model**. Duplicate the existing About types (do not reuse the About entries, or they will also show on `/about`).
-
-### Title types (copy `aboutUsTitleSubtitle`)
-
-Preferred fields: `heading` and `subheading`. If a title type was created with `title` / `description` instead, the site maps those to the heading and intro.
-
-| Name | API identifier |
+| Field API ID | Paste |
 | --- | --- |
-| Franchisee Pains Title | `franchiseePainsTitle` |
-| Franchisee Offers Title | `franchiseeOffersTitle` |
+| `heroEyebrow` | US · Latin America · Caribbean |
+| `heroHeading` | Next-Gen Restaurant Tech for Multi-Unit Franchisees. |
+| `heroSubheading` | We turn global enterprise strategy into scalable store-level architecture across POS, kiosk, payments, and data governance. |
+| `heroCta` | Talk to Our Team |
 
-Create **one published entry** of each type. That entry is the section heading and intro.
+Keep the existing background image.
 
-### Card types (copy `aboutUsCard`)
+If `heroEyebrow` or `heroCta` are missing from the content type, add them (Short text), then paste the values above. The yellow button only appears when `heroCta` is published.
 
-Keep the same fields: `title`, `description`, `lucideIcon`.
+## 2. About title (`aboutUsTitleSubtitle`)
 
-| Name | API identifier |
+Edit the existing About Us Title entry.
+
+| Field | Paste |
 | --- | --- |
-| Franchisee Pain Card | `franchiseePainCard` |
-| Franchisee Offer Card | `franchiseeOfferCard` |
+| Heading | Who We Are |
+| Subheading | FoodSense is a restaurant-technology consultancy built on a decade inside operators that run at scale. We helped shape early cloud-kitchen and delivery stacks at REEF, deployed POS across the US and Canada at Restaurant Brands International, and led restaurant technology for KFC across Latin America and the Caribbean — more than 20 countries and 2,200 restaurants. We know the vendors. We know the franchisees. We close the gap between technology and operations. |
 
-Create as many published card entries as you want for each section. Cards render in the order you create them (`sys.createdAt`). Use the same 4-column card layout as About Us.
+## 3. About cards (`aboutUsCard`)
 
-### `lucideIcon` values
+Edit the four existing About Us Card entries (do not create extras, or they will all show). Use Lucide names in `lucideIcon`.
 
-Use a Lucide icon name in PascalCase, the same way About Us cards do. Examples: `Star`, `Layers`, `Percent`, `ShieldAlert`, `ClipboardCheck`, `Store`, `Wallet`, `LineChart`, `Rocket`, `Computer`.
+**Card 1**
+| Field | Paste |
+| --- | --- |
+| Title | Proven Results |
+| Description | Technology programs that have already run at brand scale: POS across the US and Canada, and restaurant-tech leadership for KFC in Latin America and the Caribbean — 20+ countries, 2,200 restaurants, plus cybersecurity and IT infrastructure standards. |
+| lucideIcon | LineChart |
 
-## What the site fetches
+**Card 2**
+| Field | Paste |
+| --- | --- |
+| Title | Vendor Assessment and Restaurant Tech Implementation |
+| Description | We work with the major vendors in the restaurant tech space — Oracle, NCR, Deliverect, Orquest, HME, Summit, APEX Food lockers, Eyecatch, Tillster, GRUBBRR, and others — so features, pricing, and support are standardized instead of reinvented store by store. |
+| lucideIcon | ClipboardCheck |
 
-- Homepage `/` reads those four content types.
-- `/franchisees` redirects to `/` and uses the same entries.
-- Publishing an entry should hit `/api/revalidate` if the Contentful webhook is configured (see `REVALIDATION.md`).
+**Card 3**
+| Field | Paste |
+| --- | --- |
+| Title | Project and Program Management |
+| Description | Fractional project and program management for POS deployment, KDS optimization, and the other cutovers that cannot stall the line. We own the plan, the vendors, and store-level landing. |
+| lucideIcon | ListChecks |
 
-After Contentful is updated, **Promote the latest Vercel deployment to Production** if the live site still shows an older Preview.
+**Card 4**
+| Field | Paste |
+| --- | --- |
+| Title | Intersection between Technology and Operations |
+| Description | Most franchise groups have a gap between the tech team and the operations team. We bring both: how restaurants actually run, and how to implement technology so crews adopt it. |
+| lucideIcon | Users |
+
+## 4. Pains title (`franchiseePainsTitle`)
+
+One published entry.
+
+| Field | Paste |
+| --- | --- |
+| Title or Heading | What breaks when you scale past 10 units |
+| Description or Subheading | Multi-unit operators need predictable execution, labor efficiency, third-party margin protection, and uniform visibility across stores. |
+
+## 5. Pain cards (`franchiseePainCard`)
+
+**Card 1**
+| Field | Paste |
+| --- | --- |
+| Title | Fragmented tech stacks |
+| Description | Three POS versions or mismatched KDS/KMS across 15 locations. Every store becomes a one-off, and enterprise playbooks never land. |
+| lucideIcon | Layers |
+
+**Card 2**
+| Field | Paste |
+| --- | --- |
+| Title | Margin leak on delivery and promos |
+| Description | Un-optimized third-party fees and promo spend quietly erase the profit you thought extra volume would create. |
+| lucideIcon | Percent |
+
+**Card 3**
+| Field | Paste |
+| --- | --- |
+| Title | Vendor lock-in and rogue tooling |
+| Description | Store GMs deploy non-compliant apps or unapproved payment processors. The group loses control of data, fees, and risk. |
+| lucideIcon | ShieldAlert |
+
+**Card 4**
+| Field | Paste |
+| --- | --- |
+| Title | No single view of the group |
+| Description | Labor, sales, and menu data live in different systems per market. You cannot compare stores, and decisions lag the P&L. |
+| lucideIcon | LineChart |
+
+## 6. Offerings title (`franchiseeOffersTitle`)
+
+One published entry.
+
+| Field | Paste |
+| --- | --- |
+| Heading | Packaged systems, not general consulting |
+| Subheading | Repeatable, enterprise-tested offerings built for franchisee groups running 10+ units across the US, Latin America, and the Caribbean. |
+
+## 7. Offer cards (`franchiseeOfferCard`)
+
+**Card 1**
+| Field | Paste |
+| --- | --- |
+| Title | Franchisee Tech Maturity Assessment |
+| Description | A structured scorecard of tech adoption, readiness, and ROI across your locations — using the same discipline as enterprise playbooks. |
+| lucideIcon | ClipboardCheck |
+
+**Card 2**
+| Field | Paste |
+| --- | --- |
+| Title | POS and kiosk migration |
+| Description | Risk-controlled platform transitions, BOH integration, and store training so cutover does not stall operations. |
+| lucideIcon | Store |
+
+**Card 3**
+| Field | Paste |
+| --- | --- |
+| Title | Payments and wallet architecture |
+| Description | Lower processing fees and tighten card/POS workflows so every unit runs the same approved payment stack. |
+| lucideIcon | Wallet |
+
+**Card 4**
+| Field | Paste |
+| --- | --- |
+| Title | Multi-market stack standardization |
+| Description | One approved architecture for US, LATAM, and Caribbean units — localized where it must be, standardized where it counts. |
+| lucideIcon | Globe |
+
+## After publishing
+
+Spanish routes (`/es`) redirect to `/` until you add Contentful locales. Header labels (About, Pains, Offerings, Contact, Get Started) stay in the site chrome.
+
+After code is on Production, **Promote to Production** in Vercel if the live site does not update.

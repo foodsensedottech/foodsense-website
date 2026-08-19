@@ -3,36 +3,29 @@
 import * as React from "react";
 import type { HeroContentType } from "@/lib/contentful/types";
 import { semanticConfig } from "@/lib/utils";
-import type { FranchiseeLocale } from "@/lib/franchisees/copy";
 import { HeroBackground } from "./hero-background";
 import { HeroContent } from "./hero-content";
 
 interface HeroSectionProps {
   data: HeroContentType;
-  locale?: FranchiseeLocale;
 }
 
-export function HeroSection({ data, locale = "en" }: HeroSectionProps) {
+export function HeroSection({ data }: HeroSectionProps) {
   if (!data?.fields) {
     console.warn("HeroSection: No fields in data");
     return null;
   }
 
-  const { heroHeading, heroSubheading, backgroundImage } = data.fields;
-
-  // Debug logging
-  console.log("Hero Data:", {
+  const {
     heroHeading,
     heroSubheading,
-    backgroundImage: {
-      url: backgroundImage?.fields?.file?.url,
-      title: backgroundImage?.fields?.title,
-    },
-  });
+    heroEyebrow,
+    heroCta,
+    backgroundImage,
+  } = data.fields;
 
-  // Safely access the image URL using optional chaining
   const imageUrl = backgroundImage?.fields?.file?.url;
-  const imageAlt = backgroundImage?.fields?.title || "Hero background";
+  const imageAlt = backgroundImage?.fields?.title || "";
 
   return (
     <section
@@ -43,7 +36,8 @@ export function HeroSection({ data, locale = "en" }: HeroSectionProps) {
       <HeroContent
         title={heroHeading}
         subtitle={heroSubheading}
-        locale={locale}
+        eyebrow={heroEyebrow}
+        ctaLabel={heroCta}
       />
     </section>
   );

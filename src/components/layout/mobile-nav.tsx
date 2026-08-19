@@ -2,26 +2,20 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { getFranchiseeCopy } from "@/lib/franchisees/copy";
+
+const menuItems = [
+  { title: "Home", href: "/" },
+  { title: "About", href: "/#about-section" },
+  { title: "Pains", href: "/#franchisee-pains" },
+  { title: "Offerings", href: "/#franchisee-offers" },
+  { title: "Contact", href: "/#contact-section" },
+];
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
-  const pathname = usePathname();
-  const isSpanish = pathname === "/es" || pathname.startsWith("/es/");
-  const copy = getFranchiseeCopy(isSpanish ? "es" : "en");
-  const homePath = isSpanish ? "/es" : "/";
-
-  const menuItems = [
-    { title: isSpanish ? "Inicio" : "Home", href: homePath },
-    { title: copy.navAbout, href: `${homePath}#about-section` },
-    { title: copy.navPains, href: `${homePath}#franchisee-pains` },
-    { title: copy.navOfferings, href: `${homePath}#franchisee-offers` },
-    { title: copy.navContact, href: `${homePath}#contact-section` },
-  ];
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>

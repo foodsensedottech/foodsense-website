@@ -2,18 +2,11 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Logo } from "@/components/ui/media/logo";
 import { Linkedin, Instagram } from "lucide-react";
-import { getFranchiseeCopy } from "@/lib/franchisees/copy";
 import { smoothScrollToSection } from "@/lib/utils";
 
 export function Footer() {
-  const pathname = usePathname();
-  const isSpanish = pathname === "/es" || pathname.startsWith("/es/");
-  const copy = getFranchiseeCopy(isSpanish ? "es" : "en");
-  const homePath = isSpanish ? "/es" : "/";
-
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
@@ -30,7 +23,7 @@ export function Footer() {
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="space-y-6">
-            <Link href={homePath}>
+            <Link href="/">
               <div className="w-[194px] h-[194px]">
                 <Logo variant="footer" />
               </div>
@@ -38,74 +31,55 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-lg mb-4">
-              {isSpanish ? "Enlaces" : "Links"}
-            </h3>
+            <h3 className="font-semibold text-lg mb-4">Links</h3>
             <ul className="space-y-2">
               <li>
                 <Link
-                  href={homePath}
+                  href="/"
                   className="hover:text-yellow-400/80 transition-colors"
                 >
-                  {isSpanish ? "Inicio" : "Home"}
+                  Home
                 </Link>
               </li>
               <li>
                 <Link
-                  href={`${homePath}#about-section`}
+                  href="/#about-section"
                   className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) =>
-                    handleNavClick(e, `${homePath}#about-section`)
-                  }
+                  onClick={(e) => handleNavClick(e, "/#about-section")}
                 >
-                  {copy.navAbout}
+                  About
                 </Link>
               </li>
               <li>
                 <Link
-                  href={`${homePath}#franchisee-pains`}
+                  href="/#franchisee-pains"
                   className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) =>
-                    handleNavClick(e, `${homePath}#franchisee-pains`)
-                  }
+                  onClick={(e) => handleNavClick(e, "/#franchisee-pains")}
                 >
-                  {copy.navPains}
+                  Pains
                 </Link>
               </li>
               <li>
                 <Link
-                  href={`${homePath}#franchisee-offers`}
+                  href="/#franchisee-offers"
                   className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) =>
-                    handleNavClick(e, `${homePath}#franchisee-offers`)
-                  }
+                  onClick={(e) => handleNavClick(e, "/#franchisee-offers")}
                 >
-                  {copy.navOfferings}
+                  Offerings
                 </Link>
               </li>
               <li>
                 <Link
-                  href={isSpanish ? "/" : "/es"}
+                  href="/#contact-section"
                   className="hover:text-yellow-400/80 transition-colors"
+                  onClick={(e) => handleNavClick(e, "/#contact-section")}
                 >
-                  {isSpanish ? "English" : "Español"}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={`${homePath}#contact-section`}
-                  className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) =>
-                    handleNavClick(e, `${homePath}#contact-section`)
-                  }
-                >
-                  {copy.navContact}
+                  Contact
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
             <h3 className="font-semibold text-lg mb-4">Legal</h3>
             <ul className="space-y-2">
@@ -124,7 +98,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Social Links */}
           <div>
             <h3 className="font-semibold text-lg mb-4">Contact Us</h3>
             <div className="flex space-x-4">
@@ -150,7 +123,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Copyright Statement */}
         <div className="border-t border-yellow-400/20 mt-8 pt-6 text-center">
           <p className="text-sm">
             Copyright © {new Date().getFullYear()} FoodSense. All rights

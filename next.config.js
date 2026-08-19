@@ -23,8 +23,13 @@ const nextConfig = {
         permanent: false,
       },
       {
+        source: "/es",
+        destination: "/",
+        permanent: false,
+      },
+      {
         source: "/es/franchisees",
-        destination: "/es",
+        destination: "/",
         permanent: false,
       },
     ];
