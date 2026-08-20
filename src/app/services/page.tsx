@@ -1,80 +1,64 @@
 import { Metadata } from "next";
+import Link from "next/link";
+import { BaseLayout } from "@/components/layout";
+import { ctaLabel, seo, servicesCopy } from "@/lib/copy/site";
 
 export const metadata: Metadata = {
-  title: "Services | FoodSense",
-  description:
-    "Restaurant optimization and analytics services provided by FoodSense",
+  title: seo.services.title,
+  description: seo.services.description,
   openGraph: {
     title: "Services | FoodSense",
-    description:
-      "Restaurant optimization and analytics services provided by FoodSense",
-    url: "https://foodsense.tech/services",
+    description: seo.services.description,
+    url: "https://www.foodsense.tech/services",
     siteName: "FoodSense",
     locale: "en_US",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Services | FoodSense",
-    description:
-      "Restaurant optimization and analytics services provided by FoodSense",
-  },
 };
-
-export const revalidate = 3600; // Revalidate at most once per hour
 
 export default function ServicesPage() {
   return (
-    <div className="container mx-auto py-8 px-4">
-      <h1 className="text-4xl font-bold mb-8">Our Services</h1>
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {/* Service Cards */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold mb-4">Menu Optimization</h2>
-          <p className="text-gray-600">
-            Data-driven menu analysis and optimization to maximize profitability
-            and customer satisfaction.
-          </p>
+    <BaseLayout>
+      <div className="container mx-auto max-w-4xl py-16 px-4">
+        <h1 className="text-4xl font-bold mb-4">{servicesCopy.headline}</h1>
+        <p className="text-lg text-muted-foreground mb-6">{servicesCopy.body}</p>
+        <p className="mb-10">
+          <Link href="/#franchisee-offers" className="underline underline-offset-4">
+            See the three modes
+          </Link>
+        </p>
+
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-3">
+            {servicesCopy.modesRecapHeadline}
+          </h2>
+          <p className="text-muted-foreground">{servicesCopy.modesRecapBody}</p>
+        </section>
+
+        <div className="space-y-8">
+          {servicesCopy.domains.map((domain) => (
+            <section key={domain.title} className="rounded-lg border border-border p-6">
+              <h2 className="text-2xl font-semibold mb-3">{domain.title}</h2>
+              <p className="text-muted-foreground mb-3">{domain.body}</p>
+              {domain.stacks ? (
+                <p className="text-sm mb-3">{domain.stacks}</p>
+              ) : null}
+              <p className="text-sm font-medium">{servicesCopy.modeLine}</p>
+            </section>
+          ))}
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold mb-4">Cost Management</h2>
-          <p className="text-gray-600">
-            Comprehensive cost analysis and management solutions to improve your
-            bottom line.
-          </p>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold mb-4">Analytics Dashboard</h2>
-          <p className="text-gray-600">
-            Real-time analytics and reporting to make informed business
-            decisions.
-          </p>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold mb-4">Inventory Management</h2>
-          <p className="text-gray-600">
-            Smart inventory tracking and optimization to reduce waste and costs.
-          </p>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold mb-4">Staff Optimization</h2>
-          <p className="text-gray-600">
-            Data-based scheduling and staff management to improve efficiency.
-          </p>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold mb-4">Consulting</h2>
-          <p className="text-gray-600">
-            Expert consultation on restaurant operations and technology
-            implementation.
-          </p>
-        </div>
+        <section className="mt-12">
+          <h2 className="text-2xl font-semibold mb-3">{servicesCopy.closeHeadline}</h2>
+          <p className="text-muted-foreground mb-6">{servicesCopy.closeBody}</p>
+          <Link
+            href="/contact"
+            className="inline-flex rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
+          >
+            {ctaLabel}
+          </Link>
+        </section>
       </div>
-    </div>
+    </BaseLayout>
   );
 }

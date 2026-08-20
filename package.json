@@ -13,7 +13,6 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "postbuild": "next-sitemap",
     "build:github": "next build || true",
     "dev:clean": "rm -rf .next && next dev",
     "dev:fixed": "node scripts/dev-fix.js && next dev",

@@ -20,7 +20,12 @@ const nextConfig = {
       {
         source: "/franchisees",
         destination: "/",
-        permanent: false,
+        permanent: true,
+      },
+      {
+        source: "/es/franchisees",
+        destination: "/",
+        permanent: true,
       },
     ];
   },

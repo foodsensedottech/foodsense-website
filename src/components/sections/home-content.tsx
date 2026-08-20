@@ -3,23 +3,16 @@ import { HeroSection } from "./hero";
 import { ContactSection } from "./contact";
 import { getHeroContent } from "@/lib/contentful/client";
 import { applyFranchiseeHomepageHero } from "@/lib/contentful/homepage-hero";
-import {
-  getFranchiseeOffers,
-  getFranchiseePains,
-} from "@/lib/contentful/franchisee";
 import { SectionLoading } from "@/components/ui/layout/section-loading";
-import { FranchiseePainsSection } from "./franchisees/pains-section";
-import { FranchiseeOffersSection } from "./franchisees/offers-section";
-import { FranchiseeMaturityCta } from "./franchisees/maturity-cta";
+import { ForWhomSection } from "./home/for-whom-section";
+import { OfferingsSection } from "./home/offerings-section";
+import { HowWeWorkSection } from "./home/how-we-work-section";
+import { ProofSection } from "./home/proof-section";
+import { FaqSection } from "./home/faq-section";
 
 export async function HomeContent() {
   try {
-    const [heroContent, pains, offers] = await Promise.all([
-      getHeroContent(),
-      getFranchiseePains(),
-      getFranchiseeOffers(),
-    ]);
-
+    const heroContent = await getHeroContent();
     const hero = applyFranchiseeHomepageHero(heroContent);
 
     return (
@@ -27,16 +20,11 @@ export async function HomeContent() {
         <Suspense fallback={<SectionLoading />}>
           <HeroSection data={hero} />
         </Suspense>
-        {pains.heading && pains.cards.length > 0 ? (
-          <FranchiseePainsSection heading={pains.heading} cards={pains.cards} />
-        ) : null}
-        {offers.heading && offers.cards.length > 0 ? (
-          <FranchiseeOffersSection
-            heading={offers.heading}
-            cards={offers.cards}
-          />
-        ) : null}
-        <FranchiseeMaturityCta ctaHref="#contact-section" />
+        <ForWhomSection />
+        <OfferingsSection />
+        <HowWeWorkSection />
+        <ProofSection />
+        <FaqSection />
         <Suspense fallback={<SectionLoading />}>
           <ContactSection />
         </Suspense>
@@ -47,7 +35,12 @@ export async function HomeContent() {
     return (
       <>
         <HeroSection data={applyFranchiseeHomepageHero(null)} />
-        <SectionLoading />
+        <ForWhomSection />
+        <OfferingsSection />
+        <HowWeWorkSection />
+        <ProofSection />
+        <FaqSection />
+        <ContactSection />
       </>
     );
   }

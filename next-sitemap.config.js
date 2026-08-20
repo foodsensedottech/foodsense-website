@@ -1,8 +1,8 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_BASE_URL || 'https://foodsense.tech',
-  generateRobotsTxt: false, // We're managing robots.txt manually
-  exclude: ['/ui-showcase'], // Exclude internal pages
+  siteUrl: process.env.NEXT_PUBLIC_BASE_URL || "https://www.foodsense.tech",
+  generateRobotsTxt: false,
+  exclude: ["/ui-showcase", "/franchisees", "/es/franchisees", "/admin", "/admin/*"],
   generateIndexSitemap: false,
-  outDir: 'public',
-} 
+  outDir: "public",
+};

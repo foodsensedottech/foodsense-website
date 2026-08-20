@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { homepageHeroCta } from "@/lib/contentful/homepage-hero";
+import { SITE_EMAIL, SITE_INSTAGRAM, SITE_LINKEDIN } from "@/lib/copy/site";
 import { smoothScrollToSection } from "@/lib/utils";
 
 interface HeroContentProps {
@@ -20,64 +20,49 @@ export function HeroContent({ title, subtitle }: HeroContentProps) {
 
   return (
     <div className="relative z-10 container mx-auto px-4 text-center">
-      <motion.p
-        className="text-yellow-400 font-semibold tracking-wide uppercase text-sm mb-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-      >
+      <p className="text-yellow-400 font-semibold tracking-wide text-sm mb-4">
         {homepageHeroCta.eyebrow}
-      </motion.p>
-      <motion.h1
-        className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      </p>
+      <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
         {title}
-      </motion.h1>
-      <motion.p
-        className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-8"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-      >
+      </h1>
+      <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto mb-8">
         {subtitle}
-      </motion.p>
-      <motion.div
-        className="flex flex-col sm:flex-row gap-3 justify-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
+      </p>
+      <div className="flex flex-col sm:flex-row gap-3 justify-center">
         <Button
           asChild
           size="lg"
           className="bg-yellow-400 text-[#1e3a5f] hover:bg-yellow-500 dark:bg-yellow-400 dark:text-[#1e3a5f] dark:hover:bg-yellow-500"
         >
-          <Link href={homepageHeroCta.primaryHref}>
+          <Link href={homepageHeroCta.primaryHref} onClick={handleContactClick}>
             {homepageHeroCta.primaryLabel}
           </Link>
         </Button>
-        <Button
-          asChild
-          size="lg"
-          variant="outline"
-          className="border-white text-white hover:bg-white/10"
+      </div>
+      <p className="mt-6 text-sm text-white/80">
+        <a className="underline underline-offset-4" href={`mailto:${SITE_EMAIL}`}>
+          {SITE_EMAIL}
+        </a>
+        {" · "}
+        <a
+          className="underline underline-offset-4"
+          href={SITE_LINKEDIN}
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          <Link href="/#contact-section" onClick={handleContactClick}>
-            {homepageHeroCta.secondaryLabel}
-          </Link>
-        </Button>
-      </motion.div>
-      <motion.p
-        className="mt-8 text-yellow-400 font-medium"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
-        {homepageHeroCta.trustMetric}
-      </motion.p>
+          LinkedIn
+        </a>
+        {" · "}
+        <a
+          className="underline underline-offset-4"
+          href={SITE_INSTAGRAM}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Instagram
+        </a>
+      </p>
     </div>
   );
 }

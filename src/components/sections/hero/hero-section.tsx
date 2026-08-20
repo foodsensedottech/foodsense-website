@@ -17,18 +17,6 @@ export function HeroSection({ data }: HeroSectionProps) {
   }
 
   const { heroHeading, heroSubheading, backgroundImage } = data.fields;
-
-  // Debug logging
-  console.log("Hero Data:", {
-    heroHeading,
-    heroSubheading,
-    backgroundImage: {
-      url: backgroundImage?.fields?.file?.url,
-      title: backgroundImage?.fields?.title,
-    },
-  });
-
-  // Safely access the image URL using optional chaining
   const imageUrl = backgroundImage?.fields?.file?.url;
   const imageAlt = backgroundImage?.fields?.title || "Hero background";
 

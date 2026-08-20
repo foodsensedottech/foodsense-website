@@ -1,20 +1,23 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Us | FoodSense",
-  description: "Get in touch with the FoodSense team",
+  title: "Start a scoped engagement",
+  description:
+    "Tell us what is breaking. We reply next business day, not later than 48 hours in normal business hours. Then we agree on a mode and a scope of work.",
   openGraph: {
-    title: "Contact Us | FoodSense",
-    description: "Get in touch with the FoodSense team",
-    url: "https://foodsense.tech/contact",
+    title: "Start a scoped engagement | FoodSense",
+    description:
+      "Tell us what is breaking. We reply next business day, not later than 48 hours in normal business hours. Then we agree on a mode and a scope of work.",
+    url: "https://www.foodsense.tech/contact",
     siteName: "FoodSense",
     locale: "en_US",
     type: "website",
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Contact Us | FoodSense",
-    description: "Get in touch with the FoodSense team",
+    card: "summary",
+    title: "Start a scoped engagement | FoodSense",
+    description:
+      "Tell us what is breaking. We reply next business day, not later than 48 hours in normal business hours.",
   },
 };
 

@@ -1,13 +1,9 @@
-import { franchiseeCopy } from "@/lib/franchisees/copy";
+import { heroCopy } from "@/lib/copy/site";
 import type { HeroContentType } from "@/lib/contentful/types";
 
-const copy = franchiseeCopy.en;
-
 /**
- * Homepage hero copy is owned by the multi-unit franchisee ICP.
- * Contentful still supplies the background image (and any extra fields).
- * Keep Contentful `heroFields.heroHeading` / `heroSubheading` in sync with
- * these strings so the CMS preview matches production.
+ * Homepage hero copy is the locked site deck.
+ * Contentful still supplies the background image.
  */
 export function applyFranchiseeHomepageHero(
   hero: HeroContentType | null
@@ -16,8 +12,8 @@ export function applyFranchiseeHomepageHero(
     sys: hero?.sys ?? { id: "homepage-hero" },
     metadata: hero?.metadata,
     fields: {
-      heroHeading: copy.heroHeadline,
-      heroSubheading: copy.heroSubheadline,
+      heroHeading: heroCopy.headline,
+      heroSubheading: heroCopy.subhead,
       backgroundImage: hero?.fields?.backgroundImage,
       seoMetadata: hero?.fields?.seoMetadata,
     },
@@ -25,9 +21,7 @@ export function applyFranchiseeHomepageHero(
 }
 
 export const homepageHeroCta = {
-  eyebrow: copy.heroEyebrow,
-  primaryLabel: copy.heroPrimaryCta,
-  primaryHref: "#tech-maturity",
-  secondaryLabel: copy.heroSecondaryCta,
-  trustMetric: copy.trustMetric,
+  eyebrow: heroCopy.eyebrow,
+  primaryLabel: heroCopy.primaryCta,
+  primaryHref: heroCopy.primaryHref,
 } as const;

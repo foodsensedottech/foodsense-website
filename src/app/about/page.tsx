@@ -1,52 +1,68 @@
-import React from "react";
-import { Metadata } from "next";
-import { AboutSection } from "@/components/sections/about";
-import { getAboutHeading, getAboutCards } from "@/lib/contentful/client";
-import { semanticConfig } from "@/lib/utils";
+import { BaseLayout } from "@/components/layout";
+import Link from "next/link";
+import { aboutCopy, ctaLabel, proofCopy, seo } from "@/lib/copy/site";
+import type { Metadata } from "next";
 
-export const revalidate = 3600; // Revalidate at most once per hour; Contentful webhooks also call /api/revalidate
+export const metadata: Metadata = {
+  title: "About — the operator résumé",
+  description: seo.about.description,
+  openGraph: {
+    title: "About | FoodSense — the operator résumé",
+    description: seo.about.description,
+  },
+};
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "About | FoodSense",
-    description:
-      "Learn more about FoodSense and our mission to optimize restaurant operations",
-  };
-}
-
-export default async function AboutPage() {
-  const heading = await getAboutHeading();
-  const cards = await getAboutCards();
-
+export default function AboutPage() {
   return (
-    <article className="container mx-auto">
-      <header className="page-header">
-        <h1 className="sr-only">About FoodSense</h1>
-      </header>
+    <BaseLayout>
+      <article className="container mx-auto max-w-3xl py-16 px-4 space-y-12">
+        <header>
+          <h1 className="text-4xl font-bold mb-4">{aboutCopy.headline}</h1>
+          <p className="text-lg text-muted-foreground mb-4">{aboutCopy.body}</p>
+          <p className="text-sm">{aboutCopy.conferenceLine}</p>
+        </header>
 
-      <section
-        aria-labelledby="about-heading"
-        id={semanticConfig.sections.about}
-      >
-        <h2 id="about-heading" className="section-title">
-          Our Story
-        </h2>
-        {heading && cards && <AboutSection heading={heading} cards={cards} />}
-      </section>
+        <section>
+          <h2 className="text-2xl font-semibold mb-3">{aboutCopy.originHeadline}</h2>
+          <p className="text-muted-foreground">{aboutCopy.originBody}</p>
+        </section>
 
-      <section aria-labelledby="team-heading" className="team-section">
-        <h2 id="team-heading" className="section-title">
-          Our Team
-        </h2>
-        <div className="team-grid" role="list">
-          {/* Team members */}
-        </div>
-      </section>
+        <section>
+          <h2 className="text-2xl font-semibold mb-3">{aboutCopy.resumeHeadline}</h2>
+          <p className="text-sm mb-6">{aboutCopy.resumeDisclaimer}</p>
+          <div className="space-y-4">
+            {proofCopy.beats.map((beat) => (
+              <div key={beat.title} className="rounded-lg border border-border p-5">
+                <h3 className="font-semibold mb-2">{beat.title}</h3>
+                <p className="text-sm text-muted-foreground">{beat.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
-      <aside aria-labelledby="cta-heading" className="cta-section">
-        <h3 id="cta-heading">Ready to Optimize Your Restaurant?</h3>
-        {/* CallToAction component removed */}
-      </aside>
-    </article>
+        <section>
+          <h2 className="text-2xl font-semibold mb-6">
+            {aboutCopy.differenceHeadline}
+          </h2>
+          <div className="space-y-4">
+            {aboutCopy.differences.map((item) => (
+              <div key={item.title}>
+                <h3 className="font-semibold mb-1">{item.title}</h3>
+                <p className="text-sm text-muted-foreground">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <p>
+          <Link
+            href="/contact"
+            className="inline-flex rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
+          >
+            {ctaLabel}
+          </Link>
+        </p>
+      </article>
+    </BaseLayout>
   );
 }

@@ -21,30 +21,22 @@ try {
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || "https://foodsense.tech"
+    process.env.NEXT_PUBLIC_BASE_URL || "https://www.foodsense.tech"
   ),
   title: {
     template: "%s | FoodSense",
-    default: "FoodSense | Restaurant Tech for Multi-Unit Franchisees",
+    default: "FoodSense | Advisor for 10+ unit restaurant operators",
   },
   description:
-    "Next-gen restaurant technology for multi-unit franchisees across the US, Latin America, and the Caribbean. POS, kiosk, payments, and data governance at scale.",
+    "Advisory and fractional program management for VP Tech, CDTO, CEO, and Country GMs at 10+ units. We advise, guide, and help implement stack standardization.",
   openGraph: {
-    title: "FoodSense | Restaurant Tech for Multi-Unit Franchisees",
+    title: "FoodSense | Advisor for 10+ unit restaurant operators",
     description:
-      "We turn global enterprise strategy into scalable store-level architecture across POS, kiosk, payments, and data governance.",
-    url: "https://foodsense.tech",
+      "Advisory and fractional program management for VP Tech, CDTO, CEO, and Country GMs at 10+ units. We advise, guide, and help implement stack standardization.",
+    url: "https://www.foodsense.tech",
     siteName: "FoodSense",
     locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: "/images/og/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "FoodSense",
-      },
-    ],
   },
   icons: {
     icon: [
@@ -80,8 +72,8 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "FoodSense",
-    card: "summary_large_image",
+    title: "FoodSense | Advisor for 10+ unit restaurant operators",
+    card: "summary",
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
@@ -94,7 +86,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body className={cn(inter.className, "antialiased")}>
         <ClientProviders>{children}</ClientProviders>
         <SpeedInsights />
