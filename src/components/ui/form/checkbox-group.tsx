@@ -44,12 +44,18 @@ export function CheckboxGroup({
   };
 
   return (
-    <div className={cn("space-y-0.5", className)} onBlur={onBlur}>
+    <div
+      className={cn(
+        "grid grid-cols-2 gap-x-4 gap-y-2",
+        className
+      )}
+      onBlur={onBlur}
+    >
       {options.map((option) => (
-        <div 
-          key={option.value} 
+        <div
+          key={option.value}
           className={cn(
-            "flex items-center space-x-2 py-0.5",
+            "flex items-start gap-2 min-w-0",
             itemClassName
           )}
         >
@@ -60,12 +66,12 @@ export function CheckboxGroup({
               handleCheckboxChange(option.value, checked as boolean)
             }
             disabled={disabled}
-            className="h-4 w-4"
+            className="mt-0.5 h-4 w-4 shrink-0"
           />
           <label
             htmlFor={`${idPrefix}-${option.value}`}
             className={cn(
-              "text-sm font-medium leading-none cursor-pointer",
+              "text-sm font-medium leading-snug cursor-pointer",
               disabled && "cursor-not-allowed opacity-70",
               error && "text-destructive",
               labelClassName
@@ -76,7 +82,7 @@ export function CheckboxGroup({
         </div>
       ))}
       {error && (
-        <p className="text-sm text-destructive mt-1">{error}</p>
+        <p className="text-sm text-destructive col-span-2 mt-1">{error}</p>
       )}
     </div>
   );
