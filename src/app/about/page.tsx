@@ -1,55 +1,49 @@
-import { BaseLayout } from "@/components/layout";
 import Link from "next/link";
-import { aboutCopy, ctaLabel, proofCopy, seo } from "@/lib/copy/site";
+import { CopyCard } from "@/components/ui/media/copy-card";
+import { SiteShell } from "@/components/layout";
+import { getAboutMarketingCopy } from "@/lib/contentful/marketing";
+import { seo } from "@/lib/copy/site";
 import type { Metadata } from "next";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "About — the operator résumé",
   description: seo.about.description,
-  openGraph: {
-    title: "About | FoodSense — the operator résumé",
-    description: seo.about.description,
-  },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const copy = await getAboutMarketingCopy();
+
   return (
-    <BaseLayout>
+    <SiteShell chrome={copy.chrome}>
       <article className="container mx-auto max-w-3xl py-16 px-4 space-y-12">
         <header>
-          <h1 className="text-4xl font-bold mb-4">{aboutCopy.headline}</h1>
-          <p className="text-lg text-muted-foreground mb-4">{aboutCopy.body}</p>
-          <p className="text-sm">{aboutCopy.conferenceLine}</p>
+          <h1 className="text-4xl font-bold mb-4">{copy.headline}</h1>
+          <p className="text-lg text-muted-foreground mb-4">{copy.body}</p>
+          <p className="text-sm">{copy.conferenceLine}</p>
         </header>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-3">{aboutCopy.originHeadline}</h2>
-          <p className="text-muted-foreground">{aboutCopy.originBody}</p>
+          <h2 className="text-2xl font-semibold mb-3">{copy.originHeadline}</h2>
+          <p className="text-muted-foreground">{copy.originBody}</p>
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-3">{aboutCopy.resumeHeadline}</h2>
-          <p className="text-sm mb-6">{aboutCopy.resumeDisclaimer}</p>
-          <div className="space-y-4">
-            {proofCopy.beats.map((beat) => (
-              <div key={beat.title} className="rounded-lg border border-border p-5">
-                <h3 className="font-semibold mb-2">{beat.title}</h3>
-                <p className="text-sm text-muted-foreground">{beat.body}</p>
-              </div>
+          <h2 className="text-2xl font-semibold mb-3">{copy.resumeHeadline}</h2>
+          <p className="text-sm mb-6">{copy.resumeDisclaimer}</p>
+          <div className="grid gap-6 md:grid-cols-1">
+            {copy.beats.map((beat) => (
+              <CopyCard key={beat.title} {...beat} />
             ))}
           </div>
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-6">
-            {aboutCopy.differenceHeadline}
-          </h2>
-          <div className="space-y-4">
-            {aboutCopy.differences.map((item) => (
-              <div key={item.title}>
-                <h3 className="font-semibold mb-1">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">{item.body}</p>
-              </div>
+          <h2 className="text-2xl font-semibold mb-6">{copy.differenceHeadline}</h2>
+          <div className="grid gap-6 md:grid-cols-1">
+            {copy.differences.map((item) => (
+              <CopyCard key={item.title} {...item} />
             ))}
           </div>
         </section>
@@ -59,10 +53,10 @@ export default function AboutPage() {
             href="/contact"
             className="inline-flex rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
           >
-            {ctaLabel}
+            {copy.chrome.ctaLabel}
           </Link>
         </p>
       </article>
-    </BaseLayout>
+    </SiteShell>
   );
 }

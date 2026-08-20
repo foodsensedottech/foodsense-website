@@ -5,10 +5,11 @@ import Link from "next/link";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ctaLabel, navItems } from "@/lib/copy/site";
+import type { SiteChromeCopy } from "@/lib/copy/resolved";
 
-export function MobileNav() {
+export function MobileNav({ chrome }: { chrome: SiteChromeCopy }) {
   const [open, setOpen] = React.useState(false);
+  const { navItems, ctaLabel } = chrome;
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>

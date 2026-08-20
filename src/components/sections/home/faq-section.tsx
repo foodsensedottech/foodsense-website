@@ -1,19 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { faqCopy } from "@/lib/copy/site";
+import type { HomeMarketingCopy } from "@/lib/copy/resolved";
 
-export function FaqSection() {
+export function FaqSection({ copy }: { copy: HomeMarketingCopy["faq"] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <section id="faq" className="scroll-mt-20 py-16 px-4">
       <div className="container mx-auto max-w-3xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8">
-          {faqCopy.headline}
-        </h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-8">{copy.headline}</h2>
         <div className="space-y-3">
-          {faqCopy.items.map((item, index) => {
+          {copy.items.map((item, index) => {
             const open = openIndex === index;
             return (
               <div key={item.question} className="border border-border rounded-lg">

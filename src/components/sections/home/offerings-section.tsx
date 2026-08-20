@@ -1,31 +1,25 @@
 import Link from "next/link";
-import { ctaLabel, offeringsCopy } from "@/lib/copy/site";
+import { CopyCard } from "@/components/ui/media/copy-card";
+import type { HomeMarketingCopy } from "@/lib/copy/resolved";
 
-export function OfferingsSection() {
+export function OfferingsSection({
+  copy,
+  ctaLabel,
+}: {
+  copy: HomeMarketingCopy["offerings"];
+  ctaLabel: string;
+}) {
   return (
     <section
       id="franchisee-offers"
       className="scroll-mt-20 py-16 px-4 bg-muted/40 dark:bg-gray-900/40"
     >
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          {offeringsCopy.headline}
-        </h2>
-        <p className="text-lg text-muted-foreground mb-10 max-w-3xl">
-          {offeringsCopy.body}
-        </p>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">{copy.headline}</h2>
+        <p className="text-lg text-muted-foreground mb-10 max-w-3xl">{copy.body}</p>
         <div className="grid gap-6 md:grid-cols-3">
-          {offeringsCopy.modes.map((mode) => (
-            <article
-              key={mode.slug}
-              className="rounded-lg border border-border bg-card p-6 flex flex-col"
-            >
-              <h3 className="text-xl font-semibold mb-3">{mode.title}</h3>
-              <p className="text-sm text-muted-foreground mb-4 flex-grow">
-                {mode.body}
-              </p>
-              <p className="text-sm">{mode.doNot}</p>
-            </article>
+          {copy.modes.map((mode) => (
+            <CopyCard key={mode.title} {...mode} />
           ))}
         </div>
         <div className="mt-10">

@@ -27,7 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/form/select";
 import { Spinner } from "@/components/ui/feedback/spinner";
-import { contactCopy } from "@/lib/copy/site";
+import type { ContactCopyResolved } from "@/lib/copy/resolved";
 
 function pushDataLayer(payload: Record<string, unknown>) {
   if (typeof window === "undefined") return;
@@ -51,7 +51,7 @@ const emptyValues: ContactFormData = {
   growthPipeline: undefined,
 };
 
-export function ScopedEngagementForm() {
+export function ScopedEngagementForm({ copy }: { copy: ContactCopyResolved }) {
   const {
     register,
     handleSubmit,
@@ -130,7 +130,7 @@ export function ScopedEngagementForm() {
         form_id: "contact_v1",
         error_type: "network",
       });
-      setServerError(contactCopy.error);
+      setServerError(copy.error);
     }
   };
 
@@ -140,7 +140,7 @@ export function ScopedEngagementForm() {
         role="status"
         className="rounded-md border border-border bg-card p-6"
       >
-        <p>{contactCopy.success}</p>
+        <p>{copy.success}</p>
       </div>
     );
   }
@@ -224,7 +224,7 @@ export function ScopedEngagementForm() {
           />
         </FormField>
         <p className="-mt-2 text-xs text-muted-foreground">
-          {contactCopy.locationsHelper}
+          {copy.locationsHelper}
         </p>
         <FormField
           label="Restaurant type"
@@ -328,10 +328,10 @@ export function ScopedEngagementForm() {
         {isSubmitting ? (
           <span className="flex items-center gap-2">
             <Spinner size="sm" className="text-current" />
-            {contactCopy.submittingLabel}
+            {copy.submittingLabel}
           </span>
         ) : (
-          contactCopy.submitLabel
+          copy.submitLabel
         )}
       </Button>
     </form>

@@ -1,14 +1,14 @@
 import { Metadata } from "next";
-import { BaseLayout } from "@/components/layout";
+import { SiteShell } from "@/components/layout";
 
 export const metadata: Metadata = {
   title: "Terms and Conditions",
   description: "Terms and conditions for using FoodSense services and website.",
 };
 
-export default function TermsAndConditionsPage() {
+export default async function TermsAndConditionsPage() {
   return (
-    <BaseLayout>
+    <SiteShell>
       <main className="container py-12 max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">Terms and Conditions</h1>
 
@@ -109,6 +109,6 @@ export default function TermsAndConditionsPage() {
           </p>
         </div>
       </main>
-    </BaseLayout>
+    </SiteShell>
   );
 }

@@ -1,13 +1,14 @@
 import { ScopedEngagementForm } from "./scoped-engagement-form";
 import { semanticConfig } from "@/lib/utils";
-import {
-  SITE_EMAIL,
-  SITE_INSTAGRAM,
-  SITE_LINKEDIN,
-  contactCopy,
-} from "@/lib/copy/site";
+import type { ContactCopyResolved, SiteChromeCopy } from "@/lib/copy/resolved";
 
-export function ContactSection() {
+export function ContactSection({
+  copy,
+  chrome,
+}: {
+  copy: ContactCopyResolved;
+  chrome: SiteChromeCopy;
+}) {
   return (
     <section
       id={semanticConfig.sections.contact}
@@ -15,21 +16,20 @@ export function ContactSection() {
     >
       <div className="container mx-auto max-w-2xl">
         <div className="mb-10">
-          <h2 className="text-4xl font-bold mb-4">{contactCopy.headline}</h2>
-          <p className="text-lg text-muted-foreground mb-3">
-            {contactCopy.body}
-          </p>
-          <p className="text-sm text-muted-foreground mb-4">
-            {contactCopy.modeNote}
-          </p>
+          <h2 className="text-4xl font-bold mb-4">{copy.headline}</h2>
+          <p className="text-lg text-muted-foreground mb-3">{copy.body}</p>
+          <p className="text-sm text-muted-foreground mb-4">{copy.modeNote}</p>
           <p className="text-sm">
-            <a className="underline underline-offset-4" href={`mailto:${SITE_EMAIL}`}>
-              {SITE_EMAIL}
+            <a
+              className="underline underline-offset-4"
+              href={`mailto:${chrome.footerEmail}`}
+            >
+              {chrome.footerEmail}
             </a>
             {" · "}
             <a
               className="underline underline-offset-4"
-              href={SITE_LINKEDIN}
+              href={chrome.linkedInUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -38,7 +38,7 @@ export function ContactSection() {
             {" · "}
             <a
               className="underline underline-offset-4"
-              href={SITE_INSTAGRAM}
+              href={chrome.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -46,7 +46,7 @@ export function ContactSection() {
             </a>
           </p>
         </div>
-        <ScopedEngagementForm />
+        <ScopedEngagementForm copy={copy} />
       </div>
     </section>
   );

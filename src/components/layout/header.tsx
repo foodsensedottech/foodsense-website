@@ -7,12 +7,13 @@ import { analytics } from "@/lib/analytics/tracking";
 import { ThemeToggle } from "./theme-toggle";
 import { MobileNav } from "./mobile-nav";
 import { Logo } from "@/components/ui/media/logo";
-import { ctaLabel, navItems } from "@/lib/copy/site";
+import type { SiteChromeCopy } from "@/lib/copy/resolved";
 
-export function Header() {
+export function Header({ chrome }: { chrome: SiteChromeCopy }) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const ctaHref = isHomePage ? "/#contact-section" : "/contact";
+  const { ctaLabel, navItems } = chrome;
 
   useEffect(() => {
     analytics.trackPageView(pathname);
@@ -54,7 +55,7 @@ export function Header() {
           >
             {ctaLabel}
           </Link>
-          <MobileNav />
+          <MobileNav chrome={chrome} />
         </div>
       </div>
     </header>

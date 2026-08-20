@@ -36,6 +36,32 @@ function pathsForContentType(contentType: string | undefined): string[] {
   const paths = new Set<string>(["/"]);
 
   switch (contentType) {
+    case "siteChrome":
+    case "forWhomSection":
+    case "forWhomCard":
+    case "offeringsSection":
+    case "offeringMode":
+    case "howWeWorkSection":
+    case "howWeWorkStep":
+    case "proofSection":
+    case "proofBeat":
+    case "faqSection":
+    case "faqItem":
+    case "contactSection":
+    case "heroFields":
+      paths.add("/");
+      paths.add("/contact");
+      paths.add("/about");
+      paths.add("/services");
+      break;
+    case "servicePage":
+    case "serviceDomain":
+      paths.add("/services");
+      break;
+    case "aboutPage":
+    case "aboutDifference":
+      paths.add("/about");
+      break;
     case "franchiseePainsTitle":
     case "franchiseePainCard":
     case "franchiseeOffersTitle":

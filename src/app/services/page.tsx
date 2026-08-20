@@ -1,27 +1,25 @@
-import { Metadata } from "next";
 import Link from "next/link";
-import { BaseLayout } from "@/components/layout";
-import { ctaLabel, seo, servicesCopy } from "@/lib/copy/site";
+import { CopyCard } from "@/components/ui/media/copy-card";
+import { SiteShell } from "@/components/layout";
+import { getServicesMarketingCopy } from "@/lib/contentful/marketing";
+import type { Metadata } from "next";
+import { seo } from "@/lib/copy/site";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: seo.services.title,
   description: seo.services.description,
-  openGraph: {
-    title: "Services | FoodSense",
-    description: seo.services.description,
-    url: "https://www.foodsense.tech/services",
-    siteName: "FoodSense",
-    locale: "en_US",
-    type: "website",
-  },
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const copy = await getServicesMarketingCopy();
+
   return (
-    <BaseLayout>
+    <SiteShell chrome={copy.chrome}>
       <div className="container mx-auto max-w-4xl py-16 px-4">
-        <h1 className="text-4xl font-bold mb-4">{servicesCopy.headline}</h1>
-        <p className="text-lg text-muted-foreground mb-6">{servicesCopy.body}</p>
+        <h1 className="text-4xl font-bold mb-4">{copy.headline}</h1>
+        <p className="text-lg text-muted-foreground mb-6">{copy.body}</p>
         <p className="mb-10">
           <Link href="/#franchisee-offers" className="underline underline-offset-4">
             See the three modes
@@ -29,36 +27,33 @@ export default function ServicesPage() {
         </p>
 
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-3">
-            {servicesCopy.modesRecapHeadline}
-          </h2>
-          <p className="text-muted-foreground">{servicesCopy.modesRecapBody}</p>
+          <h2 className="text-2xl font-semibold mb-3">{copy.modesRecapHeadline}</h2>
+          <p className="text-muted-foreground">{copy.modesRecapBody}</p>
         </section>
 
         <div className="space-y-8">
-          {servicesCopy.domains.map((domain) => (
-            <section key={domain.title} className="rounded-lg border border-border p-6">
-              <h2 className="text-2xl font-semibold mb-3">{domain.title}</h2>
-              <p className="text-muted-foreground mb-3">{domain.body}</p>
-              {domain.stacks ? (
-                <p className="text-sm mb-3">{domain.stacks}</p>
-              ) : null}
-              <p className="text-sm font-medium">{servicesCopy.modeLine}</p>
-            </section>
+          {copy.domains.map((domain) => (
+            <CopyCard
+              key={domain.title}
+              title={domain.title}
+              body={domain.body}
+              extra={domain.extra ? `${domain.extra}\n${copy.modeLine}` : copy.modeLine}
+              image={domain.image}
+            />
           ))}
         </div>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-semibold mb-3">{servicesCopy.closeHeadline}</h2>
-          <p className="text-muted-foreground mb-6">{servicesCopy.closeBody}</p>
+          <h2 className="text-2xl font-semibold mb-3">{copy.closeHeadline}</h2>
+          <p className="text-muted-foreground mb-6">{copy.closeBody}</p>
           <Link
             href="/contact"
             className="inline-flex rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
           >
-            {ctaLabel}
+            {copy.chrome.ctaLabel}
           </Link>
         </section>
       </div>
-    </BaseLayout>
+    </SiteShell>
   );
 }

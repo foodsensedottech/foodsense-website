@@ -1,3 +1,4 @@
 export { BaseLayout } from "./base-layout";
+export { SiteShell } from "./site-shell";
 export { Header } from "./header";
 export { Footer } from "./footer"; 

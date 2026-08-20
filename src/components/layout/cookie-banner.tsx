@@ -2,11 +2,18 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { cookieCopy } from "@/lib/copy/site";
+import type { SiteChromeCopy } from "@/lib/copy/resolved";
 
 const STORAGE_KEY = "foodsense-cookie-consent";
 
-export function CookieBanner() {
+export function CookieBanner({
+  copy,
+}: {
+  copy: Pick<
+    SiteChromeCopy,
+    "cookieHeadline" | "cookieBody" | "cookieAccept" | "cookieReject"
+  >;
+}) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -42,9 +49,9 @@ export function CookieBanner() {
     <div className="fixed bottom-0 inset-x-0 z-[60] border-t bg-background p-4 shadow-sm">
       <div className="container mx-auto flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="font-medium">{cookieCopy.headline}</p>
+          <p className="font-medium">{copy.cookieHeadline}</p>
           <p className="text-sm text-muted-foreground">
-            {cookieCopy.body}{" "}
+            {copy.cookieBody}{" "}
             <Link href="/privacy-policy" className="underline underline-offset-4">
               Privacy Policy
             </Link>
@@ -57,14 +64,14 @@ export function CookieBanner() {
             className="rounded-md border px-3 py-2 text-sm"
             onClick={() => setConsent(false)}
           >
-            {cookieCopy.reject}
+            {copy.cookieReject}
           </button>
           <button
             type="button"
             className="rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground"
             onClick={() => setConsent(true)}
           >
-            {cookieCopy.accept}
+            {copy.cookieAccept}
           </button>
         </div>
       </div>

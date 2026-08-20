@@ -1,14 +1,14 @@
 import { Metadata } from "next";
-import { BaseLayout } from "@/components/layout";
+import { SiteShell } from "@/components/layout";
 
 export const metadata: Metadata = {
   title: "Accessibility",
   description: "Accessibility statement for FoodSense website.",
 };
 
-export default function AccessibilityPage() {
+export default async function AccessibilityPage() {
   return (
-    <BaseLayout>
+    <SiteShell>
       <main className="container py-12 max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">Accessibility Statement</h1>
 
@@ -141,6 +141,6 @@ export default function AccessibilityPage() {
           </p>
         </div>
       </main>
-    </BaseLayout>
+    </SiteShell>
   );
 }

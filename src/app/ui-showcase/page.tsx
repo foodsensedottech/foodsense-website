@@ -25,6 +25,7 @@ import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { defaultSiteChrome } from "@/lib/copy/chrome-defaults";
 
 export default function UIShowcase() {
   const { theme, setTheme } = useTheme();
@@ -32,7 +33,7 @@ export default function UIShowcase() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Header chrome={defaultSiteChrome()} />
       <main className="flex-grow">
         <div className="container mx-auto py-10 space-y-10">
           {/* Theme Toggle */}
@@ -107,7 +108,7 @@ export default function UIShowcase() {
           </section>
         </div>
       </main>
-      <Footer />
+      <Footer chrome={defaultSiteChrome()} />
     </div>
   );
 }

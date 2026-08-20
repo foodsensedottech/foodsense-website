@@ -1,8 +1,7 @@
 import { Suspense } from "react";
 import { HeroSection } from "./hero";
 import { ContactSection } from "./contact";
-import { getHeroContent } from "@/lib/contentful/client";
-import { applyFranchiseeHomepageHero } from "@/lib/contentful/homepage-hero";
+import { getHomeMarketingCopy } from "@/lib/contentful/marketing";
 import { SectionLoading } from "@/components/ui/layout/section-loading";
 import { ForWhomSection } from "./home/for-whom-section";
 import { OfferingsSection } from "./home/offerings-section";
@@ -11,37 +10,21 @@ import { ProofSection } from "./home/proof-section";
 import { FaqSection } from "./home/faq-section";
 
 export async function HomeContent() {
-  try {
-    const heroContent = await getHeroContent();
-    const hero = applyFranchiseeHomepageHero(heroContent);
+  const copy = await getHomeMarketingCopy();
 
-    return (
-      <>
-        <Suspense fallback={<SectionLoading />}>
-          <HeroSection data={hero} />
-        </Suspense>
-        <ForWhomSection />
-        <OfferingsSection />
-        <HowWeWorkSection />
-        <ProofSection />
-        <FaqSection />
-        <Suspense fallback={<SectionLoading />}>
-          <ContactSection />
-        </Suspense>
-      </>
-    );
-  } catch (error) {
-    console.error("Error loading content:", error);
-    return (
-      <>
-        <HeroSection data={applyFranchiseeHomepageHero(null)} />
-        <ForWhomSection />
-        <OfferingsSection />
-        <HowWeWorkSection />
-        <ProofSection />
-        <FaqSection />
-        <ContactSection />
-      </>
-    );
-  }
+  return (
+    <>
+      <Suspense fallback={<SectionLoading />}>
+        <HeroSection hero={copy.hero} chrome={copy.chrome} />
+      </Suspense>
+      <ForWhomSection copy={copy.forWhom} />
+      <OfferingsSection copy={copy.offerings} ctaLabel={copy.chrome.ctaLabel} />
+      <HowWeWorkSection copy={copy.howWeWork} />
+      <ProofSection copy={copy.proof} />
+      <FaqSection copy={copy.faq} />
+      <Suspense fallback={<SectionLoading />}>
+        <ContactSection copy={copy.contact} chrome={copy.chrome} />
+      </Suspense>
+    </>
+  );
 }

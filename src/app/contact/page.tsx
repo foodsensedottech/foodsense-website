@@ -1,31 +1,31 @@
-import { BaseLayout } from "@/components/layout";
+import { SiteShell } from "@/components/layout";
 import { ScopedEngagementForm } from "@/components/sections/contact/scoped-engagement-form";
-import {
-  SITE_EMAIL,
-  SITE_INSTAGRAM,
-  SITE_LINKEDIN,
-  contactCopy,
-} from "@/lib/copy/site";
+import { getContactMarketingCopy } from "@/lib/contentful/marketing";
 
-export default function ContactPage() {
+export const revalidate = 60;
+
+export default async function ContactPage() {
+  const { chrome, contact } = await getContactMarketingCopy();
+
   return (
-    <BaseLayout>
+    <SiteShell chrome={chrome}>
       <main className="container mx-auto py-10">
         <div className="max-w-2xl mx-auto">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold">{contactCopy.headline}</h1>
-            <p className="mt-2 text-muted-foreground">{contactCopy.body}</p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              {contactCopy.modeNote}
-            </p>
+            <h1 className="text-3xl font-bold">{contact.headline}</h1>
+            <p className="mt-2 text-muted-foreground">{contact.body}</p>
+            <p className="mt-2 text-sm text-muted-foreground">{contact.modeNote}</p>
             <p className="mt-4 text-sm">
-              <a className="underline underline-offset-4" href={`mailto:${SITE_EMAIL}`}>
-                {SITE_EMAIL}
+              <a
+                className="underline underline-offset-4"
+                href={`mailto:${chrome.footerEmail}`}
+              >
+                {chrome.footerEmail}
               </a>
               {" · "}
               <a
                 className="underline underline-offset-4"
-                href={SITE_LINKEDIN}
+                href={chrome.linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -34,7 +34,7 @@ export default function ContactPage() {
               {" · "}
               <a
                 className="underline underline-offset-4"
-                href={SITE_INSTAGRAM}
+                href={chrome.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -44,20 +44,15 @@ export default function ContactPage() {
           </div>
 
           <div className="bg-card p-6 rounded-lg border border-border mb-10">
-            <ScopedEngagementForm />
+            <ScopedEngagementForm copy={contact} />
           </div>
 
           <section id="contact-calendar">
-            <h2 className="text-xl font-semibold mb-2">
-              Prefer a time on the calendar
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              Calendar embed is coming once the booking URL is set. Until then,
-              use the form or email {SITE_EMAIL}.
-            </p>
+            <h2 className="text-xl font-semibold mb-2">{contact.calendarHeadline}</h2>
+            <p className="text-sm text-muted-foreground">{contact.calendarBody}</p>
           </section>
         </div>
       </main>
-    </BaseLayout>
+    </SiteShell>
   );
 }

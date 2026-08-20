@@ -1,14 +1,14 @@
 import { Metadata } from "next";
-import { BaseLayout } from "@/components/layout";
+import { SiteShell } from "@/components/layout";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "Privacy policy for FoodSense services and website.",
 };
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
   return (
-    <BaseLayout>
+    <SiteShell>
       <main className="container py-12 max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
 
@@ -176,6 +176,6 @@ export default function PrivacyPolicyPage() {
           </p>
         </div>
       </main>
-    </BaseLayout>
+    </SiteShell>
   );
 }

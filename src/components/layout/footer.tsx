@@ -4,16 +4,18 @@ import * as React from "react";
 import Link from "next/link";
 import { Logo } from "@/components/ui/media/logo";
 import { Linkedin, Instagram } from "lucide-react";
-import {
-  SITE_EMAIL,
-  SITE_INSTAGRAM,
-  SITE_LINKEDIN,
-  ctaLabel,
-  footerCopy,
-  navItems,
-} from "@/lib/copy/site";
+import type { SiteChromeCopy } from "@/lib/copy/resolved";
 
-export function Footer() {
+export function Footer({ chrome }: { chrome: SiteChromeCopy }) {
+  const {
+    footerTagline,
+    footerGeo,
+    footerEmail,
+    linkedInUrl,
+    instagramUrl,
+    navItems,
+    ctaLabel,
+  } = chrome;
   return (
     <footer className="bg-[#1e3a5f] text-yellow-400">
       <div className="container py-12">
@@ -22,13 +24,13 @@ export function Footer() {
             <Link href="/" className="inline-block w-16 h-16">
               <Logo variant="footer" />
             </Link>
-            <p className="text-sm text-yellow-400/90">{footerCopy.tagline}</p>
-            <p className="text-sm">{footerCopy.geo}</p>
+            <p className="text-sm text-yellow-400/90">{footerTagline}</p>
+            <p className="text-sm">{footerGeo}</p>
             <a
-              href={`mailto:${SITE_EMAIL}`}
+              href={`mailto:${footerEmail}`}
               className="text-sm underline underline-offset-4"
             >
-              {SITE_EMAIL}
+              {footerEmail}
             </a>
           </div>
 
@@ -90,7 +92,7 @@ export function Footer() {
             <h3 className="font-semibold text-lg mb-4">Contact</h3>
             <div className="flex space-x-4">
               <Link
-                href={SITE_LINKEDIN}
+                href={linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-yellow-400/80 transition-colors"
@@ -99,7 +101,7 @@ export function Footer() {
                 <span className="sr-only">LinkedIn</span>
               </Link>
               <Link
-                href={SITE_INSTAGRAM}
+                href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-yellow-400/80 transition-colors"

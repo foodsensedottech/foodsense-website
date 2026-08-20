@@ -17,7 +17,7 @@
     "dev:clean": "rm -rf .next && next dev",
     "dev:fixed": "node scripts/dev-fix.js && next dev",
     "dev:watch": "node scripts/dev-watch.js",
-    "setup": "node scripts/dev-fix.js"
+    "contentful:setup": "node --env-file=.env.local scripts/contentful-setup.mjs",
   },
   "dependencies": {
     "@contentful/rich-text-types": "17.0.0",
