@@ -1,4 +1,5 @@
 import type { ContactFormData } from "@/lib/validation/contact-schema";
+import { toClickUpPhone } from "@/lib/utils/format-phone";
 
 const CLICKUP_API = "https://api.clickup.com/api/v2";
 
@@ -20,14 +21,24 @@ const FIELDS = {
 
 const SOURCE_WEBSITE_FORM = "1d653031-ddb9-454d-a51d-63b6c04e28e0";
 
-export async function createClickUpLead(data: ContactFormData): Promise<string | null> {
-  const token = process.env.CLICKUP_API_TOKEN;
-  const listId = process.env.CLICKUP_LIST_ID || CLICKUP_LEADS_LIST_ID;
-  if (!token) return null;
+function leadDescription(data: ContactFormData): string {
+  return [
+    data.whatsBreaking,
+    "",
+    `Phone: ${data.phone}`,
+    `Email: ${data.email}`,
+    data.growthPipeline ? `Growth pipeline: ${data.growthPipeline}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
 
-  const custom_fields: { id: string; value: string | number }[] = [
+function customFields(
+  data: ContactFormData,
+  includePhone: boolean
+): { id: string; value: string | number }[] {
+  const fields: { id: string; value: string | number }[] = [
     { id: FIELDS.email, value: data.email },
-    { id: FIELDS.phone, value: data.phone },
     { id: FIELDS.company, value: data.companyGroupName },
     { id: FIELDS.brands, value: data.brandsRepresented },
     { id: FIELDS.locations, value: data.numberOfLocations },
@@ -37,13 +48,26 @@ export async function createClickUpLead(data: ContactFormData): Promise<string |
     { id: FIELDS.source, value: SOURCE_WEBSITE_FORM },
   ];
 
+  if (includePhone) {
+    fields.splice(1, 0, { id: FIELDS.phone, value: toClickUpPhone(data.phone) });
+  }
+
   if (data.growthPipeline) {
-    custom_fields.push({
+    fields.push({
       id: FIELDS.growthPipeline,
       value: data.growthPipeline,
     });
   }
 
+  return fields;
+}
+
+async function createTask(
+  token: string,
+  listId: string,
+  data: ContactFormData,
+  includePhone: boolean
+): Promise<string> {
   const response = await fetch(`${CLICKUP_API}/list/${listId}/task`, {
     method: "POST",
     headers: {
@@ -53,8 +77,8 @@ export async function createClickUpLead(data: ContactFormData): Promise<string |
     body: JSON.stringify({
       name: `Lead: ${data.name} — ${data.companyGroupName}`,
       status: "new",
-      markdown_description: data.whatsBreaking,
-      custom_fields,
+      markdown_description: leadDescription(data),
+      custom_fields: customFields(data, includePhone),
     }),
   });
 
@@ -65,4 +89,21 @@ export async function createClickUpLead(data: ContactFormData): Promise<string |
 
   const json = (await response.json()) as { id?: string };
   return json.id ?? "created";
+}
+
+export async function createClickUpLead(data: ContactFormData): Promise<string | null> {
+  const token = process.env.CLICKUP_API_TOKEN;
+  const listId = process.env.CLICKUP_LIST_ID || CLICKUP_LEADS_LIST_ID;
+  if (!token) return null;
+
+  try {
+    return await createTask(token, listId, data, true);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (!message.includes("FIELD_016") && !message.includes("valid phone")) {
+      throw error;
+    }
+    console.warn("ClickUp rejected phone format; saving lead without phone field.");
+    return createTask(token, listId, data, false);
+  }
 }

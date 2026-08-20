@@ -150,6 +150,9 @@ export function ScopedEngagementForm() {
         <FormField label="Phone" error={errors.phone?.message} required>
           <Input type="tel" {...register("phone")} placeholder="+1 305 555 0100" />
         </FormField>
+        <p className="-mt-2 text-xs text-muted-foreground">
+          Include country code when you can — +1, +52, +57, and similar.
+        </p>
       </div>
 
       <div className="space-y-4">
