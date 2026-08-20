@@ -63,6 +63,24 @@ export function ScopedEngagementForm() {
     });
   };
 
+  const onInvalid = () => {
+    pushDataLayer({
+      event: "form_error",
+      form_id: "contact_v1",
+      error_type: "validation",
+    });
+    setServerError("Please fix the highlighted fields, then click Send inquiry.");
+    requestAnimationFrame(() => {
+      const invalid = document.querySelector<HTMLElement>(
+        "#contact_v1 [aria-invalid='true']"
+      );
+      (invalid ?? document.getElementById("contact_v1"))?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    });
+  };
+
   const onSubmit = async (data: ContactFormData) => {
     try {
       setServerError(null);
@@ -110,15 +128,9 @@ export function ScopedEngagementForm() {
   return (
     <form
       id="contact_v1"
-      onSubmit={handleSubmit(onSubmit, () => {
-        pushDataLayer({
-          event: "form_error",
-          form_id: "contact_v1",
-          error_type: "validation",
-        });
-      })}
+      onSubmit={handleSubmit(onSubmit, onInvalid)}
       onFocus={markStart}
-      className="space-y-6"
+      className="space-y-6 pb-8"
       noValidate
     >
       {serverError ? (
@@ -168,13 +180,14 @@ export function ScopedEngagementForm() {
           <Input
             type="number"
             min={1}
-            {...register("numberOfLocations", { valueAsNumber: true })}
+            inputMode="numeric"
+            {...register("numberOfLocations")}
             placeholder="12"
           />
-          <p className="text-xs text-muted-foreground mt-1">
-            {contactCopy.locationsHelper}
-          </p>
         </FormField>
+        <p className="-mt-2 text-xs text-muted-foreground">
+          {contactCopy.locationsHelper}
+        </p>
         <FormField
           label="Restaurant type"
           error={errors.restaurantType?.message}
@@ -215,7 +228,7 @@ export function ScopedEngagementForm() {
         />
       </FormField>
 
-      <Button type="submit" disabled={isSubmitting} className="min-w-[140px]">
+      <Button type="submit" disabled={isSubmitting} className="relative z-[70] min-w-[140px]">
         {isSubmitting ? (
           <span className="flex items-center gap-2">
             <Spinner size="sm" className="text-current" />

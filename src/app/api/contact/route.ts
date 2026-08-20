@@ -45,6 +45,12 @@ export async function POST(req: Request) {
       }
     } catch (clickUpError) {
       console.error("ClickUp error:", clickUpError);
+      if (process.env.CLICKUP_API_TOKEN) {
+        return NextResponse.json(
+          { error: "Could not save this inquiry. Please email fabio@foodsense.tech." },
+          { status: 502 }
+        );
+      }
     }
 
     if (process.env.HUBSPOT_ACCESS_TOKEN) {
@@ -68,12 +74,11 @@ export async function POST(req: Request) {
       }
     }
 
-    console.error("No CRM destination configured. Lead payload stored in logs only.");
-    return NextResponse.json({
-      success: true,
-      message: "Form submitted successfully",
-      destination: "log",
-    });
+    console.error("No CRM destination configured.");
+    return NextResponse.json(
+      { error: "Inquiry form is not connected yet. Email fabio@foodsense.tech." },
+      { status: 503 }
+    );
   } catch (error) {
     console.error("Contact form submission error:", {
       message: error instanceof Error ? error.message : "Unknown error",

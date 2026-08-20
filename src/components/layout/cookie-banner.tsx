@@ -14,6 +14,15 @@ export function CookieBanner() {
     if (!stored) setVisible(true);
   }, []);
 
+  useEffect(() => {
+    if (!visible) return;
+    const previous = document.body.style.paddingBottom;
+    document.body.style.paddingBottom = "9rem";
+    return () => {
+      document.body.style.paddingBottom = previous;
+    };
+  }, [visible]);
+
   const setConsent = (granted: boolean) => {
     window.localStorage.setItem(STORAGE_KEY, granted ? "granted" : "denied");
     const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void })

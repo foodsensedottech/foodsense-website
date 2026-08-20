@@ -26,7 +26,7 @@ export const contactFormSchema = z.object({
     .min(1, "Enter the restaurant brands you operate or represent.")
     .max(200)
     .transform((str) => str.trim()),
-  numberOfLocations: z
+  numberOfLocations: z.coerce
     .number({ invalid_type_error: "Enter number of locations." })
     .int("Must be a whole number")
     .min(1, "Must have at least 1 location")
