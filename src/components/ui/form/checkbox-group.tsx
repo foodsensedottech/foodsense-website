@@ -19,6 +19,7 @@ interface CheckboxGroupProps {
   itemClassName?: string;
   labelClassName?: string;
   error?: string;
+  idPrefix?: string;
 }
 
 export function CheckboxGroup({
@@ -30,7 +31,8 @@ export function CheckboxGroup({
   className,
   itemClassName,
   labelClassName,
-  error
+  error,
+  idPrefix = "option",
 }: CheckboxGroupProps) {
   const handleCheckboxChange = (optionValue: string, checked: boolean) => {
     if (!onChange) return;
@@ -52,7 +54,7 @@ export function CheckboxGroup({
           )}
         >
           <Checkbox
-            id={option.value}
+            id={`${idPrefix}-${option.value}`}
             checked={value.includes(option.value)}
             onCheckedChange={(checked) =>
               handleCheckboxChange(option.value, checked as boolean)
@@ -61,7 +63,7 @@ export function CheckboxGroup({
             className="h-4 w-4"
           />
           <label
-            htmlFor={option.value}
+            htmlFor={`${idPrefix}-${option.value}`}
             className={cn(
               "text-sm font-medium leading-none cursor-pointer",
               disabled && "cursor-not-allowed opacity-70",

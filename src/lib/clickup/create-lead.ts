@@ -1,4 +1,9 @@
 import type { ContactFormData } from "@/lib/validation/contact-schema";
+import {
+  formattedPosSystems,
+  formattedRestaurantType,
+  formattedWhatsBreaking,
+} from "@/lib/validation/contact-schema";
 import { toClickUpPhone } from "@/lib/utils/format-phone";
 
 const CLICKUP_API = "https://api.clickup.com/api/v2";
@@ -23,13 +28,13 @@ const SOURCE_WEBSITE_FORM = "1d653031-ddb9-454d-a51d-63b6c04e28e0";
 
 function leadDescription(data: ContactFormData): string {
   return [
-    data.whatsBreaking,
+    formattedWhatsBreaking(data),
     "",
     `Phone: ${data.phone}`,
     `Email: ${data.email}`,
     data.growthPipeline ? `Growth pipeline: ${data.growthPipeline}` : null,
   ]
-    .filter(Boolean)
+    .filter((line) => line !== null)
     .join("\n");
 }
 
@@ -37,26 +42,36 @@ function customFields(
   data: ContactFormData,
   includePhone: boolean
 ): { id: string; value: string | number }[] {
+  const restaurantType = formattedRestaurantType(data);
+  const posSystem = formattedPosSystems(data);
+  const whatsBreaking = formattedWhatsBreaking(data);
+
   const fields: { id: string; value: string | number }[] = [
     { id: FIELDS.email, value: data.email },
     { id: FIELDS.company, value: data.companyGroupName },
-    { id: FIELDS.brands, value: data.brandsRepresented },
-    { id: FIELDS.locations, value: data.numberOfLocations },
-    { id: FIELDS.restaurantType, value: data.restaurantType },
-    { id: FIELDS.posSystem, value: data.posSystem },
-    { id: FIELDS.whatsBreaking, value: data.whatsBreaking },
     { id: FIELDS.source, value: SOURCE_WEBSITE_FORM },
   ];
 
   if (includePhone) {
     fields.splice(1, 0, { id: FIELDS.phone, value: toClickUpPhone(data.phone) });
   }
-
+  if (data.brandsRepresented) {
+    fields.push({ id: FIELDS.brands, value: data.brandsRepresented });
+  }
+  if (data.numberOfLocations) {
+    fields.push({ id: FIELDS.locations, value: data.numberOfLocations });
+  }
+  if (restaurantType) {
+    fields.push({ id: FIELDS.restaurantType, value: restaurantType });
+  }
+  if (posSystem) {
+    fields.push({ id: FIELDS.posSystem, value: posSystem });
+  }
+  if (whatsBreaking) {
+    fields.push({ id: FIELDS.whatsBreaking, value: whatsBreaking });
+  }
   if (data.growthPipeline) {
-    fields.push({
-      id: FIELDS.growthPipeline,
-      value: data.growthPipeline,
-    });
+    fields.push({ id: FIELDS.growthPipeline, value: data.growthPipeline });
   }
 
   return fields;

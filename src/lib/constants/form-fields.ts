@@ -1,102 +1,78 @@
-import { z } from "zod";
-
-// These match exactly with HubSpot's internal names and values
-export const DELIVERY_PARTNERS = [
-  { label: "UberEats", value: "ubereats" },
-  { label: "DoorDash", value: "doordash" },
-  { label: "GrubHub", value: "grubhub" },
-  { label: "Postmates", value: "postmates" },
+export const RESTAURANT_TYPES = [
+  { label: "Quick service (QSR)", value: "qsr" },
+  { label: "Fast casual", value: "fast_casual" },
+  { label: "Casual dining", value: "casual_dining" },
+  { label: "Multi-brand group", value: "multi_brand" },
+  { label: "Ghost kitchen / virtual", value: "ghost_kitchen" },
+  { label: "Fine dining", value: "fine_dining" },
   { label: "Other", value: "other" },
 ] as const;
 
 export const POS_SYSTEMS = [
+  { label: "Oracle / Simphony", value: "oracle" },
+  { label: "NCR", value: "ncr" },
   { label: "Toast", value: "toast" },
+  { label: "Aloha", value: "aloha" },
+  { label: "PAR", value: "par" },
+  { label: "Xenial", value: "xenial" },
   { label: "Clover", value: "clover" },
   { label: "Square", value: "square" },
-  { label: "LightSpeed", value: "lightspeed" },
-  { label: "SpotOn", value: "spoton" },
-  { label: "QuPOS", value: "qupos" },
-  { label: "Aloha", value: "aloha" },
-  { label: "Xenial", value: "xenial" },
-  { label: "PAR", value: "par" },
-  { label: "NCR", value: "ncr" },
-  { label: "Oracle", value: "oracle" },
+  { label: "Lightspeed", value: "lightspeed" },
+  { label: "None yet", value: "none" },
   { label: "Other", value: "other" },
 ] as const;
 
-export const RESTAURANT_TYPES = [
-  { label: "Dine In", value: "dine_in" },
-  { label: "Fast Casual", value: "fast_casual" },
-  { label: "Quick Service", value: "quick_service" },
-  { label: "Ghost Kitchen", value: "ghost_kitchen" },
-  { label: "Food Truck", value: "food_truck" },
+export const WHATS_BREAKING = [
+  {
+    label: "Siloed stack between Tech, Ops, and Digital",
+    value: "siloed_stack",
+  },
+  {
+    label: "Slow or expensive vendor professional services",
+    value: "slow_vendor",
+  },
+  { label: "No owner of standardization", value: "no_owner" },
+  {
+    label: "Stores running different versions of the same stack",
+    value: "version_drift",
+  },
+  { label: "POS or backend implementation", value: "pos_backend" },
+  { label: "Customer-facing channels", value: "channels" },
+  { label: "Menu architecture or pricing", value: "menu" },
+  { label: "Rollout has no program owner", value: "no_pm" },
   { label: "Other", value: "other" },
 ] as const;
 
-export const SERVICES = [
-  {
-    label: "New Restaurant Opening/Restaurant Upgrades",
-    value: "new-restaurant",
-  },
-  {
-    label: "Increase Sales and Profits on 3rd Party Delivery",
-    value: "increase-sales",
-  },
-  {
-    label: "Market and Competitor Pricing Analysis",
-    value: "market-analysis",
-  },
-  {
-    label: "Customer Loyalty and Reputation Management",
-    value: "customer-loyalty",
-  },
-  {
-    label: "Profitability Analysis",
-    value: "profitability",
-  },
-] as const;
+export type RestaurantTypeValue = (typeof RESTAURANT_TYPES)[number]["value"];
+export type PosSystemValue = (typeof POS_SYSTEMS)[number]["value"];
+export type WhatsBreakingValue = (typeof WHATS_BREAKING)[number]["value"];
 
-// Type helpers for our form
-export type DeliveryPartner = (typeof DELIVERY_PARTNERS)[number]["value"];
-export type PosSystem = (typeof POS_SYSTEMS)[number]["value"];
-export type RestaurantType = (typeof RESTAURANT_TYPES)[number]["value"];
-export type ServiceType = (typeof SERVICES)[number]["value"];
+export function optionLabel(
+  options: readonly { label: string; value: string }[],
+  value: string
+): string {
+  return options.find((option) => option.value === value)?.label ?? value;
+}
 
-// Create Zod schemas from our constants
-export const deliveryPartnersSchema = z.array(
-  z.enum(["ubereats", "doordash", "grubhub", "postmates", "other"])
-);
+export function formatSelectedOptions(
+  values: string[] | undefined,
+  options: readonly { label: string; value: string }[],
+  otherText?: string
+): string | undefined {
+  if (!values?.length) {
+    return otherText?.trim() || undefined;
+  }
 
-export const posSystemSchema = z.enum([
-  "toast",
-  "clover",
-  "square",
-  "lightspeed",
-  "spoton",
-  "qupos",
-  "aloha",
-  "xenial",
-  "par",
-  "ncr",
-  "oracle",
-  "other",
-]);
+  const labels = values
+    .filter((value) => value !== "other")
+    .map((value) => optionLabel(options, value));
 
-export const restaurantTypeSchema = z.enum([
-  "dine_in",
-  "fast_casual",
-  "quick_service",
-  "ghost_kitchen",
-  "food_truck",
-  "other",
-]);
+  const extra = otherText?.trim();
+  if (values.includes("other") && extra) {
+    labels.push(`Other: ${extra}`);
+  } else if (values.includes("other")) {
+    labels.push("Other");
+  }
 
-export const servicesSchema = z.array(
-  z.enum([
-    "new-restaurant",
-    "increase-sales",
-    "market-analysis",
-    "customer-loyalty",
-    "profitability",
-  ])
-);
+  return labels.length ? labels.join("; ") : undefined;
+}

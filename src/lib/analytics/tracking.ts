@@ -87,7 +87,7 @@ export const analytics: Analytics = {
 declare global {
   interface Window {
     gtag: (...args: any[]) => void;
-    dataLayer: any[];
+    dataLayer?: any[];
     clarity: {
       (command: string, ...args: any[]): void;
       q?: any[];

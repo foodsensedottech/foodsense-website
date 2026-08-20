@@ -8,6 +8,7 @@ interface FormFieldProps {
   error?: string;
   required?: boolean;
   className?: string;
+  inputId?: string;
   children: React.ReactNode;
 }
 
@@ -16,18 +17,24 @@ export function FormField({
   error,
   required,
   className,
+  inputId,
   children,
 }: FormFieldProps) {
-  const id = React.useId();
+  const generatedId = React.useId();
+  const id = inputId ?? generatedId;
 
   return (
-    <div className="space-y-2">
+    <div className={cn("space-y-2", className)}>
       <label
         htmlFor={id}
         className="block text-sm font-medium text-gray-700 dark:text-gray-200"
       >
         {label}
-        {required && <span className="text-red-500 ml-1">*</span>}
+        {required ? (
+          <span className="text-red-500 ml-1">*</span>
+        ) : (
+          <span className="text-muted-foreground font-normal"> (optional)</span>
+        )}
       </label>
       {React.isValidElement(children)
         ? React.cloneElement(children, {

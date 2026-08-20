@@ -30,7 +30,7 @@ export async function POST(req: Request) {
       companyGroupName: validated.companyGroupName,
       numberOfLocations: validated.numberOfLocations,
       restaurantType: validated.restaurantType,
-      posSystem: validated.posSystem,
+      posSystems: validated.posSystems,
     });
 
     try {
