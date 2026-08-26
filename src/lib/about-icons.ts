@@ -2,6 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import {
   BarChart3,
   Bone,
+  Cable,
   ChefHat,
   ClipboardCheck,
   Computer,
@@ -9,6 +10,7 @@ import {
   Layers,
   LineChart,
   ListChecks,
+  Monitor,
   Percent,
   Rocket,
   Settings,
@@ -43,6 +45,8 @@ export const CARD_ICONS = {
   BarChart3,
   ListChecks,
   Bone,
+  Monitor,
+  Cable,
 } as const;
 
 export type AboutIconName = keyof typeof ABOUT_ICONS;

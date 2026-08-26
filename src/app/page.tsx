@@ -3,20 +3,16 @@ import type { Metadata } from "next";
 import { BaseLayout } from "@/components/layout";
 import { HomeContent } from "@/components/sections/home-content";
 import { SectionLoading } from "@/components/ui/layout/section-loading";
-import { getHeroContent } from "@/lib/contentful/client";
+import { getConversionHomepage } from "@/lib/contentful/conversion";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const hero = await getHeroContent();
-  const seo = hero?.fields?.seoMetadata?.fields;
-  const title = seo?.title || hero?.fields?.heroHeading;
-  const description = seo?.description || hero?.fields?.heroSubheading;
-
+  const page = await getConversionHomepage();
   return {
-    title: title || undefined,
-    description: description || undefined,
+    title: page.hero.heading,
+    description: page.hero.subheading,
     openGraph: {
-      title: title || undefined,
-      description: description || undefined,
+      title: page.hero.heading,
+      description: page.hero.subheading,
     },
   };
 }

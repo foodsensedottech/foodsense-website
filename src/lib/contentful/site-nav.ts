@@ -5,31 +5,28 @@ export type SiteNavItem = {
   href: string;
 };
 
-/** Homepage-oriented nav built from siteChrome labels. */
+/** Conversion homepage nav built from chrome labels. */
 export function buildSiteNav(chrome: SiteChrome | null | undefined): SiteNavItem[] {
-  const items: SiteNavItem[] = [
+  return [
     {
       label: chrome?.navAbout || "About",
-      href: "#about-section",
+      href: "#authority-section",
     },
     {
-      label: chrome?.navPains || "Pains",
-      href: "#franchisee-pains",
+      label: chrome?.navOfferings || "What We Do",
+      href: "#pillars-section",
     },
     {
-      label: chrome?.navOfferings || "Offerings",
-      href: "#franchisee-offers",
+      label: chrome?.navServices || "Services",
+      href: "#menu-section",
+    },
+    {
+      label: chrome?.navPains || "Partners",
+      href: "#partners-section",
+    },
+    {
+      label: chrome?.navContact || "Contact",
+      href: "#contact-section",
     },
   ];
-
-  if (chrome?.navServices) {
-    items.push({ label: chrome.navServices, href: "/services" });
-  }
-
-  items.push({
-    label: chrome?.navContact || "Contact",
-    href: "#contact-section",
-  });
-
-  return items;
 }

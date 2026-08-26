@@ -1,38 +1,24 @@
-import client from "@/lib/contentful/client";
-import { pickString } from "@/lib/contentful/fields";
+import { getConversionHomepage } from "@/lib/contentful/conversion";
 import type { SiteChrome } from "@/lib/contentful/types";
 
+/** Map lean conversion chrome onto the shared SiteChrome shape used by header/footer. */
 export async function getSiteChrome(): Promise<SiteChrome | null> {
   try {
-    const response = await client.getEntries({
-      content_type: "siteChrome",
-      limit: 1,
-      order: ["-sys.updatedAt"],
-    });
-    const item = response.items[0];
-    if (!item) return null;
-
-    const fields = (item.fields || {}) as Record<string, unknown>;
-
+    const page = await getConversionHomepage();
     return {
-      ctaLabel: pickString(fields, ["ctaLabel", "CtaLabel"]),
-      navAbout: pickString(fields, ["navAbout", "NavAbout"]),
-      navPains: pickString(fields, ["navPains", "NavPains"]),
-      navOfferings: pickString(fields, ["navOfferings", "NavOfferings"]),
-      navServices: pickString(fields, ["navServices", "NavServices"]),
-      navContact: pickString(fields, ["navContact", "NavContact"]),
-      footerTagline: pickString(fields, ["footerTagline", "FooterTagline"]),
-      footerGeo: pickString(fields, ["footerGeo", "FooterGeo"]),
-      footerEmail: pickString(fields, ["footerEmail", "FooterEmail"]),
-      linkedInUrl: pickString(fields, ["linkedInUrl", "LinkedInUrl"]),
-      instagramUrl: pickString(fields, ["instagramUrl", "InstagramUrl"]),
-      cookieHeadline: pickString(fields, ["cookieHeadline", "CookieHeadline"]),
-      cookieBody: pickString(fields, ["cookieBody", "CookieBody"]),
-      cookieAccept: pickString(fields, ["cookieAccept", "CookieAccept"]),
-      cookieReject: pickString(fields, ["cookieReject", "CookieReject"]),
+      ctaLabel: page.chrome.ctaLabel,
+      navAbout: page.chrome.navAuthority,
+      navOfferings: page.chrome.navPillars,
+      navServices: page.chrome.navMenu,
+      navPains: page.chrome.navPartners,
+      navContact: page.chrome.navContact,
+      footerTagline: page.authority.body.slice(0, 160),
+      footerGeo: "Latin America · Caribbean · United States",
+      footerEmail: "fabio@foodsense.tech",
+      linkedInUrl: "https://www.linkedin.com/company/foodsensedottech/",
+      instagramUrl: "https://www.instagram.com/foodsense.tech/",
     };
-  } catch (error) {
-    console.error("Error fetching siteChrome:", error);
+  } catch {
     return null;
   }
 }
