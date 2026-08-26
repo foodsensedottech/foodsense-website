@@ -35,6 +35,7 @@ export interface AboutCardFields extends ContentfulEntryFields {
   title: string;
   description: string;
   lucideIcon: string;
+  sortOrder?: number;
 }
 
 // Use type aliases for ContentfulEntry types
@@ -61,6 +62,7 @@ export interface HeroFields extends ContentfulEntryFields {
   heroSubheading: string;
   heroEyebrow?: string;
   heroCta?: string;
+  heroCtaHref?: string;
   backgroundImage?: {
     fields: {
       file: {
@@ -225,6 +227,33 @@ export interface ContactSectionContent {
   heading: ContactTitle;
 }
 
+export interface ContactSectionCopy {
+  heading: string;
+  subheading?: string;
+  submitLabel?: string;
+  submittingLabel?: string;
+  successMessage?: string;
+  errorMessage?: string;
+}
+
+export interface SiteChrome {
+  ctaLabel?: string;
+  navAbout?: string;
+  navPains?: string;
+  navOfferings?: string;
+  navServices?: string;
+  navContact?: string;
+  footerTagline?: string;
+  footerGeo?: string;
+  footerEmail?: string;
+  linkedInUrl?: string;
+  instagramUrl?: string;
+  cookieHeadline?: string;
+  cookieBody?: string;
+  cookieAccept?: string;
+  cookieReject?: string;
+}
+
 export interface AboutCard {
   icon: string; // Lucide icon name
   title: string;
@@ -259,6 +288,7 @@ export interface FranchiseeCardFields extends ContentfulEntryFields {
   title: string;
   description: string;
   lucideIcon: string;
+  sortOrder?: number;
 }
 
 export type FranchiseeTitleEntry = ContentfulEntry<FranchiseeTitleFields>;

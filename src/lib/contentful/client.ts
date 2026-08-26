@@ -31,6 +31,7 @@ import type {
 import {
   normalizeCardFields,
   normalizeTitleFields,
+  sortBySortOrder,
 } from "@/lib/contentful/fields";
 
 const client = createClient({
@@ -130,15 +131,17 @@ export async function getAboutCards() {
       return [];
     }
 
-    return response.items
-      .map((item) => ({
-        sys: item.sys,
-        fields: normalizeCardFields(
-          (item.fields || {}) as Record<string, unknown>
-        ),
-        metadata: item.metadata,
-      }))
-      .filter((item) => item.fields.title) as ContentfulEntry<AboutCardFields>[];
+    return sortBySortOrder(
+      response.items
+        .map((item) => ({
+          sys: item.sys,
+          fields: normalizeCardFields(
+            (item.fields || {}) as Record<string, unknown>
+          ),
+          metadata: item.metadata,
+        }))
+        .filter((item) => item.fields.title)
+    ) as ContentfulEntry<AboutCardFields>[];
   } catch (error) {
     console.error("Error fetching about cards:", error);
     return null;
@@ -176,6 +179,7 @@ export async function getHeroContent() {
         heroSubheading: fields.heroSubheading,
         heroEyebrow: pick("heroEyebrow", "eyebrow", "HeroEyebrow"),
         heroCta: pick("heroCta", "cta", "heroCtaLabel", "primaryCta"),
+        heroCtaHref: pick("heroCtaHref", "ctaHref", "heroCtaUrl"),
         backgroundImage: fields.backgroundImage,
         seoMetadata: fields.seoMetadata,
       },

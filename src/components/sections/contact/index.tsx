@@ -1,15 +1,15 @@
 import * as React from "react";
 import { ContactForm } from "./contact-form";
 import { semanticConfig } from "@/lib/utils";
-import type { FranchiseeTitleEntry } from "@/lib/contentful/types";
+import type { ContactSectionCopy } from "@/lib/contentful/types";
 
 interface ContactSectionProps {
-  heading?: FranchiseeTitleEntry | null;
+  copy?: ContactSectionCopy | null;
 }
 
-export function ContactSection({ heading }: ContactSectionProps) {
-  const title = heading?.fields?.heading;
-  const subtitle = heading?.fields?.subheading;
+export function ContactSection({ copy }: ContactSectionProps) {
+  const title = copy?.heading;
+  const subtitle = copy?.subheading;
 
   return (
     <section id={semanticConfig.sections.contact} className="py-16 px-4">
@@ -24,7 +24,12 @@ export function ContactSection({ heading }: ContactSectionProps) {
             ) : null}
           </div>
         ) : null}
-        <ContactForm />
+        <ContactForm
+          submitLabel={copy?.submitLabel}
+          submittingLabel={copy?.submittingLabel}
+          successMessage={copy?.successMessage}
+          errorMessage={copy?.errorMessage}
+        />
       </div>
     </section>
   );

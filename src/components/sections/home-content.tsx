@@ -4,7 +4,7 @@ import { ContactSection } from "./contact";
 import { AboutSection } from "./about";
 import { getAboutContent } from "@/lib/contentful/about";
 import { getHeroContent } from "@/lib/contentful/client";
-import { getContactHeading } from "@/lib/contentful/contact";
+import { getContactSectionCopy } from "@/lib/contentful/contact";
 import { getFranchiseeOffers, getFranchiseePains } from "@/lib/contentful/franchisee";
 import { SectionLoading } from "@/components/ui/layout/section-loading";
 import { FranchiseePainsSection } from "./franchisees/pains-section";
@@ -17,7 +17,7 @@ export async function HomeContent() {
       getAboutContent(),
       getFranchiseePains(),
       getFranchiseeOffers(),
-      getContactHeading(),
+      getContactSectionCopy(),
     ]);
 
     return (
@@ -33,14 +33,14 @@ export async function HomeContent() {
         {pains.heading && pains.cards.length > 0 ? (
           <FranchiseePainsSection heading={pains.heading} cards={pains.cards} />
         ) : null}
-        {offers.heading && offers.cards.length > 0 ? (
+        {offers.cards.length > 0 ? (
           <FranchiseeOffersSection
             heading={offers.heading}
             cards={offers.cards}
           />
         ) : null}
         <Suspense fallback={<SectionLoading />}>
-          <ContactSection heading={contact} />
+          <ContactSection copy={contact} />
         </Suspense>
       </>
     );

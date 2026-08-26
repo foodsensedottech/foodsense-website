@@ -3,10 +3,24 @@
 import * as React from "react";
 import Link from "next/link";
 import { Logo } from "@/components/ui/media/logo";
-import { Linkedin, Instagram } from "lucide-react";
+import { Linkedin, Instagram, Mail } from "lucide-react";
 import { smoothScrollToSection } from "@/lib/utils";
+import type { SiteChrome } from "@/lib/contentful/types";
+import { buildSiteNav } from "@/lib/contentful/site-nav";
 
-export function Footer() {
+interface FooterProps {
+  chrome?: SiteChrome | null;
+}
+
+export function Footer({ chrome = null }: FooterProps) {
+  const navItems = buildSiteNav(chrome);
+  const linkedIn =
+    chrome?.linkedInUrl ||
+    "https://www.linkedin.com/company/foodsensedottech/";
+  const instagram =
+    chrome?.instagramUrl || "https://www.instagram.com/foodsense.tech/";
+  const contactHeading = chrome?.navContact || "Contact Us";
+
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
@@ -22,12 +36,20 @@ export function Footer() {
     <footer className="bg-[#1e3a5f] text-yellow-400">
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="space-y-6">
+          <div className="space-y-4">
             <Link href="/">
               <div className="w-[194px] h-[194px]">
                 <Logo variant="footer" />
               </div>
             </Link>
+            {chrome?.footerTagline ? (
+              <p className="text-sm text-yellow-400/90 max-w-xs">
+                {chrome.footerTagline}
+              </p>
+            ) : null}
+            {chrome?.footerGeo ? (
+              <p className="text-sm text-yellow-400/70">{chrome.footerGeo}</p>
+            ) : null}
           </div>
 
           <div>
@@ -41,42 +63,22 @@ export function Footer() {
                   Home
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/#about-section"
-                  className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) => handleNavClick(e, "/#about-section")}
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/#franchisee-pains"
-                  className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) => handleNavClick(e, "/#franchisee-pains")}
-                >
-                  Pains
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/#franchisee-offers"
-                  className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) => handleNavClick(e, "/#franchisee-offers")}
-                >
-                  Offerings
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/#contact-section"
-                  className="hover:text-yellow-400/80 transition-colors"
-                  onClick={(e) => handleNavClick(e, "/#contact-section")}
-                >
-                  Contact
-                </Link>
-              </li>
+              {navItems.map((item) => {
+                const href = item.href.startsWith("#")
+                  ? `/${item.href}`
+                  : item.href;
+                return (
+                  <li key={`${item.label}-${item.href}`}>
+                    <Link
+                      href={href}
+                      className="hover:text-yellow-400/80 transition-colors"
+                      onClick={(e) => handleNavClick(e, href)}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -99,26 +101,37 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-lg mb-4">Contact Us</h3>
-            <div className="flex space-x-4">
-              <Link
-                href="https://www.linkedin.com/company/foodsensedottech/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-yellow-400/80 transition-colors"
-              >
-                <Linkedin className="h-6 w-6" />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
-              <Link
-                href="https://www.instagram.com/foodsense.tech/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-yellow-400/80 transition-colors"
-              >
-                <Instagram className="h-6 w-6" />
-                <span className="sr-only">Instagram</span>
-              </Link>
+            <h3 className="font-semibold text-lg mb-4">{contactHeading}</h3>
+            <div className="flex flex-col space-y-3">
+              {chrome?.footerEmail ? (
+                <a
+                  href={`mailto:${chrome.footerEmail}`}
+                  className="inline-flex items-center gap-2 hover:text-yellow-400/80 transition-colors"
+                >
+                  <Mail className="h-5 w-5" />
+                  <span className="text-sm">{chrome.footerEmail}</span>
+                </a>
+              ) : null}
+              <div className="flex space-x-4">
+                <Link
+                  href={linkedIn}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-yellow-400/80 transition-colors"
+                >
+                  <Linkedin className="h-6 w-6" />
+                  <span className="sr-only">LinkedIn</span>
+                </Link>
+                <Link
+                  href={instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-yellow-400/80 transition-colors"
+                >
+                  <Instagram className="h-6 w-6" />
+                  <span className="sr-only">Instagram</span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

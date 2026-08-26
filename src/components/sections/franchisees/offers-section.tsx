@@ -9,7 +9,7 @@ import { AboutHeading } from "@/components/sections/about/about-heading";
 import { AboutCards } from "@/components/sections/about/about-cards";
 
 interface OffersSectionProps {
-  heading: FranchiseeTitleEntry;
+  heading?: FranchiseeTitleEntry | null;
   cards: FranchiseeCardEntry[];
 }
 
@@ -19,7 +19,7 @@ export function FranchiseeOffersSection({ heading, cards }: OffersSectionProps) 
       id="franchisee-offers"
       className="py-16 bg-white dark:bg-gray-900"
     >
-      <AboutHeading data={heading} />
+      {heading ? <AboutHeading data={heading} /> : null}
       <AboutCards data={cards} />
     </section>
   );

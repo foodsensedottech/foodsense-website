@@ -2,6 +2,7 @@ import client from "@/lib/contentful/client";
 import {
   normalizeCardFields,
   normalizeTitleFields,
+  sortBySortOrder,
 } from "@/lib/contentful/fields";
 import type {
   FranchiseeCardEntry,
@@ -35,8 +36,14 @@ export async function getTitle(
       fields,
       metadata: item.metadata,
     };
-  } catch (error) {
-    console.error(`Error fetching ${contentType}:`, error);
+  } catch (error: unknown) {
+    const message =
+      error && typeof error === "object" && "message" in error
+        ? String((error as { message?: string }).message)
+        : String(error);
+    if (!message.includes("unknownContentType")) {
+      console.error(`Error fetching ${contentType}:`, error);
+    }
     return null;
   }
 }
@@ -47,15 +54,17 @@ export async function getCards(contentType: string): Promise<FranchiseeCardEntry
       content_type: contentType,
       order: ["sys.createdAt"],
     });
-    return response.items
-      .map((item) => ({
-        sys: item.sys,
-        fields: normalizeCardFields(
-          (item.fields || {}) as Record<string, unknown>
-        ),
-        metadata: item.metadata,
-      }))
-      .filter((item) => item.fields.title);
+    return sortBySortOrder(
+      response.items
+        .map((item) => ({
+          sys: item.sys,
+          fields: normalizeCardFields(
+            (item.fields || {}) as Record<string, unknown>
+          ),
+          metadata: item.metadata,
+        }))
+        .filter((item) => item.fields.title)
+    );
   } catch (error) {
     console.error(`Error fetching ${contentType}:`, error);
     return [];

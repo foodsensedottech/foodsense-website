@@ -9,22 +9,18 @@ import { ThemeToggle } from "./theme-toggle";
 import { MobileNav } from "./mobile-nav";
 import { Logo } from "@/components/ui/media/logo";
 import { smoothScrollToSection } from "@/lib/utils";
+import type { SiteChrome } from "@/lib/contentful/types";
+import { buildSiteNav } from "@/lib/contentful/site-nav";
 
-interface NavItem {
-  label: string;
-  href: string;
+interface HeaderProps {
+  chrome?: SiteChrome | null;
 }
 
-const navItems: NavItem[] = [
-  { label: "About", href: "#about-section" },
-  { label: "Pains", href: "#franchisee-pains" },
-  { label: "Offerings", href: "#franchisee-offers" },
-  { label: "Contact", href: "#contact-section" },
-];
-
-export function Header() {
+export function Header({ chrome = null }: HeaderProps) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const navItems = buildSiteNav(chrome);
+  const ctaLabel = chrome?.ctaLabel || "Get Started";
 
   useEffect(() => {
     analytics.trackPageView(pathname);
@@ -33,26 +29,38 @@ export function Header() {
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    item: NavItem
+    href: string,
+    label: string
   ) => {
-    if (!item.href.startsWith("#")) {
-      analytics.trackMenuInteraction(item.label);
+    if (!href.startsWith("#") && !href.includes("#")) {
+      analytics.trackMenuInteraction(label);
+      return;
+    }
+
+    if (!href.includes("#")) {
+      analytics.trackMenuInteraction(label);
+      return;
+    }
+
+    const hash = href.includes("#") ? href.split("#")[1] : "";
+    if (!hash) {
+      analytics.trackMenuInteraction(label);
       return;
     }
 
     e.preventDefault();
 
     if (isHomePage) {
-      smoothScrollToSection(item.href.replace("#", ""));
+      smoothScrollToSection(hash);
     } else {
-      window.location.href = `/${item.href}`;
+      window.location.href = `/#${hash}`;
     }
 
-    analytics.trackMenuInteraction(item.label);
+    analytics.trackMenuInteraction(label);
   };
 
   const handleGetStartedClick = () => {
-    analytics.trackCTAClick("header-cta", "Get Started");
+    analytics.trackCTAClick("header-cta", ctaLabel);
     if (isHomePage) {
       smoothScrollToSection("contact-section");
     } else {
@@ -68,18 +76,17 @@ export function Header() {
         </Link>
         <nav className="hidden lg:flex items-center space-x-8 text-sm font-semibold">
           {navItems.map((item) => {
-            const href = item.href.startsWith("#")
-              ? isHomePage
-                ? item.href
-                : `/${item.href}`
-              : item.href;
+            const href =
+              item.href.startsWith("#") && !isHomePage
+                ? `/${item.href}`
+                : item.href;
 
             return (
               <a
-                key={item.href}
+                key={`${item.label}-${item.href}`}
                 href={href}
                 className="transition-colors hover:text-foreground/80 text-foreground/60"
-                onClick={(e) => handleNavClick(e, item)}
+                onClick={(e) => handleNavClick(e, item.href, item.label)}
               >
                 {item.label}
               </a>
@@ -88,8 +95,8 @@ export function Header() {
         </nav>
         <div className="ml-auto flex items-center space-x-4">
           <ThemeToggle />
-          <Button onClick={handleGetStartedClick}>Get Started</Button>
-          <MobileNav />
+          <Button onClick={handleGetStartedClick}>{ctaLabel}</Button>
+          <MobileNav chrome={chrome} />
         </div>
       </div>
     </header>

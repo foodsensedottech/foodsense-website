@@ -1,13 +1,13 @@
 import { BaseLayout } from "@/components/layout";
 import { ContactSection } from "@/components/sections/contact";
-import { getContactHeading } from "@/lib/contentful/contact";
+import { getContactSectionCopy } from "@/lib/contentful/contact";
 
 export default async function ContactPage() {
-  const heading = await getContactHeading();
+  const copy = await getContactSectionCopy();
 
   return (
     <BaseLayout>
-      <ContactSection heading={heading} />
+      <ContactSection copy={copy} />
     </BaseLayout>
   );
 }

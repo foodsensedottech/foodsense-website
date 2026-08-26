@@ -21,6 +21,7 @@ export function HeroSection({ data }: HeroSectionProps) {
     heroSubheading,
     heroEyebrow,
     heroCta,
+    heroCtaHref,
     backgroundImage,
   } = data.fields;
 
@@ -38,6 +39,7 @@ export function HeroSection({ data }: HeroSectionProps) {
         subtitle={heroSubheading}
         eyebrow={heroEyebrow}
         ctaLabel={heroCta}
+        ctaHref={heroCtaHref}
       />
     </section>
   );

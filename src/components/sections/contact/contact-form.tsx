@@ -29,7 +29,19 @@ import { Loader2, CheckCircle2 } from "lucide-react";
 import { formatPhoneNumber } from "@/lib/utils";
 import { Toaster, toast } from "sonner";
 
-export function ContactForm() {
+interface ContactFormProps {
+  submitLabel?: string;
+  submittingLabel?: string;
+  successMessage?: string;
+  errorMessage?: string;
+}
+
+export function ContactForm({
+  submitLabel,
+  submittingLabel,
+  successMessage,
+  errorMessage,
+}: ContactFormProps = {}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -211,18 +223,18 @@ export function ContactForm() {
       });
 
       handleReset();
-      toast.success("Thank you! We'll be in touch soon.", {
+      toast.success(successMessage || "Thank you! We'll be in touch soon.", {
         duration: 5000,
       });
     } catch (error) {
       console.error("Form submission error:", error);
-      const errorMessage =
+      const fallbackError =
         error instanceof Error
           ? error.message
-          : "Failed to submit form. Please try again.";
+          : errorMessage || "Failed to submit form. Please try again.";
 
-      setSubmitError(errorMessage);
-      toast.error(errorMessage, {
+      setSubmitError(fallbackError);
+      toast.error(fallbackError, {
         duration: 5000,
       });
 
@@ -550,10 +562,10 @@ export function ContactForm() {
               {isSubmitting ? (
                 <div className="flex items-center justify-center space-x-2">
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  <span>Submitting...</span>
+                  <span>{submittingLabel || "Submitting..."}</span>
                 </div>
               ) : (
-                "Submit"
+                submitLabel || "Submit"
               )}
             </Button>
           </div>
@@ -571,7 +583,9 @@ export function ContactForm() {
           {isSuccess && (
             <div className="flex items-center justify-center space-x-2 text-green-600">
               <CheckCircle2 className="h-5 w-5" />
-              <span>Thank you! We'll be in touch soon.</span>
+              <span>
+                {successMessage || "Thank you! We'll be in touch soon."}
+              </span>
             </div>
           )}
 

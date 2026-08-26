@@ -4,7 +4,15 @@ The homepage reads **only** published Contentful entries. There is no Spanish si
 
 Page order: Hero → About → Pains → Offerings → Contact.
 
+See also [`contentful-cms-alignment.md`](./contentful-cms-alignment.md) for how each Contentful type maps to the live site (including `siteChrome`).
+
 Create or edit entries under **Content → Add entry**, then **Publish**. If a description is longer than 255 characters, change that field from Short text to **Long text**.
+
+---
+
+## 0. Site chrome (`siteChrome`) — already exists
+
+Edit the existing Site chrome entry for header/footer labels (`ctaLabel`, `navAbout`, `navOfferings`, `navServices`, `navContact`, footer tagline/geo/email/socials). Optional: add Short text `navPains` if you want “Pains” editable (defaults to “Pains” if missing).
 
 ---
 
@@ -18,6 +26,7 @@ Edit the existing Hero entry. Optionally add two Short text fields on the conten
 | `heroHeading` | Next-Gen Restaurant Tech for Multi-Unit Franchisees. |
 | `heroSubheading` | We turn global enterprise strategy into scalable store-level architecture across POS, kiosk, payments, and data governance. |
 | `heroCta` | Talk to Our Team |
+| `heroCtaHref` | #contact-section |
 
 Keep the existing background image.
 
@@ -138,15 +147,15 @@ Users
 
 ## 4. Pains title (`franchiseePainsTitle`)
 
-One published entry.
+Your type uses `title` + `description` (the site maps them to heading/subheading). One published entry.
 
-**Title or Heading**
+**Title**
 
 ```
 What breaks when you scale past 10 units
 ```
 
-**Description or Subheading**
+**Description**
 
 ```
 Multi-unit operators need predictable execution, labor efficiency, third-party margin protection, and uniform visibility across stores.
@@ -240,7 +249,7 @@ LineChart
 
 ## 6. Offerings title (`franchiseeOffersTitle`)
 
-One published entry.
+**Create and publish one entry** if none exists (cards can show without it; heading will be blank).
 
 **Heading**
 
@@ -340,38 +349,32 @@ Globe
 
 ---
 
-## 8. Contact title (`contactTitleAndSubtitle`)
+## 8. Contact title
 
-Create this content type if it does not exist:
+**Option A:** create `contactTitleAndSubtitle` with `heading` + `subheading`.
 
-1. **Content model → Add content type**
-2. Name: `Contact Title and Subtitle`
-3. API identifier: `contactTitleAndSubtitle`
-4. Fields:
-   - `heading` — Short text
-   - `subheading` — Long text
-5. Create one entry, paste the copy below, **Publish**
+**Option B (your space today):** edit `testimonialsTitleAndSubtitle` (labeled Contact section reuse) — map `testimonialTitle` / `testimonialSubtitle` to Contact copy; optional `submitLabel` / `successMessage`.
 
-The site also accepts `contactUsTitleSubtitle` or `contactTitleSubtitle` if you already have one of those IDs.
-
-**Heading**
+**Heading / testimonialTitle**
 
 ```
 Contact Us
 ```
 
-**Subheading**
+**Subheading / testimonialSubtitle**
 
 ```
 Fill out this form and we will be in touch with you as soon as possible.
 ```
 
-If this entry is unpublished, the contact form still renders; the heading and intro do not.
+If neither is published, the contact form still renders without a heading.
 
 ---
 
 ## After publishing
 
-- Spanish routes (`/es`) redirect to `/` until you add Contentful locales and wire them.
-- Header / footer labels (About, Pains, Offerings, Contact, Get Started) and HubSpot form field labels stay in site chrome so CRM field values do not drift.
+- Spanish routes (`/es`) redirect to `/` until you add Contentful locales.
+- HubSpot form field labels stay in code so CRM values do not drift.
+- Header/footer labels come from `siteChrome`.
 - After code is on Production, **Promote to Production** in Vercel if the live site does not update.
+- **Rotate** any Content Delivery API token that was shared in chat.

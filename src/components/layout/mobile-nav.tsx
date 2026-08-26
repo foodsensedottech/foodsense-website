@@ -5,17 +5,22 @@ import Link from "next/link";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { SiteChrome } from "@/lib/contentful/types";
+import { buildSiteNav } from "@/lib/contentful/site-nav";
 
-const menuItems = [
-  { title: "Home", href: "/" },
-  { title: "About", href: "/#about-section" },
-  { title: "Pains", href: "/#franchisee-pains" },
-  { title: "Offerings", href: "/#franchisee-offers" },
-  { title: "Contact", href: "/#contact-section" },
-];
+interface MobileNavProps {
+  chrome?: SiteChrome | null;
+}
 
-export function MobileNav() {
+export function MobileNav({ chrome = null }: MobileNavProps) {
   const [open, setOpen] = React.useState(false);
+  const navItems = [
+    { label: "Home", href: "/" },
+    ...buildSiteNav(chrome).map((item) => ({
+      label: item.label,
+      href: item.href.startsWith("#") ? `/${item.href}` : item.href,
+    })),
+  ];
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -47,9 +52,9 @@ export function MobileNav() {
           </Dialog.Close>
 
           <nav className="mt-8 flex flex-col space-y-4">
-            {menuItems.map((item) => (
+            {navItems.map((item) => (
               <Link
-                key={item.title}
+                key={`${item.label}-${item.href}`}
                 href={item.href}
                 className={cn(
                   "flex items-center rounded-md px-4 py-3",
@@ -59,7 +64,7 @@ export function MobileNav() {
                 )}
                 onClick={() => setOpen(false)}
               >
-                {item.title}
+                {item.label}
               </Link>
             ))}
           </nav>

@@ -11,6 +11,7 @@ interface HeroContentProps {
   subtitle?: string;
   eyebrow?: string;
   ctaLabel?: string;
+  ctaHref?: string;
 }
 
 export function HeroContent({
@@ -18,10 +19,15 @@ export function HeroContent({
   subtitle,
   eyebrow,
   ctaLabel,
+  ctaHref,
 }: HeroContentProps) {
+  const href = ctaHref?.trim() || "#contact-section";
+  const isHash = href.startsWith("#");
+
   const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isHash) return;
     e.preventDefault();
-    smoothScrollToSection("contact-section");
+    smoothScrollToSection(href.replace("#", ""));
   };
 
   return (
@@ -66,7 +72,7 @@ export function HeroContent({
             size="lg"
             className="bg-yellow-400 text-[#1e3a5f] hover:bg-yellow-500 dark:bg-yellow-400 dark:text-[#1e3a5f] dark:hover:bg-yellow-500"
           >
-            <Link href="#contact-section" onClick={handleContactClick}>
+            <Link href={href} onClick={handleContactClick}>
               {ctaLabel}
             </Link>
           </Button>
