@@ -2,6 +2,8 @@
 
 The live site reads **published** Contentful entries only. This maps your space (`es87a9loayi1`) to the homepage.
 
+**Where to click in Contentful:** see [`contentful-editing-map.md`](./contentful-editing-map.md) (direct links to each entry).
+
 ## Homepage sections → content types
 
 | Section | Content type API ID | Notes |
