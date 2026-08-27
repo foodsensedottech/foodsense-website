@@ -95,7 +95,12 @@ export function Header({ chrome = null }: HeaderProps) {
         </nav>
         <div className="ml-auto flex items-center space-x-4">
           <ThemeToggle />
-          <Button onClick={handleGetStartedClick}>{ctaLabel}</Button>
+          <Button
+            onClick={handleGetStartedClick}
+            className="rounded-md bg-brand-yellow text-brand-navy hover:bg-brand-dark-gold font-semibold"
+          >
+            {ctaLabel}
+          </Button>
           <MobileNav chrome={chrome} />
         </div>
       </div>
