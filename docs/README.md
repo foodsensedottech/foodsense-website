@@ -27,8 +27,9 @@ Also read root [`.cursorrules`](../.cursorrules) and [`AGENTS.md`](../AGENTS.md)
 
 ## Website 2.0
 
+- [`website-2.0/decisions.md`](./website-2.0/decisions.md) — locked CRM / conversion / brand decisions
 - [`website-2.0/overview.md`](./website-2.0/overview.md) — page IA + conversion sections
-- [`website-2.0/contentful.md`](./website-2.0/contentful.md) — lean CMS types (4 types)
+- [`website-2.0/contentful.md`](./website-2.0/contentful.md) — lean CMS: create / keep / retire
 
 ## What we archived (and why)
 

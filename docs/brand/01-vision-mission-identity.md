@@ -17,8 +17,10 @@ We bridge the gap between restaurant technology and restaurant operations. We he
 
 ## Who We Are
 
-A boutique consultancy that lives at the intersection of restaurant operations and technology. We work across the full stack: customer-facing solutions (loyalty, kiosks, apps, delivery, drive-thru) and back-of-house systems (POS, KDS, kitchen management, scheduling, inventory, data infrastructure). We're bilingual, multi-market, and built for franchisees who need someone who's done this before across 10+ countries. We get granular: we review payloads, attend integration test sessions, and hold vendors accountable ourselves.
+A boutique consultancy that lives at the intersection of restaurant operations and technology. We work across the full stack: customer-facing solutions (loyalty, kiosks, apps, delivery, drive-thru) and back-of-house systems (POS, KDS, kitchen management, scheduling, inventory, data infrastructure). We're bilingual and multi-market — Latin America, the Caribbean, and the United States — built for 10+ unit franchise operators who need someone who has done this work before. We get granular: we review payloads, attend integration test sessions, and hold vendors accountable ourselves.
+
+**Proof framing (live About):** Unit counts and market spans on the site (e.g. POS programs through ~4,500 restaurants; tech stack work across ~30 franchisees / **36 countries** / 2,200+ restaurants) describe the **principal’s prior roles and engagements**. They are not FoodSense-the-firm client logos.
 
 ## Who We Aren't
 
-We're not a large systems integrator billing hundreds of consultants. We don't do theoretical strategy decks that sit on a shelf. We don't serve single-unit independents or brands that aren't ready to invest in technology. We're not a software vendor, we don't sell a platform. And we don't operate with a "set it and forget it" mindset: if you want someone to hand you a PDF and disappear, we're the wrong fit.
+We're not a large systems integrator billing hundreds of consultants. We don't do theoretical strategy decks that sit on a shelf. We don't serve **single-unit independents**. We're not a software vendor; we don't sell a platform. We guide existing teams — we are not the trench crew. And we don't operate with a "set it and forget it" mindset: if you want someone to hand you a PDF and disappear, we're the wrong fit.

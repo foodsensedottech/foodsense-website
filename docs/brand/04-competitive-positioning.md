@@ -12,18 +12,18 @@ FoodSense exists because the restaurant industry doesn't have enough people who 
 - **Who does the work:** The senior person in the pitch does the work. No junior analyst rotation.
 - **Industry depth:** Restaurant technology is all we do. Not one vertical among 40.
 - **Cost:** Right-sized for mid-market franchisees. No overhead tax for a brand name.
-- **Credibility:** We are operators. We've managed these systems across 10+ markets in-role.
+- **Credibility:** We are operators. The principal’s résumé includes multi-market QSR programs (including work spanning dozens of countries) — lived cutovers, not slideware.
 
 ## vs. Freelancers & Generalists
 
-- **Depth:** Deep vertical expertise across every restaurant tech domain.
-- **Multi-market:** 10+ countries, bilingual, understands regulatory variation.
-- **Network:** Vetted vendor ecosystem and advisory network (Blackthorn).
-- **Structure:** Phased methodology, documented deliverables, milestone accountability.
+- **Depth:** Deep vertical expertise across restaurant tech domains.
+- **Multi-market:** LATAM, Caribbean, and US; bilingual; understands regulatory and franchise variation.
+- **Network:** Vetted RestTech ecosystem (including Blackthorn) when a specialist is needed beside us.
+- **Structure:** Phased methodology — Advisory, then Fractional work or Project management.
 
 ## vs. In-House Teams
 
-- **Cross-brand perspective:** We've seen how 10+ brands solve the same problem.
+- **Cross-brand perspective:** Pattern recognition across multi-unit stacks and markets.
 - **Vendor relationships:** Active across the landscape. We know who's good and who's slipping.
 - **No bias:** We recommend what fits, not what's already installed.
 - **Cost:** Fractional engagement at a fraction of FTE cost.
@@ -31,9 +31,10 @@ FoodSense exists because the restaurant industry doesn't have enough people who 
 ## Unique Differentiators
 
 1. Operator-first credibility (lived experience, not research)
-2. Latin America & Caribbean specialization
-3. Bilingual delivery (English/Spanish, natively)
-4. Phased methodology (test, prove, scale)
-5. Vendor-agnostic (no commissions, no preferred partners)
-6. Full-stack restaurant tech fluency (POS to data warehouse)
-7. Network effect via Blackthorn advisory network
+2. Written for 10+ unit decision-makers (VP Tech / CDTO / CEO / Country GM)
+3. Latin America, Caribbean, and US multi-market fluency
+4. Bilingual delivery (English / Spanish)
+5. Phased methodology (test, prove, scale) via Advisory → Fractional / Project
+6. Vendor-agnostic — guide existing teams; do not become the trench crew
+7. Full-stack restaurant tech fluency (POS to data)
+8. RestTech network (including Blackthorn) when FoodSense is not the solo fit

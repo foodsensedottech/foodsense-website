@@ -1,30 +1,44 @@
 # Service Offerings & Engagement Models
 
-## Capabilities
+Aligned to live site copy. The site sells **three engagement modes**. Capabilities below are what those modes deliver.
 
-- **POS & Core Systems:** Migration strategy, vendor evaluation, implementation management (Oracle Simphony, NCR). Cutover planning, phased rollouts, integration architecture, post-go-live stabilization.
-- **Self-Service & Kiosks:** End-to-end kiosk program management. Vendor assessment, UI/UX alignment, POS connectivity, menu configuration, deployment coordination.
-- **Loyalty, CRM & Guest Engagement:** Platform selection and integration. Campaign architecture, API/webhook design, earn/burn logic, segmentation, dashboard development.
-- **Delivery & E-Commerce:** First-party and third-party integration. Marketplace management, menu syndication, order routing, loyalty/digital channel connectivity.
-- **Kitchen Management & IoT:** KDS, production management, visual intelligence, IoT sensor deployment for cook-time optimization and food safety.
-- **Data Infrastructure & Analytics:** Data warehouse design (Azure), dashboards, reporting frameworks, cross-market reconciliation, KPI definition.
-- **Digital Strategy & Roadmapping:** Multi-year technology roadmaps, channel strategy, digital contribution targets, prioritization frameworks.
-- **Vendor Governance & Assessment:** Risk assessments, RFP management, compliance evaluation, ongoing performance management.
-- **Franchise Technology Maturity Assessment:** Benchmarking digital readiness, gap analysis, phased investment plans.
+## What FoodSense sells
 
-## Engagement Models
+Advisory and fractional program management. We close the gap between restaurant Tech, Ops, and Digital by advising, guiding, enabling, and helping implement stack standardization.
 
-1. **Advisory Retainer** — 10–20 hrs/month. Roadmap oversight, vendor management, decision support. Best for operators who need a tech brain on call.
-2. **Project-Based** — Scoped with defined deliverables and milestones. Fixed-fee or T&M. Best for specific initiatives with a clear start and end.
-3. **Embedded / Fractional CTO** — 3–5 days/week. Leadership meetings, vendor relationships, roadmap ownership. Best for franchisees scaling fast.
-4. **Workshops & Assessments** — 1–5 days. Maturity assessments, vendor evaluations, roadmap sessions. Best as a first engagement.
-5. **Referral & Network (Blackthorn)** — When FoodSense isn't the direct fit, we connect via our vetted advisory network.
+We guide existing teams. We do **not** move as the trench crew. Engagements often start as Advisory, then become Fractional work or a bounded project.
+
+## Engagement models (live)
+
+1. **Advisory** — For the decision-maker at 10+ units who needs the gap named and a sequence for what to standardize. Early SOW work names what is fractured, advises on order of work, and guides the teams that already exist.
+2. **Fractional work** — Embedded leadership cadence without becoming extra FTE. Roadmap ownership, vendor relationships, decision support beside the operator's clock.
+3. **Project management** — Bounded initiatives with a clear start and end (RFP, cutover, kiosk program, migration). Scoped deliverables and milestones.
+
+**Commercial shape (as stated on site):** An initiation fee starts the work. A monthly fee is sized to the project and expected business. Rates are not published on the site.
+
+**Do not:** become extra FTE, configure POS or kiosk as the trench crew, sell software, take single-unit independents.
+
+## Capabilities (what the modes cover)
+
+- **POS & core systems** — Migration strategy, vendor evaluation, implementation management (e.g. Oracle Simphony, NCR). Cutover planning, phased rollouts, integration, post-go-live stabilization.
+- **Self-service & kiosks** — End-to-end kiosk program management: vendor assessment, UI/UX alignment, POS connectivity, menu configuration, deployment coordination.
+- **Loyalty, CRM & guest engagement** — Platform selection and integration; campaign architecture; API / webhook design; earn/burn; segmentation.
+- **Delivery & e-commerce** — First-party and third-party integration; menu syndication; order routing; channel connectivity.
+- **Kitchen management & IoT** — KDS, production management, sensors for cook-time and food safety where relevant.
+- **Data & analytics** — Reporting frameworks, KPI definition, cross-market reconciliation.
+- **Digital strategy & roadmapping** — Multi-year tech roadmaps, channel strategy, prioritization.
+- **Vendor governance & assessment** — Risk assessments, RFP management, performance management.
+- **Franchise technology maturity assessment** — Benchmarking digital readiness and phased investment plans (site path: `/franchisees`, after Strategy Audit is primary).
+
+## Network
+
+When FoodSense is not the direct fit, or when a specialist is needed beside us, we connect through a vetted RestTech network (including Blackthorn as partners in the restaurant space). That is a referral / network capability — not a fourth engagement SKU on the homepage.
 
 ## What We Don't Do
 
-- Software development (we architect, not code)
-- Brand/marketing strategy
-- Single-unit consulting (under 10 locations)
+- Software product development (we architect and guide; we do not ship a platform)
+- Brand / marketing strategy
+- Single-unit consulting as the core offer
 - Hardware procurement
 - Ongoing managed services / help desk
 - Strategy decks with no execution path
