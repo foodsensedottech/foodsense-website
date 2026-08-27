@@ -11,7 +11,10 @@ You are building the FoodSense website. Follow these rules on every generation.
 
 - **Company:** FoodSense — boutique restaurant technology consultancy
 - **Vision:** To be the trusted, forward-thinking consultancy in restaurant technology, setting the standard for how brands adopt and scale the right tools: deliberately, intelligently, and with future-proofing at the core.
-- **Mission:** We bridge the gap between restaurant technology and restaurant operations. We help growth-stage brands and multi-unit franchisees build, integrate, and scale their digital infrastructure across every channel and every touchpoint, from the guest to the kitchen.
+- **Mission:** We bridge the gap between restaurant technology and restaurant operations. We help **10+ unit** growth-stage brands and multi-unit franchisees build, integrate, and scale their digital infrastructure across every channel and every touchpoint, from the guest to the kitchen.
+- **Engagement modes (live):** Advisory · Fractional work · Project management
+- **CRM:** ClickUp (all forms). HubSpot is legacy.
+- **Read also:** `docs/website-2.0/decisions.md`
 - **Methodology:** Test, prove, scale. Always phased. Never big-bang.
 
 ## Design System
@@ -115,9 +118,5 @@ You are building the FoodSense website. Follow these rules on every generation.
 
 ## Photography Direction
 
-- Documentary, in real restaurants during real shifts
-- Priority: Kitchen/BOH — cooks reading KDS, hands assembling with screens glowing
-- Always include people interacting with technology
-- Over-the-shoulder and tight crop compositions
-- Warm, slightly desaturated. Navy in shadows, natural kitchen warmth.
-- Never: stock photos, food glamour, empty restaurants, tech in isolation
+- Documentary target: real kitchens / people + tech; interim diagrammatic navy/yellow art OK until a shoot
+- Never end-state: stock food glamour, empty restaurants, tech in isolation
