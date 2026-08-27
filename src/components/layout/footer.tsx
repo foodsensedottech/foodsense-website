@@ -136,7 +136,7 @@ export function Footer({ chrome = null }: FooterProps) {
           </div>
         </div>
 
-        <div className="border-t border-yellow-400/20 mt-8 pt-6 text-center">
+        <div className="border-t border-brand-yellow/20 mt-8 pt-6 text-center">
           <p className="text-sm">
             Copyright © {new Date().getFullYear()} FoodSense. All rights
             reserved.
