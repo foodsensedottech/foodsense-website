@@ -1,0 +1,118 @@
+# FoodSense Brand OS ” Cursor Rules
+
+You are building the FoodSense website. Follow these rules on every generation.
+
+## Brand Identity
+
+- **Company:** FoodSense  boutique restaurant technology consultancy
+- **Vision:** To be the trusted, forward-thinking consultancy in restaurant technology, setting the standard for how brands adopt and scale the right tools: deliberately, intelligently, and with future-proofing at the core.
+- **Mission:** We bridge the gap between restaurant technology and restaurant operations. We help growth-stage brands and multi-unit franchisees build, integrate, and scale their digital infrastructure across every channel and every touchpoint, from the guest to the kitchen.
+- **Methodology:** Test, prove, scale. Always phased. Never big-bang.
+
+## Design System
+
+### Colors
+```css
+:root {
+  --color-primary: #253B59;        /* Navy â€” backgrounds, text, containers */
+  --color-accent: #F1C100;         /* Yellow â€” CTAs, highlights, active states, icons */
+  --color-surface: #FFFFFF;        /* Cards, modals, page backgrounds */
+  --color-text-primary: #253B59;   /* Body text on light backgrounds */
+  --color-text-inverse: #FFFFFF;   /* Text on navy backgrounds */
+  --color-text-accent: #F1C100;    /* Links, emphasis on dark backgrounds */
+  --color-border: #E2E6EB;        /* Subtle dividers, input borders */
+  --color-muted: #6B7A8D;         /* Secondary text, placeholders */
+  --color-light-navy: #3A5A80;    /* Hover states, secondary backgrounds */
+  --color-dark-gold: #D4A800;     /* Pressed states, gold on light backgrounds */
+  --color-warm-gray: #F5F6F8;     /* Section backgrounds, alternating rows */
+  --color-slate: #6B7A8D;         /* Captions, metadata, inactive states */
+}
+```
+
+### Typography
+- **Font:** Nunito (Google Fonts) â€” all weights
+- **Display/H1:** Nunito Bold, 48â€“64px
+- **H2:** Nunito SemiBold, 28â€“32px
+- **H3:** Nunito SemiBold, 22â€“24px
+- **Body:** Nunito Regular, 16px, line-height 1.6
+- **Small/Caption:** Nunito Regular, 13â€“14px
+- **Data/KPIs:** Nunito Bold or JetBrains Mono / Space Mono
+
+### Grid & Spacing
+- 12-column grid (desktop), 4-column (mobile)
+- Base unit: 24px
+- Spacing scale: 8 / 16 / 24 / 32 / 48 / 64 / 96 / 128px
+- 8px baseline grid for vertical rhythm
+- Breakpoints: 480px (mobile), 768px (tablet), 1024px (desktop), 1440px (max-width)
+
+### Components
+
+**Buttons:**
+- Primary: #F1C100 fill, navy text (#253B59), 8px border-radius, 48px height
+- Secondary: Navy outline (2px), navy text, transparent fill
+- Hover: 10% darken on primary, fill on secondary
+- Disabled: 40% opacity
+
+**Cards:**
+- White surface, 1px border (#E2E6EB) or box-shadow (0 2px 8px rgba(37,59,89,0.08))
+- 12px border-radius, 24px interior padding
+
+**Inputs:**
+- 48px height, 8px border-radius, 1px border (--color-border)
+- Focus: 2px yellow border
+- Labels above inputs, never floating
+
+**Elevation:**
+- Level 0: Flat (borders only)
+- Level 1: 0 2px 8px rgba(37,59,89,0.06) â€” cards, dropdowns
+- Level 2: 0 8px 24px rgba(37,59,89,0.12) â€” modals, popovers
+
+**Icons:**
+- Line-art style, 2px stroke, rounded caps/joins, 24x24px bounding box
+- Must feel like they belong with the logo cloche icon
+- No filled/solid icons
+
+### Motion
+- Micro-interactions: 200ms ease-out
+- Page transitions: 300ms
+- No bounce or elastic easing. Precise, not playful.
+
+### Gradients
+- Primary: linear #253B59 â†’ #1A2A40 (hero sections only)
+- Accent: linear #F1C100 â†’ #D4A800 (CTAs, progress bars only)
+- Never radial. Never multi-color.
+
+## Visual Direction
+
+- Navy carries weight. Yellow punctuates. Never use yellow as dominant surface.
+- Layouts breathe. Negative space is a feature.
+- High contrast, deployed with restraint.
+- Forward-leaning energy (asymmetric compositions, directional elements welcome)
+- Personality: Precise. Kinetic. Trustworthy. Sharp. Warm.
+
+## Content Voice (for any copy generation)
+
+- Direct. No hedging, no filler.
+- Pragmatic. Every sentence earns its place.
+- Simple. If an operator running 30 stores can't understand it, rewrite.
+- Process-driven. Numbered steps over flowing paragraphs.
+- Lead with the action, context second.
+- No: "synergy", "leverage", "best-in-class", "innovative", "solutions" (standalone)
+- Yes: "rollout", "deployment", "adoption", "phased", "KPI", "blocker"
+- Our phrases: "Signal vs. noise", "Operator-first", "Test, prove, scale"
+
+## Logo
+
+- Icon: Cloche on wheels with speed lines (movement + food + delivery)
+- Lockup: Icon + "foodsense" wordmark (lowercase, rounded geometric sans)
+- Variants: Yellow on navy, navy on white, yellow on white, white on navy
+- Never stretch, rotate, add effects, or change colors outside the defined palette
+
+## Photography Direction
+
+- Documentary, in real restaurants during real shifts
+- Priority: Kitchen/BOH â€” cooks reading KDS, hands assembling with screens glowing
+- Always include people interacting with technology
+- Over-the-shoulder and tight crop compositions
+- Warm, slightly desaturated. Navy in shadows, natural kitchen warmth.
+- Never: stock photos, food glamour, empty restaurants, tech in isolation
