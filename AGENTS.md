@@ -31,6 +31,7 @@ Guidance for Cursor agents working on the FoodSense website.
 - Stack: Next.js App Router, TypeScript, Tailwind, Contentful, ClickUp (HubSpot legacy)
 - Dev notes: `docs/engineering/development.md`
 - Contentful revalidation: `docs/engineering/revalidation.md`
+- ClickUp CRM: `docs/engineering/clickup.md`
 - Legacy HubSpot property map (until deleted): `docs/engineering/hubspot-properties.csv`
 
 ## Docs hygiene

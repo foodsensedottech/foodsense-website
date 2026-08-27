@@ -1,23 +1,9 @@
 import { NextResponse } from "next/server";
-import {
-  createOrUpdateCompany,
-  createContactWithCompany,
-} from "@/lib/hubspot/client";
-import {
-  PRIMARY_CHALLENGES,
-  strategyAuditSchema,
-} from "@/lib/validation/strategy-audit-schema";
-import { transformName } from "@/lib/hubspot/transforms";
+import { createStrategyAuditLead } from "@/lib/clickup/create-strategy-audit-lead";
+import { strategyAuditSchema } from "@/lib/validation/strategy-audit-schema";
 
 export async function POST(req: Request) {
   try {
-    if (!process.env.HUBSPOT_ACCESS_TOKEN) {
-      return NextResponse.json(
-        { error: "HubSpot integration is not properly configured" },
-        { status: 500 }
-      );
-    }
-
     const json = await req.json();
     const parsed = strategyAuditSchema.safeParse(json);
     if (!parsed.success) {
@@ -27,48 +13,45 @@ export async function POST(req: Request) {
       );
     }
 
-    const data = parsed.data;
-    const challengeLabel =
-      PRIMARY_CHALLENGES.find((c) => c.value === data.primaryChallenge)
-        ?.label || data.primaryChallenge;
-    const { firstName, lastName } = transformName(data.name);
-    const notes = [
-      "Lead source: strategy-audit",
-      `Primary challenge: ${challengeLabel}`,
-      data.notes ? `Notes: ${data.notes}` : null,
-    ]
-      .filter(Boolean)
-      .join("\n");
+    if (!process.env.CLICKUP_API_TOKEN) {
+      return NextResponse.json(
+        {
+          error:
+            "Inquiry form is not connected yet. Email fabio@foodsense.tech.",
+        },
+        { status: 503 }
+      );
+    }
 
-    const companyId = await createOrUpdateCompany({
-      name: data.restaurant,
-      number_of_locations: "1",
-      average_monthly_orders: "0",
-      restaurant_type: "quick_service",
-      pos_system: "other",
-      delivery_partners: "",
-      service_interests: challengeLabel,
-      notes,
-    });
+    try {
+      const lead = await createStrategyAuditLead(parsed.data);
+      if (!lead) {
+        return NextResponse.json(
+          {
+            error:
+              "Inquiry form is not connected yet. Email fabio@foodsense.tech.",
+          },
+          { status: 503 }
+        );
+      }
 
-    const contactId = await createContactWithCompany(
-      {
-        firstname: firstName,
-        lastname: lastName || "Lead",
-        email: data.email,
-        phone: "",
-        company: data.restaurant,
-        notes,
-      },
-      companyId
-    );
-
-    return NextResponse.json({
-      success: true,
-      message: "Form submitted successfully",
-      contactId,
-      companyId,
-    });
+      return NextResponse.json({
+        success: true,
+        message: "Form submitted successfully",
+        destination: "clickup",
+        id: lead.id,
+        captured: true,
+      });
+    } catch (clickUpError) {
+      console.error("Strategy audit ClickUp error:", clickUpError);
+      return NextResponse.json(
+        {
+          error:
+            "Could not save this inquiry. Please email fabio@foodsense.tech.",
+        },
+        { status: 502 }
+      );
+    }
   } catch (error) {
     console.error("Strategy audit form error:", error);
     return NextResponse.json(

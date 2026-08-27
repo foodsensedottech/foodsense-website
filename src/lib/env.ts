@@ -7,16 +7,10 @@ export const getEnvVar = (key: string): string => {
 };
 
 export function validateEnv() {
-  const requiredEnvs = [
-    "HUBSPOT_ACCESS_TOKEN",
-    "HUBSPOT_PORTAL_ID",
-  ];
-
-  const missing = requiredEnvs.filter(key => !process.env[key]);
-
-  if (missing.length > 0) {
+  // ClickUp is the permanent CRM. HubSpot is legacy and optional during cutover.
+  if (!process.env.CLICKUP_API_TOKEN && !process.env.HUBSPOT_ACCESS_TOKEN) {
     throw new Error(
-      `Missing required environment variables: ${missing.join(', ')}`
+      "Missing CRM credentials: set CLICKUP_API_TOKEN (preferred) or HUBSPOT_ACCESS_TOKEN"
     );
   }
-} 
+}
