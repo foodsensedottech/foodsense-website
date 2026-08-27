@@ -1,29 +1,20 @@
-"use client";
-
 import * as React from "react";
-import dynamic from "next/dynamic";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-
-// Dynamically import components to avoid hydration issues
-const DynamicHeader = dynamic(() => import("@/components/layout/header").then(mod => mod.Header), {
-  ssr: true,
-});
-
-const DynamicFooter = dynamic(() => import("@/components/layout/footer").then(mod => mod.Footer), {
-  ssr: true,
-});
+import { getSiteChrome } from "@/lib/contentful/site-chrome";
 
 interface BaseLayoutProps {
   children: React.ReactNode;
 }
 
-export function BaseLayout({ children }: BaseLayoutProps) {
+export async function BaseLayout({ children }: BaseLayoutProps) {
+  const chrome = await getSiteChrome();
+
   return (
     <div className="min-h-screen flex flex-col">
-      <DynamicHeader />
+      <Header chrome={chrome} />
       <main className="flex-grow">{children}</main>
-      <DynamicFooter />
+      <Footer chrome={chrome} />
     </div>
   );
 }

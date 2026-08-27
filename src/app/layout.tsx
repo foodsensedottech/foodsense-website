@@ -1,19 +1,21 @@
 import { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import { ClientProviders } from "@/components/providers/client-providers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { validateEnv } from "@/lib/env";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  weight: ["400", "600", "700"],
+});
 
 try {
-  // Validate environment variables at build/runtime
   validateEnv();
 } catch (error) {
   console.error("Environment validation failed:", error);
-  // In development, we can continue with warnings
   if (process.env.NODE_ENV === "production") {
     throw error;
   }
@@ -25,14 +27,14 @@ export const metadata: Metadata = {
   ),
   title: {
     template: "%s | FoodSense",
-    default: "FoodSense | Restaurant Tech for Multi-Unit Franchisees",
+    default: "FoodSense | Fractional Tech & Ops Leadership for QSR",
   },
   description:
-    "Next-gen restaurant technology for multi-unit franchisees across the US, Latin America, and the Caribbean. POS, kiosk, payments, and data governance at scale.",
+    "We help SMB and Enterprise Quick Service Restaurants optimize their tech stack and operational workflows to increase margins and efficiency.",
   openGraph: {
-    title: "FoodSense | Restaurant Tech for Multi-Unit Franchisees",
+    title: "FoodSense | Fractional Tech & Ops Leadership for QSR",
     description:
-      "We turn global enterprise strategy into scalable store-level architecture across POS, kiosk, payments, and data governance.",
+      "Scaling QSR excellence through fractional tech and ops leadership.",
     url: "https://foodsense.tech",
     siteName: "FoodSense",
     locale: "en_US",
@@ -95,7 +97,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(inter.className, "antialiased")}>
+      <body className={cn(nunito.variable, "font-sans antialiased")}>
         <ClientProviders>{children}</ClientProviders>
         <SpeedInsights />
       </body>

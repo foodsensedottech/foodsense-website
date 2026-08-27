@@ -1,27 +1,15 @@
 # FoodSense Website
 
-A modern, responsive website built with Next.js 14, TypeScript, Tailwind CSS, and Contentful CMS.
+Marketing site for FoodSense — boutique restaurant technology consultancy.
 
-## Features
+**Website 2.0** (conversion homepage) lives on preview branches first. Documentation map: [`docs/README.md`](./docs/README.md). Brand OS: [`.cursorrules`](./.cursorrules) + [`docs/brand/`](./docs/brand/).
 
-- 🚀 Built with Next.js 14 App Router
-- 💻 TypeScript for type safety
-- 🎨 Tailwind CSS for styling
-- 📱 Fully responsive design
-- 🔄 Server-side rendering
-- 📊 Google Analytics integration
-- 📈 Microsoft Clarity for user behavior analytics
-- 🖼️ Contentful CMS integration
-- 🌙 Dark mode support
-- ⚡ Optimized performance
-- 🔍 SEO optimized
+## Stack
 
-## Prerequisites
-
-Before you begin, ensure you have installed:
-
-- Node.js 18.17 or later
-- npm or yarn
+- Next.js App Router + TypeScript + Tailwind
+- Contentful CMS
+- HubSpot (lead forms)
+- Google Analytics / Clarity
 
 ## Getting Started
 
