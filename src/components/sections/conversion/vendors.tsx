@@ -19,7 +19,7 @@ export function ConversionVendors({ vendors }: Props) {
           viewport={{ once: true }}
           transition={{ duration: 0.45 }}
         >
-          <h2 className="font-display text-2xl md:text-3xl text-[#13283f]">
+          <h2 className="font-display text-2xl md:text-3xl text-[#253B59]">
             Trusted Integration Partners
           </h2>
         </motion.div>
@@ -43,7 +43,7 @@ export function ConversionVendors({ vendors }: Props) {
                   className="h-10 w-auto object-contain"
                 />
               ) : (
-                <span className="font-display text-lg tracking-wide text-[#13283f]/70">
+                <span className="font-display text-lg tracking-wide text-[#253B59]/70">
                   {vendor.name}
                 </span>
               )}

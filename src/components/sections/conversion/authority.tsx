@@ -12,7 +12,7 @@ export function ConversionAuthority({ data }: Props) {
   return (
     <section
       id="authority-section"
-      className="py-20 md:py-28 bg-[#eef2f6] text-[#13283f]"
+      className="py-20 md:py-28 bg-[#eef2f6] text-[#253B59]"
     >
       <div className="container mx-auto px-4">
         <motion.div
@@ -22,13 +22,13 @@ export function ConversionAuthority({ data }: Props) {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
         >
-          <p className="font-display text-sm tracking-[0.18em] uppercase text-[#8a6a1f] mb-3">
+          <p className="font-display text-sm tracking-[0.18em] uppercase text-[#D4A800] mb-3">
             Why FoodSense
           </p>
           <h2 className="font-display text-3xl md:text-4xl mb-5 leading-tight">
             The authority gap we close
           </h2>
-          <p className="text-lg text-[#13283f]/80 leading-relaxed">{data.body}</p>
+          <p className="text-lg text-[#253B59]/80 leading-relaxed">{data.body}</p>
         </motion.div>
 
         <div className="grid md:grid-cols-[minmax(0,280px)_1fr] gap-10 md:gap-14 items-start">
@@ -39,7 +39,7 @@ export function ConversionAuthority({ data }: Props) {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5, delay: 0.05 }}
           >
-            <div className="aspect-[4/5] relative overflow-hidden bg-[#1e3a5f]">
+            <div className="aspect-[4/5] relative overflow-hidden bg-[#253B59]">
               {data.founderImageUrl ? (
                 <Image
                   src={data.founderImageUrl}
@@ -49,7 +49,7 @@ export function ConversionAuthority({ data }: Props) {
                   sizes="280px"
                 />
               ) : (
-                <div className="absolute inset-0 flex items-end p-6 bg-[linear-gradient(160deg,#1e3a5f_0%,#2f5378_50%,#13283f_100%)]">
+                <div className="absolute inset-0 flex items-end p-6 bg-[linear-gradient(160deg,#253B59_0%,#3A5A80_50%,#253B59_100%)]">
                   <p className="font-display text-white text-2xl">
                     {data.founderLabel}
                   </p>
@@ -68,13 +68,13 @@ export function ConversionAuthority({ data }: Props) {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <li className="font-display text-sm tracking-[0.18em] uppercase text-[#8a6a1f]">
+            <li className="font-display text-sm tracking-[0.18em] uppercase text-[#D4A800]">
               The wins
             </li>
             {data.wins.map((win) => (
               <li
                 key={win}
-                className="border-l-2 border-amber-400 pl-5 text-base md:text-lg leading-relaxed text-[#13283f]/90"
+                className="border-l-2 border-[#F1C100] pl-5 text-base md:text-lg leading-relaxed text-[#253B59]/90"
               >
                 {win}
               </li>

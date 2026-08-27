@@ -1,19 +1,15 @@
 import { Metadata } from "next";
-import { Figtree, Syne } from "next/font/google";
+import { Nunito } from "next/font/google";
 import { ClientProviders } from "@/components/providers/client-providers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { validateEnv } from "@/lib/env";
 import { cn } from "@/lib/utils";
 
-const figtree = Figtree({
+const nunito = Nunito({
   subsets: ["latin"],
   variable: "--font-sans",
-});
-
-const syne = Syne({
-  subsets: ["latin"],
-  variable: "--font-display",
+  weight: ["400", "600", "700"],
 });
 
 try {
@@ -101,9 +97,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(figtree.variable, syne.variable, "font-sans antialiased")}
-      >
+      <body className={cn(nunito.variable, "font-sans antialiased")}>
         <ClientProviders>{children}</ClientProviders>
         <SpeedInsights />
       </body>

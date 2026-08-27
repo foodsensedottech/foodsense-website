@@ -20,10 +20,10 @@ export function ConversionPillars({ pillars }: Props) {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
         >
-          <p className="font-display text-sm tracking-[0.18em] uppercase text-[#8a6a1f] mb-3">
+          <p className="font-display text-sm tracking-[0.18em] uppercase text-[#D4A800] mb-3">
             Core pillars
           </p>
-          <h2 className="font-display text-3xl md:text-4xl text-[#13283f] leading-tight">
+          <h2 className="font-display text-3xl md:text-4xl text-[#253B59] leading-tight">
             What we do
           </h2>
         </motion.div>
@@ -34,20 +34,20 @@ export function ConversionPillars({ pillars }: Props) {
             return (
               <motion.article
                 key={pillar.title}
-                className="border-t border-[#13283f]/15 pt-6"
+                className="border-t border-[#253B59]/15 pt-6"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.45, delay: index * 0.08 }}
               >
                 <Icon
-                  className="h-8 w-8 text-[#1e3a5f] mb-5"
+                  className="h-8 w-8 text-[#253B59] mb-5"
                   aria-hidden="true"
                 />
-                <h3 className="font-display text-xl text-[#13283f] mb-3 leading-snug">
+                <h3 className="font-display text-xl text-[#253B59] mb-3 leading-snug">
                   {pillar.title}
                 </h3>
-                <p className="text-[#13283f]/75 leading-relaxed">{pillar.body}</p>
+                <p className="text-[#253B59]/75 leading-relaxed">{pillar.body}</p>
               </motion.article>
             );
           })}

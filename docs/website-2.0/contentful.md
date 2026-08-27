@@ -1,8 +1,10 @@
-# Conversion homepage — lean Contentful model
+# Website 2.0 — lean Contentful model
 
 Preview uses **seed content** until you publish the types below. One main entry drives the page.
 
-Do **not** keep growing the old 25-type model for this version. Archive unused types when you are ready (FAQ, For whom, How we work, Proof, Testimonial cards, etc.).
+Do **not** keep growing the old 25-type model for this version. Archive unused Contentful types when ready (FAQ, For whom, How we work, Proof, Testimonial cards, etc.).
+
+Brand/copy truth: `docs/brand/` + `.cursorrules`. Page IA: [`overview.md`](./overview.md).
 
 ## Content types to create (only 4)
 

@@ -34,9 +34,9 @@ export function ConversionHero({ data, brand = "FoodSense" }: Props) {
             sizes="100vw"
           />
         ) : (
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_20%,#2f5378_0%,transparent_50%),radial-gradient(ellipse_at_80%_0%,#1e3a5f_0%,#0f2138_55%,#0a1624_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_20%,#3A5A80_0%,transparent_50%),radial-gradient(ellipse_at_80%_0%,#253B59_0%,#1A2A40_55%,#1A2A40_100%)]" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a1624] via-[#0a1624]/70 to-[#0a1624]/35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A2A40] via-[#1A2A40]/70 to-[#1A2A40]/35" />
         <div
           className="absolute inset-0 opacity-[0.08] mix-blend-overlay"
           style={{
@@ -48,7 +48,7 @@ export function ConversionHero({ data, brand = "FoodSense" }: Props) {
 
       <div className="relative z-10 container mx-auto px-4 pb-16 pt-28 md:py-24">
         <motion.p
-          className="font-display text-amber-300 text-sm md:text-base tracking-[0.2em] uppercase mb-5"
+          className="font-display text-[#F1C100] text-sm md:text-base tracking-[0.2em] uppercase mb-5"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45 }}
@@ -79,7 +79,7 @@ export function ConversionHero({ data, brand = "FoodSense" }: Props) {
           <Button
             asChild
             size="lg"
-            className="rounded-md bg-amber-400 text-[#13283f] hover:bg-amber-300 font-semibold px-8"
+            className="rounded-md bg-[#F1C100] text-[#253B59] hover:bg-[#D4A800] font-semibold px-8"
           >
             <Link href="#contact-section" onClick={handleCta}>
               {data.ctaLabel}

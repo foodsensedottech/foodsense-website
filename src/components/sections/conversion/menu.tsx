@@ -16,7 +16,7 @@ export function ConversionMenu({ items }: Props) {
   return (
     <section
       id="menu-section"
-      className="py-20 md:py-28 bg-[#13283f] text-[#f7f4ef]"
+      className="py-20 md:py-28 bg-[#253B59] text-[#f7f4ef]"
     >
       <div className="container mx-auto px-4">
         <motion.div
@@ -26,7 +26,7 @@ export function ConversionMenu({ items }: Props) {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
         >
-          <p className="font-display text-sm tracking-[0.18em] uppercase text-amber-300/90 mb-3">
+          <p className="font-display text-sm tracking-[0.18em] uppercase text-[#F1C100]/90 mb-3">
             Specialized menu
           </p>
           <h2 className="font-display text-3xl md:text-4xl leading-tight">

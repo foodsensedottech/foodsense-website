@@ -76,11 +76,11 @@ export function ConversionContact({ data }: Props) {
     <section id="contact-section" className="py-20 md:py-28 bg-white">
       <div className="container mx-auto px-4 max-w-xl">
         <div className="text-center mb-10">
-          <h2 className="font-display text-3xl md:text-4xl text-[#13283f] mb-3">
+          <h2 className="font-display text-3xl md:text-4xl text-[#253B59] mb-3">
             {data.heading}
           </h2>
-          <p className="text-lg text-[#13283f]/75">{data.subheading}</p>
-          <p className="mt-2 text-sm text-[#8a6a1f]">{data.responseNote}</p>
+          <p className="text-lg text-[#253B59]/75">{data.subheading}</p>
+          <p className="mt-2 text-sm text-[#D4A800]">{data.responseNote}</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
@@ -151,7 +151,7 @@ export function ConversionContact({ data }: Props) {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-[#1e3a5f] text-amber-300 hover:bg-[#13283f]"
+              className="w-full bg-[#253B59] text-[#F1C100] hover:bg-[#253B59]"
               size="lg"
             >
               {isSubmitting ? (

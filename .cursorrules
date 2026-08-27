@@ -1,10 +1,15 @@
-# FoodSense Brand OS ” Cursor Rules
+# FoodSense Brand OS — Cursor Rules
+
+Before generating copy or UI for the FoodSense website, read:
+- `docs/brand/01-vision-mission-identity.md` through `07-operating-logic.md`
+- `docs/website-2.0/` for the current Website 2.0 direction
+- `AGENTS.md` for repo workflow
 
 You are building the FoodSense website. Follow these rules on every generation.
 
 ## Brand Identity
 
-- **Company:** FoodSense  boutique restaurant technology consultancy
+- **Company:** FoodSense — boutique restaurant technology consultancy
 - **Vision:** To be the trusted, forward-thinking consultancy in restaurant technology, setting the standard for how brands adopt and scale the right tools: deliberately, intelligently, and with future-proofing at the core.
 - **Mission:** We bridge the gap between restaurant technology and restaurant operations. We help growth-stage brands and multi-unit franchisees build, integrate, and scale their digital infrastructure across every channel and every touchpoint, from the guest to the kitchen.
 - **Methodology:** Test, prove, scale. Always phased. Never big-bang.
@@ -14,8 +19,8 @@ You are building the FoodSense website. Follow these rules on every generation.
 ### Colors
 ```css
 :root {
-  --color-primary: #253B59;        /* Navy â€” backgrounds, text, containers */
-  --color-accent: #F1C100;         /* Yellow â€” CTAs, highlights, active states, icons */
+  --color-primary: #253B59;        /* Navy — backgrounds, text, containers */
+  --color-accent: #F1C100;         /* Yellow — CTAs, highlights, active states, icons */
   --color-surface: #FFFFFF;        /* Cards, modals, page backgrounds */
   --color-text-primary: #253B59;   /* Body text on light backgrounds */
   --color-text-inverse: #FFFFFF;   /* Text on navy backgrounds */
@@ -30,12 +35,12 @@ You are building the FoodSense website. Follow these rules on every generation.
 ```
 
 ### Typography
-- **Font:** Nunito (Google Fonts) â€” all weights
-- **Display/H1:** Nunito Bold, 48â€“64px
-- **H2:** Nunito SemiBold, 28â€“32px
-- **H3:** Nunito SemiBold, 22â€“24px
+- **Font:** Nunito (Google Fonts) — all weights
+- **Display/H1:** Nunito Bold, 48–64px
+- **H2:** Nunito SemiBold, 28–32px
+- **H3:** Nunito SemiBold, 22–24px
 - **Body:** Nunito Regular, 16px, line-height 1.6
-- **Small/Caption:** Nunito Regular, 13â€“14px
+- **Small/Caption:** Nunito Regular, 13–14px
 - **Data/KPIs:** Nunito Bold or JetBrains Mono / Space Mono
 
 ### Grid & Spacing
@@ -64,8 +69,8 @@ You are building the FoodSense website. Follow these rules on every generation.
 
 **Elevation:**
 - Level 0: Flat (borders only)
-- Level 1: 0 2px 8px rgba(37,59,89,0.06) â€” cards, dropdowns
-- Level 2: 0 8px 24px rgba(37,59,89,0.12) â€” modals, popovers
+- Level 1: 0 2px 8px rgba(37,59,89,0.06) — cards, dropdowns
+- Level 2: 0 8px 24px rgba(37,59,89,0.12) — modals, popovers
 
 **Icons:**
 - Line-art style, 2px stroke, rounded caps/joins, 24x24px bounding box
@@ -78,8 +83,8 @@ You are building the FoodSense website. Follow these rules on every generation.
 - No bounce or elastic easing. Precise, not playful.
 
 ### Gradients
-- Primary: linear #253B59 â†’ #1A2A40 (hero sections only)
-- Accent: linear #F1C100 â†’ #D4A800 (CTAs, progress bars only)
+- Primary: linear #253B59 → #1A2A40 (hero sections only)
+- Accent: linear #F1C100 → #D4A800 (CTAs, progress bars only)
 - Never radial. Never multi-color.
 
 ## Visual Direction
@@ -111,7 +116,7 @@ You are building the FoodSense website. Follow these rules on every generation.
 ## Photography Direction
 
 - Documentary, in real restaurants during real shifts
-- Priority: Kitchen/BOH â€” cooks reading KDS, hands assembling with screens glowing
+- Priority: Kitchen/BOH — cooks reading KDS, hands assembling with screens glowing
 - Always include people interacting with technology
 - Over-the-shoulder and tight crop compositions
 - Warm, slightly desaturated. Navy in shadows, natural kitchen warmth.
