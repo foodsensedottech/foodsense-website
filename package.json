@@ -18,7 +18,10 @@
     "dev:clean": "rm -rf .next && next dev",
     "dev:fixed": "node scripts/dev-fix.js && next dev",
     "dev:watch": "node scripts/dev-watch.js",
-    "setup": "node scripts/dev-fix.js"
+    "setup": "node scripts/dev-fix.js",
+    "contentful:phase1": "node scripts/contentful/run-phase1.mjs",
+    "contentful:migrate:staging": "CONTENTFUL_ENVIRONMENT=staging node scripts/contentful/apply-migrations.mjs",
+    "contentful:seed": "node scripts/contentful/seed-conversion-homepage.mjs"
   },
   "dependencies": {
     "@contentful/rich-text-types": "17.0.0",
@@ -82,6 +85,8 @@
     "@types/tailwindcss": "3.1.0",
     "@types/testing-library__jest-dom": "5.14.9",
     "chokidar": "4.0.3",
+    "contentful-management": "11.5.0",
+    "contentful-migration": "5.1.0",
     "dotenv": "16.4.7",
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",

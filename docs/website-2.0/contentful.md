@@ -8,6 +8,8 @@ Owner decisions: [`decisions.md`](./decisions.md). Brand/copy: `docs/brand/`. Pa
 
 Until the lean types below are published, Preview uses seed copy in `src/lib/content/conversion-seed.ts`.
 
+**Runbook:** [`engineering/contentful-phase1.md`](../engineering/contentful-phase1.md) — `npm run contentful:phase1`
+
 ---
 
 ## Target model (create these)

@@ -9,7 +9,7 @@ This folder is the source of truth for **Website 2.0**. Prefer these docs over a
 | [`website-2.0/assessment.md`](./website-2.0/assessment.md) | **Read first** — technical audit, phases 0–4, ClickUp field IDs |
 | [`brand/`](./brand/) | Vision, ICP, services, voice, brand, operating logic |
 | [`website-2.0/`](./website-2.0/) | Current homepage direction + lean Contentful model |
-| [`engineering/`](./engineering/) | Local dev, revalidation, ClickUp / HubSpot maps |
+| [`engineering/`](./engineering/) | Local dev, revalidation, ClickUp, Contentful Phase 1 |
 | [`contentful/`](./contentful/) | Legacy CMS maps (franchisee homepage era) |
 | [`analytics/`](./analytics/) | GA4 / Clarity setup |
 | [`archive/`](./archive/) | Historical PRDs — do not treat as current requirements |
