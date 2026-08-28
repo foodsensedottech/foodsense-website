@@ -9,18 +9,20 @@
 
 ### Implementation status (Website 2.0 branch, Aug 2026)
 
+**Owner priority:** Phase 1 Contentful next ([`decisions.md`](./decisions.md)). Maturity quiz / ClickUp fields deferred.
+
 | Phase 0 task | Status |
 | --- | --- |
-| 0.1 Maturity Score + Band fields in ClickUp | **Owner** — manual in ClickUp UI |
+| 0.1 Maturity Score + Band fields in ClickUp | **Deferred** — only needed if `/franchisees` is revived; not Website 2.0 |
 | 0.2 `clickup/client.ts` | **Done** |
-| 0.3 Drop phantom field, Project = Website, dedupe | **Done** for Strategy Audit + `/contact` (`create-strategy-audit-lead.ts`, `create-contact-lead.ts`) |
-| 0.4–0.6 Assessment → ClickUp | **Not done** — `/api/assessment` still HubSpot-only |
+| 0.3 Drop phantom field, Project = Website, dedupe | **Done** for Strategy Audit + `/contact` |
+| 0.4–0.6 Assessment → ClickUp | **Deferred** — `/franchisees` not in scope |
 | 0.7 Strip HubSpot from contact | **Partial** — ClickUp first, HubSpot fallback during cutover |
-| 0.8–0.10 Remove HubSpot package | **Not done** |
-| 0.11–0.14 Sitemap / nav / GSC | **Not done** |
+| 0.8–0.10 Remove HubSpot package | **Deferred** |
+| 0.11–0.14 Sitemap / nav / GSC | **Deferred** |
 | 0.15 Vercel Pro | **Owner decision** |
 
-**Product note:** Website 2.0 makes the **Strategy Audit homepage** the primary conversion path now; `/franchisees` maturity tool stays for a later phase ([`decisions.md`](./decisions.md)). Phase 0 assessment wiring remains urgent because that route still drops leads.
+**Product note:** Website 2.0 primary conversion is the **Strategy Audit homepage**. The `/franchisees` maturity quiz is legacy code in the repo, not an owner-designed Website 2.0 feature ([`decisions.md`](./decisions.md)).
 
 ---
 
@@ -663,27 +665,16 @@ Free tier: 48 content types, 25k records, 2 locales, 5 users.
 
 ## 9. Open items — owner decisions required
 
-**9.1 — `Maturity Band` dropdown options.** Blocked on the return values of
-`scoreAssessment()` in `src/lib/franchisees/score.ts`. Needed before task 0.1.
+**9.1 — `Maturity Band` dropdown options.** **Deferred.** Only applies to the hidden `/franchisees` quiz (`scoreAssessment()` → `optimized` / `scaling` / `fragmented`). Not part of Website 2.0 Strategy Audit. ClickUp custom fields would be added when that route is revived.
 
-**9.2 — Assessment lead destination.** Decided: same `Leads` list, one task per
-lead, score and band as custom fields, remaining answers in the description.
+**9.2 — Assessment lead destination.** Decided for whenever `/franchisees` is revived: same `Leads` list, score and band as custom fields, answers in description. **Not prioritized now.**
 
-**9.3 — Kiosk case study content.** Does not exist in written form. This is the
-critical path for Phase 2 and the highest-value page on the site. Structure to
-document, in order: vendor assessment → RFP → SOW and rules of engagement →
-cadence calls → menu design → menu approval and flow → QA testing → go-live
-checklist → hypercare → post-live assessment.
+**9.3 — Kiosk case study content.** **Phase 2.** Does not exist in written form.
 
 Anonymization is required (§9.6). Working title: *"QSR Brand Entering a New
 Central American Market — Kiosk Program, Zero to Live."*
 
-**9.4 — Photography.** No documentary back-of-house imagery exists. Brand
-guidelines forbid stock. Interim approach: diagrammatic section art in navy and
-yellow using the speed-line motif; typographic case study headers where the
-metric is the hero. Define locked aspect-ratio image slots in Contentful so real
-photography can be swapped in later without code changes. Plan a shoot around a
-future on-site engagement.
+**9.4 — Photography.** **Phase 2.** Interim: diagrammatic navy/yellow art; typographic heroes. Locked aspect-ratio slots in Contentful for later swap-in.
 
 **9.5 — Which brand docs get updated** to match the live site (§6.4).
 
@@ -703,21 +694,22 @@ Note: anonymized case studies are marginally weaker for E-E-A-T, since the
 client cannot be corroborated. Compensate with a named and detailed author bio,
 technical specificity, and operational depth.
 
-**9.7 — LinkedIn consolidation** (§6.2). Which page survives.
+**9.7 — LinkedIn consolidation** (§6.2). **Decided:** https://www.linkedin.com/company/foodsensedottech survives. Close or redirect `linkedin.com/company/foodsensetech`.
 
 ---
 
 ## 10. Summary
 
 The architecture is correct and the build is competent. What exists is roughly a
-year of accumulated debt plus two live wiring faults, one of which is losing
-every assessment lead.
+year of accumulated debt plus wiring gaps on routes that are **not** the current
+Website 2.0 priority.
 
-Highest-value work, in order:
+**Owner priority (Aug 2026):** Phase 1 Contentful — see [`decisions.md`](./decisions.md) and [`contentful.md`](./contentful.md).
 
-1. **Fix the assessment → ClickUp path.** Active data loss.
-2. **Surface `/franchisees`.** A finished lead magnet nobody can reach.
-3. **Unblock `seoMetadata.pageId`.** Everything in Phase 2 waits on it.
-4. **Write the kiosk case study.** Longest lead time, highest conversion value.
+Highest-value work aligned to that priority:
 
-Everything else is cleanup that can proceed in parallel.
+1. **Phase 1 Contentful** — `staging`, fix `seoMetadata.pageId`, create `conversion*` types, publish homepage entry.
+2. **Phase 2** — kiosk case study content (§9.3), photography approach (§9.4).
+3. **Later** — `/franchisees` maturity quiz ClickUp wiring (only if that route is surfaced again).
+
+The hidden `/franchisees` quiz still drops leads via dead HubSpot; that is documented debt, not a blocker for Website 2.0 launch on Strategy Audit + lean CMS.

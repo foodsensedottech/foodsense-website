@@ -2,6 +2,8 @@
 
 **Goal:** A small, owner-editable model for the Strategy Audit homepage — not another 25-type sprawl.
 
+**Current priority (Aug 2026):** This document’s reorganization steps 1–4 are the next work stream. See [`decisions.md`](./decisions.md).
+
 Owner decisions: [`decisions.md`](./decisions.md). Brand/copy: `docs/brand/`. Page IA: [`overview.md`](./overview.md).
 
 Until the lean types below are published, Preview uses seed copy in `src/lib/content/conversion-seed.ts`.

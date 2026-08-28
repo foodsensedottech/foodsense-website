@@ -30,5 +30,5 @@ Dedupe: lookup by email; on match, enrich fields + comment. Lookup failures retu
 
 ## Later
 
-- Add ClickUp **Maturity Score** (number) + **Maturity Band** (optimized / scaling / fragmented) before wiring `/api/assessment`
-- Remove `@hubspot/api-client` after assessment path is verified
+- Wire `/franchisees` maturity quiz to ClickUp (deferred — add Maturity Score/Band fields only when that route is revived)
+- Remove `@hubspot/api-client` after all active form paths are on ClickUp
