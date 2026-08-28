@@ -44,14 +44,9 @@ Migrations live in `contentful/migrations/`. **Never hand-edit field IDs in the 
 
 2. Redeploy Preview and confirm homepage copy comes from CMS (not seed fallback).
 
-3. Apply the same migrations to `master`:
+   **Delivery API note:** On many Contentful plans, the Content Delivery API only serves **`master`**. If Preview gets empty CMS data with `CONTENTFUL_ENVIRONMENT=staging`, set `master` instead (or remove the variable — default is `master`). Both environments were seeded; use `master` for the live Preview fetch.
 
-   ```bash
-   CONTENTFUL_ENVIRONMENT=master node scripts/contentful/apply-migrations.mjs
-   npm run contentful:seed
-   ```
-
-4. When production should read CMS: set `CONTENTFUL_ENVIRONMENT=master` (or leave unset — default is `master`).
+3. After sign-off on Preview, production can stay on `master` (already migrated + seeded).
 
 ## Scripts
 
