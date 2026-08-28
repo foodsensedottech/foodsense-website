@@ -63,10 +63,17 @@ export async function ensureStagingEnvironment(client, spaceId) {
 export function runMigrationFile(fileName, spaceId, accessToken, environmentId) {
   const filePath = path.join(MIGRATIONS_DIR, fileName);
   console.log(`\n→ Migration ${fileName} on ${environmentId}`);
+  const migrationBin = path.join(
+    ROOT,
+    "node_modules",
+    "contentful-migration",
+    "bin",
+    "contentful-migration"
+  );
   const result = spawnSync(
     "node",
     [
-      path.join(ROOT, "node_modules", "contentful-migration", "built", "bin", "cli.js"),
+      migrationBin,
       filePath,
       "-s",
       spaceId,
@@ -74,6 +81,7 @@ export function runMigrationFile(fileName, spaceId, accessToken, environmentId) 
       accessToken,
       "-e",
       environmentId,
+      "-y",
     ],
     { cwd: ROOT, encoding: "utf8", stdio: "pipe" }
   );
@@ -81,7 +89,18 @@ export function runMigrationFile(fileName, spaceId, accessToken, environmentId) 
   if (result.stdout) process.stdout.write(result.stdout);
   if (result.stderr) process.stderr.write(result.stderr);
   if (result.status !== 0) {
-    throw new Error(`Migration ${fileName} failed (exit ${result.status}).`);
+    throw new Error(
+      `Migration ${fileName} failed (exit ${result.status}). Check output above.`
+    );
+  }
+  if (
+    result.stdout &&
+    !result.stdout.includes("Migration successful") &&
+    !result.stdout.includes("🎉")
+  ) {
+    throw new Error(
+      `Migration ${fileName} did not report success. Check output above.`
+    );
   }
 }
 

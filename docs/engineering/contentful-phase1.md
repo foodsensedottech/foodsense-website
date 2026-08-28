@@ -64,5 +64,6 @@ Migrations live in `contentful/migrations/`. **Never hand-edit field IDs in the 
 ## Troubleshooting
 
 - **`Missing CONTENTFUL_MANAGEMENT_TOKEN`** — add CMA token (see above).
-- **Migration already applied** — safe to re-run; `002` fails if types exist (run seed only).
+- **`usageExceeded` / cannot create ContentType** — the space has **25 content types** (common free-tier cap). Before migration `002`, retire unused types per [`contentful.md`](../website-2.0/contentful.md) (`DEPRECATED_*`), or upgrade the Contentful plan. Updating existing types (e.g. `seoMetadata`) still works.
+- **Migration already applied** — safe to re-run `001`; `002` fails if types exist (run seed only).
 - **Staging not ready** — wait and retry; large spaces can take several minutes to fork.

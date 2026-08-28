@@ -1,17 +1,12 @@
 /**
- * Seed conversion homepage entries from conversion-seed.ts values.
+ * Seed conversion homepage entries from conversion seed data.
  */
-import { createRequire } from "node:module";
-import { register } from "ts-node";
+import { conversionSeed } from "./conversion-seed-data.mjs";
 import {
   ensureStagingEnvironment,
   getManagementClient,
   STAGING_ENV_ID,
 } from "./lib.mjs";
-
-register({ transpileOnly: true, compilerOptions: { module: "CommonJS" } });
-const require = createRequire(import.meta.url);
-const { conversionSeed } = require("../../src/lib/content/conversion-seed.ts");
 
 const environmentId = process.env.CONTENTFUL_ENVIRONMENT?.trim() || STAGING_ENV_ID;
 
