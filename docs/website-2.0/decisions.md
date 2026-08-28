@@ -7,7 +7,7 @@ Recorded 27 August 2026. Agents and humans treat these as settled unless the own
 - **ClickUp is the permanent destination for all website forms** (Strategy Audit, contact, and later the maturity assessment).
 - HubSpot is legacy and must be removed after ClickUp capture is verified.
 - Operating rule: one ClickUp task = one lead; enrich / comment on match, never lose a lead on lookup failure.
-- Set `Project = Website` on create. See technical assessment §4.1–4.3 / §8.1 for field IDs.
+- Set `Project = Website` on create. Field IDs: [`assessment.md` §8.1](./assessment.md#81-clickup).
 
 ## Conversion path
 

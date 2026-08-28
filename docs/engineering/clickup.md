@@ -11,7 +11,7 @@ CLICKUP_LIST_ID=           # optional; defaults to Leads 901328239583
 
 ## Leads list
 
-- Workspace / Space / List: see assessment §8.1
+- Workspace / Space / List: see [`assessment.md` §8.1](../website-2.0/assessment.md#81-clickup)
 - Always set **Project = Website** (`f52ad055-0eee-4d74-a389-6d15e4aa3ee8`)
 - Do **not** use the old phantom source field ID
 

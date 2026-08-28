@@ -82,7 +82,7 @@ Re-audit these after About / Contact are folded into Website 2.0 or static Brand
 
 ## Reorganization sequence
 
-Phases match the technical assessment; Contentful work is **Phase 1** after ClickUp lead integrity (Phase 0).
+Phases match [`assessment.md`](./assessment.md); Contentful work is **Phase 1** after ClickUp lead integrity (Phase 0).
 
 | Step | Action |
 | --- | --- |
