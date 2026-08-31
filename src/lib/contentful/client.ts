@@ -1,5 +1,4 @@
 import { createClient, Entry } from "contentful";
-import { getEnvVar } from "@/lib/env";
 import type {
   AboutContentType,
   AboutCardContentType,
@@ -58,19 +57,36 @@ client.getEntries = function (query: any) {
   return originalGetEntries(queryWithTimestamp);
 };
 
-const previewClient = createClient({
-  space:
-    getEnvVar("CONTENTFUL_SPACE_ID") ||
-    process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID!,
-  accessToken:
-    getEnvVar("CONTENTFUL_PREVIEW_ACCESS_TOKEN") ||
-    process.env.NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN!,
-  host: "preview.contentful.com",
-  environment: process.env.CONTENTFUL_ENVIRONMENT || "master",
-});
+type ContentfulClient = ReturnType<typeof createClient>;
+let previewClient: ContentfulClient | null = null;
+
+/** Lazy preview client — do not init at import (breaks builds without preview token). */
+function getPreviewClient(): ContentfulClient {
+  if (!previewClient) {
+    const accessToken =
+      process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN ||
+      process.env.NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN;
+
+    if (!accessToken) {
+      throw new Error(
+        "CONTENTFUL_PREVIEW_ACCESS_TOKEN is required for Contentful preview"
+      );
+    }
+
+    previewClient = createClient({
+      space:
+        process.env.CONTENTFUL_SPACE_ID ||
+        process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID!,
+      accessToken,
+      host: "preview.contentful.com",
+      environment: process.env.CONTENTFUL_ENVIRONMENT || "master",
+    });
+  }
+  return previewClient;
+}
 
 export const getClient = (preview: boolean = false) =>
-  preview ? previewClient : client;
+  preview ? getPreviewClient() : client;
 
 export default client;
 
