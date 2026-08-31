@@ -1,15 +1,6 @@
 import { NextResponse } from "next/server";
 import { createContactLead } from "@/lib/clickup/create-contact-lead";
-import {
-  createOrUpdateCompany,
-  createContactWithCompany,
-} from "@/lib/hubspot/client";
 import { contactFormSchema } from "@/lib/validation/contact-schema";
-import {
-  transformCompanyProperties,
-  transformContactProperties,
-} from "@/lib/hubspot/transforms";
-import { formatPhoneNumber } from "@/lib/utils";
 
 export async function POST(req: Request) {
   try {
@@ -33,6 +24,16 @@ export async function POST(req: Request) {
       locationBand: validated.locationBand,
     });
 
+    if (!process.env.CLICKUP_API_TOKEN) {
+      return NextResponse.json(
+        {
+          error:
+            "Inquiry form is not connected yet. Email fabio@foodsense.tech.",
+        },
+        { status: 503 }
+      );
+    }
+
     try {
       const lead = await createContactLead(validated);
       if (lead) {
@@ -46,49 +47,14 @@ export async function POST(req: Request) {
       }
     } catch (clickUpError) {
       console.error("ClickUp error:", clickUpError);
-      if (process.env.CLICKUP_API_TOKEN) {
-        return NextResponse.json(
-          {
-            error:
-              "Could not save this inquiry. Please email fabio@foodsense.tech.",
-          },
-          { status: 502 }
-        );
-      }
-    }
-
-    if (process.env.HUBSPOT_ACCESS_TOKEN) {
-      try {
-        const companyProperties = transformCompanyProperties(validated);
-        const contactProperties = transformContactProperties({
-          ...validated,
-          phone: formatPhoneNumber(validated.phone),
-        });
-
-        const companyId = await createOrUpdateCompany(companyProperties);
-        const contactId = await createContactWithCompany(
-          contactProperties,
-          companyId
-        );
-
-        return NextResponse.json({
-          success: true,
-          message: "Form submitted successfully",
-          destination: "hubspot",
-          contactId,
-          companyId,
-        });
-      } catch (hubspotError) {
-        console.error("HubSpot API error:", hubspotError);
-      }
     }
 
     return NextResponse.json(
       {
         error:
-          "Inquiry form is not connected yet. Email fabio@foodsense.tech.",
+          "Could not save this inquiry. Please email fabio@foodsense.tech.",
       },
-      { status: 503 }
+      { status: 502 }
     );
   } catch (error) {
     console.error("Contact form submission error:", {

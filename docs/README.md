@@ -45,7 +45,7 @@ Also read root [`.cursorrules`](../.cursorrules) and [`AGENTS.md`](../AGENTS.md)
 | `archive/development-2025-02-22.md` | Stale Next notes; see `engineering/development.md` |
 | `archive/restaurant-webpage-designer-prd.md` | Adjacent product, not this marketing site |
 | `archive/restaurantiq-seo-analytics-prd.md` | Adjacent product, not this marketing site |
-| `contentful/*-legacy.md` | Franchisee / multi-type CMS maps from Website 1.x |
+| `archive/hubspot-properties.csv` | Former HubSpot property map; CRM is ClickUp-only |
 
 ## Rules of maintenance
 

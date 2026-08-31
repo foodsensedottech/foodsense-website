@@ -6,7 +6,6 @@ async function consolidateTypes() {
   try {
     // 1. Create directories if they don't exist
     await fs.mkdir('src/lib/contentful', { recursive: true });
-    await fs.mkdir('src/lib/hubspot', { recursive: true });
     await fs.mkdir('src/types', { recursive: true });
 
     // 2. Write Contentful types
@@ -146,21 +145,12 @@ export interface PageContentType {
         hasChanges = true;
       }
 
-      // Keep existing Contentful and HubSpot import updates
+      // Keep existing Contentful import updates
       const contentfulImport = /from ['"]@\/types\/contentful\/.*['"]/g;
       if (contentfulImport.test(content)) {
         content = content.replace(
           contentfulImport,
           `from '@/lib/contentful/types'`
-        );
-        hasChanges = true;
-      }
-
-      const hubspotImport = /from ['"]@\/types\/integrations\/hubspot['"]/g;
-      if (hubspotImport.test(content)) {
-        content = content.replace(
-          hubspotImport,
-          `from '@/lib/hubspot/types'`
         );
         hasChanges = true;
       }

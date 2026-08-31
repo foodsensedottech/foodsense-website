@@ -24,17 +24,16 @@ Guidance for Cursor agents working on the FoodSense website.
 ## CRM
 
 - **ClickUp** is the permanent destination for all forms
-- Do not add new HubSpot wiring; remove HubSpot after ClickUp capture is verified
+- Do not add HubSpot or other CRM SDKs — ClickUp only
 - One task = one lead; set `Project = Website` on create
 
 ## Engineering
 
-- Stack: Next.js App Router, TypeScript, Tailwind, Contentful, ClickUp (HubSpot legacy)
+- Stack: Next.js App Router, TypeScript, Tailwind, Contentful, ClickUp
 - Dev notes: `docs/engineering/development.md`
 - Contentful revalidation: `docs/engineering/revalidation.md`
 - Contentful Phase 1 runbook: `docs/engineering/contentful-phase1.md`
 - ClickUp CRM: `docs/engineering/clickup.md`
-- Legacy HubSpot property map (until deleted): `docs/engineering/hubspot-properties.csv`
 
 ## Docs hygiene
 

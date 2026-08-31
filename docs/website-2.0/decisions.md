@@ -14,12 +14,12 @@ Recorded 27 August 2026. Updated 31 August 2026 after PR #10 merge. Agents and h
 
 **Task tracking:** ClickUp **Website Redesign Tasks** board — [open board](https://app.clickup.com/90131064868/v/b/6-901328341052-2).
 
-**Not now:** `/franchisees` maturity quiz, Maturity Score/Band ClickUp fields, HubSpot removal, sitemap/nav debt.
+**Not now:** `/franchisees` maturity quiz, Maturity Score/Band ClickUp fields, sitemap/nav debt.
 
 ## CRM
 
 - **ClickUp is the permanent destination for all website forms** (unified contact form on homepage + `/contact`; maturity quiz deferred).
-- HubSpot is legacy; remove after Production form path is verified on ClickUp only.
+- HubSpot has been removed from the codebase (ClickUp-only).
 - Operating rule: one ClickUp task = one lead; enrich / comment on match, never lose a lead on lookup failure.
 - Set `Project = Website` on create. Field parity guide: [`engineering/clickup-field-alignment.md`](../engineering/clickup-field-alignment.md).
 
@@ -37,7 +37,7 @@ Recorded 27 August 2026. Updated 31 August 2026 after PR #10 merge. Agents and h
 - `scoreAssessment()` in `src/lib/franchisees/score.ts` returns a numeric **score** (roughly 0–100) and a **band**: `optimized` (≥80), `scaling` (≥55), or `fragmented`
 - Hero CTA on that page: “Get your Tech Maturity Score”
 
-The technical assessment flagged it because `/api/assessment` still points at dead HubSpot and **drops leads** if someone finds the hidden page. That is **not** on the Website 2.0 critical path. When we revisit `/franchisees`, we would add optional ClickUp fields **Maturity Score** (number) and **Maturity Band** (dropdown: optimized / scaling / fragmented) — no owner action needed until then.
+The maturity quiz still **scores only** (`captured: false`) until wired to ClickUp. That is **not** on the Website 2.0 critical path. When we revisit `/franchisees`, add optional ClickUp fields **Maturity Score** (number) and **Maturity Band** (dropdown: optimized / scaling / fragmented) — no owner action needed until then.
 
 ## Content & proof
 

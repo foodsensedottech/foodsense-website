@@ -13,9 +13,6 @@ const IMPORT_MAPPINGS = {
   // Contentful
   '@/types/contentful/about': '@/lib/contentful/types',
   '@/types/contentful/page': '@/lib/contentful/types',
-  
-  // HubSpot
-  '@/types/integrations/hubspot': '@/lib/hubspot/types',
 };
 
 const FILE_MOVES = {

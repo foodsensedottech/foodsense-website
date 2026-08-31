@@ -13,7 +13,7 @@ You are building the FoodSense website. Follow these rules on every generation.
 - **Vision:** To be the trusted, forward-thinking consultancy in restaurant technology, setting the standard for how brands adopt and scale the right tools: deliberately, intelligently, and with future-proofing at the core.
 - **Mission:** We bridge the gap between restaurant technology and restaurant operations. We help **10+ unit** growth-stage brands and multi-unit franchisees build, integrate, and scale their digital infrastructure across every channel and every touchpoint, from the guest to the kitchen.
 - **Engagement modes (live):** Advisory · Fractional work · Project management
-- **CRM:** ClickUp (all forms). HubSpot is legacy.
+- **CRM:** ClickUp only (all forms).
 - **Read also:** `docs/website-2.0/decisions.md`
 - **Methodology:** Test, prove, scale. Always phased. Never big-bang.
 
