@@ -116,18 +116,19 @@ export function PhoneInput({
         disabled={disabled}
       >
         <SelectTrigger
-          className="w-[7.5rem] shrink-0 px-2"
+          className="h-10 w-[3.75rem] min-w-[3.75rem] shrink-0 px-1.5 text-xs font-medium"
           aria-label="Country calling code"
         >
           <SelectValue>
-            {flagEmoji(country)} +{getCountryCallingCode(country)}
+            <span className="inline-flex items-center gap-0.5 whitespace-nowrap">
+              {flagEmoji(country)} {country}
+            </span>
           </SelectValue>
         </SelectTrigger>
         <SelectContent className="max-h-72">
           {PHONE_COUNTRIES.map((item) => (
             <SelectItem key={item.iso} value={item.iso}>
-              {flagEmoji(item.iso)} {item.name} +
-              {getCountryCallingCode(item.iso)}
+              {flagEmoji(item.iso)} {item.iso} +{getCountryCallingCode(item.iso)}
             </SelectItem>
           ))}
         </SelectContent>

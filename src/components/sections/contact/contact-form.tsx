@@ -199,7 +199,7 @@ export function ContactForm({
           <h3 className="text-lg font-semibold text-[#253B59]">
             Personal Information
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor={`${formId}-name`}>Full Name</Label>
               <Input
@@ -223,25 +223,25 @@ export function ContactForm({
                 <p className="text-sm text-red-500">{errors.email.message}</p>
               ) : null}
             </div>
-            <div className="space-y-2">
-              <Label htmlFor={`${formId}-phone`}>Phone</Label>
-              <Controller
-                name="phone"
-                control={control}
-                render={({ field }) => (
-                  <PhoneInput
-                    id={`${formId}-phone`}
-                    value={field.value}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    aria-invalid={errors.phone ? "true" : "false"}
-                  />
-                )}
-              />
-              {errors.phone ? (
-                <p className="text-sm text-red-500">{errors.phone.message}</p>
-              ) : null}
-            </div>
+          </div>
+          <div className="space-y-2 md:max-w-md">
+            <Label htmlFor={`${formId}-phone`}>Phone</Label>
+            <Controller
+              name="phone"
+              control={control}
+              render={({ field }) => (
+                <PhoneInput
+                  id={`${formId}-phone`}
+                  value={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  aria-invalid={errors.phone ? "true" : "false"}
+                />
+              )}
+            />
+            {errors.phone ? (
+              <p className="text-sm text-red-500">{errors.phone.message}</p>
+            ) : null}
           </div>
         </div>
 

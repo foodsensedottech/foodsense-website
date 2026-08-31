@@ -21,19 +21,15 @@ ClickUp **cannot change a custom field’s type**. For fields that were number, 
 | Number of Locations | Number of Locations | `f4c1099e-1ad3-49a9-ad48-4ae2a99f8afe` | drop_down |
 | Restaurant Type | Restaurant Type | `35c3b88c-51a3-4400-a749-dce2d2f55160` | drop_down |
 | POS System | POS System | `6fd69de1-c6ca-4a6a-ab8a-ceeb2b06243b` | drop_down |
-| Services Interested In | Services Interested in | `05e83296-de6d-4a5f-9ddd-d1d86328775e` | drop_down |
+| Services Interested In | Services Interested in | `5a0d0fa1-107d-4f41-83de-6c7b127c1fd8` | labels (multi) |
 
-Option UUIDs live in `src/lib/clickup/field-options.ts`.
+Option UUIDs live in `src/lib/clickup/field-options.ts`. **POS form options mirror ClickUp exactly** (Oracle, NCR, PAR, Toast, Square, In-House (Custom), Other). **Services** maps all checked options to the labels field.
 
-### POS parity gap
+### Additional Notes (optional)
 
-ClickUp POS options today: Oracle, NCR, PAR, Toast, Square, In-House (Custom), Other.
+Not a custom field today. When the visitor fills this in, it is appended to the task **description** (main body) as `Notes: …` via `contactDescription()` in `create-contact-lead.ts`. Repeat submissions also include notes in the **comment** thread.
 
-The form also offers Clover, LightSpeed, SpotOn, QuPOS, Aloha, Xenial — **add these options in ClickUp** and paste UUIDs into `CLICKUP_POS_SYSTEM_OPTIONS`, or leads selecting those POS values will skip the POS field (value still in task description).
-
-### Services multi-select
-
-The form allows **multiple** service checkboxes, but ClickUp is a **single-select** dropdown. Code maps the **first** selected option to the field; all selections remain in the task description. For true multi-select in ClickUp, recreate the field as **labels** (multi) and update the mapping code.
+To surface notes in the ClickUp sidebar, create a **text** custom field on Leads and share the field ID to wire in code.
 
 ## Step-by-step (ClickUp UI)
 
@@ -54,9 +50,9 @@ Leads list → Custom fields → delete the four legacy fields above (if you no 
 
 - Dine In, Fast Casual, Quick Service, Ghost Kitchen, Food Truck, Other
 
-**POS System** (drop_down) — match `POS_SYSTEMS`:
+**POS System** (drop_down) — match `POS_SYSTEMS` (same as ClickUp):
 
-- Toast, Clover, Square, LightSpeed, SpotOn, QuPOS, Aloha, Xenial, PAR, NCR, Oracle, Other
+- Oracle, NCR, PAR, Toast, Square, In-House (Custom), Other
 
 **Services Interested In** (labels, allow multiple):
 
@@ -89,8 +85,8 @@ Copy each dropdown/label option UUID into `src/lib/clickup/field-options.ts`:
 // Restaurant type — keys are form values (dine_in, fast_casual, …)
 dine_in: "<option-uuid>",
 
-// POS — keys are form values (toast, clover, …)
-toast: "<option-uuid>",
+// POS — keys are form values (oracle, ncr, par, toast, …)
+oracle: "<option-uuid>",
 
 // Services — keys are option_1 … option_6
 option_1: "<option-uuid>",
