@@ -12,14 +12,7 @@ const nunito = Nunito({
   weight: ["400", "600", "700"],
 });
 
-try {
-  validateEnv();
-} catch (error) {
-  console.error("Environment validation failed:", error);
-  if (process.env.NODE_ENV === "production") {
-    throw error;
-  }
-}
+validateEnv();
 
 export const metadata: Metadata = {
   metadataBase: new URL(
