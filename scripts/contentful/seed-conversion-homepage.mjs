@@ -17,8 +17,10 @@ const PILLAR_IDS = [
 ];
 
 const MENU_IDS = [
-  "conversion-menu-revenue",
-  "conversion-menu-partnerships",
+  "conversion-menu-revenue", // reused entry id — POS & core systems
+  "conversion-menu-partnerships", // reused entry id — kiosk & self-service
+  "conversion-menu-delivery",
+  "conversion-menu-vendor-governance",
 ];
 
 const VENDOR_IDS = [
