@@ -1,5 +1,7 @@
 # Where to edit Contentful (visual map)
 
+> **Historical — Website 1.x.** Current CMS map: [`website-2.0/contentful.md`](../website-2.0/contentful.md).
+
 **Rule of thumb**
 
 | Goal | Go here |

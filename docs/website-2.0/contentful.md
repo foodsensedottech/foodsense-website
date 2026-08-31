@@ -2,7 +2,7 @@
 
 **Goal:** A small, owner-editable model for the Strategy Audit homepage — not another 25-type sprawl.
 
-**Current priority (Aug 2026):** This document’s reorganization steps 1–4 are the next work stream. See [`decisions.md`](./decisions.md).
+**Current priority (Aug 2026):** Phase 1 is **complete** (11 types on master). Phase 2 types (`caseStudy`, etc.) — see [`decisions.md`](./decisions.md).
 
 Owner decisions: [`decisions.md`](./decisions.md). Brand/copy: `docs/brand/`. Page IA: [`overview.md`](./overview.md).
 

@@ -1,5 +1,7 @@
 # Contentful ↔ website alignment
 
+> **Historical — Website 1.x / franchisee homepage era.** Website 2.0 uses the lean model in [`website-2.0/contentful.md`](../website-2.0/contentful.md). Do not follow this doc for new work.
+
 The live site reads **published** Contentful entries only. This maps your space (`es87a9loayi1`) to the homepage.
 
 **Where to click in Contentful:** see [`contentful-editing-map.md`](./contentful-editing-map.md) (direct links to each entry).

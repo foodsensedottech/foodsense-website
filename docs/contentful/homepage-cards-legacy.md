@@ -1,5 +1,7 @@
 # Homepage copy in Contentful (paste pack)
 
+> **Historical — Website 1.x multi-section homepage.** Website 2.0 uses `conversionHomepage` + linked types — see [`website-2.0/contentful.md`](../website-2.0/contentful.md).
+
 The homepage reads **only** published Contentful entries. There is no Spanish site and no fallback marketing copy in the code. Until you add a Spanish locale in Contentful, `/es` redirects to `/`.
 
 Page order: Hero → About → Pains → Offerings → Contact.

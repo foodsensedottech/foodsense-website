@@ -4,12 +4,11 @@ Recorded 27 August 2026. Agents and humans treat these as settled unless the own
 
 ## Current priority (Aug 2026)
 
-**Next:** **Phase 1 — Contentful** ([`contentful.md`](./contentful.md) reorganization steps 1–4):
+**Next:** Verify Website 2.0 Preview (PR #10) reads CMS + ClickUp; then **Phase 2** content ([`assessment.md`](./assessment.md) §9.3–9.4).
 
-1. Create `staging` environment (if plan allows)
-2. Fix `seoMetadata.pageId` → free unique slug
-3. Create the four `conversion*` types
-4. Publish one homepage entry; verify Website 2.0 Preview reads CMS instead of seed
+**Phase 1 Contentful:** **Done** — 11 types, `conversion*` homepage seeded on master + staging. See [`engineering/contentful-phase1.md`](../engineering/contentful-phase1.md).
+
+**Git:** Work only on `cursor/website-2.0-772b` — [`git-workflow.md`](./git-workflow.md).
 
 **Not now:** `/franchisees` maturity quiz, Maturity Score/Band ClickUp fields, HubSpot removal, sitemap/nav debt.
 

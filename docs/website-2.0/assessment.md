@@ -9,7 +9,9 @@
 
 ### Implementation status (Website 2.0 branch, Aug 2026)
 
-**Owner priority:** Phase 1 Contentful next ([`decisions.md`](./decisions.md)). Maturity quiz / ClickUp fields deferred.
+**Owner priority:** Verify Preview on PR #10, then Phase 2 content. Maturity quiz / ClickUp fields deferred.
+
+**Git:** Single active branch `cursor/website-2.0-772b` — see [`git-workflow.md`](./git-workflow.md).
 
 | Phase 0 task | Status |
 | --- | --- |
@@ -21,6 +23,15 @@
 | 0.8–0.10 Remove HubSpot package | **Deferred** |
 | 0.11–0.14 Sitemap / nav / GSC | **Deferred** |
 | 0.15 Vercel Pro | **Owner decision** |
+
+| Phase 1 task | Status |
+| --- | --- |
+| 1.1 Create `staging` | **Done** |
+| 1.2 Fix `seoMetadata.pageId` | **Done** (master + staging) |
+| 1.3–1.6 `caseStudy` / `framework` / etc. | **Phase 2** — not Phase 1 per [`decisions.md`](./decisions.md) |
+| 1.7–1.9 Retire legacy types | **Done** — 11 types remain on master + staging |
+| 1.10 Create `conversion*` + seed homepage | **Done** |
+| Contact form UX (intl phone, checkbox layout) | **Done** — ported from archived `website-ia-refresh` |
 
 **Product note:** Website 2.0 primary conversion is the **Strategy Audit homepage**. The `/franchisees` maturity quiz is legacy code in the repo, not an owner-designed Website 2.0 feature ([`decisions.md`](./decisions.md)).
 
@@ -704,12 +715,12 @@ The architecture is correct and the build is competent. What exists is roughly a
 year of accumulated debt plus wiring gaps on routes that are **not** the current
 Website 2.0 priority.
 
-**Owner priority (Aug 2026):** Phase 1 Contentful — see [`decisions.md`](./decisions.md) and [`contentful.md`](./contentful.md).
+**Owner priority (Aug 2026):** Verify Website 2.0 Preview on PR #10, then Phase 2 content. Phase 1 Contentful model work is **complete** (11 types on master + staging).
 
 Highest-value work aligned to that priority:
 
-1. **Phase 1 Contentful** — `staging`, fix `seoMetadata.pageId`, create `conversion*` types, publish homepage entry.
-2. **Phase 2** — kiosk case study content (§9.3), photography approach (§9.4).
+1. **Preview verify + merge PR #10** — CMS hero + ClickUp forms on Vercel Preview.
+2. **Phase 2** — kiosk case study content (§9.3), photography approach (§9.4), wire `seoMetadata` to routes.
 3. **Later** — `/franchisees` maturity quiz ClickUp wiring (only if that route is surfaced again).
 
 The hidden `/franchisees` quiz still drops leads via dead HubSpot; that is documented debt, not a blocker for Website 2.0 launch on Strategy Audit + lean CMS.
