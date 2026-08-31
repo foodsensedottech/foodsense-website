@@ -7,12 +7,9 @@
  *   node scripts/contentful/delete-unused-types.mjs --apply --all  # delete on master + staging
  */
 import { config } from "dotenv";
-import contentfulManagement from "contentful-management";
 import { getManagementClient, sleep, STAGING_ENV_ID } from "./lib.mjs";
 
 config({ path: ".env.local" });
-
-const { createClient } = contentfulManagement;
 
 /** Types actively used by Website 2.0 or deferred franchisee routes. */
 const TYPES_TO_KEEP = new Set([

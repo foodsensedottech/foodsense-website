@@ -1,10 +1,11 @@
 import { config } from "dotenv";
-import contentfulManagement from "contentful-management";
+import { createRequire } from "node:module";
 import { spawnSync } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const { createClient } = contentfulManagement;
+const require = createRequire(import.meta.url);
+const { createClient } = require("contentful-management");
 
 config({ path: ".env.local" });
 
