@@ -34,6 +34,7 @@ Guidance for Cursor agents working on the FoodSense website.
 - Contentful revalidation: `docs/engineering/revalidation.md`
 - Contentful Phase 1 runbook: `docs/engineering/contentful-phase1.md`
 - ClickUp CRM: `docs/engineering/clickup.md`
+- Contentful editing map (section → field → entry links): `docs/engineering/contentful-editing-map.md`
 
 ## Docs hygiene
 
