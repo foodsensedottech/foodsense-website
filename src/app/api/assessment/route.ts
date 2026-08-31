@@ -67,7 +67,7 @@ export async function POST(req: Request) {
           restaurant_type: "other",
           pos_system: data.answers.pos,
           delivery_partners: data.answers.delivery,
-          interested_services: "Franchisee Tech Maturity Assessment",
+          service_interests: "Franchisee Tech Maturity Assessment",
         });
 
         await createContactWithCompany(

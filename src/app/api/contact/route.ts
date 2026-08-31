@@ -29,8 +29,8 @@ export async function POST(req: Request) {
     console.log("Received contact form data:", {
       name: validated.name,
       email: validated.email,
-      restaurant: validated.restaurant,
-      numberOfLocations: validated.numberOfLocations,
+      restaurantBrands: validated.restaurantBrands,
+      locationBand: validated.locationBand,
     });
 
     try {

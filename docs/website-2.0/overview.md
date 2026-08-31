@@ -19,7 +19,7 @@ Locked decisions: [`decisions.md`](./decisions.md).
 3. **Core pillars** — Program lifecycle / tech stack / ecosystem integration
 4. **Specialized menu** — Secondary services in accordion (keep page short)
 5. **Partners** — Trusted integration partners (logo cloud)
-6. **Contact** — Low-friction form (name, email, restaurant, primary challenge)
+6. **Contact** — Shared qualification form (personal info, brands, location band, type, POS, services)
 
 ## Brand constraints (non-negotiable)
 

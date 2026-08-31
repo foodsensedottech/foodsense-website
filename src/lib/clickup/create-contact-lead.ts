@@ -11,10 +11,18 @@ import {
   CLICKUP_PROJECT_WEBSITE,
 } from "@/lib/clickup/constants";
 import {
-  DELIVERY_PARTNERS,
+  CLICKUP_LOCATION_BAND_OPTIONS,
+  CLICKUP_POS_SYSTEM_OPTIONS,
+  CLICKUP_RESTAURANT_TYPE_OPTIONS,
+  CLICKUP_SERVICE_INTEREST_OPTIONS,
+  LOCATION_BAND_NUMBER_FALLBACK,
+  primaryBrand,
+} from "@/lib/clickup/field-options";
+import {
+  LOCATION_BANDS,
   POS_SYSTEMS,
   RESTAURANT_TYPES,
-  SERVICES,
+  SERVICE_INTERESTS,
 } from "@/lib/constants/form-fields";
 import type { ContactFormData } from "@/lib/validation/contact-schema";
 import { toClickUpPhone } from "@/lib/utils/format-phone";
@@ -33,20 +41,26 @@ function formatMultiLabels<T extends { value: string; label: string }>(
   return values.map((value) => labelFor(options, value)).join(", ");
 }
 
+function dropdownOrLabel(
+  optionId: string | null | undefined,
+  label: string
+): string | number {
+  return optionId || label;
+}
+
+function locationBandValue(data: ContactFormData): string | number {
+  const optionId = CLICKUP_LOCATION_BAND_OPTIONS[data.locationBand];
+  if (optionId) return optionId;
+  return LOCATION_BAND_NUMBER_FALLBACK[data.locationBand];
+}
+
 function contactDescription(data: ContactFormData): string {
   return [
-    "Lead source: contact-form",
+    "Lead source: website-contact-form",
     `Phone: ${data.phone}`,
     `Email: ${data.email}`,
-    `Monthly orders: ${data.monthlyOrders}`,
-    `Delivery partners: ${formatMultiLabels(
-      DELIVERY_PARTNERS,
-      data.deliveryPartners
-    )}`,
-    `Service interests: ${formatMultiLabels(
-      SERVICES,
-      data.serviceInterests
-    )}`,
+    `Location band: ${labelFor(LOCATION_BANDS, data.locationBand)}`,
+    `Services: ${formatMultiLabels(SERVICE_INTERESTS, data.serviceInterests)}`,
     data.notes ? `Notes: ${data.notes}` : null,
   ]
     .filter(Boolean)
@@ -57,17 +71,29 @@ function contactCustomFields(
   data: ContactFormData,
   includePhone: boolean
 ): ClickUpCustomField[] {
+  const brandLabel = primaryBrand(data.restaurantBrands);
   const fields: ClickUpCustomField[] = [
     { id: CLICKUP_FIELDS.email, value: data.email },
-    { id: CLICKUP_FIELDS.company, value: data.restaurant },
-    { id: CLICKUP_FIELDS.locations, value: data.numberOfLocations },
+    { id: CLICKUP_FIELDS.company, value: brandLabel },
+    { id: CLICKUP_FIELDS.brands, value: data.restaurantBrands },
+    { id: CLICKUP_FIELDS.locations, value: locationBandValue(data) },
     {
       id: CLICKUP_FIELDS.restaurantType,
-      value: labelFor(RESTAURANT_TYPES, data.restaurantType),
+      value: dropdownOrLabel(
+        CLICKUP_RESTAURANT_TYPE_OPTIONS[data.restaurantType],
+        labelFor(RESTAURANT_TYPES, data.restaurantType)
+      ),
     },
     {
       id: CLICKUP_FIELDS.posSystem,
-      value: labelFor(POS_SYSTEMS, data.posSystem),
+      value: dropdownOrLabel(
+        CLICKUP_POS_SYSTEM_OPTIONS[data.posSystem],
+        labelFor(POS_SYSTEMS, data.posSystem)
+      ),
+    },
+    {
+      id: CLICKUP_FIELDS.whatsBreaking,
+      value: formatMultiLabels(SERVICE_INTERESTS, data.serviceInterests),
     },
     { id: CLICKUP_FIELDS.project, value: CLICKUP_PROJECT_WEBSITE },
   ];
@@ -108,8 +134,9 @@ async function createNewLead(
   data: ContactFormData,
   includePhone: boolean
 ): Promise<ClickUpTaskSummary> {
+  const brandLabel = primaryBrand(data.restaurantBrands);
   return createLeadTask({
-    name: `Lead: ${data.name} — ${data.restaurant}`,
+    name: `Lead: ${data.name} — ${brandLabel}`,
     markdownDescription: contactDescription(data),
     customFields: contactCustomFields(data, includePhone),
     status: "new",
@@ -122,7 +149,7 @@ function isPhoneFieldError(error: unknown): boolean {
 }
 
 /**
- * Upsert a contact-page lead into ClickUp Leads.
+ * Upsert a website contact-form lead into ClickUp Leads.
  * Returns null only when ClickUp is not configured.
  */
 export async function createContactLead(

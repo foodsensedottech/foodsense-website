@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactFormSchema } from "@/lib/validation/contact-schema";
@@ -19,17 +19,37 @@ import { CheckboxGroup } from "@/components/ui/form/checkbox-group";
 import { PhoneInput } from "@/components/ui/form/phone-input";
 import { Label } from "@/components/ui/form/label";
 import { analytics } from "@/lib/analytics/tracking";
-import { cn } from "@/lib/utils";
 import {
-  DELIVERY_PARTNERS,
+  LOCATION_BANDS,
   POS_SYSTEMS,
   RESTAURANT_TYPES,
-  SERVICES,
+  SERVICE_INTERESTS,
 } from "@/lib/constants/form-fields";
 import { Loader2, CheckCircle2 } from "lucide-react";
 import { Toaster, toast } from "sonner";
+import { cn } from "@/lib/utils";
 
-export function ContactForm() {
+export interface ContactFormProps {
+  /** Optional hero copy (homepage contact section). */
+  heading?: string;
+  subheading?: string;
+  responseNote?: string;
+  submitLabel?: string;
+  formId?: string;
+  className?: string;
+  /** Tighter layout for homepage embed vs standalone /contact page. */
+  variant?: "page" | "homepage";
+}
+
+export function ContactForm({
+  heading,
+  subheading,
+  responseNote,
+  submitLabel = "Submit",
+  formId = "contact_form",
+  className,
+  variant = "page",
+}: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -38,12 +58,10 @@ export function ContactForm() {
     register,
     handleSubmit,
     control,
-    formState: { errors, touchedFields, isDirty, isSubmitted },
+    formState: { errors, isDirty, isSubmitted },
     setValue,
     watch,
-    trigger,
     reset,
-    getValues,
     clearErrors,
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -51,134 +69,46 @@ export function ContactForm() {
       name: "",
       email: "",
       phone: "",
-      restaurant: "",
-      deliveryPartners: [],
-      serviceInterests: [],
+      restaurantBrands: "",
+      locationBand: undefined,
       restaurantType: undefined,
       posSystem: undefined,
-      numberOfLocations: 1,
-      monthlyOrders: 0,
+      serviceInterests: [],
       notes: "",
     },
     mode: "onSubmit",
   });
 
-  // Watch values for validation feedback
-  const deliveryPartners = watch("deliveryPartners");
-  const serviceInterests = watch("serviceInterests");
-
-  // Trigger validation on multi-select changes
-  useEffect(() => {
-    if (touchedFields.deliveryPartners) {
-      trigger("deliveryPartners");
-    }
-  }, [deliveryPartners, trigger, touchedFields.deliveryPartners]);
-
-  useEffect(() => {
-    if (touchedFields.serviceInterests) {
-      trigger("serviceInterests");
-    }
-  }, [serviceInterests, trigger, touchedFields.serviceInterests]);
-
-  // Debug form state
-  useEffect(() => {
-    console.log("Form Errors:", errors);
-  }, [errors]);
-
-  // Custom reset function to clear form and state
   const handleReset = useCallback(() => {
-    const resetData = {
+    reset({
       name: "",
       email: "",
       phone: "",
-      restaurant: "",
-      numberOfLocations: 1,
-      monthlyOrders: 0,
-      deliveryPartners: [],
+      restaurantBrands: "",
+      locationBand: undefined,
+      restaurantType: undefined,
+      posSystem: undefined,
       serviceInterests: [],
-      restaurantType: "dine_in" as
-        | "dine_in"
-        | "fast_casual"
-        | "quick_service"
-        | "ghost_kitchen"
-        | "food_truck"
-        | "other",
-      posSystem: "toast" as
-        | "toast"
-        | "clover"
-        | "square"
-        | "lightspeed"
-        | "spoton"
-        | "qupos"
-        | "aloha"
-        | "xenial"
-        | "par"
-        | "ncr"
-        | "oracle"
-        | "other",
       notes: "",
-    };
-
-    reset(resetData);
-
-    // Reset the Select component values manually as they don't reset properly
-    setValue(
-      "restaurantType",
-      "dine_in" as
-        | "dine_in"
-        | "fast_casual"
-        | "quick_service"
-        | "ghost_kitchen"
-        | "food_truck"
-        | "other"
-    );
-    setValue(
-      "posSystem",
-      "toast" as
-        | "toast"
-        | "clover"
-        | "square"
-        | "lightspeed"
-        | "spoton"
-        | "qupos"
-        | "aloha"
-        | "xenial"
-        | "par"
-        | "ncr"
-        | "oracle"
-        | "other"
-    );
-    setValue("deliveryPartners", []);
-    setValue("serviceInterests", []);
+    });
     clearErrors();
     setIsSubmitting(false);
     setSubmitError(null);
     setIsSuccess(true);
-  }, [reset, setValue, clearErrors]);
+  }, [reset, clearErrors]);
 
   const onSubmit = async (data: ContactFormData) => {
-    console.log("🔵 onSubmit handler called");
-    console.log("Form submitted with data:", data);
     try {
       setIsSubmitting(true);
       setSubmitError(null);
       setIsSuccess(false);
 
-      // Log the current state
-      console.log("Current form state:", {
-        isSubmitting,
-        submitError,
-        isSuccess,
-        data,
-      });
-
       analytics.trackEvent("form_start", {
         event_category: "Form",
-        event_label: "contact_form",
-        form_id: "contact_form",
+        event_label: formId,
+        form_id: formId,
       });
 
-      console.log("Sending request to /api/contact");
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -188,49 +118,40 @@ export function ContactForm() {
         body: JSON.stringify(data),
       });
 
-      console.log("Response status:", response.status);
       const result = await response.json();
-      console.log("Response data:", result);
 
       if (!response.ok) {
-        const errorMessage = result.error || "Failed to submit form";
-        console.error("Form submission error:", errorMessage);
-        throw new Error(errorMessage);
+        throw new Error(result.error || "Failed to submit form");
       }
 
       analytics.trackEvent("form_complete", {
         event_category: "Form",
-        event_label: "contact_form",
-        form_id: "contact_form",
+        event_label: formId,
+        form_id: formId,
         success: true,
       });
 
       analytics.trackEvent("conversion", {
         event_category: "Form",
-        event_label: "contact_form_submission",
+        event_label: `${formId}_submission`,
         conversion_type: "contact",
       });
 
       handleReset();
-      toast.success("Thank you! We'll be in touch soon.", {
-        duration: 5000,
-      });
+      toast.success("Thank you! We'll be in touch soon.", { duration: 5000 });
     } catch (error) {
-      console.error("Form submission error:", error);
       const errorMessage =
         error instanceof Error
           ? error.message
           : "Failed to submit form. Please try again.";
 
       setSubmitError(errorMessage);
-      toast.error(errorMessage, {
-        duration: 5000,
-      });
+      toast.error(errorMessage, { duration: 5000 });
 
       analytics.trackEvent("form_complete", {
         event_category: "Form",
-        event_label: "contact_form",
-        form_id: "contact_form",
+        event_label: formId,
+        form_id: formId,
         success: false,
       });
     } finally {
@@ -238,55 +159,78 @@ export function ContactForm() {
     }
   };
 
-  const onError = (errors: any) => {
-    console.log("🔴 Form validation errors:", errors);
+  const onError = () => {
     setSubmitError("Please fill in all required fields correctly.");
   };
 
+  const isHomepage = variant === "homepage";
+
   return (
     <>
+      {(heading || subheading || responseNote) && (
+        <div className={cn("text-center mb-10", isHomepage && "mb-8")}>
+          {heading ? (
+            <h2
+              className={cn(
+                "font-display text-[#253B59] mb-3",
+                isHomepage
+                  ? "text-3xl md:text-4xl"
+                  : "text-2xl md:text-3xl font-bold"
+              )}
+            >
+              {heading}
+            </h2>
+          ) : null}
+          {subheading ? (
+            <p className="text-lg text-[#253B59]/75">{subheading}</p>
+          ) : null}
+          {responseNote ? (
+            <p className="mt-2 text-sm text-[#D4A800]">{responseNote}</p>
+          ) : null}
+        </div>
+      )}
+
       <form
         onSubmit={handleSubmit(onSubmit, onError)}
-        className="space-y-6"
+        className={cn("space-y-6", className)}
         noValidate
       >
-        {/* Personal Information */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Personal Information</h3>
+          <h3 className="text-lg font-semibold text-[#253B59]">
+            Personal Information
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor={`${formId}-name`}>Full Name</Label>
               <Input
                 {...register("name")}
-                id="name"
+                id={`${formId}-name`}
                 placeholder="First and Last Name"
-                required
               />
-              {errors.name && (
+              {errors.name ? (
                 <p className="text-sm text-red-500">{errors.name.message}</p>
-              )}
+              ) : null}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor={`${formId}-email`}>Email</Label>
               <Input
                 {...register("email")}
-                id="email"
+                id={`${formId}-email`}
                 type="email"
-                placeholder="your.email@example.com"
-                required
+                placeholder="you@company.com"
               />
-              {errors.email && (
+              {errors.email ? (
                 <p className="text-sm text-red-500">{errors.email.message}</p>
-              )}
+              ) : null}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone</Label>
+              <Label htmlFor={`${formId}-phone`}>Phone</Label>
               <Controller
                 name="phone"
                 control={control}
                 render={({ field }) => (
                   <PhoneInput
-                    id="phone"
+                    id={`${formId}-phone`}
                     value={field.value}
                     onChange={field.onChange}
                     onBlur={field.onBlur}
@@ -294,89 +238,79 @@ export function ContactForm() {
                   />
                 )}
               />
-              {errors.phone && (
+              {errors.phone ? (
                 <p className="text-sm text-red-500">{errors.phone.message}</p>
-              )}
+              ) : null}
             </div>
           </div>
         </div>
 
-        {/* Restaurant Information */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Restaurant Information</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="restaurant">Restaurant Name</Label>
+          <h3 className="text-lg font-semibold text-[#253B59]">
+            Restaurant Information
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+            <div className="space-y-2 md:col-span-8">
+              <Label htmlFor={`${formId}-brands`}>Restaurant Brand(s)</Label>
               <Input
-                {...register("restaurant")}
-                id="restaurant"
-                placeholder="Restaurant name"
-                required
+                {...register("restaurantBrands")}
+                id={`${formId}-brands`}
+                placeholder="Brand A, Brand B"
               />
-              {errors.restaurant && (
+              <p className="text-xs text-muted-foreground">
+                Separate multiple brand names with commas.
+              </p>
+              {errors.restaurantBrands ? (
                 <p className="text-sm text-red-500">
-                  {errors.restaurant.message}
+                  {errors.restaurantBrands.message}
                 </p>
-              )}
+              ) : null}
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="numberOfLocations">Number of Locations</Label>
-              <Input
-                {...register("numberOfLocations", { valueAsNumber: true })}
-                id="numberOfLocations"
-                type="number"
-                min="1"
-                placeholder="Number of locations"
-                required
-              />
-              {errors.numberOfLocations && (
+            <div className="space-y-2 md:col-span-4">
+              <Label htmlFor={`${formId}-locations`}>Number of Locations</Label>
+              <Select
+                onValueChange={(value) =>
+                  setValue(
+                    "locationBand",
+                    value as ContactFormData["locationBand"],
+                    { shouldValidate: true, shouldDirty: true, shouldTouch: true }
+                  )
+                }
+                value={watch("locationBand")}
+              >
+                <SelectTrigger id={`${formId}-locations`}>
+                  <SelectValue placeholder="Select range" />
+                </SelectTrigger>
+                <SelectContent>
+                  {LOCATION_BANDS.map((band) => (
+                    <SelectItem key={band.value} value={band.value}>
+                      {band.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.locationBand ? (
                 <p className="text-sm text-red-500">
-                  {errors.numberOfLocations.message}
+                  {errors.locationBand.message}
                 </p>
-              )}
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="monthlyOrders">Monthly Orders</Label>
-              <Input
-                {...register("monthlyOrders", { valueAsNumber: true })}
-                id="monthlyOrders"
-                type="number"
-                min="0"
-                placeholder="Average monthly orders"
-                required
-              />
-              {errors.monthlyOrders && (
-                <p className="text-sm text-red-500">
-                  {errors.monthlyOrders.message}
-                </p>
-              )}
+              ) : null}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="restaurantType">Restaurant Type</Label>
+              <Label htmlFor={`${formId}-restaurant-type`}>Restaurant Type</Label>
               <Select
                 onValueChange={(value) =>
                   setValue(
                     "restaurantType",
-                    value as
-                      | "dine_in"
-                      | "fast_casual"
-                      | "quick_service"
-                      | "ghost_kitchen"
-                      | "food_truck"
-                      | "other",
-                    {
-                      shouldValidate: true,
-                      shouldDirty: true,
-                      shouldTouch: true,
-                    }
+                    value as ContactFormData["restaurantType"],
+                    { shouldValidate: true, shouldDirty: true, shouldTouch: true }
                   )
                 }
                 value={watch("restaurantType")}
               >
-                <SelectTrigger id="restaurantType">
+                <SelectTrigger id={`${formId}-restaurant-type`}>
                   <SelectValue placeholder="Select restaurant type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -387,42 +321,26 @@ export function ContactForm() {
                   ))}
                 </SelectContent>
               </Select>
-              {errors.restaurantType && (
+              {errors.restaurantType ? (
                 <p className="text-sm text-red-500">
                   {errors.restaurantType.message}
                 </p>
-              )}
+              ) : null}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="posSystem">POS System</Label>
+              <Label htmlFor={`${formId}-pos`}>POS System</Label>
               <Select
                 onValueChange={(value) =>
                   setValue(
                     "posSystem",
-                    value as
-                      | "toast"
-                      | "clover"
-                      | "square"
-                      | "lightspeed"
-                      | "spoton"
-                      | "qupos"
-                      | "aloha"
-                      | "xenial"
-                      | "par"
-                      | "ncr"
-                      | "oracle"
-                      | "other",
-                    {
-                      shouldValidate: true,
-                      shouldDirty: true,
-                      shouldTouch: true,
-                    }
+                    value as ContactFormData["posSystem"],
+                    { shouldValidate: true, shouldDirty: true, shouldTouch: true }
                   )
                 }
                 value={watch("posSystem")}
               >
-                <SelectTrigger id="posSystem">
+                <SelectTrigger id={`${formId}-pos`}>
                   <SelectValue placeholder="Select POS system" />
                 </SelectTrigger>
                 <SelectContent>
@@ -433,130 +351,86 @@ export function ContactForm() {
                   ))}
                 </SelectContent>
               </Select>
-              {errors.posSystem && (
+              {errors.posSystem ? (
                 <p className="text-sm text-red-500">
                   {errors.posSystem.message}
                 </p>
-              )}
+              ) : null}
             </div>
           </div>
         </div>
 
-        {/* Partners and Services */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Delivery Partners */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Delivery Partners</h3>
-            <Controller
-              name="deliveryPartners"
-              control={control}
-              render={({ field }) => (
-                <CheckboxGroup
-                  idPrefix="partner"
-                  options={DELIVERY_PARTNERS.map((partner) => ({
-                    label: partner.label,
-                    value: partner.value,
-                  }))}
-                  value={field.value}
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  error={
-                    (isDirty || isSubmitted) && errors.deliveryPartners
-                      ? errors.deliveryPartners.message
-                      : undefined
-                  }
-                />
-              )}
-            />
-          </div>
-
-          {/* Services Interested */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Services Interested In</h3>
-            <Controller
-              name="serviceInterests"
-              control={control}
-              render={({ field }) => (
-                <CheckboxGroup
-                  idPrefix="service"
-                  options={SERVICES.map((service) => ({
-                    label: service.label,
-                    value: service.value,
-                  }))}
-                  value={field.value}
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  error={
-                    (isDirty || isSubmitted) && errors.serviceInterests
-                      ? errors.serviceInterests.message
-                      : undefined
-                  }
-                />
-              )}
-            />
-          </div>
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-[#253B59]">
+            Services Interested In
+          </h3>
+          <Controller
+            name="serviceInterests"
+            control={control}
+            render={({ field }) => (
+              <CheckboxGroup
+                idPrefix={`${formId}-service`}
+                options={SERVICE_INTERESTS.map((service) => ({
+                  label: service.label,
+                  value: service.value,
+                }))}
+                value={field.value}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                error={
+                  (isDirty || isSubmitted) && errors.serviceInterests
+                    ? errors.serviceInterests.message
+                    : undefined
+                }
+              />
+            )}
+          />
         </div>
 
-        {/* Additional Notes */}
         <div className="space-y-2">
-          <Label htmlFor="notes">Additional Notes</Label>
+          <Label htmlFor={`${formId}-notes`}>Additional Notes (optional)</Label>
           <Textarea
             {...register("notes")}
-            id="notes"
-            placeholder="Any additional information you'd like to share"
+            id={`${formId}-notes`}
+            placeholder="Anything else we should know"
             className="min-h-[100px]"
           />
-          {errors.notes && (
+          {errors.notes ? (
             <p className="text-sm text-red-500">{errors.notes.message}</p>
-          )}
+          ) : null}
         </div>
 
-        {/* Submit Button and Messages */}
         <div className="space-y-4">
-          <div className="flex justify-center w-full">
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full md:w-1/2 lg:w-1/3"
-              onClick={(e) => {
-                console.log("🔵 Submit button clicked");
-                console.log("Current form values:", getValues());
-              }}
-            >
-              {isSubmitting ? (
-                <div className="flex items-center justify-center space-x-2">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  <span>Submitting...</span>
-                </div>
-              ) : (
-                "Submit"
-              )}
-            </Button>
-          </div>
-
-          {/* Form-level Error Message */}
-          {Object.keys(errors).length > 0 && (
-            <div className="flex items-center justify-center space-x-2 text-red-500 mt-4">
-              <span className="text-sm">
-                Please fill in all required fields correctly.
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className={cn(
+              "w-full",
+              isHomepage &&
+                "bg-[#253B59] text-[#F1C100] hover:bg-[#253B59] h-11 text-base"
+            )}
+            size="lg"
+          >
+            {isSubmitting ? (
+              <span className="inline-flex items-center gap-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Sending…
               </span>
-            </div>
-          )}
+            ) : (
+              submitLabel
+            )}
+          </Button>
 
-          {/* Success Message */}
-          {isSuccess && (
-            <div className="flex items-center justify-center space-x-2 text-green-600">
-              <CheckCircle2 className="h-5 w-5" />
-              <span>Thank you! We'll be in touch soon.</span>
+          {isSuccess ? (
+            <div className="flex items-center justify-center gap-2 text-green-700 text-sm">
+              <CheckCircle2 className="h-5 w-5 shrink-0" />
+              <span>Thanks — we&apos;ll respond within 24 hours.</span>
             </div>
-          )}
+          ) : null}
 
-          {/* Error Message */}
-          {submitError && (
-            <div className="flex items-center justify-center space-x-2 text-red-500 mt-4">
-              <span className="text-sm">{submitError}</span>
-            </div>
-          )}
+          {submitError ? (
+            <p className="text-center text-red-500 text-sm">{submitError}</p>
+          ) : null}
         </div>
       </form>
       <Toaster richColors position="top-center" />
