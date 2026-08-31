@@ -7,17 +7,19 @@
 
 **Canonical path:** `docs/website-2.0/assessment.md` (this file). Locked product decisions that supersede parts of the remediation sequence live in [`decisions.md`](./decisions.md).
 
-### Implementation status (Website 2.0 branch, Aug 2026)
+### Implementation status (post-merge, Aug 2026)
 
-**Owner priority:** Verify Preview on PR #10, then Phase 2 content. Maturity quiz / ClickUp fields deferred.
+**Merged:** PR #10 → `fixes-20250301-195504` (`1691d6b`, 31 Aug 2026).
 
-**Git:** Single active branch `cursor/website-2.0-772b` — see [`git-workflow.md`](./git-workflow.md).
+**Owner priority:** Verify Preview on merged branch → Promote to Production → Phase 2 content. Track work on ClickUp **Website Redesign Tasks** ([board](https://app.clickup.com/90131064868/v/b/6-901328341052-2)).
+
+**Git:** Integration branch `fixes-20250301-195504`; new work branches off it — see [`git-workflow.md`](./git-workflow.md).
 
 | Phase 0 task | Status |
 | --- | --- |
 | 0.1 Maturity Score + Band fields in ClickUp | **Deferred** — only needed if `/franchisees` is revived; not Website 2.0 |
 | 0.2 `clickup/client.ts` | **Done** |
-| 0.3 Drop phantom field, Project = Website, dedupe | **Done** for Strategy Audit + `/contact` |
+| 0.3 Drop phantom field, Project = Website, dedupe | **Done** — unified contact form (homepage + `/contact`) |
 | 0.4–0.6 Assessment → ClickUp | **Deferred** — `/franchisees` not in scope |
 | 0.7 Strip HubSpot from contact | **Partial** — ClickUp first, HubSpot fallback during cutover |
 | 0.8–0.10 Remove HubSpot package | **Deferred** |
@@ -31,9 +33,10 @@
 | 1.3–1.6 `caseStudy` / `framework` / etc. | **Phase 2** — not Phase 1 per [`decisions.md`](./decisions.md) |
 | 1.7–1.9 Retire legacy types | **Done** — 11 types remain on master + staging |
 | 1.10 Create `conversion*` + seed homepage | **Done** |
-| Contact form UX (intl phone, checkbox layout) | **Done** — ported from archived `website-ia-refresh` |
+| Unified contact form + ClickUp field alignment | **Done** — single form, Leads dropdowns/labels wired |
+| Contact form UX (intl phone, compact country selector) | **Done** |
 
-**Product note:** Website 2.0 primary conversion is the **Strategy Audit homepage**. The `/franchisees` maturity quiz is legacy code in the repo, not an owner-designed Website 2.0 feature ([`decisions.md`](./decisions.md)).
+**Product note:** Website 2.0 primary conversion is the **conversion homepage** with one shared contact form. The `/franchisees` maturity quiz is legacy code in the repo, not an owner-designed Website 2.0 feature ([`decisions.md`](./decisions.md)).
 
 ---
 
@@ -715,12 +718,12 @@ The architecture is correct and the build is competent. What exists is roughly a
 year of accumulated debt plus wiring gaps on routes that are **not** the current
 Website 2.0 priority.
 
-**Owner priority (Aug 2026):** Verify Website 2.0 Preview on PR #10, then Phase 2 content. Phase 1 Contentful model work is **complete** (11 types on master + staging).
+**Owner priority (Aug 2026):** Website 2.0 merged to `fixes-20250301-195504`. Verify Preview → Promote to Production → Phase 2 content. Phase 1 Contentful is **complete** (11 types on master + staging).
 
 Highest-value work aligned to that priority:
 
-1. **Preview verify + merge PR #10** — CMS hero + ClickUp forms on Vercel Preview.
+1. **Preview verify + Production promote** — CMS homepage + unified contact form → ClickUp on Vercel.
 2. **Phase 2** — kiosk case study content (§9.3), photography approach (§9.4), wire `seoMetadata` to routes.
 3. **Later** — `/franchisees` maturity quiz ClickUp wiring (only if that route is surfaced again).
 
-The hidden `/franchisees` quiz still drops leads via dead HubSpot; that is documented debt, not a blocker for Website 2.0 launch on Strategy Audit + lean CMS.
+The hidden `/franchisees` quiz still drops leads via dead HubSpot; that is documented debt, not a blocker for Website 2.0 launch on the conversion homepage + lean CMS.

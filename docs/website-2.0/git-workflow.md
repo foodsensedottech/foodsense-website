@@ -1,10 +1,10 @@
 # Git workflow — Website 2.0
 
-**Active branch:** `cursor/website-2.0-772b`  
-**Merge target:** `fixes-20250301-195504`  
-**Preview:** Vercel deployment of the Website 2.0 branch only
+**Integration branch:** `fixes-20250301-195504`  
+**Website 2.0 merge:** PR #10 squash-merged 31 Aug 2026 → commit `1691d6b`  
+**Preview / Production:** Vercel deploys from the integration branch (and PR previews for feature branches)
 
-Do not develop on `website-ia-refresh`, `main`, or other feature branches unless explicitly reviving archived work.
+Do not develop on `website-ia-refresh`, `main`, or archived feature branches unless explicitly reviving old work.
 
 ---
 
@@ -13,17 +13,22 @@ Do not develop on `website-ia-refresh`, `main`, or other feature branches unless
 ```bash
 cd /path/to/foodsense-website
 git fetch origin
-git checkout cursor/website-2.0-772b
-git pull origin cursor/website-2.0-772b
+git checkout fixes-20250301-195504
+git pull origin fixes-20250301-195504
 git status   # commit or stash before switching branches
 ```
 
-If the local branch does not exist:
+**New work:** branch off `fixes-20250301-195504`, open a PR back into it.
 
 ```bash
-git fetch origin cursor/website-2.0-772b
-git checkout -B cursor/website-2.0-772b FETCH_HEAD
+git checkout fixes-20250301-195504
+git pull origin fixes-20250301-195504
+git checkout -b cursor/<short-description>-772b
+# … commits …
+git push -u origin cursor/<short-description>-772b
 ```
+
+Agent/cloud branches use the prefix `cursor/` and suffix `-772b`.
 
 ---
 
@@ -31,11 +36,18 @@ git checkout -B cursor/website-2.0-772b FETCH_HEAD
 
 | Layer | Canonical |
 | --- | --- |
-| Code | `cursor/website-2.0-772b` → PR #10 |
+| Code | `fixes-20250301-195504` (Website 2.0 merged) |
+| Task tracking | ClickUp **Website Redesign Tasks** — [board](https://app.clickup.com/90131064868/v/b/6-901328341052-2) |
 | Product decisions | [`decisions.md`](./decisions.md) |
 | Technical plan | [`assessment.md`](./assessment.md) |
 | CMS model | Contentful `master` — 11 types ([`contentful.md`](./contentful.md)) |
-| CRM | ClickUp Leads — Strategy Audit + `/contact` |
+| CRM | ClickUp Leads — unified contact form (homepage + `/contact`) |
+
+---
+
+## Merged feature branch (historical)
+
+`cursor/website-2.0-772b` delivered Website 2.0 via PR #10. Do not continue committing to it; branch off `fixes-20250301-195504` instead. The remote feature branch may be deleted after merge.
 
 ---
 

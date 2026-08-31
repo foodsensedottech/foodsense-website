@@ -14,7 +14,7 @@ Guidance for Cursor agents working on the FoodSense website.
 
 ## Product direction (Website 2.0)
 
-- Primary conversion path: **Strategy Audit** homepage
+- Primary conversion path: **conversion homepage** with unified contact form (homepage + `/contact`)
 - `/franchisees` maturity tool: keep for later; do not make it the primary CTA yet
 - Preview deployments first; **do not Promote to Production** unless the user explicitly asks
 - Lean Contentful only — prefer seed content over inventing new CMS types mid-task

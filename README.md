@@ -2,13 +2,13 @@
 
 Marketing site for FoodSense — boutique restaurant technology consultancy.
 
-**Website 2.0** (Strategy Audit conversion homepage) lives on branch `cursor/website-2.0-772b` (PR #10). Documentation: [`docs/README.md`](./docs/README.md). Git workflow: [`docs/website-2.0/git-workflow.md`](./docs/website-2.0/git-workflow.md).
+**Website 2.0** is merged on branch `fixes-20250301-195504` (PR #10, Aug 2026). Documentation: [`docs/README.md`](./docs/README.md). Git workflow: [`docs/website-2.0/git-workflow.md`](./docs/website-2.0/git-workflow.md). Tasks: [ClickUp Website Redesign board](https://app.clickup.com/90131064868/v/b/6-901328341052-2).
 
 ## Stack
 
 - Next.js App Router + TypeScript + Tailwind
 - Contentful CMS (lean 11-type model)
-- ClickUp CRM (Strategy Audit + contact forms; HubSpot legacy fallback)
+- ClickUp CRM (unified contact form on homepage + `/contact`; HubSpot legacy fallback)
 - Google Analytics / Clarity
 
 ## Getting Started
@@ -119,11 +119,11 @@ npm run build
 
 ## Contributing
 
-Work on branch `cursor/website-2.0-772b` only — see [`docs/website-2.0/git-workflow.md`](./docs/website-2.0/git-workflow.md).
+Branch off `fixes-20250301-195504` — see [`docs/website-2.0/git-workflow.md`](./docs/website-2.0/git-workflow.md).
 
-1. Fetch and checkout the Website 2.0 branch
-2. Commit changes with a clear message
-3. Push and update PR #10
+1. Fetch and checkout the integration branch
+2. Create a feature branch (`cursor/<description>-772b`)
+3. Commit, push, and open a PR into `fixes-20250301-195504`
 
 ## License
 
