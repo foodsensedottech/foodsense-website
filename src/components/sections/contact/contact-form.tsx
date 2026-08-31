@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactFormSchema } from "@/lib/validation/contact-schema";
 import type { ContactFormData } from "@/lib/validation/contact-schema";
@@ -15,7 +15,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/form/select";
-import { Checkbox } from "@/components/ui/form/checkbox";
+import { CheckboxGroup } from "@/components/ui/form/checkbox-group";
+import { PhoneInput } from "@/components/ui/form/phone-input";
 import { Label } from "@/components/ui/form/label";
 import { analytics } from "@/lib/analytics/tracking";
 import { cn } from "@/lib/utils";
@@ -26,7 +27,6 @@ import {
   SERVICES,
 } from "@/lib/constants/form-fields";
 import { Loader2, CheckCircle2 } from "lucide-react";
-import { formatPhoneNumber } from "@/lib/utils";
 import { Toaster, toast } from "sonner";
 
 export function ContactForm() {
@@ -37,6 +37,7 @@ export function ContactForm() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, touchedFields, isDirty, isSubmitted },
     setValue,
     watch,
@@ -280,15 +281,18 @@ export function ContactForm() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="phone">Phone</Label>
-              <Input
-                {...register("phone")}
-                id="phone"
-                placeholder="(555) 555-1234"
-                required
-                onChange={(e) => {
-                  const formatted = formatPhoneNumber(e.target.value);
-                  e.target.value = formatted;
-                }}
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <PhoneInput
+                    id="phone"
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    aria-invalid={errors.phone ? "true" : "false"}
+                  />
+                )}
               />
               {errors.phone && (
                 <p className="text-sm text-red-500">{errors.phone.message}</p>
@@ -443,81 +447,53 @@ export function ContactForm() {
           {/* Delivery Partners */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Delivery Partners</h3>
-            <div className="space-y-2">
-              {DELIVERY_PARTNERS.map((partner) => (
-                <div
-                  key={partner.value}
-                  className="flex items-center space-x-2"
-                >
-                  <Checkbox
-                    id={`partner-${partner.value}`}
-                    {...register("deliveryPartners")}
-                    value={partner.value}
-                    onCheckedChange={(checked) => {
-                      const currentValues = getValues("deliveryPartners") || [];
-                      const newValues = checked
-                        ? [...currentValues, partner.value]
-                        : currentValues.filter(
-                            (value) => value !== partner.value
-                          );
-                      setValue("deliveryPartners", newValues, {
-                        shouldValidate: true,
-                        shouldDirty: true,
-                        shouldTouch: true,
-                      });
-                    }}
-                  />
-                  <Label htmlFor={`partner-${partner.value}`}>
-                    {partner.label}
-                  </Label>
-                </div>
-              ))}
-            </div>
-            {(isDirty || isSubmitted) && errors.deliveryPartners && (
-              <p className="text-sm text-red-500">
-                {errors.deliveryPartners.message}
-              </p>
-            )}
+            <Controller
+              name="deliveryPartners"
+              control={control}
+              render={({ field }) => (
+                <CheckboxGroup
+                  idPrefix="partner"
+                  options={DELIVERY_PARTNERS.map((partner) => ({
+                    label: partner.label,
+                    value: partner.value,
+                  }))}
+                  value={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  error={
+                    (isDirty || isSubmitted) && errors.deliveryPartners
+                      ? errors.deliveryPartners.message
+                      : undefined
+                  }
+                />
+              )}
+            />
           </div>
 
           {/* Services Interested */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Services Interested In</h3>
-            <div className="space-y-2">
-              {SERVICES.map((service) => (
-                <div
-                  key={service.value}
-                  className="flex items-center space-x-2"
-                >
-                  <Checkbox
-                    id={`service-${service.value}`}
-                    {...register("serviceInterests")}
-                    value={service.value}
-                    onCheckedChange={(checked) => {
-                      const currentValues = getValues("serviceInterests") || [];
-                      const newValues = checked
-                        ? [...currentValues, service.value]
-                        : currentValues.filter(
-                            (value) => value !== service.value
-                          );
-                      setValue("serviceInterests", newValues, {
-                        shouldValidate: true,
-                        shouldDirty: true,
-                        shouldTouch: true,
-                      });
-                    }}
-                  />
-                  <Label htmlFor={`service-${service.value}`}>
-                    {service.label}
-                  </Label>
-                </div>
-              ))}
-            </div>
-            {(isDirty || isSubmitted) && errors.serviceInterests && (
-              <p className="text-sm text-red-500">
-                {errors.serviceInterests.message}
-              </p>
-            )}
+            <Controller
+              name="serviceInterests"
+              control={control}
+              render={({ field }) => (
+                <CheckboxGroup
+                  idPrefix="service"
+                  options={SERVICES.map((service) => ({
+                    label: service.label,
+                    value: service.value,
+                  }))}
+                  value={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  error={
+                    (isDirty || isSubmitted) && errors.serviceInterests
+                      ? errors.serviceInterests.message
+                      : undefined
+                  }
+                />
+              )}
+            />
           </div>
         </div>
 

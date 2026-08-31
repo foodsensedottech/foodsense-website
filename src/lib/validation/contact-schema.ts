@@ -1,8 +1,7 @@
+import { isPossiblePhoneNumber } from "libphonenumber-js";
 import { z } from "zod";
 import { servicesSchema } from "@/lib/constants/form-fields";
 
-// Helper regex patterns
-const PHONE_REGEX = /^\(\d{3}\) \d{3}-\d{4}$/;
 const NAME_REGEX = /^[a-zA-Z\s'-]+$/;
 
 export const deliveryPartnersSchema = z
@@ -47,8 +46,11 @@ export const contactFormSchema = z.object({
 
   phone: z
     .string()
-    .regex(PHONE_REGEX, "Phone must be in format: (555) 555-1234")
-    .min(10, "Phone number is required"),
+    .min(8, "Enter a phone number we can reach.")
+    .refine(
+      (value) => isPossiblePhoneNumber(value),
+      "Enter a valid phone number."
+    ),
 
   // Restaurant Info
   restaurant: z
