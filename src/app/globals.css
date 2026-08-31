@@ -4,36 +4,46 @@
 
 @layer base {
   :root {
+    /* Brand OS — docs/brand/06-brand-guidelines.md */
+    --brand-navy: 212 58% 25%; /* #253B59 */
+    --brand-yellow: 45 100% 47%; /* #F1C100 */
+    --brand-light-navy: 212 37% 36%; /* #3A5A80 */
+    --brand-dark-gold: 45 100% 42%; /* #D4A800 */
+    --brand-warm-gray: 210 14% 96%; /* #F5F6F8 */
+    --brand-slate: 213 13% 48%; /* #6B7A8D */
+    --brand-border: 214 16% 90%; /* #E2E6EB */
+    --brand-deep: 214 42% 17%; /* #1A2A40 hero gradient end */
+
     /* Light Mode */
     --background: 0 0% 100%;
-    --foreground: 212 58% 25%; /* #253b59 */
+    --foreground: var(--brand-navy);
 
     --card: 0 0% 100%;
-    --card-foreground: 212 58% 25%;
+    --card-foreground: var(--brand-navy);
 
     --popover: 0 0% 100%;
-    --popover-foreground: 212 58% 25%;
+    --popover-foreground: var(--brand-navy);
 
-    /* Blue primary for light mode */
-    --primary: 45 100% 47%; /* #f1c100 Yellow */
-    --primary-foreground: 0 0% 100%;
+    /* Yellow CTAs — primary fill, navy text */
+    --primary: var(--brand-yellow);
+    --primary-foreground: var(--brand-navy);
 
-    /* Yellow secondary for light mode */
-    --secondary: 212 58% 35%; /* #253b59 Blue */
+    /* Navy secondary */
+    --secondary: var(--brand-navy);
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: var(--brand-warm-gray);
+    --muted-foreground: var(--brand-slate);
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: var(--brand-warm-gray);
+    --accent-foreground: var(--brand-navy);
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 47.9 100% 47.3%;
+    --border: var(--brand-border);
+    --input: var(--brand-border);
+    --ring: var(--brand-yellow);
 
     --radius: 0.5rem;
 
@@ -49,38 +59,31 @@
   }
 
   .dark {
-    /* Dark Mode */
-    --background: 212 58% 15%;
+    --background: var(--brand-deep);
     --foreground: 0 0% 100%;
 
-    /* Yellow primary for dark mode */
-    --primary: 45 100% 47%; /* #f1c100 */
-    --primary-foreground: 212 58% 25%; /* Blue */
+    --primary: var(--brand-yellow);
+    --primary-foreground: var(--brand-navy);
 
-    /* Blue secondary for dark mode */
-    --secondary: 212 58% 35%; /* #253b59 */
-    --secondary-foreground: 45 100% 47%; /* Yellow */
+    --secondary: var(--brand-light-navy);
+    --secondary-foreground: var(--brand-yellow);
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 214 42% 12%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 214 42% 12%;
+    --popover-foreground: 0 0% 100%;
 
-    /* Form fields and muted areas */
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 214 32% 18%;
+    --muted-foreground: 213 13% 70%;
 
-    /* Accent colors */
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 214 32% 18%;
+    --accent-foreground: 0 0% 100%;
 
-    /* Borders and inputs */
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 47.9 100% 47.3%;
+    --border: 214 32% 22%;
+    --input: 214 32% 22%;
+    --ring: var(--brand-yellow);
 
-    /* Keep destructive colors */
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
   }
@@ -92,6 +95,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    line-height: 1.6;
   }
   h1 {
     @apply text-4xl font-bold tracking-tight;
@@ -106,12 +110,10 @@
 
 /* Accessibility Improvements */
 @layer base {
-  /* Focus styles */
   *:focus-visible {
     @apply outline-2 outline-offset-2 outline-primary;
   }
 
-  /* Reduced motion preferences */
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
@@ -121,9 +123,8 @@
     }
   }
 
-  /* Skip to main content */
   .skip-to-main {
-    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4
            focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-primary;
   }
 }

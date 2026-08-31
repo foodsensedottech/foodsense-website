@@ -223,6 +223,34 @@ export interface ContactSectionContent {
   heading: ContactTitle;
 }
 
+export interface ContactSectionCopy {
+  heading: string;
+  subheading?: string;
+  submitLabel?: string;
+  submittingLabel?: string;
+  successMessage?: string;
+  errorMessage?: string;
+}
+
+/** Shared chrome for header/footer — mapped from conversionHomepage. */
+export interface SiteChrome {
+  ctaLabel?: string;
+  navAbout?: string;
+  navPains?: string;
+  navOfferings?: string;
+  navServices?: string;
+  navContact?: string;
+  footerTagline?: string;
+  footerGeo?: string;
+  footerEmail?: string;
+  linkedInUrl?: string;
+  instagramUrl?: string;
+  cookieHeadline?: string;
+  cookieBody?: string;
+  cookieAccept?: string;
+  cookieReject?: string;
+}
+
 export interface AboutCard {
   icon: string; // Lucide icon name
   title: string;

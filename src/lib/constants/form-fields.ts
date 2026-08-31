@@ -1,26 +1,19 @@
 import { z } from "zod";
 
-// These match exactly with HubSpot's internal names and values
-export const DELIVERY_PARTNERS = [
-  { label: "UberEats", value: "ubereats" },
-  { label: "DoorDash", value: "doordash" },
-  { label: "GrubHub", value: "grubhub" },
-  { label: "Postmates", value: "postmates" },
-  { label: "Other", value: "other" },
+export const LOCATION_BANDS = [
+  { label: "1–5", value: "1-5" },
+  { label: "6–10", value: "6-10" },
+  { label: "10–50", value: "10-50" },
+  { label: "50+", value: "50-plus" },
 ] as const;
 
 export const POS_SYSTEMS = [
-  { label: "Toast", value: "toast" },
-  { label: "Clover", value: "clover" },
-  { label: "Square", value: "square" },
-  { label: "LightSpeed", value: "lightspeed" },
-  { label: "SpotOn", value: "spoton" },
-  { label: "QuPOS", value: "qupos" },
-  { label: "Aloha", value: "aloha" },
-  { label: "Xenial", value: "xenial" },
-  { label: "PAR", value: "par" },
-  { label: "NCR", value: "ncr" },
   { label: "Oracle", value: "oracle" },
+  { label: "NCR", value: "ncr" },
+  { label: "PAR", value: "par" },
+  { label: "Toast", value: "toast" },
+  { label: "Square", value: "square" },
+  { label: "In-House (Custom)", value: "in_house_custom" },
   { label: "Other", value: "other" },
 ] as const;
 
@@ -33,52 +26,30 @@ export const RESTAURANT_TYPES = [
   { label: "Other", value: "other" },
 ] as const;
 
-export const SERVICES = [
-  {
-    label: "New Restaurant Opening/Restaurant Upgrades",
-    value: "new-restaurant",
-  },
-  {
-    label: "Increase Sales and Profits on 3rd Party Delivery",
-    value: "increase-sales",
-  },
-  {
-    label: "Market and Competitor Pricing Analysis",
-    value: "market-analysis",
-  },
-  {
-    label: "Customer Loyalty and Reputation Management",
-    value: "customer-loyalty",
-  },
-  {
-    label: "Profitability Analysis",
-    value: "profitability",
-  },
+/** Placeholder labels until final service copy is approved. */
+export const SERVICE_INTERESTS = [
+  { label: "Option 1", value: "option_1" },
+  { label: "Option 2", value: "option_2" },
+  { label: "Option 3", value: "option_3" },
+  { label: "Option 4", value: "option_4" },
+  { label: "Option 5", value: "option_5" },
+  { label: "Option 6", value: "option_6" },
 ] as const;
 
-// Type helpers for our form
-export type DeliveryPartner = (typeof DELIVERY_PARTNERS)[number]["value"];
+export type LocationBand = (typeof LOCATION_BANDS)[number]["value"];
 export type PosSystem = (typeof POS_SYSTEMS)[number]["value"];
 export type RestaurantType = (typeof RESTAURANT_TYPES)[number]["value"];
-export type ServiceType = (typeof SERVICES)[number]["value"];
+export type ServiceInterest = (typeof SERVICE_INTERESTS)[number]["value"];
 
-// Create Zod schemas from our constants
-export const deliveryPartnersSchema = z.array(
-  z.enum(["ubereats", "doordash", "grubhub", "postmates", "other"])
-);
+export const locationBandSchema = z.enum(["1-5", "6-10", "10-50", "50-plus"]);
 
 export const posSystemSchema = z.enum([
-  "toast",
-  "clover",
-  "square",
-  "lightspeed",
-  "spoton",
-  "qupos",
-  "aloha",
-  "xenial",
-  "par",
-  "ncr",
   "oracle",
+  "ncr",
+  "par",
+  "toast",
+  "square",
+  "in_house_custom",
   "other",
 ]);
 
@@ -91,12 +62,22 @@ export const restaurantTypeSchema = z.enum([
   "other",
 ]);
 
-export const servicesSchema = z.array(
+export const serviceInterestsSchema = z.array(
   z.enum([
-    "new-restaurant",
-    "increase-sales",
-    "market-analysis",
-    "customer-loyalty",
-    "profitability",
+    "option_1",
+    "option_2",
+    "option_3",
+    "option_4",
+    "option_5",
+    "option_6",
   ])
 );
+
+/** @deprecated Legacy HubSpot-era constants — do not use on Website 2.0 forms. */
+export const DELIVERY_PARTNERS = [] as const;
+
+/** @deprecated Use SERVICE_INTERESTS */
+export const SERVICES = SERVICE_INTERESTS;
+
+export const deliveryPartnersSchema = z.array(z.never());
+export const servicesSchema = serviceInterestsSchema;

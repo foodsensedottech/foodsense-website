@@ -38,13 +38,9 @@ const client = createClient({
   accessToken:
     process.env.CONTENTFUL_ACCESS_TOKEN ||
     process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN!,
-  // Disable cache during build
+  environment: process.env.CONTENTFUL_ENVIRONMENT || "master",
   ...(process.env.NODE_ENV === "production" && {
-    // Force fresh data during build
     host: "cdn.contentful.com",
-    // Add cache-busting timestamp to ensure fresh data
-    environment: process.env.CONTENTFUL_ENVIRONMENT || "master",
-    // Add a timestamp parameter to force fresh data
     headers: {
       "X-Contentful-Cache-Control": "no-cache",
     },
@@ -70,6 +66,7 @@ const previewClient = createClient({
     getEnvVar("CONTENTFUL_PREVIEW_ACCESS_TOKEN") ||
     process.env.NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN!,
   host: "preview.contentful.com",
+  environment: process.env.CONTENTFUL_ENVIRONMENT || "master",
 });
 
 export const getClient = (preview: boolean = false) =>

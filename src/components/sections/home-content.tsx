@@ -1,54 +1,11 @@
 import { Suspense } from "react";
-import { HeroSection } from "./hero";
-import { ContactSection } from "./contact";
-import { getHeroContent } from "@/lib/contentful/client";
-import { applyFranchiseeHomepageHero } from "@/lib/contentful/homepage-hero";
-import {
-  getFranchiseeOffers,
-  getFranchiseePains,
-} from "@/lib/contentful/franchisee";
+import { ConversionHome } from "./conversion";
 import { SectionLoading } from "@/components/ui/layout/section-loading";
-import { FranchiseePainsSection } from "./franchisees/pains-section";
-import { FranchiseeOffersSection } from "./franchisees/offers-section";
-import { FranchiseeMaturityCta } from "./franchisees/maturity-cta";
 
 export async function HomeContent() {
-  try {
-    const [heroContent, pains, offers] = await Promise.all([
-      getHeroContent(),
-      getFranchiseePains(),
-      getFranchiseeOffers(),
-    ]);
-
-    const hero = applyFranchiseeHomepageHero(heroContent);
-
-    return (
-      <>
-        <Suspense fallback={<SectionLoading />}>
-          <HeroSection data={hero} />
-        </Suspense>
-        {pains.heading && pains.cards.length > 0 ? (
-          <FranchiseePainsSection heading={pains.heading} cards={pains.cards} />
-        ) : null}
-        {offers.heading && offers.cards.length > 0 ? (
-          <FranchiseeOffersSection
-            heading={offers.heading}
-            cards={offers.cards}
-          />
-        ) : null}
-        <FranchiseeMaturityCta ctaHref="#contact-section" />
-        <Suspense fallback={<SectionLoading />}>
-          <ContactSection />
-        </Suspense>
-      </>
-    );
-  } catch (error) {
-    console.error("Error loading content:", error);
-    return (
-      <>
-        <HeroSection data={applyFranchiseeHomepageHero(null)} />
-        <SectionLoading />
-      </>
-    );
-  }
+  return (
+    <Suspense fallback={<SectionLoading />}>
+      <ConversionHome />
+    </Suspense>
+  );
 }

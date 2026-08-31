@@ -46,12 +46,13 @@
 
 ## Photography
 
-- Documentary, in real restaurants during real shifts
+- **Target:** Documentary, in real restaurants during real shifts
 - Kitchen/BOH priority: cooks reading KDS, hands assembling with screens glowing
 - Always include people interacting with technology
 - Over-the-shoulder and tight crop compositions
 - Warm, slightly desaturated color grading
-- Never: stock photos, food glamour, empty restaurants, tech in isolation
+- **Never (end state):** stock food glamour, empty restaurants, tech in isolation
+- **Interim (until a shoot exists):** diagrammatic section art in navy / yellow using the speed-line motif, or typographic heroes where the metric is the visual. Define locked aspect-ratio media slots in Contentful so real photography can replace interim art without code changes.
 
 ## Look and Feel
 

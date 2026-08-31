@@ -12,12 +12,17 @@ export function handleError(error: unknown): string {
   return String(error);
 }
 
-// Utility for smooth scrolling to sections
+// Utility for smooth scrolling to sections (offset for sticky header)
 export function smoothScrollToSection(sectionId: string) {
   const element = document.getElementById(sectionId);
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
-  }
+  if (!element) return;
+
+  const header = document.querySelector("header");
+  const headerOffset = header instanceof HTMLElement ? header.offsetHeight : 56;
+  const top =
+    element.getBoundingClientRect().top + window.scrollY - headerOffset - 8;
+
+  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
 }
 
 // Utility for ensuring absolute URLs

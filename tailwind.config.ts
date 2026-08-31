@@ -25,6 +25,10 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)", ...fontFamily.sans],
+        display: ["var(--font-sans)", ...fontFamily.sans],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -38,6 +42,23 @@ const config: Config = {
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        brand: {
+          navy: "hsl(var(--brand-navy))",
+          yellow: "hsl(var(--brand-yellow))",
+          "light-navy": "hsl(var(--brand-light-navy))",
+          "dark-gold": "hsl(var(--brand-dark-gold))",
+          "warm-gray": "hsl(var(--brand-warm-gray))",
+          slate: "hsl(var(--brand-slate))",
+          deep: "hsl(var(--brand-deep))",
         },
         success: {
           DEFAULT: "hsl(var(--success))",

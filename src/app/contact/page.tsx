@@ -4,7 +4,7 @@ import { ContactForm } from "@/components/sections/contact/contact-form";
 export default function ContactPage() {
   return (
     <main className="container mx-auto py-10">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-secondary dark:text-primary">
             Contact Us

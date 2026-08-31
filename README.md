@@ -1,27 +1,15 @@
 # FoodSense Website
 
-A modern, responsive website built with Next.js 14, TypeScript, Tailwind CSS, and Contentful CMS.
+Marketing site for FoodSense — boutique restaurant technology consultancy.
 
-## Features
+**Website 2.0** (Strategy Audit conversion homepage) lives on branch `cursor/website-2.0-772b` (PR #10). Documentation: [`docs/README.md`](./docs/README.md). Git workflow: [`docs/website-2.0/git-workflow.md`](./docs/website-2.0/git-workflow.md).
 
-- 🚀 Built with Next.js 14 App Router
-- 💻 TypeScript for type safety
-- 🎨 Tailwind CSS for styling
-- 📱 Fully responsive design
-- 🔄 Server-side rendering
-- 📊 Google Analytics integration
-- 📈 Microsoft Clarity for user behavior analytics
-- 🖼️ Contentful CMS integration
-- 🌙 Dark mode support
-- ⚡ Optimized performance
-- 🔍 SEO optimized
+## Stack
 
-## Prerequisites
-
-Before you begin, ensure you have installed:
-
-- Node.js 18.17 or later
-- npm or yarn
+- Next.js App Router + TypeScript + Tailwind
+- Contentful CMS (lean 11-type model)
+- ClickUp CRM (Strategy Audit + contact forms; HubSpot legacy fallback)
+- Google Analytics / Clarity
 
 ## Getting Started
 
@@ -53,6 +41,8 @@ Then edit `.env.local` with your configuration values.
 ```
 CONTENTFUL_SPACE_ID=your_space_id
 CONTENTFUL_ACCESS_TOKEN=your_access_token
+CONTENTFUL_MANAGEMENT_TOKEN=your_cma_token   # migrations / scripts only
+CLICKUP_API_TOKEN=your_clickup_token
 NEXT_PUBLIC_GA_MEASUREMENT_ID=your_ga_id
 ```
 
@@ -129,11 +119,11 @@ npm run build
 
 ## Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Work on branch `cursor/website-2.0-772b` only — see [`docs/website-2.0/git-workflow.md`](./docs/website-2.0/git-workflow.md).
+
+1. Fetch and checkout the Website 2.0 branch
+2. Commit changes with a clear message
+3. Push and update PR #10
 
 ## License
 
