@@ -32,8 +32,6 @@ export function getHubspotClient(): ExtendedHubSpotClient {
   return clientInstance;
 }
 
-export const hubspotClient = getHubspotClient();
-
 /**
  * Creates or updates a company in HubSpot
  */
