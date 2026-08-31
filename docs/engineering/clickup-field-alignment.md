@@ -108,8 +108,128 @@ option_1: "<option-uuid>",
 
 | File | Role |
 | --- | --- |
-| `src/lib/constants/form-fields.ts` | Form option labels/values |
-| `src/lib/clickup/constants.ts` | Stable field IDs + env-based new field IDs |
-| `src/lib/clickup/field-options.ts` | Dropdown/label option UUIDs |
-| `src/lib/clickup/create-contact-lead.ts` | Upsert logic (skips unconfigured fields) |
+| `src/lib/constants/form-fields.ts` | Form option labels/values (what visitors see) |
+| `src/lib/validation/contact-schema.ts` | Imports schemas from `form-fields.ts` |
+| `src/lib/clickup/constants.ts` | ClickUp **field** IDs (rarely changes) |
+| `src/lib/clickup/field-options.ts` | ClickUp **option** UUIDs (changes when options change) |
+| `src/lib/clickup/create-contact-lead.ts` | Maps form values → ClickUp option IDs |
 | `src/app/api/contact/route.ts` | POST handler |
+
+---
+
+## Maintaining alignment when options change
+
+Dropdown and label fields stay in sync across **three places**. If any one drifts, leads may still save but a custom field can be empty (values still appear in the task description).
+
+| Layer | Where | What it controls |
+| --- | --- | --- |
+| 1. ClickUp | Leads → Custom fields | Option **labels** + option **UUIDs** the API needs |
+| 2. Website form | `src/lib/constants/form-fields.ts` | Checkbox/dropdown **labels** and internal **values** (e.g. `option_1`, `toast`) |
+| 3. API mapping | `src/lib/clickup/field-options.ts` | Maps each form **value** → ClickUp option **UUID** |
+
+**Rule of thumb:** Option **labels** should read the same on the website and in ClickUp. The website uses stable internal `value` keys (snake_case) that you map to ClickUp UUIDs in `field-options.ts`.
+
+### How to get option UUIDs after you edit ClickUp
+
+1. ClickUp → Space **Foodsense CRM** → List **Leads** → **Custom fields** → edit the field → each option has a UUID  
+2. Or ask an agent to run `clickup_get_custom_fields` on list `901328239583`  
+3. Paste UUIDs into `field-options.ts`
+
+You do **not** need a new field ID when you only rename or add options — the field ID stays the same.
+
+---
+
+### Example A — Rename Services from “Option 1…6” to real service names
+
+**Goal:** Replace placeholders with six specific services (e.g. “Menu Engineering”, “Ops Audit”).
+
+#### Step 1 — ClickUp (labels field)
+
+1. Leads → Custom fields → **Services Interested in**  
+2. **Rename** each label (Option 1 → Menu Engineering, etc.)  
+   - Renaming keeps the same option UUID — if form values stay `option_1` … `option_6`, mapping in `field-options.ts` is unchanged  
+3. If you **delete** a label and **add** a new one, the new label gets a **new UUID** — update `field-options.ts`
+
+#### Step 2 — Website form (`form-fields.ts`)
+
+Update `SERVICE_INTERESTS` labels. Easiest path: keep internal values as `option_1` … `option_6` and only change labels:
+
+```ts
+export const SERVICE_INTERESTS = [
+  { label: "Menu Engineering", value: "option_1" },
+  { label: "Ops Audit", value: "option_2" },
+  // … four more
+] as const;
+```
+
+Or rename values to match meaning (`menu_engineering`, etc.) — then also update `serviceInterestsSchema` in the same file.
+
+#### Step 3 — ClickUp UUID map (`field-options.ts`)
+
+Only needed if you changed form **values** or added/replaced ClickUp labels (new UUIDs):
+
+```ts
+export const CLICKUP_SERVICE_INTEREST_OPTIONS: Record<ServiceInterest, string> = {
+  menu_engineering: "<uuid-for-Menu-Engineering>",
+  ops_audit: "<uuid-for-Ops-Audit>",
+  // …
+};
+```
+
+#### Step 4 — Deploy and verify
+
+Submit with two services checked → Leads task shows both labels on **Services Interested in**.
+
+---
+
+### Example B — Add a POS option (e.g. “Clover”)
+
+**Goal:** New choice on the form and in ClickUp.
+
+POS is **ClickUp-first**: the form must mirror ClickUp, not the other way around.
+
+#### Step 1 — ClickUp
+
+1. Leads → Custom fields → **POS System** → add **Clover**  
+2. Copy the new option UUID  
+
+#### Step 2 — Website form (`form-fields.ts`)
+
+```ts
+{ label: "Clover", value: "clover" },
+```
+
+Add `"clover"` to `posSystemSchema` in the same file.
+
+#### Step 3 — UUID map (`field-options.ts`)
+
+```ts
+clover: "<new-clover-option-uuid>",
+```
+
+#### Step 4 — Deploy and verify
+
+Submit with POS = Clover → task shows Clover on the POS field.
+
+---
+
+### Example C — Remove an option
+
+1. **ClickUp:** Remove the option (old tasks may keep legacy values)  
+2. **Form:** Remove from `POS_SYSTEMS` / `SERVICE_INTERESTS` / etc. and from the Zod enum  
+3. **Mapping:** Remove the key from `field-options.ts`  
+
+If you remove from ClickUp but leave it on the form, that field value is **skipped** in ClickUp (still in task description).
+
+---
+
+### Quick checklist (any dropdown or labels field)
+
+- [ ] ClickUp option labels match what you want on the website  
+- [ ] `form-fields.ts` — labels, values, and Zod enum updated  
+- [ ] `field-options.ts` — every form value has a ClickUp option UUID  
+- [ ] Preview submission → Leads custom fields populated  
+
+### When you need a new field ID
+
+Only if you **delete and recreate** the custom field (e.g. change type). Then update `CLICKUP_FIELD_*` in Vercel / `constants.ts` and remap all option UUIDs.
