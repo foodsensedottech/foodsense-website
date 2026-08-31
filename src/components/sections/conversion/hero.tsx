@@ -9,10 +9,11 @@ import type { ConversionHomepage } from "@/lib/content/conversion-seed";
 
 interface Props {
   data: ConversionHomepage["hero"];
-  brand?: string;
 }
 
-export function ConversionHero({ data, brand = "FoodSense" }: Props) {
+export function ConversionHero({ data }: Props) {
+  const brand = data.brandLabel || "FoodSense";
+
   const handleCta = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     smoothScrollToSection("contact-section");

@@ -5,10 +5,11 @@ import { motion } from "framer-motion";
 import type { ConversionHomepage } from "@/lib/content/conversion-seed";
 
 interface Props {
+  section: ConversionHomepage["partnersSection"];
   vendors: ConversionHomepage["vendors"];
 }
 
-export function ConversionVendors({ vendors }: Props) {
+export function ConversionVendors({ section, vendors }: Props) {
   return (
     <section id="partners-section" className="py-16 md:py-20 bg-brand-warm-gray">
       <div className="container mx-auto px-4">
@@ -19,8 +20,13 @@ export function ConversionVendors({ vendors }: Props) {
           viewport={{ once: true }}
           transition={{ duration: 0.45 }}
         >
+          {section.eyebrow ? (
+            <p className="font-display text-sm tracking-[0.18em] uppercase text-[#D4A800] mb-3">
+              {section.eyebrow}
+            </p>
+          ) : null}
           <h2 className="font-display text-2xl md:text-3xl text-[#253B59]">
-            Trusted Integration Partners
+            {section.heading}
           </h2>
         </motion.div>
 

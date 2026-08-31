@@ -23,10 +23,10 @@ export function ConversionAuthority({ data }: Props) {
           transition={{ duration: 0.5 }}
         >
           <p className="font-display text-sm tracking-[0.18em] uppercase text-[#D4A800] mb-3">
-            Why FoodSense
+            {data.eyebrow}
           </p>
           <h2 className="font-display text-3xl md:text-4xl mb-5 leading-tight">
-            The authority gap we close
+            {data.heading}
           </h2>
           <p className="text-lg text-[#253B59]/80 leading-relaxed">{data.body}</p>
         </motion.div>
@@ -69,7 +69,7 @@ export function ConversionAuthority({ data }: Props) {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <li className="font-display text-sm tracking-[0.18em] uppercase text-[#D4A800]">
-              The wins
+              {data.winsLabel}
             </li>
             {data.wins.map((win) => (
               <li

@@ -7,10 +7,11 @@ import { cn } from "@/lib/utils";
 import type { ConversionHomepage } from "@/lib/content/conversion-seed";
 
 interface Props {
+  section: ConversionHomepage["menuSection"];
   items: ConversionHomepage["menuItems"];
 }
 
-export function ConversionMenu({ items }: Props) {
+export function ConversionMenu({ section, items }: Props) {
   const [openIndex, setOpenIndex] = React.useState<number | null>(0);
 
   return (
@@ -26,11 +27,13 @@ export function ConversionMenu({ items }: Props) {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
         >
-          <p className="font-display text-sm tracking-[0.18em] uppercase text-[#F1C100]/90 mb-3">
-            Specialized menu
-          </p>
+          {section.eyebrow ? (
+            <p className="font-display text-sm tracking-[0.18em] uppercase text-[#F1C100]/90 mb-3">
+              {section.eyebrow}
+            </p>
+          ) : null}
           <h2 className="font-display text-3xl md:text-4xl leading-tight">
-            Other services
+            {section.heading}
           </h2>
         </motion.div>
 

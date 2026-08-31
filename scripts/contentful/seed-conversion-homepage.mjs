@@ -17,8 +17,10 @@ const PILLAR_IDS = [
 ];
 
 const MENU_IDS = [
-  "conversion-menu-revenue",
-  "conversion-menu-partnerships",
+  "conversion-menu-revenue", // reused entry id — POS & core systems
+  "conversion-menu-partnerships", // reused entry id — kiosk & self-service
+  "conversion-menu-delivery",
+  "conversion-menu-vendor-governance",
 ];
 
 const VENDOR_IDS = [
@@ -113,9 +115,19 @@ async function main() {
     heroHeading: localeFields(conversionSeed.hero.heading),
     heroSubheading: localeFields(conversionSeed.hero.subheading),
     heroCta: localeFields(conversionSeed.hero.ctaLabel),
+    heroBrandLabel: localeFields(conversionSeed.hero.brandLabel),
+    authorityEyebrow: localeFields(conversionSeed.authority.eyebrow),
+    authorityHeading: localeFields(conversionSeed.authority.heading),
+    authorityWinsLabel: localeFields(conversionSeed.authority.winsLabel),
     authorityBody: localeFields(conversionSeed.authority.body),
     founderLabel: localeFields(conversionSeed.authority.founderLabel),
     founderWins: localeFields(conversionSeed.authority.wins.join("\n")),
+    pillarsEyebrow: localeFields(conversionSeed.pillarsSection.eyebrow),
+    pillarsHeading: localeFields(conversionSeed.pillarsSection.heading),
+    menuEyebrow: localeFields(conversionSeed.menuSection.eyebrow),
+    menuHeading: localeFields(conversionSeed.menuSection.heading),
+    partnersEyebrow: localeFields(conversionSeed.partnersSection.eyebrow),
+    partnersHeading: localeFields(conversionSeed.partnersSection.heading),
     pillars: localeFields(pillarLinks),
     menuItems: localeFields(menuLinks),
     vendors: localeFields(vendorLinks),

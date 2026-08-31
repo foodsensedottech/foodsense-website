@@ -13,9 +13,9 @@ export async function ConversionHome() {
     <>
       <ConversionHero data={page.hero} />
       <ConversionAuthority data={page.authority} />
-      <ConversionPillars pillars={page.pillars} />
-      <ConversionMenu items={page.menuItems} />
-      <ConversionVendors vendors={page.vendors} />
+      <ConversionPillars section={page.pillarsSection} pillars={page.pillars} />
+      <ConversionMenu section={page.menuSection} items={page.menuItems} />
+      <ConversionVendors section={page.partnersSection} vendors={page.vendors} />
       <ConversionContact data={page.contact} />
     </>
   );

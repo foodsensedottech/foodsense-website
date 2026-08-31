@@ -134,14 +134,21 @@ Phases match [`assessment.md`](./assessment.md); Contentful work is **Phase 1** 
 | `heroHeading` | Short text |
 | `heroSubheading` | Long text |
 | `heroCta` | Short text |
+| `heroBrandLabel` | Short text (eyebrow above H1; SEO-tunable) |
 | `heroImage` | Media (optional) |
+| `authorityEyebrow` | Short text |
+| `authorityHeading` | Short text (section H2; SEO-tunable) |
+| `authorityWinsLabel` | Short text |
 | `authorityBody` | Long text |
 | `founderLabel` | Short text |
 | `founderWins` | Long text (one win per line) |
 | `founderImage` | Media (optional) |
 | `pillars` | References → many `conversionPillar` |
+| `pillarsEyebrow` / `pillarsHeading` | Short text (section chrome) |
 | `menuItems` | References → many `conversionMenuItem` |
+| `menuEyebrow` / `menuHeading` | Short text (section chrome) |
 | `vendors` | References → many `conversionVendor` |
+| `partnersEyebrow` / `partnersHeading` | Short text (section chrome) |
 | `contactHeading` | Short text |
 | `contactSubheading` | Short text |
 | `contactResponseNote` | Short text |

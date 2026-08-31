@@ -13,6 +13,7 @@ config({ path: ".env.local" });
 const MIGRATIONS = [
   "001-fix-seo-metadata-page-id.js",
   "002-create-conversion-types.js",
+  "003-conversion-section-headings.js",
 ];
 
 const environmentId = process.env.CONTENTFUL_ENVIRONMENT?.trim() || STAGING_ENV_ID;
