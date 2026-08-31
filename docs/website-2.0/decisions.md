@@ -1,28 +1,32 @@
 # Website 2.0 — locked owner decisions
 
-Recorded 27 August 2026. Agents and humans treat these as settled unless the owner revises this file.
+Recorded 27 August 2026. Updated 31 August 2026 after PR #10 merge. Agents and humans treat these as settled unless the owner revises this file.
 
 ## Current priority (Aug 2026)
 
-**Next:** Verify Website 2.0 Preview (PR #10) reads CMS + ClickUp; then **Phase 2** content ([`assessment.md`](./assessment.md) §9.3–9.4).
+**Next:** Verify Preview on merged `fixes-20250301-195504`, **Promote to Production** when approved, then **Phase 2** content ([`assessment.md`](./assessment.md) §9.3–9.4).
 
 **Phase 1 Contentful:** **Done** — 11 types, `conversion*` homepage seeded on master + staging. See [`engineering/contentful-phase1.md`](../engineering/contentful-phase1.md).
 
-**Git:** Work only on `cursor/website-2.0-772b` — [`git-workflow.md`](./git-workflow.md).
+**Website 2.0 code:** **Merged** — PR #10 → `fixes-20250301-195504` (`1691d6b`, 31 Aug 2026).
+
+**Git:** Branch off `fixes-20250301-195504` for new work — [`git-workflow.md`](./git-workflow.md).
+
+**Task tracking:** ClickUp **Website Redesign Tasks** board — [open board](https://app.clickup.com/90131064868/v/b/6-901328341052-2).
 
 **Not now:** `/franchisees` maturity quiz, Maturity Score/Band ClickUp fields, HubSpot removal, sitemap/nav debt.
 
 ## CRM
 
-- **ClickUp is the permanent destination for all website forms** (Strategy Audit and contact are wired; maturity quiz deferred).
-- HubSpot is legacy; remove after all active form paths are on ClickUp and verified.
+- **ClickUp is the permanent destination for all website forms** (unified contact form on homepage + `/contact`; maturity quiz deferred).
+- HubSpot is legacy; remove after Production form path is verified on ClickUp only.
 - Operating rule: one ClickUp task = one lead; enrich / comment on match, never lose a lead on lookup failure.
-- Set `Project = Website` on create. Field IDs: [`assessment.md` §8.1](./assessment.md#81-clickup).
+- Set `Project = Website` on create. Field parity guide: [`engineering/clickup-field-alignment.md`](../engineering/clickup-field-alignment.md).
 
 ## Conversion path
 
-- **Primary now:** Strategy Audit homepage (Website 2.0 conversion page).
-- **Later:** `/franchisees` — see [Maturity quiz (deferred)](#maturity-quiz-deferred) below. Keep code; do not prioritize nav, sitemap, or ClickUp wiring until after Phase 1 Contentful.
+- **Primary now:** Website 2.0 conversion homepage — one shared contact form (`ContactForm`) on `#contact-section` and `/contact` → `POST /api/contact` → ClickUp. Homepage section copy may still say “Book a Strategy Audit”; underlying form is the same.
+- **Later:** `/franchisees` — see [Maturity quiz (deferred)](#maturity-quiz-deferred) below. Keep code; do not prioritize nav, sitemap, or ClickUp wiring until Phase 2 is underway.
 - Do not run two competing primary CTAs on the homepage.
 
 ## Maturity quiz (deferred)

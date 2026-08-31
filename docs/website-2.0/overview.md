@@ -10,7 +10,7 @@ Locked decisions: [`decisions.md`](./decisions.md).
 
 ## Primary conversion
 
-**Book a Strategy Audit** (homepage form → ClickUp). The `/franchisees` maturity tool stays for a later phase.
+**Unified contact form** on homepage (`#contact-section`) and `/contact` → ClickUp Leads. Homepage section copy may still say “Book a Strategy Audit”; it is the same form. The `/franchisees` maturity tool stays for a later phase.
 
 ## Page structure
 
