@@ -1,4 +1,8 @@
 import client from "@/lib/contentful/client";
+import {
+  getFranchiseeCopy,
+  type FranchiseeLocale,
+} from "@/lib/franchisees/copy";
 import type {
   FranchiseeCardEntry,
   FranchiseeCardFields,
@@ -7,24 +11,16 @@ import type {
 } from "@/lib/contentful/types";
 
 /**
- * Homepage card sections use the same field shape as About Us:
- * - Title types: heading, subheading (same as aboutUsTitleSubtitle)
- * - Card types: title, description, lucideIcon (same as aboutUsCard)
- *
- * Title types also accept title/description if the Contentful type was
- * created with card field names. See docs/contentful-homepage-cards.md.
+ * Content types that exist on Contentful master after Phase 1 cleanup.
+ * `franchiseeOffersTitle` was deleted — do not query it (Contentful 400).
  */
 export const FRANCHISEE_CONTENT_TYPES = {
   painsTitle: "franchiseePainsTitle",
   painCard: "franchiseePainCard",
-  offersTitle: "franchiseeOffersTitle",
   offerCard: "franchiseeOfferCard",
 } as const;
 
-function pickString(
-  fields: Record<string, unknown>,
-  keys: string[]
-): string {
+function pickString(fields: Record<string, unknown>, keys: string[]): string {
   for (const key of keys) {
     const value = fields[key];
     if (typeof value === "string" && value.trim()) {
@@ -54,12 +50,28 @@ function normalizeCardFields(
   return {
     title: pickString(fields, ["title", "Title"]),
     description: pickString(fields, ["description", "Description"]),
-    lucideIcon: pickString(fields, [
-      "lucideIcon",
-      "LucideIcon",
-      "lucideicon",
-    ]),
+    lucideIcon: pickString(fields, ["lucideIcon", "LucideIcon", "lucideicon"]),
   };
+}
+
+function isUnknownContentType(error: unknown): boolean {
+  if (!error || typeof error !== "object") return false;
+  const details = (error as { details?: { errors?: { name?: string }[] } })
+    .details;
+  return Boolean(
+    details?.errors?.some((entry) => entry.name === "unknownContentType")
+  );
+}
+
+function staticTitle(
+  heading: string,
+  subheading: string
+): FranchiseeTitleEntry {
+  return {
+    sys: { id: "static-franchisee-title" },
+    fields: { heading, subheading },
+    metadata: { tags: [] },
+  } as FranchiseeTitleEntry;
 }
 
 async function getTitle(
@@ -83,6 +95,12 @@ async function getTitle(
       metadata: item.metadata,
     };
   } catch (error) {
+    if (isUnknownContentType(error)) {
+      console.warn(
+        `Contentful content type "${contentType}" is not on this environment — skipping`
+      );
+      return null;
+    }
     console.error(`Error fetching ${contentType}:`, error);
     return null;
   }
@@ -104,23 +122,44 @@ async function getCards(contentType: string): Promise<FranchiseeCardEntry[]> {
       }))
       .filter((item) => item.fields.title);
   } catch (error) {
+    if (isUnknownContentType(error)) {
+      console.warn(
+        `Contentful content type "${contentType}" is not on this environment — skipping`
+      );
+      return [];
+    }
     console.error(`Error fetching ${contentType}:`, error);
     return [];
   }
 }
 
-export async function getFranchiseePains() {
+export async function getFranchiseePains(locale: FranchiseeLocale = "en") {
+  const copy = getFranchiseeCopy(locale);
   const [heading, cards] = await Promise.all([
     getTitle(FRANCHISEE_CONTENT_TYPES.painsTitle),
     getCards(FRANCHISEE_CONTENT_TYPES.painCard),
   ]);
-  return { heading, cards };
+
+  return {
+    heading:
+      heading ??
+      (cards.length > 0
+        ? staticTitle(copy.painHeading, copy.painIntro)
+        : null),
+    cards,
+  };
 }
 
-export async function getFranchiseeOffers() {
-  const [heading, cards] = await Promise.all([
-    getTitle(FRANCHISEE_CONTENT_TYPES.offersTitle),
-    getCards(FRANCHISEE_CONTENT_TYPES.offerCard),
-  ]);
-  return { heading, cards };
+export async function getFranchiseeOffers(locale: FranchiseeLocale = "en") {
+  const copy = getFranchiseeCopy(locale);
+  // Title type was retired from master; cards may still exist.
+  const cards = await getCards(FRANCHISEE_CONTENT_TYPES.offerCard);
+
+  return {
+    heading:
+      cards.length > 0
+        ? staticTitle(copy.offersHeading, copy.offersIntro)
+        : null,
+    cards,
+  };
 }
