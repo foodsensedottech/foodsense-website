@@ -17,7 +17,7 @@ import {
   CLICKUP_RESTAURANT_TYPE_OPTIONS,
   primaryBrand,
   resolveOptionId,
-  resolveServiceInterestForClickUp,
+  resolveServiceInterestOptionIds,
 } from "@/lib/clickup/field-options";
 import {
   LOCATION_BANDS,
@@ -97,7 +97,7 @@ function contactCustomFields(
     data.posSystem
   );
 
-  const serviceOptionId = resolveServiceInterestForClickUp(
+  const serviceOptionIds = resolveServiceInterestOptionIds(
     data.serviceInterests
   );
 
@@ -111,7 +111,7 @@ function contactCustomFields(
     maybeField(CLICKUP_FIELDS.locations, locationOptionId),
     maybeField(CLICKUP_FIELDS.restaurantType, restaurantTypeOptionId),
     maybeField(CLICKUP_FIELDS.posSystem, posOptionId),
-    maybeField(CLICKUP_FIELDS.serviceInterests, serviceOptionId),
+    maybeField(CLICKUP_FIELDS.serviceInterests, serviceOptionIds),
     { id: CLICKUP_FIELDS.project, value: CLICKUP_PROJECT_WEBSITE },
   ];
 

@@ -8,17 +8,12 @@ export const LOCATION_BANDS = [
 ] as const;
 
 export const POS_SYSTEMS = [
-  { label: "Toast", value: "toast" },
-  { label: "Clover", value: "clover" },
-  { label: "Square", value: "square" },
-  { label: "LightSpeed", value: "lightspeed" },
-  { label: "SpotOn", value: "spoton" },
-  { label: "QuPOS", value: "qupos" },
-  { label: "Aloha", value: "aloha" },
-  { label: "Xenial", value: "xenial" },
-  { label: "PAR", value: "par" },
-  { label: "NCR", value: "ncr" },
   { label: "Oracle", value: "oracle" },
+  { label: "NCR", value: "ncr" },
+  { label: "PAR", value: "par" },
+  { label: "Toast", value: "toast" },
+  { label: "Square", value: "square" },
+  { label: "In-House (Custom)", value: "in_house_custom" },
   { label: "Other", value: "other" },
 ] as const;
 
@@ -49,17 +44,12 @@ export type ServiceInterest = (typeof SERVICE_INTERESTS)[number]["value"];
 export const locationBandSchema = z.enum(["1-5", "6-10", "10-50", "50-plus"]);
 
 export const posSystemSchema = z.enum([
-  "toast",
-  "clover",
-  "square",
-  "lightspeed",
-  "spoton",
-  "qupos",
-  "aloha",
-  "xenial",
-  "par",
-  "ncr",
   "oracle",
+  "ncr",
+  "par",
+  "toast",
+  "square",
+  "in_house_custom",
   "other",
 ]);
 

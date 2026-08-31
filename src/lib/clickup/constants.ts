@@ -19,10 +19,10 @@ export const CLICKUP_FIELDS = {
   posSystem:
     process.env.CLICKUP_FIELD_POS_SYSTEM ??
     "6fd69de1-c6ca-4a6a-ab8a-ceeb2b06243b",
-  /** Dropdown (single): Option 1 … Option 6 — form multi-select maps first pick */
+  /** Labels (multi): Option 1 … Option 6 */
   serviceInterests:
     process.env.CLICKUP_FIELD_SERVICE_INTERESTS ??
-    "05e83296-de6d-4a5f-9ddd-d1d86328775e",
+    "5a0d0fa1-107d-4f41-83de-6c7b127c1fd8",
   growthPipeline: "777f440f-fe21-41ac-98d4-afa3760b8b87",
   project: "b8734eca-e728-415d-9e9a-096baf15e4d1",
 } as const;
