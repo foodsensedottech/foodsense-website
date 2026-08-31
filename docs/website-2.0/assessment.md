@@ -21,8 +21,8 @@
 | 0.2 `clickup/client.ts` | **Done** |
 | 0.3 Drop phantom field, Project = Website, dedupe | **Done** — unified contact form (homepage + `/contact`) |
 | 0.4–0.6 Assessment → ClickUp | **Deferred** — `/franchisees` not in scope |
-| 0.7 Strip HubSpot from contact | **Partial** — ClickUp first, HubSpot fallback during cutover |
-| 0.8–0.10 Remove HubSpot package | **Deferred** |
+| 0.7 Strip HubSpot from contact | **Done** — ClickUp-only `/api/contact` |
+| 0.8–0.10 Remove HubSpot package | **Done** — `src/lib/hubspot/` deleted; package removed; property map archived |
 | 0.11–0.14 Sitemap / nav / GSC | **Deferred** |
 | 0.15 Vercel Pro | **Owner decision** |
 
@@ -77,7 +77,7 @@ Do not treat INFERRED findings as fact. Several of them are load-bearing.
 - `next-sitemap.config.js`
 
 **Not read.** Everything else. In particular `src/lib/franchisees/score.ts`,
-`src/lib/validation/*`, `src/lib/contentful/*`, `src/lib/hubspot/*`, and all
+`src/lib/validation/*`, `src/lib/contentful/*`, and all
 components. Findings that touch these are INFERRED.
 
 ---
@@ -91,7 +91,7 @@ components. Findings that touch these are INFERRED.
 | Styling | Tailwind 3.4.0 + `@tailwindcss/forms`, `@tailwindcss/typography` |
 | UI primitives | Radix UI (13 packages), `class-variance-authority`, `tailwind-merge` |
 | CMS | Contentful 11.5.0, space `es87a9loayi1` |
-| CRM | ClickUp (active) + HubSpot (dead, still wired) |
+| CRM | ClickUp only |
 | Forms | `react-hook-form` 7.49.3 + `zod` 3.24.2 |
 | Animation | `framer-motion` 12.4.7 |
 | Charts | `recharts` 2.15.1 |
@@ -726,4 +726,4 @@ Highest-value work aligned to that priority:
 2. **Phase 2** — kiosk case study content (§9.3), photography approach (§9.4), wire `seoMetadata` to routes.
 3. **Later** — `/franchisees` maturity quiz ClickUp wiring (only if that route is surfaced again).
 
-The hidden `/franchisees` quiz still drops leads via dead HubSpot; that is documented debt, not a blocker for Website 2.0 launch on the conversion homepage + lean CMS.
+The hidden `/franchisees` quiz scores locally only (`captured: false`) until ClickUp wiring; that is documented debt, not a blocker for Website 2.0 launch on the conversion homepage + lean CMS.

@@ -28,21 +28,6 @@ export interface ApiResponse<T = unknown> {
   error?: string;
 }
 
-export interface HubspotContactResponse {
-  contactId: string;
-}
-
-export type HubspotFormRequest = {
-  fields: Array<{
-    name: string;
-    value: string;
-  }>;
-  context: {
-    pageUri: string;
-    pageName: string;
-  };
-};
-
 export type ContactFormRequest = ContactFormValues;
 
 // From index.ts

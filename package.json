@@ -28,7 +28,6 @@
   "dependencies": {
     "@contentful/rich-text-types": "17.0.0",
     "@hookform/resolvers": "3.3.4",
-    "@hubspot/api-client": "11.2.0",
     "@next/bundle-analyzer": "14.1.0",
     "@radix-ui/react-checkbox": "1.1.4",
     "@radix-ui/react-dialog": "1.1.6",

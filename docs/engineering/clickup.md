@@ -41,4 +41,3 @@ Dedupe: lookup by email; on match, enrich fields + comment. Lookup failures retu
 ## Later
 
 - Wire `/franchisees` maturity quiz to ClickUp (deferred)
-- Remove `@hubspot/api-client` after HubSpot fallback is removed

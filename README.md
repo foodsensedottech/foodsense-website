@@ -8,7 +8,7 @@ Marketing site for FoodSense — boutique restaurant technology consultancy.
 
 - Next.js App Router + TypeScript + Tailwind
 - Contentful CMS (lean 11-type model)
-- ClickUp CRM (unified contact form on homepage + `/contact`; HubSpot legacy fallback)
+- ClickUp CRM (unified contact form on homepage + `/contact`)
 - Google Analytics / Clarity
 
 ## Getting Started

@@ -73,7 +73,7 @@ export const serviceInterestsSchema = z.array(
   ])
 );
 
-/** @deprecated Legacy HubSpot-era constants — do not use on Website 2.0 forms. */
+/** @deprecated Unused on Website 2.0 forms. */
 export const DELIVERY_PARTNERS = [] as const;
 
 /** @deprecated Use SERVICE_INTERESTS */

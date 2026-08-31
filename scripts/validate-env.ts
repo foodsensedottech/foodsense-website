@@ -9,9 +9,8 @@ const requiredEnvVars = [
   "CONTENTFUL_ACCESS_TOKEN",
   "CONTENTFUL_PREVIEW_ACCESS_TOKEN",
 
-  // Contact Form
-  "HUBSPOT_PORTAL_ID",
-  "HUBSPOT_ACCESS_TOKEN",
+  // Contact Form (ClickUp)
+  "CLICKUP_API_TOKEN",
 ];
 
 function validateEnv() {
