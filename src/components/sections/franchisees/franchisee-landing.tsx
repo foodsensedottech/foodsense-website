@@ -18,8 +18,8 @@ interface FranchiseeLandingProps {
 export async function FranchiseeLanding({ locale }: FranchiseeLandingProps) {
   const [heroContent, pains, offers] = await Promise.all([
     getHeroContent(),
-    getFranchiseePains(),
-    getFranchiseeOffers(),
+    getFranchiseePains(locale),
+    getFranchiseeOffers(locale),
   ]);
 
   return (
