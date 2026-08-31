@@ -1,9 +1,6 @@
 /**
- * ClickUp dropdown option UUIDs for Leads list custom fields.
- * When a value is null, the API falls back to label text (short_text fields)
- * or the numeric interim map (Number of Locations while still type number).
- *
- * After updating fields in ClickUp, paste option UUIDs here — see
+ * ClickUp dropdown/label option UUIDs for Leads list custom fields.
+ * Paste option UUIDs after creating fields in ClickUp — see
  * docs/engineering/clickup-field-alignment.md
  */
 import type {
@@ -62,18 +59,43 @@ export const CLICKUP_SERVICE_INTEREST_OPTIONS: Record<
   option_6: null,
 };
 
-/** Interim numeric values until Number of Locations becomes a dropdown in ClickUp. */
-export const LOCATION_BAND_NUMBER_FALLBACK: Record<LocationBand, number> = {
-  "1-5": 3,
-  "6-10": 8,
-  "10-50": 30,
-  "50-plus": 75,
-};
-
 export function primaryBrand(restaurantBrands: string): string {
   const first = restaurantBrands
     .split(",")
     .map((part) => part.trim())
     .find(Boolean);
   return first || restaurantBrands.trim();
+}
+
+export function resolveOptionId(
+  optionId: string | null | undefined,
+  fieldLabel: string,
+  formValue: string
+): string | null {
+  if (optionId) return optionId;
+  console.warn(
+    `ClickUp ${fieldLabel}: no option UUID for "${formValue}" — field skipped until field-options.ts is updated`
+  );
+  return null;
+}
+
+export function resolveServiceInterestOptionIds(
+  values: ServiceInterest[]
+): string[] | null {
+  const ids = values
+    .map((value) => {
+      const id = CLICKUP_SERVICE_INTEREST_OPTIONS[value];
+      if (!id) {
+        console.warn(
+          `ClickUp Services Interested In: no option UUID for "${value}"`
+        );
+        return null;
+      }
+      return id;
+    })
+    .filter((id): id is string => id !== null);
+
+  if (ids.length === 0) return null;
+  if (ids.length !== values.length) return null;
+  return ids;
 }

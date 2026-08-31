@@ -7,7 +7,13 @@ Permanent destination for the **website contact form** (homepage `#contact-secti
 ```
 CLICKUP_API_TOKEN=pk_...   # required
 CLICKUP_LIST_ID=           # optional; defaults to Leads 901328239583
+CLICKUP_FIELD_LOCATIONS=           # new dropdown field UUID
+CLICKUP_FIELD_RESTAURANT_TYPE=     # new dropdown field UUID
+CLICKUP_FIELD_POS_SYSTEM=          # new dropdown field UUID
+CLICKUP_FIELD_SERVICE_INTERESTS=   # new labels (multi) field UUID
 ```
+
+If ClickUp cannot change a field type, **delete the old field and create a new one**, then paste IDs per [`clickup-field-alignment.md`](./clickup-field-alignment.md).
 
 ## Leads list
 

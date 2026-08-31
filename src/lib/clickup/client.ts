@@ -6,7 +6,7 @@ import {
 
 export type ClickUpCustomField = {
   id: string;
-  value: string | number | boolean | null;
+  value: string | number | boolean | string[] | null;
 };
 
 export type ClickUpTaskSummary = {
@@ -126,7 +126,7 @@ export async function createLeadTask(input: {
 export async function setCustomField(
   taskId: string,
   fieldId: string,
-  value: string | number | boolean | null
+  value: string | number | boolean | string[] | null
 ): Promise<void> {
   const response = await clickUpFetch(`/task/${taskId}/field/${fieldId}`, {
     method: "POST",

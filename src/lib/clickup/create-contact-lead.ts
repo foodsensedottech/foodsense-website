@@ -9,14 +9,15 @@ import {
 import {
   CLICKUP_FIELDS,
   CLICKUP_PROJECT_WEBSITE,
+  isClickUpFieldConfigured,
 } from "@/lib/clickup/constants";
 import {
   CLICKUP_LOCATION_BAND_OPTIONS,
   CLICKUP_POS_SYSTEM_OPTIONS,
   CLICKUP_RESTAURANT_TYPE_OPTIONS,
-  CLICKUP_SERVICE_INTEREST_OPTIONS,
-  LOCATION_BAND_NUMBER_FALLBACK,
   primaryBrand,
+  resolveOptionId,
+  resolveServiceInterestOptionIds,
 } from "@/lib/clickup/field-options";
 import {
   LOCATION_BANDS,
@@ -41,17 +42,20 @@ function formatMultiLabels<T extends { value: string; label: string }>(
   return values.map((value) => labelFor(options, value)).join(", ");
 }
 
-function dropdownOrLabel(
-  optionId: string | null | undefined,
-  label: string
-): string | number {
-  return optionId || label;
-}
-
-function locationBandValue(data: ContactFormData): string | number {
-  const optionId = CLICKUP_LOCATION_BAND_OPTIONS[data.locationBand];
-  if (optionId) return optionId;
-  return LOCATION_BAND_NUMBER_FALLBACK[data.locationBand];
+function maybeField(
+  fieldId: string,
+  value: ClickUpCustomField["value"]
+): ClickUpCustomField | null {
+  if (!isClickUpFieldConfigured(fieldId)) {
+    return null;
+  }
+  if (value === null || value === undefined) {
+    return null;
+  }
+  if (Array.isArray(value) && value.length === 0) {
+    return null;
+  }
+  return { id: fieldId, value };
 }
 
 function contactDescription(data: ContactFormData): string {
@@ -60,6 +64,8 @@ function contactDescription(data: ContactFormData): string {
     `Phone: ${data.phone}`,
     `Email: ${data.email}`,
     `Location band: ${labelFor(LOCATION_BANDS, data.locationBand)}`,
+    `Restaurant type: ${labelFor(RESTAURANT_TYPES, data.restaurantType)}`,
+    `POS: ${labelFor(POS_SYSTEMS, data.posSystem)}`,
     `Services: ${formatMultiLabels(SERVICE_INTERESTS, data.serviceInterests)}`,
     data.notes ? `Notes: ${data.notes}` : null,
   ]
@@ -72,40 +78,44 @@ function contactCustomFields(
   includePhone: boolean
 ): ClickUpCustomField[] {
   const brandLabel = primaryBrand(data.restaurantBrands);
-  const fields: ClickUpCustomField[] = [
+
+  const locationOptionId = resolveOptionId(
+    CLICKUP_LOCATION_BAND_OPTIONS[data.locationBand],
+    "Number of Locations",
+    data.locationBand
+  );
+
+  const restaurantTypeOptionId = resolveOptionId(
+    CLICKUP_RESTAURANT_TYPE_OPTIONS[data.restaurantType],
+    "Restaurant type",
+    data.restaurantType
+  );
+
+  const posOptionId = resolveOptionId(
+    CLICKUP_POS_SYSTEM_OPTIONS[data.posSystem],
+    "POS System",
+    data.posSystem
+  );
+
+  const serviceOptionIds = resolveServiceInterestOptionIds(
+    data.serviceInterests
+  );
+
+  const candidates: Array<ClickUpCustomField | null> = [
     { id: CLICKUP_FIELDS.email, value: data.email },
+    includePhone
+      ? { id: CLICKUP_FIELDS.phone, value: toClickUpPhone(data.phone) }
+      : null,
     { id: CLICKUP_FIELDS.company, value: brandLabel },
     { id: CLICKUP_FIELDS.brands, value: data.restaurantBrands },
-    { id: CLICKUP_FIELDS.locations, value: locationBandValue(data) },
-    {
-      id: CLICKUP_FIELDS.restaurantType,
-      value: dropdownOrLabel(
-        CLICKUP_RESTAURANT_TYPE_OPTIONS[data.restaurantType],
-        labelFor(RESTAURANT_TYPES, data.restaurantType)
-      ),
-    },
-    {
-      id: CLICKUP_FIELDS.posSystem,
-      value: dropdownOrLabel(
-        CLICKUP_POS_SYSTEM_OPTIONS[data.posSystem],
-        labelFor(POS_SYSTEMS, data.posSystem)
-      ),
-    },
-    {
-      id: CLICKUP_FIELDS.whatsBreaking,
-      value: formatMultiLabels(SERVICE_INTERESTS, data.serviceInterests),
-    },
+    maybeField(CLICKUP_FIELDS.locations, locationOptionId),
+    maybeField(CLICKUP_FIELDS.restaurantType, restaurantTypeOptionId),
+    maybeField(CLICKUP_FIELDS.posSystem, posOptionId),
+    maybeField(CLICKUP_FIELDS.serviceInterests, serviceOptionIds),
     { id: CLICKUP_FIELDS.project, value: CLICKUP_PROJECT_WEBSITE },
   ];
 
-  if (includePhone) {
-    fields.splice(1, 0, {
-      id: CLICKUP_FIELDS.phone,
-      value: toClickUpPhone(data.phone),
-    });
-  }
-
-  return fields;
+  return candidates.filter((field): field is ClickUpCustomField => field !== null);
 }
 
 async function enrichExistingLead(
