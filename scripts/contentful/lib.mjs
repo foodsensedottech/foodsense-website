@@ -25,7 +25,8 @@ export function requireEnv(name) {
 export function getManagementClient() {
   const spaceId = requireEnv("CONTENTFUL_SPACE_ID");
   const accessToken = requireEnv("CONTENTFUL_MANAGEMENT_TOKEN");
-  const client = createClient({ accessToken });
+  // Newer contentful-management defaults to plain client (no getSpace).
+  const client = createClient({ accessToken }, { type: "legacy" });
   return { client, spaceId, accessToken };
 }
 
