@@ -113,6 +113,9 @@ export async function getConversionHomepage(): Promise<ConversionHomepage> {
           pickString(fields, ["navContact"]) || conversionSeed.chrome.navContact,
       },
       hero: {
+        brandLabel:
+          pickString(fields, ["heroBrandLabel", "brandLabel"]) ||
+          conversionSeed.hero.brandLabel,
         heading:
           pickString(fields, ["heroHeading", "heading"]) ||
           conversionSeed.hero.heading,
@@ -131,6 +134,15 @@ export async function getConversionHomepage(): Promise<ConversionHomepage> {
         ),
       },
       authority: {
+        eyebrow:
+          pickString(fields, ["authorityEyebrow"]) ||
+          conversionSeed.authority.eyebrow,
+        heading:
+          pickString(fields, ["authorityHeading"]) ||
+          conversionSeed.authority.heading,
+        winsLabel:
+          pickString(fields, ["authorityWinsLabel"]) ||
+          conversionSeed.authority.winsLabel,
         body:
           pickString(fields, ["authorityBody", "aboutBody"]) ||
           conversionSeed.authority.body,
@@ -144,8 +156,30 @@ export async function getConversionHomepage(): Promise<ConversionHomepage> {
           pickString(fields, ["founderLabel", "founderName"]) || "Founder"
         ),
       },
+      pillarsSection: {
+        eyebrow:
+          pickString(fields, ["pillarsEyebrow"]) ||
+          conversionSeed.pillarsSection.eyebrow,
+        heading:
+          pickString(fields, ["pillarsHeading"]) ||
+          conversionSeed.pillarsSection.heading,
+      },
       pillars: pillars.length ? pillars : conversionSeed.pillars,
+      menuSection: {
+        eyebrow:
+          pickString(fields, ["menuEyebrow"]) || conversionSeed.menuSection.eyebrow,
+        heading:
+          pickString(fields, ["menuHeading"]) || conversionSeed.menuSection.heading,
+      },
       menuItems: menuItems.length ? menuItems : conversionSeed.menuItems,
+      partnersSection: {
+        eyebrow:
+          pickString(fields, ["partnersEyebrow"]) ||
+          conversionSeed.partnersSection.eyebrow,
+        heading:
+          pickString(fields, ["partnersHeading"]) ||
+          conversionSeed.partnersSection.heading,
+      },
       vendors: vendors.length ? vendors : conversionSeed.vendors,
       contact: {
         heading:

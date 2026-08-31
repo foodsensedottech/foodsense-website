@@ -6,10 +6,11 @@ import { ListChecks } from "lucide-react";
 import type { ConversionHomepage } from "@/lib/content/conversion-seed";
 
 interface Props {
+  section: ConversionHomepage["pillarsSection"];
   pillars: ConversionHomepage["pillars"];
 }
 
-export function ConversionPillars({ pillars }: Props) {
+export function ConversionPillars({ section, pillars }: Props) {
   return (
     <section id="pillars-section" className="py-20 md:py-28 bg-white">
       <div className="container mx-auto px-4">
@@ -20,11 +21,13 @@ export function ConversionPillars({ pillars }: Props) {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
         >
-          <p className="font-display text-sm tracking-[0.18em] uppercase text-[#D4A800] mb-3">
-            Core pillars
-          </p>
+          {section.eyebrow ? (
+            <p className="font-display text-sm tracking-[0.18em] uppercase text-[#D4A800] mb-3">
+              {section.eyebrow}
+            </p>
+          ) : null}
           <h2 className="font-display text-3xl md:text-4xl text-[#253B59] leading-tight">
-            What we do
+            {section.heading}
           </h2>
         </motion.div>
 

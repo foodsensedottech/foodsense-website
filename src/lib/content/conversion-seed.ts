@@ -14,8 +14,15 @@ export type ConversionVendor = {
   logoUrl?: string;
 };
 
+export type ConversionSectionChrome = {
+  eyebrow?: string;
+  heading: string;
+};
+
 export type ConversionHomepage = {
   hero: {
+    /** Small brand / SEO label above the H1 */
+    brandLabel: string;
     heading: string;
     subheading: string;
     ctaLabel: string;
@@ -23,14 +30,20 @@ export type ConversionHomepage = {
     imageAlt?: string;
   };
   authority: {
+    eyebrow: string;
+    heading: string;
+    winsLabel: string;
     body: string;
     founderLabel: string;
     wins: string[];
     founderImageUrl?: string;
     founderImageAlt?: string;
   };
+  pillarsSection: ConversionSectionChrome;
   pillars: ConversionPillar[];
+  menuSection: ConversionSectionChrome;
   menuItems: ConversionMenuItem[];
+  partnersSection: ConversionSectionChrome;
   vendors: ConversionVendor[];
   contact: {
     heading: string;
@@ -62,12 +75,16 @@ export const conversionSeed: ConversionHomepage = {
     navContact: "Contact",
   },
   hero: {
+    brandLabel: "FoodSense",
     heading: "Fractional tech and ops leadership for 10+ unit QSR.",
     subheading:
       "You have vendors. You need a stack. We name what's fractured, sequence the work, and guide your teams through POS, kiosk, delivery, and data — Advisory, then Fractional or Project. Test, prove, scale.",
     ctaLabel: "Book a Strategy Audit",
   },
   authority: {
+    eyebrow: "Why FoodSense",
+    heading: "The authority gap we close",
+    winsLabel: "The wins",
     body: "FoodSense closes the gap between Tech, Ops, and Digital. We're operators who hold vendors accountable — and guide the teams you already have, without becoming another FTE.",
     founderLabel: "Fabio Escobar",
     wins: [
@@ -76,6 +93,10 @@ export const conversionSeed: ConversionHomepage = {
       "Helped shape early cloud-kitchen and delivery stacks at REEF",
       "Built vendor assessment and store-level landing playbooks for multi-unit franchisees",
     ],
+  },
+  pillarsSection: {
+    eyebrow: "Core pillars",
+    heading: "What we do",
   },
   pillars: [
     {
@@ -94,6 +115,10 @@ export const conversionSeed: ConversionHomepage = {
       lucideIcon: "Cable",
     },
   ],
+  menuSection: {
+    eyebrow: "Specialized menu",
+    heading: "Other services",
+  },
   menuItems: [
     {
       title: "POS & core systems — migration without downtime theater",
@@ -112,6 +137,10 @@ export const conversionSeed: ConversionHomepage = {
       body: "Risk assessments, RFPs, and performance management so you stop paying for tools that never landed in every store.",
     },
   ],
+  partnersSection: {
+    eyebrow: "Partners",
+    heading: "Trusted Integration Partners",
+  },
   vendors: [
     { name: "Oracle" },
     { name: "NCR" },
