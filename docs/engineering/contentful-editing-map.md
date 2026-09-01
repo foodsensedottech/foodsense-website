@@ -105,9 +105,9 @@ Eyebrows and H2s are optional Symbols on the homepage entry — edit them anytim
 
 | Entry ID | Open |
 | --- | --- |
-| `conversion-pillar-program-lifecycle` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-pillar-program-lifecycle) |
-| `conversion-pillar-tech-stack` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-pillar-tech-stack) |
-| `conversion-pillar-ecosystem` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-pillar-ecosystem) |
+| `conversion-pillar-program-lifecycle` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-pillar-program-lifecycle) — Full-Lifecycle Technology Rollouts Built for Kitchen Throughput |
+| `conversion-pillar-tech-stack` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-pillar-tech-stack) — Hands-On Rollout Support for Lean Local IT Teams |
+| `conversion-pillar-ecosystem` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-pillar-ecosystem) — Established Regional & Franchise Ecosystem |
 
 Fields: `title`, `body`, `lucideIcon` (`ListChecks`, `Monitor`, `Cable`, …)
 

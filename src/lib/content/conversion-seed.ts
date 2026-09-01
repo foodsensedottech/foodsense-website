@@ -103,18 +103,18 @@ export const conversionSeed: ConversionHomepage = {
   },
   pillars: [
     {
-      title: "Program lifecycle & RFP management",
-      body: "Ops has a cutover date. Tech has an RFP. Digital has a channel that cannot wait. We name the blocker, run the selection, land the vendor, and stay through cutover so the initiative does not die after the kickoff deck.",
+      title: "Full-Lifecycle Technology Rollouts Built for Kitchen Throughput",
+      body: "We bridge legacy POS platforms, kiosks, and delivery apps with back-of-house kitchen displays so peak digital rushes don't turn into prep-line bottlenecks or burned-out store teams.",
       lucideIcon: "ListChecks",
     },
     {
-      title: "Tech stack optimization",
-      body: "The operator needs one way to run the store. The technology lead needs fewer one-offs. We standardize POS, FOH, and BOH into an operating model crews can actually run — not a slide of logos.",
+      title: "Hands-On Rollout Support for Lean Local IT Teams",
+      body: "We embed directly alongside internal store IT teams to manage vendor accountability, debug live store setups, and activate overnight rollouts—turning static strategy into reliable store execution.",
       lucideIcon: "Monitor",
     },
     {
-      title: "Ecosystem integration",
-      body: "Heads of digital inherit six vendors that do not talk. We filter what should never hit the stores, map the integrations that must, and make ownership explicit so ops is not debugging the stack on a Saturday.",
+      title: "Established Regional & Franchise Ecosystem",
+      body: "We navigate complex multi-market franchise dynamics in English and Spanish, using established relationships with brand leads, master franchisees, and regional vendors to keep deployments moving on schedule.",
       lucideIcon: "Cable",
     },
   ],

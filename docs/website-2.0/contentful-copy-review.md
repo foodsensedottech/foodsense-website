@@ -31,6 +31,7 @@ This pass writes the conversion homepage as a **story for four rooms** — opera
 - **ICP:** multi-unit, multi-brand franchisees in the US, LATAM, and the Caribbean (10+ units on the site).
 - **The scene:** corporate sent a stack, vendors sent a deck, Friday night still has to work.
 - **The offer:** sequence what they already bought; guide the team they already have; Advisory, then Fractional or Project.
+- **Pillars (owner copy):** kitchen-throughput rollouts · hands-on support for lean local IT · regional & franchise ecosystem (English and Spanish). Same three Contentful IDs.
 
 CTA stays **Book a Strategy Audit**. Field IDs and entry IDs do not change.
 
@@ -71,7 +72,7 @@ Fetched from `https://www.foodsense.tech` (Production reads `conversionHomepage`
 | `authorityHeading` | “The authority gap we close” | Vague. PDF 08 title is the line: **We’ve actually done the work.** |
 | `authorityBody` | “neutral operational bridge… digital transformation… 22% food costs… 7% net profit… 30+ markets” | Ban list: digital transformation, bridge-as-metaphor. **22% / 7% not in Brand OS.** Inflates prior-role proof into firm-wide outcomes. |
 | `founderWins` | Anonymized “tier-1 global QSR” / “SoftBank/Mubadala-backed” / “10 to 500+ units” | Resume-speak. SoftBank name-drop. 10–500 contradicts 10+ lock. Named in-role work (KFC, RBI, REEF) is stronger and already approved as **prior roles**. |
-| Pillars | Match seed — keep | Operator-first, good. |
+| Pillars | Program lifecycle / tech stack / ecosystem | Replace with owner-approved three: kitchen throughput rollouts, lean local IT, regional & franchise ecosystem. Same three entry IDs. |
 | Menu (4 items) | Match seed — keep, **incomplete vs PDF 05** | Loyalty, kitchen/IoT, data, roadmapping missing from homepage. |
 | Partners heading | “Trusted Integration Partners” | Implies partnership/resale. We are vendor-agnostic. |
 | Contact | “Book a Call” + good subhead | Restore Strategy Audit. |
@@ -154,9 +155,9 @@ Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9l
 
 | Entry ID | Title / body |
 | --- | --- |
-| `conversion-pillar-program-lifecycle` | Program lifecycle & RFP management — Ops has a cutover date. Tech has an RFP. Digital has a channel that cannot wait. We name the blocker, run the selection, land the vendor, and stay through cutover so the initiative does not die after the kickoff deck. |
-| `conversion-pillar-tech-stack` | Tech stack optimization — The operator needs one way to run the store. The technology lead needs fewer one-offs. We standardize POS, FOH, and BOH into an operating model crews can actually run — not a slide of logos. |
-| `conversion-pillar-ecosystem` | Ecosystem integration — Heads of digital inherit six vendors that do not talk. We filter what should never hit the stores, map the integrations that must, and make ownership explicit so ops is not debugging the stack on a Saturday. |
+| `conversion-pillar-program-lifecycle` | Full-Lifecycle Technology Rollouts Built for Kitchen Throughput — We bridge legacy POS platforms, kiosks, and delivery apps with back-of-house kitchen displays so peak digital rushes don't turn into prep-line bottlenecks or burned-out store teams. |
+| `conversion-pillar-tech-stack` | Hands-On Rollout Support for Lean Local IT Teams — We embed directly alongside internal store IT teams to manage vendor accountability, debug live store setups, and activate overnight rollouts—turning static strategy into reliable store execution. |
+| `conversion-pillar-ecosystem` | Established Regional & Franchise Ecosystem — We navigate complex multi-market franchise dynamics in English and Spanish, using established relationships with brand leads, master franchisees, and regional vendors to keep deployments moving on schedule. |
 
 ### conversionMenuItem (existing four IDs)
 
