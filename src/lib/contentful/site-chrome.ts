@@ -12,7 +12,7 @@ export async function getSiteChrome(): Promise<SiteChrome | null> {
       navServices: page.chrome.navMenu,
       navPains: page.chrome.navPartners,
       navContact: page.chrome.navContact,
-      footerTagline: page.authority.body.slice(0, 160),
+      footerTagline: page.chrome.footerTagline,
       footerGeo: "Latin America · Caribbean · United States",
       footerEmail: "fabio@foodsense.tech",
       linkedInUrl: "https://www.linkedin.com/company/foodsensedottech/",

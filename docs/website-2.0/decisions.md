@@ -47,8 +47,11 @@ The maturity quiz still **scores only** (`captured: false`) until wired to Click
 
 ## Brand docs vs live copy
 
-- **Live site copy wins** where Brand OS and production disagree (ICP size, engagement models, market framing).
-- Update `docs/brand/` to match live; do not drift back to the older 20–500 / five-model framing.
+- **Brand OS PDFs (01–12) are the wireframe** for voice, ICP, capabilities, and proof rules. Ingested under `docs/brand/`. Incomplete PDFs (06, 09–12) must not invent site copy.
+- **Website 2.0 locks that override older PDF framing:** 10+ units (not 20–500 on the homepage); three engagement modes (not five SKUs); ClickUp-only CRM.
+- **Do not publish** rates from [`brand/internal-pricing.md`](../brand/internal-pricing.md).
+- Copy audit vs live Contentful: [`contentful-copy-review.md`](./contentful-copy-review.md). Re-seed CMS from `conversion-seed.ts` after review.
+
 
 ## Contentful
 

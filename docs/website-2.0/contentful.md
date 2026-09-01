@@ -10,6 +10,10 @@ Until the lean types below are published, Preview uses seed copy in `src/lib/con
 
 **Runbook:** [`engineering/contentful-phase1.md`](../engineering/contentful-phase1.md) — `npm run contentful:phase1`
 
+**Editing map (what goes where):** [`engineering/contentful-editing-map.md`](../engineering/contentful-editing-map.md) — homepage sections → fields → Contentful deep links. Use this instead of building a custom WYSIWYG.
+
+**Copy vs Brand OS:** [`contentful-copy-review.md`](./contentful-copy-review.md) — live Production strings, gaps, and the paste pack for the same fields.
+
 ---
 
 ## Target model (create these)

@@ -16,9 +16,9 @@ Locked decisions: [`decisions.md`](./decisions.md).
 
 1. **Hero** — Value headline + primary CTA (“Book a Strategy Audit”) → contact
 2. **Authority** — Why FoodSense + founder wins (operator + technologist credibility)
-3. **Core pillars** — Program lifecycle / tech stack / ecosystem integration
-4. **Specialized menu** — Secondary services in accordion (keep page short)
-5. **Partners** — Trusted integration partners (logo cloud)
+3. **Core pillars** — Kitchen throughput rollouts / hands-on support for lean local IT / regional & franchise ecosystem
+4. **Capabilities accordion** — POS, kiosk, delivery, vendor accountability, loyalty, reporting
+5. **Vendors** — landscape we already know (logo cloud; not a partnership claim)
 6. **Contact** — Shared qualification form (personal info, brands, location band, type, POS, services)
 
 ## Brand constraints (non-negotiable)
@@ -37,5 +37,6 @@ Lean model only — see [`contentful.md`](./contentful.md). Create 4 conversion 
 
 ## Related
 
-- Seed copy in code: `src/lib/content/conversion-seed.ts`
-- Components: `src/components/sections/conversion/`
+- [`website-2.0/contentful.md`](./contentful.md) — lean model
+- Seed copy: `src/lib/content/conversion-seed.ts`
+- Copy audit: [`contentful-copy-review.md`](./contentful-copy-review.md)

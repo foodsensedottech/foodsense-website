@@ -35,11 +35,32 @@ Aligned to live site copy (www.foodsense.tech). Brand OS follows the live framin
 - Willing to work phased (Advisory → Fractional or Project)
 - Operating in LATAM, Caribbean, or US markets
 
+**Strong Maybe (conversation, not homepage):**
+- 10–20 units scaling fast with a clear 50+ plan
+- Has an internal team but needs a layer above execution
+- Wants a vendor assessment or second opinion before a platform bet
+
 **Not Right Now:**
 - Single-unit independents
+- Under 10 units with no growth plan
 - One-time strategy deck with no implementation path
 - No budget and no executive buy-in
 - Looking for a software vendor, not a consultancy
+- Needs brand / marketing strategy (not our lane)
+
+## Red flags (sales only — never on the website)
+
+- “Just build us an app” — they want a dev shop.
+- “Do this free as a pilot; we’ll pay later.”
+- Last consultant’s deck sat unused and nothing has changed.
+- “All locations in two weeks.” They will not accept phased rollout.
+- The GM / franchisee does not know this is happening (no sponsor).
+- “Evaluate 15 vendors first.” Analysis paralysis.
+- Decision by committee with no named owner.
+- Scope shifting before the SOW is signed.
+- Single-unit operator who “thinks big.” Thinking big is not being big.
+
+**Brand OS PDF note:** The source PDF still lists Hell Yes as 20–500+ units. Website 2.0 and this file stay on **10+ units**. Do not drift the homepage back to 20–500.
 
 ## Decision Makers
 

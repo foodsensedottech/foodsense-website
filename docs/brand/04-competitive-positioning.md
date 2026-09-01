@@ -13,6 +13,9 @@ FoodSense exists because the restaurant industry doesn't have enough people who 
 - **Industry depth:** Restaurant technology is all we do. Not one vertical among 40.
 - **Cost:** Right-sized for mid-market franchisees. No overhead tax for a brand name.
 - **Credibility:** We are operators. The principal’s résumé includes multi-market QSR programs (including work spanning dozens of countries) — lived cutovers, not slideware.
+- **Flexibility:** We adapt scope as the work reveals what’s needed — not a three-week change-order loop.
+
+Where they still win: 50-body global ERP migrations. Not restaurant tech at franchise scale.
 
 ## vs. Freelancers & Generalists
 
@@ -20,13 +23,21 @@ FoodSense exists because the restaurant industry doesn't have enough people who 
 - **Multi-market:** LATAM, Caribbean, and US; bilingual; understands regulatory and franchise variation.
 - **Network:** Vetted RestTech ecosystem (including Blackthorn) when a specialist is needed beside us.
 - **Structure:** Phased methodology — Advisory, then Fractional work or Project management.
+- **Continuity:** A firm, not a person who disappears when the next gig lands.
+- **Vendors:** We already know the landscape, roadmaps, and who is slipping.
+
+Where they still win: a one-off data pull or a brochure site.
 
 ## vs. In-House Teams
 
 - **Cross-brand perspective:** Pattern recognition across multi-unit stacks and markets.
 - **Vendor relationships:** Active across the landscape. We know who's good and who's slipping.
 - **No bias:** We recommend what fits, not what's already installed.
+- **Bandwidth:** Dedicated to the strategic layer while ops is already drowning.
 - **Cost:** Fractional engagement at a fraction of FTE cost.
+- **Speed of learning:** Day one is productive.
+
+Where they still win: daily ops, help desk, institutional knowledge. We sit above that layer — or bridge until they hire it.
 
 ## Unique Differentiators
 
@@ -35,6 +46,6 @@ FoodSense exists because the restaurant industry doesn't have enough people who 
 3. Latin America, Caribbean, and US multi-market fluency
 4. Bilingual delivery (English / Spanish)
 5. Phased methodology (test, prove, scale) via Advisory → Fractional / Project
-6. Vendor-agnostic — guide existing teams; do not become the trench crew
+6. Vendor-agnostic — we don’t resell and we don’t take vendor commissions; the recommendation follows the fit. Guide existing teams; do not become the trench crew.
 7. Full-stack restaurant tech fluency (POS to data)
 8. RestTech network (including Blackthorn) when FoodSense is not the solo fit

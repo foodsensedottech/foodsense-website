@@ -20,14 +20,14 @@ export const metadata: Metadata = {
   ),
   title: {
     template: "%s | FoodSense",
-    default: "FoodSense | Fractional Tech & Ops Leadership for QSR",
+    default: "FoodSense | We bridge restaurant tech and restaurant operations",
   },
   description:
-    "Fractional tech and ops leadership for multi-unit QSR. We help growth-stage and franchise operators build, integrate, and scale the stack that runs every shift.",
+    "A focused consultancy for multi-unit, multi-brand franchisees in the US, LATAM, and the Caribbean. We sit with operators, ops, technology, and heads of digital channels to sequence the stack the stores can actually run.",
   openGraph: {
-    title: "FoodSense | Fractional Tech & Ops Leadership for QSR",
+    title: "FoodSense | We bridge restaurant tech and restaurant operations",
     description:
-      "Fractional tech and ops leadership for multi-unit QSR — test, prove, scale.",
+      "Focused consultancy for multi-unit, multi-brand franchisees across the US, LATAM, and the Caribbean.",
     url: "https://foodsense.tech",
     siteName: "FoodSense",
     locale: "en_US",

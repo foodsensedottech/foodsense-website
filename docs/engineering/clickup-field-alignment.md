@@ -56,7 +56,12 @@ Leads list → Custom fields → delete the four legacy fields above (if you no 
 
 **Services Interested In** (labels, allow multiple):
 
-- Option 1 … Option 6
+- POS & core systems
+- Kiosk & self-service
+- Loyalty & guest engagement
+- Delivery & e-commerce
+- Data & analytics
+- Vendor governance
 
 ### 3. Wire new field IDs
 
@@ -141,28 +146,28 @@ You do **not** need a new field ID when you only rename or add options — the f
 
 ### Example A — Rename Services from “Option 1…6” to real service names
 
-**Goal:** Replace placeholders with six specific services (e.g. “Menu Engineering”, “Ops Audit”).
+**Goal:** Replace placeholders with six Brand OS capabilities.
 
 #### Step 1 — ClickUp (labels field)
 
 1. Leads → Custom fields → **Services Interested in**  
-2. **Rename** each label (Option 1 → Menu Engineering, etc.)  
-   - Renaming keeps the same option UUID — if form values stay `option_1` … `option_6`, mapping in `field-options.ts` is unchanged  
+2. **Rename** each label (keep the same option UUID):
+
+   | Current | Rename to |
+   | --- | --- |
+   | Option 1 | POS & core systems |
+   | Option 2 | Kiosk & self-service |
+   | Option 3 | Loyalty & guest engagement |
+   | Option 4 | Delivery & e-commerce |
+   | Option 5 | Data & analytics |
+   | Option 6 | Vendor governance |
+
+   - Renaming keeps the same option UUID — form values stay `option_1` … `option_6`, mapping in `field-options.ts` is unchanged  
 3. If you **delete** a label and **add** a new one, the new label gets a **new UUID** — update `field-options.ts`
 
 #### Step 2 — Website form (`form-fields.ts`)
 
-Update `SERVICE_INTERESTS` labels. Easiest path: keep internal values as `option_1` … `option_6` and only change labels:
-
-```ts
-export const SERVICE_INTERESTS = [
-  { label: "Menu Engineering", value: "option_1" },
-  { label: "Ops Audit", value: "option_2" },
-  // … four more
-] as const;
-```
-
-Or rename values to match meaning (`menu_engineering`, etc.) — then also update `serviceInterestsSchema` in the same file.
+Already set to those labels. Keep internal values as `option_1` … `option_6`.
 
 #### Step 3 — ClickUp UUID map (`field-options.ts`)
 
@@ -170,8 +175,8 @@ Only needed if you changed form **values** or added/replaced ClickUp labels (new
 
 ```ts
 export const CLICKUP_SERVICE_INTEREST_OPTIONS: Record<ServiceInterest, string> = {
-  menu_engineering: "<uuid-for-Menu-Engineering>",
-  ops_audit: "<uuid-for-Ops-Audit>",
+  option_1: "<uuid-for-POS>",
+  option_2: "<uuid-for-kiosk>",
   // …
 };
 ```

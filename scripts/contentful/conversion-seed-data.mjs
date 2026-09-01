@@ -5,21 +5,23 @@ export const conversionSeed = {
     navAuthority: "About",
     navPillars: "What We Do",
     navMenu: "Services",
-    navPartners: "Partners",
+    navPartners: "Vendors",
     navContact: "Contact",
+    footerTagline:
+      "We bridge restaurant technology and restaurant operations.",
   },
   hero: {
-    brandLabel: "FoodSense",
-    heading: "Fractional tech and ops leadership for 10+ unit QSR.",
+    brandLabel: "Multi-unit · Multi-brand franchisees",
+    heading: "We bridge restaurant technology and restaurant operations.",
     subheading:
-      "You have vendors. You need a stack. We name what's fractured, sequence the work, and guide your teams through POS, kiosk, delivery, and data — Advisory, then Fractional or Project. Test, prove, scale.",
+      "FoodSense is a focused consultancy for multi-unit, multi-brand franchisees in the US, LATAM, and the Caribbean. Operators, ops leads, technology teams, and heads of digital channels hire us when the vendor roadmap and the stores have stopped speaking the same language. We sequence POS, kiosk, delivery, and data. We guide the teams you already have. Advisory, then Fractional or Project.",
     ctaLabel: "Book a Strategy Audit",
   },
   authority: {
     eyebrow: "Why FoodSense",
-    heading: "The authority gap we close",
-    winsLabel: "The wins",
-    body: "FoodSense closes the gap between Tech, Ops, and Digital. We're operators who hold vendors accountable — and guide the teams you already have, without becoming another FTE.",
+    heading: "We sit between the roadmap and the store.",
+    winsLabel: "Work the principal has run",
+    body: "If you run the stores, the ops calendar, the stack, or the digital channels, you already know the scene: corporate sent a stack, the vendors sent a deck, and Friday night still has to work. FoodSense is a boutique firm at that intersection — restaurant operations and restaurant technology — across the US, LATAM, and the Caribbean. We have sat in the 6am cutover and in the payload review. We do not sell software. We do not become another FTE. We help you sequence what you already bought, guide the team you already have, and keep the rollout honest.",
     founderLabel: "Fabio Escobar",
     wins: [
       "Led restaurant technology for KFC across 20+ countries and 2,200 restaurants in Latin America and the Caribbean",
@@ -29,51 +31,59 @@ export const conversionSeed = {
     ],
   },
   pillarsSection: {
-    eyebrow: "Core pillars",
-    heading: "What we do",
+    eyebrow: "For the people who have to make it run",
+    heading: "What we do in the gap",
   },
   pillars: [
     {
-      title: "Program lifecycle & RFP management",
-      body: "Name the blocker, run the RFP, land the vendor, and own cutover — so the initiative does not stall after the kickoff deck.",
+      title: "Full-Lifecycle Technology Rollouts Built for Kitchen Throughput",
+      body: "We bridge legacy POS platforms, kiosks, and delivery apps with back-of-house kitchen displays so peak digital rushes don't turn into prep-line bottlenecks or burned-out store teams.",
       lucideIcon: "ListChecks",
     },
     {
-      title: "Tech stack optimization",
-      body: "Standardize POS, FOH, and BOH into one operating model. Fewer one-offs. Cleaner data. Crews that can actually run what you bought.",
+      title: "Hands-On Rollout Support for Lean Local IT Teams",
+      body: "We embed directly alongside internal store IT teams to manage vendor accountability, debug live store setups, and activate overnight rollouts—turning static strategy into reliable store execution.",
       lucideIcon: "Monitor",
     },
     {
-      title: "Ecosystem integration",
-      body: "Filter bad software before it hits your stores. Validated vendors, integration patterns, and clear ownership across the stack.",
+      title: "Established Regional & Franchise Ecosystem",
+      body: "We navigate complex multi-market franchise dynamics in English and Spanish, using established relationships with brand leads, master franchisees, and regional vendors to keep deployments moving on schedule.",
       lucideIcon: "Cable",
     },
   ],
   menuSection: {
-    eyebrow: "Specialized menu",
-    heading: "Other services",
+    eyebrow: "Capabilities",
+    heading: "Programs a multi-unit group has to get right",
   },
   menuItems: [
     {
-      title: "POS & core systems — migration without downtime theater",
-      body: "Vendor evaluation, cutover planning, phased rollouts, and post-go-live stabilization for Oracle, NCR, and the rest of the core stack.",
+      title: "POS Migration for Multi-Unit Operations",
+      body: "We sequence vendor selection, market pilots, and overnight cutover so the new POS lands while kitchens keep ticket times and stores stay open.",
     },
     {
-      title: "Kiosk & self-service — program management end to end",
-      body: "Vendor assessment, UI alignment, POS connectivity, menu config, and deployment coordination so kiosk does not die in pilot.",
+      title: "Kiosk Programs Your Store Team Can Run",
+      body: "We connect kiosk, POS, and kitchen display, then stay with local IT through activation so a rush of digital tickets does not stall the prep line.",
     },
     {
-      title: "Delivery & partnerships — volume without fee bleed",
-      body: "First- and third-party channel strategy that grows orders without quietly erasing margin in fees and promos.",
+      title: "Delivery Volume the Kitchen Can Fulfill",
+      body: "Marketplace and first-party orders hit the same line. We set what each store can take, then hold vendors and the promo calendar to that limit.",
     },
     {
-      title: "Vendor governance — who stays and who goes",
-      body: "Risk assessments, RFPs, and performance management so you stop paying for tools that never landed in every store.",
+      title: "Vendor Accountability Across Every Store",
+      body: "We run the RFP, debug live setups, and keep brand leads and regional vendors on a schedule. You stop funding software that never made it past the pilot.",
+    },
+    {
+      title: "Loyalty the Store and the App Can Both Run",
+      body: "We connect offers, POS, and the cashier playbook before you scale loyalty across brands and markets.",
+    },
+    {
+      title: "Reporting Operators and Digital Leads Can Share",
+      body: "We define the numbers the franchisee, ops, and head of digital will use at period close, so markets are not reconciling three dashboards after every cycle.",
     },
   ],
   partnersSection: {
-    eyebrow: "Partners",
-    heading: "Trusted Integration Partners",
+    eyebrow: "The stack",
+    heading: "Vendors we have run in the field",
   },
   vendors: [
     { name: "Oracle" },
@@ -86,10 +96,10 @@ export const conversionSeed = {
     { name: "Restaurant365" },
   ],
   contact: {
-    heading: "Book a Strategy Audit",
+    heading: "Tell us where the gap is.",
     subheading:
-      "Tell us the blocker — stack, cutover, or vendor. We respond within 24 hours.",
+      "Operators, ops, technology, heads of digital. One conversation. We will tell you if a Strategy Audit is the right first move, or if you already know the blocker and need a scoped engagement.",
     responseNote: "Response within 24 hours.",
-    ctaLabel: "Request audit",
+    ctaLabel: "Book a Strategy Audit",
   },
 };

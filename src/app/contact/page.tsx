@@ -1,27 +1,26 @@
-"use client";
+import { BaseLayout } from "@/components/layout";
 import { ContactForm } from "@/components/sections/contact/contact-form";
+import { getConversionHomepage } from "@/lib/contentful/conversion";
 
-export default function ContactPage() {
+export const revalidate = 3600;
+
+export default async function ContactPage() {
+  const page = await getConversionHomepage();
+
   return (
-    <main className="container mx-auto py-10">
-      <div className="max-w-3xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-secondary dark:text-primary">
-            Contact Us
-          </h1>
-          <p className="mt-2 text-muted-foreground dark:text-white">
-            Fill out the form below and we&apos;ll get back to you as soon as
-            possible.
-          </p>
+    <BaseLayout>
+      <section className="py-20 md:py-28 bg-white">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <ContactForm
+            variant="page"
+            formId="contact_page_form"
+            heading={page.contact.heading}
+            subheading={page.contact.subheading}
+            responseNote={page.contact.responseNote}
+            submitLabel={page.contact.ctaLabel}
+          />
         </div>
-
-        <div className="bg-card p-6 rounded-lg shadow-sm">
-          <ContactForm />
-        </div>
-      </div>
-    </main>
+      </section>
+    </BaseLayout>
   );
 }
-
-// Remove the revalidate export from client component
-// export const revalidate = 3600; // Revalidate at most once per hour

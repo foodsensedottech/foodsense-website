@@ -14,7 +14,7 @@
 |---------|------|---------|
 | Proposals | Confident, structured, data-first | "Phase 1 targets 3 stores over 14 days. Success metric: zero ticket errors at close." |
 | Client emails | Professional, concise, action-oriented | "Attached is the updated timeline. Two changes from last week." |
-| Website copy | Opinionated, operator-first, conversational | "Every franchise has the same problem: 6 vendors, zero integration." |
+| Website copy | Opinionated, operator-first, conversational | "FoodSense is a focused consultancy for multi-unit, multi-brand franchisees in the US, LATAM, and the Caribbean." |
 | LinkedIn | Opinionated, story-driven, real examples | Share wins, frameworks, and operator POV. Never salesy. |
 
 ## Writing Principles
@@ -34,3 +34,21 @@
 **Avoid:** synergy, leverage (verb), ideate, best-in-class, disruptive, innovative, solutions (standalone), stakeholder (client-facing), learnings
 
 **Our phrases:** "Signal vs. noise", "Operator-first", "Test, prove, scale"
+
+## English / Spanish
+
+- Default to English for the website, proposals, and global comms.
+- Spanish for in-market LATAM teams (site localization still paused — see `docs/website-2.0/decisions.md`).
+- Technical terms stay in English even in Spanish comms.
+- Same directness in both languages.
+
+## Website examples (use / don’t use)
+
+**Don’t:** “Enterprise Restaurant Technology Architecture for Multi-Unit Franchisees.”
+**Do:** “We bridge restaurant technology and restaurant operations.”
+
+**Don’t:** “We would like to take this opportunity to share thoughts on how the loyalty program could potentially be enhanced.”
+**Do:** “Three changes to loyalty for Q4: 1) welcome bonus 2) shorten earn from 10 visits to 7 3) push to lapsed users via Braze.”
+
+**Don’t:** “The kiosk vendor landscape is complex and there are many factors to consider.”
+**Do:** “Two kiosk vendors made the shortlist. Pilot one in two stores, validate compliance, then decide.”

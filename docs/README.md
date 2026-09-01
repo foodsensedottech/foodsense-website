@@ -11,6 +11,7 @@ This folder is the source of truth for **Website 2.0**. Prefer these docs over a
 | [`brand/`](./brand/) | Vision, ICP, services, voice, brand, operating logic |
 | [`website-2.0/`](./website-2.0/) | Current homepage direction + lean Contentful model |
 | [`engineering/`](./engineering/) | Local dev, revalidation, ClickUp, Contentful Phase 1 |
+| [`engineering/contentful-editing-map.md`](./engineering/contentful-editing-map.md) | **What goes where** — homepage section → Contentful fields + deep links |
 | [`engineering/clickup-field-alignment.md`](./engineering/clickup-field-alignment.md) | Form ↔ ClickUp custom field parity |
 | [`contentful/`](./contentful/) | Legacy CMS maps (franchisee homepage era) |
 | [`analytics/`](./analytics/) | GA4 / Clarity setup |
@@ -27,12 +28,21 @@ Also read root [`.cursorrules`](../.cursorrules) and [`AGENTS.md`](../AGENTS.md)
 5. [`05-content-voice.md`](./brand/05-content-voice.md)
 6. [`06-brand-guidelines.md`](./brand/06-brand-guidelines.md)
 7. [`07-operating-logic.md`](./brand/07-operating-logic.md)
+8. [`08-active-projects.md`](./brand/08-active-projects.md) — incomplete
+9. [`09-sales-growth.md`](./brand/09-sales-growth.md) — incomplete
+10. [`10-case-studies.md`](./brand/10-case-studies.md) — incomplete
+11. [`11-technology-stack.md`](./brand/11-technology-stack.md) — incomplete
+12. [`12-frameworks.md`](./brand/12-frameworks.md) — incomplete
+- [`internal-pricing.md`](./brand/internal-pricing.md) — **never publish**
+
 
 ## Website 2.0
 
 - [`website-2.0/assessment.md`](./website-2.0/assessment.md) — technical assessment & remediation plan (phases 0–4)
 - [`website-2.0/decisions.md`](./website-2.0/decisions.md) — locked CRM / conversion / brand decisions
 - [`website-2.0/overview.md`](./website-2.0/overview.md) — page IA + conversion sections
+- [`website-2.0/contentful.md`](./website-2.0/contentful.md) — lean CMS keep / retire / create
+- [`website-2.0/contentful-copy-review.md`](./website-2.0/contentful-copy-review.md) — Brand OS PDF pack vs live CMS copy
 - [`website-2.0/git-workflow.md`](./website-2.0/git-workflow.md) — branch strategy + ClickUp task board
 
 ## What we archived (and why)
