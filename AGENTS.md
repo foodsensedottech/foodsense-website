@@ -6,11 +6,12 @@ Guidance for Cursor agents working on the FoodSense website.
 
 1. `.cursorrules` — Brand OS (color, type, voice, motion)
 2. `docs/website-2.0/assessment.md` — technical audit & remediation phases
-3. `docs/brand/01-vision-mission-identity.md` → `07-operating-logic.md`
+3. `docs/brand/01-vision-mission-identity.md` → `12-frameworks.md` (08–12 are incomplete outlines)
 4. `docs/website-2.0/decisions.md` — locked owner decisions (CRM, conversion, Contentful)
 5. `docs/website-2.0/overview.md` — current Website 2.0 IA
 6. `docs/website-2.0/contentful.md` — lean CMS keep / retire / create
-7. `docs/README.md` — documentation map
+7. `docs/website-2.0/contentful-copy-review.md` — Brand OS vs live CMS copy
+8. `docs/README.md` — documentation map
 
 ## Product direction (Website 2.0)
 

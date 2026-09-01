@@ -111,6 +111,9 @@ export async function getConversionHomepage(): Promise<ConversionHomepage> {
           pickString(fields, ["navPartners"]) || conversionSeed.chrome.navPartners,
         navContact:
           pickString(fields, ["navContact"]) || conversionSeed.chrome.navContact,
+        footerTagline:
+          pickString(fields, ["footerTagline"]) ||
+          conversionSeed.chrome.footerTagline,
       },
       hero: {
         brandLabel:

@@ -27,12 +27,21 @@ Also read root [`.cursorrules`](../.cursorrules) and [`AGENTS.md`](../AGENTS.md)
 5. [`05-content-voice.md`](./brand/05-content-voice.md)
 6. [`06-brand-guidelines.md`](./brand/06-brand-guidelines.md)
 7. [`07-operating-logic.md`](./brand/07-operating-logic.md)
+8. [`08-active-projects.md`](./brand/08-active-projects.md) — incomplete
+9. [`09-sales-growth.md`](./brand/09-sales-growth.md) — incomplete
+10. [`10-case-studies.md`](./brand/10-case-studies.md) — incomplete
+11. [`11-technology-stack.md`](./brand/11-technology-stack.md) — incomplete
+12. [`12-frameworks.md`](./brand/12-frameworks.md) — incomplete
+- [`internal-pricing.md`](./brand/internal-pricing.md) — **never publish**
+
 
 ## Website 2.0
 
 - [`website-2.0/assessment.md`](./website-2.0/assessment.md) — technical assessment & remediation plan (phases 0–4)
 - [`website-2.0/decisions.md`](./website-2.0/decisions.md) — locked CRM / conversion / brand decisions
 - [`website-2.0/overview.md`](./website-2.0/overview.md) — page IA + conversion sections
+- [`website-2.0/contentful.md`](./website-2.0/contentful.md) — lean CMS keep / retire / create
+- [`website-2.0/contentful-copy-review.md`](./website-2.0/contentful-copy-review.md) — Brand OS PDF pack vs live CMS copy
 - [`website-2.0/git-workflow.md`](./website-2.0/git-workflow.md) — branch strategy + ClickUp task board
 
 ## What we archived (and why)

@@ -17,9 +17,16 @@ We bridge the gap between restaurant technology and restaurant operations. We he
 
 ## Who We Are
 
-A boutique consultancy that lives at the intersection of restaurant operations and technology. We work across the full stack: customer-facing solutions (loyalty, kiosks, apps, delivery, drive-thru) and back-of-house systems (POS, KDS, kitchen management, scheduling, inventory, data infrastructure). We're bilingual and multi-market — Latin America, the Caribbean, and the United States — built for 10+ unit franchise operators who need someone who has done this work before. We get granular: we review payloads, attend integration test sessions, and hold vendors accountable ourselves.
+A boutique consultancy that lives at the intersection of restaurant operations and technology. We work across the full stack: customer-facing solutions (loyalty, kiosks, apps, delivery, drive-thru) and back-of-house systems (POS, KDS, kitchen management, scheduling, inventory, data infrastructure). We're bilingual and multi-market — Latin America, the Caribbean, and the United States.
 
-**Proof framing (live About):** Unit counts and market spans on the site (e.g. POS programs through ~4,500 restaurants; tech stack work across ~30 franchisees / **36 countries** / 2,200+ restaurants) describe the **principal’s prior roles and engagements**. They are not FoodSense-the-firm client logos.
+Two “10+” numbers, both true, not interchangeable:
+
+- **Who we write to:** 10+ **unit** franchise operators (see [`02-ideal-client-profile.md`](./02-ideal-client-profile.md)).
+- **What the principal has run:** programs across 10+ **countries** (KFC LATAM/Caribbean and related in-role work).
+
+We get granular: we review payloads, attend integration test sessions, and hold vendors accountable ourselves.
+
+**Proof framing (live About):** Unit counts and market spans on the site (e.g. POS programs through ~4,500 restaurants; tech stack work across ~30 franchisees / **36 countries** / 2,200+ restaurants) describe the **principal’s prior roles and engagements**. They are not FoodSense-the-firm client logos. Do not present them as current FoodSense client counts.
 
 ## Who We Aren't
 

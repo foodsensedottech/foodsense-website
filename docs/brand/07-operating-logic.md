@@ -10,6 +10,15 @@
 6. Tie every initiative to a number. If it can't be quantified, it can't be prioritized.
 7. Let market maturity dictate the approach. Adapt to readiness, not templates.
 
+## Communication by channel
+
+- **Email:** Formal, structured. Vendors, C-suite, anything that needs a paper trail.
+- **Chat (ClickUp):** Direct, terse, no preamble.
+- **Calls:** Agenda first. End with next steps and owners.
+- **LinkedIn:** Operator POV on restaurant tech. Never salesy.
+- **Proposals:** Data-first, phased, visual. Lead with the business case.
+- **Language:** English and Spanish — switch to the audience.
+
 ## Standing Rules
 
 - Always send an agenda before any call

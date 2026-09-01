@@ -26,14 +26,14 @@ export const RESTAURANT_TYPES = [
   { label: "Other", value: "other" },
 ] as const;
 
-/** Placeholder labels until final service copy is approved. */
+/** Capability names from Brand OS PDF 05. Keep values as option_1…6 so ClickUp UUIDs stay stable. Rename the matching labels in ClickUp. */
 export const SERVICE_INTERESTS = [
-  { label: "Option 1", value: "option_1" },
-  { label: "Option 2", value: "option_2" },
-  { label: "Option 3", value: "option_3" },
-  { label: "Option 4", value: "option_4" },
-  { label: "Option 5", value: "option_5" },
-  { label: "Option 6", value: "option_6" },
+  { label: "POS & core systems", value: "option_1" },
+  { label: "Kiosk & self-service", value: "option_2" },
+  { label: "Loyalty & guest engagement", value: "option_3" },
+  { label: "Delivery & e-commerce", value: "option_4" },
+  { label: "Data & analytics", value: "option_5" },
+  { label: "Vendor governance", value: "option_6" },
 ] as const;
 
 export type LocationBand = (typeof LOCATION_BANDS)[number]["value"];

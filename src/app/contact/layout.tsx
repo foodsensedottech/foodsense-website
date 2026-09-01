@@ -1,11 +1,13 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Us | FoodSense",
-  description: "Get in touch with the FoodSense team",
+  title: "Contact",
+  description:
+    "Book a Strategy Audit. Tell us the blocker — stack, cutover, or vendor. We respond within 24 hours.",
   openGraph: {
-    title: "Contact Us | FoodSense",
-    description: "Get in touch with the FoodSense team",
+    title: "Contact | FoodSense",
+    description:
+      "Book a Strategy Audit. Tell us the blocker — stack, cutover, or vendor.",
     url: "https://foodsense.tech/contact",
     siteName: "FoodSense",
     locale: "en_US",
@@ -13,8 +15,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact Us | FoodSense",
-    description: "Get in touch with the FoodSense team",
+    title: "Contact | FoodSense",
+    description: "Book a Strategy Audit with FoodSense.",
   },
 };
 

@@ -34,6 +34,22 @@ We guide existing teams. We do **not** move as the trench crew. Engagements ofte
 
 When FoodSense is not the direct fit, or when a specialist is needed beside us, we connect through a vetted RestTech network (including Blackthorn as partners in the restaurant space). That is a referral / network capability — not a fourth engagement SKU on the homepage.
 
+## Typical shape of work (internal — not a published timeline)
+
+Use this to scope, not as homepage copy:
+
+1. **Discovery & scoping** — stakeholder interviews, current-state audit, pain mapping → engagement brief (objectives, timeline, KPIs, phased plan).
+2. **Assessment & strategy** — vendor landscape, architecture map, gap analysis → prioritized roadmap.
+3. **Pilot** — 2–5 stores, vendor coordination, integration tests, UAT → go / no-go and scale plan.
+4. **Scale & stabilize** — broader rollout, monitoring, handover, post-mortem.
+5. **Ongoing (if Fractional)** — monthly roadmap review, vendor check-ins, quarterly business review.
+
+## Internal commercial models (not SKUs on the site)
+
+The Brand OS PDF still lists five commercial shapes: Advisory retainer, project-based, embedded / fractional CTO, workshops & assessments, Blackthorn referral. **The website sells three modes** (above). Map PDF language to those three; do not add Workshops or Referral as homepage cards.
+
+Rates, calculators, and commission tiers live in [`internal-pricing.md`](./internal-pricing.md). **Never publish rates.**
+
 ## What We Don't Do
 
 - Software product development (we architect and guide; we do not ship a platform)

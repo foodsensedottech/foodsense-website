@@ -34,3 +34,21 @@
 **Avoid:** synergy, leverage (verb), ideate, best-in-class, disruptive, innovative, solutions (standalone), stakeholder (client-facing), learnings
 
 **Our phrases:** "Signal vs. noise", "Operator-first", "Test, prove, scale"
+
+## English / Spanish
+
+- Default to English for the website, proposals, and global comms.
+- Spanish for in-market LATAM teams (site localization still paused — see `docs/website-2.0/decisions.md`).
+- Technical terms stay in English even in Spanish comms.
+- Same directness in both languages.
+
+## Website examples (use / don’t use)
+
+**Don’t:** “Enterprise Restaurant Technology Architecture for Multi-Unit Franchisees.”
+**Do:** “Fractional tech and ops leadership for 10+ unit QSR.”
+
+**Don’t:** “We would like to take this opportunity to share thoughts on how the loyalty program could potentially be enhanced.”
+**Do:** “Three changes to loyalty for Q4: 1) welcome bonus 2) shorten earn from 10 visits to 7 3) push to lapsed users via Braze.”
+
+**Don’t:** “The kiosk vendor landscape is complex and there are many factors to consider.”
+**Do:** “Two kiosk vendors made the shortlist. Pilot one in two stores, validate compliance, then decide.”

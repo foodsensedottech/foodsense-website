@@ -21,6 +21,8 @@ const MENU_IDS = [
   "conversion-menu-partnerships", // reused entry id — kiosk & self-service
   "conversion-menu-delivery",
   "conversion-menu-vendor-governance",
+  "conversion-menu-loyalty",
+  "conversion-menu-data",
 ];
 
 const VENDOR_IDS = [

@@ -58,6 +58,7 @@ export type ConversionHomepage = {
     navMenu: string;
     navPartners: string;
     navContact: string;
+    footerTagline: string;
   };
 };
 
@@ -71,21 +72,23 @@ export const conversionSeed: ConversionHomepage = {
     navAuthority: "About",
     navPillars: "What We Do",
     navMenu: "Services",
-    navPartners: "Partners",
+    navPartners: "Vendors",
     navContact: "Contact",
+    footerTagline:
+      "We bridge restaurant technology and restaurant operations.",
   },
   hero: {
     brandLabel: "FoodSense",
     heading: "Fractional tech and ops leadership for 10+ unit QSR.",
     subheading:
-      "You have vendors. You need a stack. We name what's fractured, sequence the work, and guide your teams through POS, kiosk, delivery, and data — Advisory, then Fractional or Project. Test, prove, scale.",
+      "Six vendors. Zero integration. We name what's fractured, sequence the work, and guide your teams through POS, kiosk, delivery, and data — Advisory, then Fractional or Project. Test, prove, scale.",
     ctaLabel: "Book a Strategy Audit",
   },
   authority: {
     eyebrow: "Why FoodSense",
-    heading: "The authority gap we close",
-    winsLabel: "The wins",
-    body: "FoodSense closes the gap between Tech, Ops, and Digital. We're operators who hold vendors accountable — and guide the teams you already have, without becoming another FTE.",
+    heading: "We've actually done the work",
+    winsLabel: "In-role, not slideware",
+    body: "The restaurant industry does not have enough people who speak operator and technologist in the same sentence — fewer still across markets, languages, and franchise structures. We've been in the store at 6am during a cutover. We review payloads, sit in integration tests, and hold vendors accountable. We guide the teams you already have. We do not become another FTE.",
     founderLabel: "Fabio Escobar",
     wins: [
       "Led restaurant technology for KFC across 20+ countries and 2,200 restaurants in Latin America and the Caribbean",
@@ -116,8 +119,8 @@ export const conversionSeed: ConversionHomepage = {
     },
   ],
   menuSection: {
-    eyebrow: "Specialized menu",
-    heading: "Other services",
+    eyebrow: "Capabilities",
+    heading: "Where we go deep",
   },
   menuItems: [
     {
@@ -129,17 +132,25 @@ export const conversionSeed: ConversionHomepage = {
       body: "Vendor assessment, UI alignment, POS connectivity, menu config, and deployment coordination so kiosk does not die in pilot.",
     },
     {
-      title: "Delivery & partnerships — volume without fee bleed",
+      title: "Delivery & e-commerce — volume without fee bleed",
       body: "First- and third-party channel strategy that grows orders without quietly erasing margin in fees and promos.",
     },
     {
       title: "Vendor governance — who stays and who goes",
       body: "Risk assessments, RFPs, and performance management so you stop paying for tools that never landed in every store.",
     },
+    {
+      title: "Loyalty, CRM & guest engagement",
+      body: "Platform selection, earn/burn logic, API / webhook contracts, and campaign architecture so loyalty is not a side system the stores ignore.",
+    },
+    {
+      title: "Data & analytics",
+      body: "KPI definition, cross-market reconciliation, and reporting that ops can actually run. Build the dashboard before the initiative.",
+    },
   ],
   partnersSection: {
-    eyebrow: "Partners",
-    heading: "Trusted Integration Partners",
+    eyebrow: "The stack",
+    heading: "Vendors we already know",
   },
   vendors: [
     { name: "Oracle" },

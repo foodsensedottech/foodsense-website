@@ -19,7 +19,7 @@ export const CLICKUP_FIELDS = {
   posSystem:
     process.env.CLICKUP_FIELD_POS_SYSTEM ??
     "6fd69de1-c6ca-4a6a-ab8a-ceeb2b06243b",
-  /** Labels (multi): Option 1 … Option 6 */
+  /** Labels (multi): POS, kiosk, loyalty, delivery, data, vendor governance */
   serviceInterests:
     process.env.CLICKUP_FIELD_SERVICE_INTERESTS ??
     "5a0d0fa1-107d-4f41-83de-6c7b127c1fd8",
