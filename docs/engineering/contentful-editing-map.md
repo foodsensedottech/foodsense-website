@@ -47,7 +47,7 @@ Linked pillars / menu / vendors are edited as **separate entries** (linked from 
 │  navPartners, navContact                                        │
 ├─────────────────────────────────────────────────────────────────┤
 │  HERO                                                           │
-│  heroBrandLabel  → small label above H1 (usually “FoodSense”)   │
+│  heroBrandLabel  → small label above H1 (ICP chip: multi-unit / multi-brand)   │
 │  heroHeading     → H1 (main SEO phrase)                         │
 │  heroSubheading  → supporting paragraph                         │
 │  heroCta         → primary button                               │
@@ -69,7 +69,7 @@ Linked pillars / menu / vendors are edited as **separate entries** (linked from 
 │  PARTNERS / VENDORS                                             │
 │  partnersEyebrow / partnersHeading   ← field IDs stay these     │
 │  vendors → conversionVendor (name, optional logo)               │
-│  (Brand OS copy may say “Vendors we already know”)              │
+│  (Brand OS copy: “Vendors we have run in the field”)              │
 ├─────────────────────────────────────────────────────────────────┤
 │  CONTACT                                                        │
 │  contactHeading / contactSubheading / contactResponseNote       │
@@ -87,7 +87,7 @@ Linked pillars / menu / vendors are edited as **separate entries** (linked from 
 | --- | --- | --- |
 | Hero H1 | `heroHeading` | Primary homepage keyword phrase |
 | Hero support | `heroSubheading` | Secondary phrases / ICP (“10+ unit”, markets) |
-| Hero brand chip | `heroBrandLabel` | Keep brand-forward; don’t bury “FoodSense” |
+| Hero brand chip | `heroBrandLabel` | ICP chip (“Multi-unit · Multi-brand franchisees”). Logo already says FoodSense. |
 | Authority H2 | `authorityHeading` | Section SEO phrase |
 | Authority eyebrow | `authorityEyebrow` | Short label, not the main keyword dump |
 | Pillars H2 | `pillarsHeading` | e.g. services / “what we do” variants |

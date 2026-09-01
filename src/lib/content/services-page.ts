@@ -6,7 +6,7 @@ export const servicesPageCopy = {
   eyebrow: "How we engage",
   heading: "Advisory, Fractional, Project.",
   intro:
-    "We guide the teams you already have. We do not become extra FTE, and we do not sell a platform. Work starts as Advisory, then becomes Fractional or a bounded project. Test, prove, scale.",
+    "FoodSense is a focused consultancy at the gap between restaurant technology and restaurant operations. We work with multi-unit, multi-brand franchisees in the US, LATAM, and the Caribbean — operators, ops, technology, and heads of digital channels. We guide the teams you already have. We do not become extra FTE, and we do not sell a platform. Advisory, then Fractional or Project. Test, prove, scale.",
   modes: [
     {
       title: "Advisory",
@@ -67,6 +67,7 @@ export const servicesPageCopy = {
     "Strategy decks with no execution path",
   ],
   ctaHeading: "Book a Strategy Audit",
-  ctaBody: "Tell us the blocker — stack, cutover, or vendor.",
-  ctaLabel: "Request audit",
+  ctaBody:
+    "Operators, ops, technology, heads of digital. Tell us where the vendor roadmap and the stores have stopped lining up.",
+  ctaLabel: "Book a Strategy Audit",
 } as const;

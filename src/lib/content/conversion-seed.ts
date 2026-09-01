@@ -78,17 +78,17 @@ export const conversionSeed: ConversionHomepage = {
       "We bridge restaurant technology and restaurant operations.",
   },
   hero: {
-    brandLabel: "FoodSense",
-    heading: "Fractional tech and ops leadership for 10+ unit QSR.",
+    brandLabel: "Multi-unit · Multi-brand franchisees",
+    heading: "We bridge restaurant technology and restaurant operations.",
     subheading:
-      "Six vendors. Zero integration. We name what's fractured, sequence the work, and guide your teams through POS, kiosk, delivery, and data — Advisory, then Fractional or Project. Test, prove, scale.",
+      "FoodSense is a focused consultancy for multi-unit, multi-brand franchisees in the US, LATAM, and the Caribbean. Operators, ops leads, technology teams, and heads of digital channels hire us when the vendor roadmap and the stores have stopped speaking the same language. We sequence POS, kiosk, delivery, and data. We guide the teams you already have. Advisory, then Fractional or Project.",
     ctaLabel: "Book a Strategy Audit",
   },
   authority: {
     eyebrow: "Why FoodSense",
-    heading: "We've actually done the work",
-    winsLabel: "In-role, not slideware",
-    body: "The restaurant industry does not have enough people who speak operator and technologist in the same sentence — fewer still across markets, languages, and franchise structures. We've been in the store at 6am during a cutover. We review payloads, sit in integration tests, and hold vendors accountable. We guide the teams you already have. We do not become another FTE.",
+    heading: "We sit between the roadmap and the store.",
+    winsLabel: "Work the principal has run",
+    body: "If you run the stores, the ops calendar, the stack, or the digital channels, you already know the scene: corporate sent a stack, the vendors sent a deck, and Friday night still has to work. FoodSense is a boutique firm at that intersection — restaurant operations and restaurant technology — across the US, LATAM, and the Caribbean. We have sat in the 6am cutover and in the payload review. We do not sell software. We do not become another FTE. We help you sequence what you already bought, guide the team you already have, and keep the rollout honest.",
     founderLabel: "Fabio Escobar",
     wins: [
       "Led restaurant technology for KFC across 20+ countries and 2,200 restaurants in Latin America and the Caribbean",
@@ -98,59 +98,59 @@ export const conversionSeed: ConversionHomepage = {
     ],
   },
   pillarsSection: {
-    eyebrow: "Core pillars",
-    heading: "What we do",
+    eyebrow: "For the people who have to make it run",
+    heading: "What we do in the gap",
   },
   pillars: [
     {
       title: "Program lifecycle & RFP management",
-      body: "Name the blocker, run the RFP, land the vendor, and own cutover — so the initiative does not stall after the kickoff deck.",
+      body: "Ops has a cutover date. Tech has an RFP. Digital has a channel that cannot wait. We name the blocker, run the selection, land the vendor, and stay through cutover so the initiative does not die after the kickoff deck.",
       lucideIcon: "ListChecks",
     },
     {
       title: "Tech stack optimization",
-      body: "Standardize POS, FOH, and BOH into one operating model. Fewer one-offs. Cleaner data. Crews that can actually run what you bought.",
+      body: "The operator needs one way to run the store. The technology lead needs fewer one-offs. We standardize POS, FOH, and BOH into an operating model crews can actually run — not a slide of logos.",
       lucideIcon: "Monitor",
     },
     {
       title: "Ecosystem integration",
-      body: "Filter bad software before it hits your stores. Validated vendors, integration patterns, and clear ownership across the stack.",
+      body: "Heads of digital inherit six vendors that do not talk. We filter what should never hit the stores, map the integrations that must, and make ownership explicit so ops is not debugging the stack on a Saturday.",
       lucideIcon: "Cable",
     },
   ],
   menuSection: {
     eyebrow: "Capabilities",
-    heading: "Where we go deep",
+    heading: "The stack you already have. In the order the store can absorb.",
   },
   menuItems: [
     {
       title: "POS & core systems — migration without downtime theater",
-      body: "Vendor evaluation, cutover planning, phased rollouts, and post-go-live stabilization for Oracle, NCR, and the rest of the core stack.",
+      body: "The system the store actually runs on. We help operators, ops, and technology choose, cut over, and stabilize POS so the ticket, the kitchen, and the guest path agree.",
     },
     {
       title: "Kiosk & self-service — program management end to end",
-      body: "Vendor assessment, UI alignment, POS connectivity, menu config, and deployment coordination so kiosk does not die in pilot.",
+      body: "Kiosk only pays off when the menu, the labor plan, and the kitchen ticket agree. We treat it as an operations project with a screen on it, not a hardware drop.",
     },
     {
       title: "Delivery & e-commerce — volume without fee bleed",
-      body: "First- and third-party channel strategy that grows orders without quietly erasing margin in fees and promos.",
+      body: "First-party and marketplace orders hitting one kitchen. We sit with ops and the head of digital channels so the store can fulfill what the app promised.",
     },
     {
       title: "Vendor governance — who stays and who goes",
-      body: "Risk assessments, RFPs, and performance management so you stop paying for tools that never landed in every store.",
+      body: "You already bought more than you can land. We run the RFP, the risk call, and the performance review so technology and ops stop paying for tools that never made it to every store.",
     },
     {
       title: "Loyalty, CRM & guest engagement",
-      body: "Platform selection, earn/burn logic, API / webhook contracts, and campaign architecture so loyalty is not a side system the stores ignore.",
+      body: "Points, offers, and identity only work if they survive the POS, the app, and the store playbook. We connect the program to the operation — not the other way around.",
     },
     {
       title: "Data & analytics",
-      body: "KPI definition, cross-market reconciliation, and reporting that ops can actually run. Build the dashboard before the initiative.",
+      body: "One number for the operator, the ops lead, and the head of digital. We help you stop reconciling three dashboards after every period close.",
     },
   ],
   partnersSection: {
     eyebrow: "The stack",
-    heading: "Vendors we already know",
+    heading: "Vendors we have run in the field",
   },
   vendors: [
     { name: "Oracle" },
@@ -163,10 +163,10 @@ export const conversionSeed: ConversionHomepage = {
     { name: "Restaurant365" },
   ],
   contact: {
-    heading: "Book a Strategy Audit",
+    heading: "Tell us where the gap is.",
     subheading:
-      "Tell us the blocker — stack, cutover, or vendor. We respond within 24 hours.",
+      "Operators, ops, technology, heads of digital. One conversation. We will tell you if a Strategy Audit is the right first move, or if you already know the blocker and need a scoped engagement.",
     responseNote: "Response within 24 hours.",
-    ctaLabel: "Request audit",
+    ctaLabel: "Book a Strategy Audit",
   },
 };

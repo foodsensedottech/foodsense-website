@@ -3,11 +3,11 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Book a Strategy Audit. Tell us the blocker — stack, cutover, or vendor. We respond within 24 hours.",
+    "Tell us where the gap is. Operators, ops, technology, heads of digital — one conversation. Book a Strategy Audit.",
   openGraph: {
     title: "Contact | FoodSense",
     description:
-      "Book a Strategy Audit. Tell us the blocker — stack, cutover, or vendor.",
+      "Tell us where the gap is. Operators, ops, technology, heads of digital. Book a Strategy Audit.",
     url: "https://foodsense.tech/contact",
     siteName: "FoodSense",
     locale: "en_US",
@@ -16,7 +16,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Contact | FoodSense",
-    description: "Book a Strategy Audit with FoodSense.",
+    description:
+      "Tell us where the gap is. Operators, ops, technology, heads of digital. Book a Strategy Audit.",
   },
 };
 

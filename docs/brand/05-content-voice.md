@@ -14,7 +14,7 @@
 |---------|------|---------|
 | Proposals | Confident, structured, data-first | "Phase 1 targets 3 stores over 14 days. Success metric: zero ticket errors at close." |
 | Client emails | Professional, concise, action-oriented | "Attached is the updated timeline. Two changes from last week." |
-| Website copy | Opinionated, operator-first, conversational | "Every franchise has the same problem: 6 vendors, zero integration." |
+| Website copy | Opinionated, operator-first, conversational | "FoodSense is a focused consultancy for multi-unit, multi-brand franchisees in the US, LATAM, and the Caribbean." |
 | LinkedIn | Opinionated, story-driven, real examples | Share wins, frameworks, and operator POV. Never salesy. |
 
 ## Writing Principles
@@ -45,7 +45,7 @@
 ## Website examples (use / don’t use)
 
 **Don’t:** “Enterprise Restaurant Technology Architecture for Multi-Unit Franchisees.”
-**Do:** “Fractional tech and ops leadership for 10+ unit QSR.”
+**Do:** “We bridge restaurant technology and restaurant operations.”
 
 **Don’t:** “We would like to take this opportunity to share thoughts on how the loyalty program could potentially be enhanced.”
 **Do:** “Three changes to loyalty for Q4: 1) welcome bonus 2) shorten earn from 10 visits to 7 3) push to lapsed users via Braze.”

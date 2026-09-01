@@ -17,7 +17,22 @@ This brief is **what words to paste**. The editing map is **which field / entry 
 
 No new content types. No new `conversionHomepage` fields. Footer tagline, form labels, and `/services` stay in code (as PR #18 listed).
 
-Seed copy in the repo is updated to match. **Production Contentful still holds the live strings below until `npm run contentful:seed` is run against `master` (needs `CONTENTFUL_MANAGEMENT_TOKEN`).**
+Seed copy in the repo is updated to match. **Production Contentful still holds the live strings below until you paste the pack (or run `npm run contentful:seed` against `master` with `CONTENTFUL_MANAGEMENT_TOKEN`).** Do not seed from this agent — owner pastes.
+
+---
+
+## Homepage story (this pass)
+
+The first Brand OS paste pack was still **insider**: “Fractional tech and ops leadership for 10+ unit QSR.” / “Six vendors. Zero integration.” / “In-role, not slideware.” Accurate for people who already know FoodSense. Wrong for a first visit.
+
+This pass writes the conversion homepage as a **story for four rooms** — operators of multi-unit restaurants, ops, technology, and heads of digital channels — and names **who we are** and **who we write to**:
+
+- **Who we are:** a focused boutique consultancy that bridges restaurant technology and restaurant operations.
+- **ICP:** multi-unit, multi-brand franchisees in the US, LATAM, and the Caribbean (10+ units on the site).
+- **The scene:** corporate sent a stack, vendors sent a deck, Friday night still has to work.
+- **The offer:** sequence what they already bought; guide the team they already have; Advisory, then Fractional or Project.
+
+CTA stays **Book a Strategy Audit**. Field IDs and entry IDs do not change.
 
 ---
 
@@ -87,7 +102,7 @@ Generic “Fill out the form… as soon as possible.” Plus form labels **Optio
 
 ## How to improve it (priority)
 
-1. **Re-seed `conversionHomepage` from the updated seed** so Production matches Brand OS voice. Paste pack is below if you edit in the UI instead.
+1. **Paste the conversion homepage pack below** (or re-seed from the updated seed) so Production matches this story: bridge + ICP + four rooms. Do not keep “Fractional tech and ops leadership…” or the live “Enterprise Restaurant Technology Architecture…” H1.
 2. **Kill unsourced KPIs** until PDF 10 is filled.
 3. **Name prior-role proof**, with the About framing that these are not FoodSense client logos.
 4. **Optional:** add two accordion rows of type `conversionMenuItem` (loyalty, data) and link them on `menuItems`. Kitchen + roadmapping stay on `/services` (code).
@@ -105,29 +120,29 @@ Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9l
 
 | Field | Paste |
 | --- | --- |
-| `heroBrandLabel` | FoodSense |
-| `heroHeading` | Fractional tech and ops leadership for 10+ unit QSR. |
-| `heroSubheading` | Six vendors. Zero integration. We name what's fractured, sequence the work, and guide your teams through POS, kiosk, delivery, and data — Advisory, then Fractional or Project. Test, prove, scale. |
+| `heroBrandLabel` | Multi-unit · Multi-brand franchisees |
+| `heroHeading` | We bridge restaurant technology and restaurant operations. |
+| `heroSubheading` | FoodSense is a focused consultancy for multi-unit, multi-brand franchisees in the US, LATAM, and the Caribbean. Operators, ops leads, technology teams, and heads of digital channels hire us when the vendor roadmap and the stores have stopped speaking the same language. We sequence POS, kiosk, delivery, and data. We guide the teams you already have. Advisory, then Fractional or Project. |
 | `heroCta` | Book a Strategy Audit |
 | `authorityEyebrow` | Why FoodSense |
-| `authorityHeading` | We've actually done the work |
-| `authorityWinsLabel` | In-role, not slideware |
-| `authorityBody` | The restaurant industry does not have enough people who speak operator and technologist in the same sentence — fewer still across markets, languages, and franchise structures. We've been in the store at 6am during a cutover. We review payloads, sit in integration tests, and hold vendors accountable. We guide the teams you already have. We do not become another FTE. |
+| `authorityHeading` | We sit between the roadmap and the store. |
+| `authorityWinsLabel` | Work the principal has run |
+| `authorityBody` | If you run the stores, the ops calendar, the stack, or the digital channels, you already know the scene: corporate sent a stack, the vendors sent a deck, and Friday night still has to work. FoodSense is a boutique firm at that intersection — restaurant operations and restaurant technology — across the US, LATAM, and the Caribbean. We have sat in the 6am cutover and in the payload review. We do not sell software. We do not become another FTE. We help you sequence what you already bought, guide the team you already have, and keep the rollout honest. |
 | `founderLabel` | Fabio Escobar |
 | `founderWins` (one per line) | Led restaurant technology for KFC across 20+ countries and 2,200 restaurants in Latin America and the Caribbean |
 | | Deployed POS programs across the US and Canada at Restaurant Brands International |
 | | Helped shape early cloud-kitchen and delivery stacks at REEF |
 | | Built vendor assessment and store-level landing playbooks for multi-unit franchisees |
-| `pillarsEyebrow` | Core pillars |
-| `pillarsHeading` | What we do |
+| `pillarsEyebrow` | For the people who have to make it run |
+| `pillarsHeading` | What we do in the gap |
 | `menuEyebrow` | Capabilities |
-| `menuHeading` | Where we go deep |
+| `menuHeading` | The stack you already have. In the order the store can absorb. |
 | `partnersEyebrow` | The stack |
-| `partnersHeading` | Vendors we already know |
-| `contactHeading` | Book a Strategy Audit |
-| `contactSubheading` | Tell us the blocker — stack, cutover, or vendor. We respond within 24 hours. |
+| `partnersHeading` | Vendors we have run in the field |
+| `contactHeading` | Tell us where the gap is. |
+| `contactSubheading` | Operators, ops, technology, heads of digital. One conversation. We will tell you if a Strategy Audit is the right first move, or if you already know the blocker and need a scoped engagement. |
 | `contactResponseNote` | Response within 24 hours. |
-| `contactCtaLabel` | Request audit |
+| `contactCtaLabel` | Book a Strategy Audit |
 | `chromeCtaLabel` | Book a Strategy Audit |
 | `navAuthority` | About |
 | `navPillars` | What We Do |
@@ -139,25 +154,25 @@ Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9l
 
 | Entry ID | Title / body |
 | --- | --- |
-| `conversion-pillar-program-lifecycle` | Program lifecycle & RFP management — Name the blocker, run the RFP, land the vendor, and own cutover — so the initiative does not stall after the kickoff deck. |
-| `conversion-pillar-tech-stack` | Tech stack optimization — Standardize POS, FOH, and BOH into one operating model. Fewer one-offs. Cleaner data. Crews that can actually run what you bought. |
-| `conversion-pillar-ecosystem` | Ecosystem integration — Filter bad software before it hits your stores. Validated vendors, integration patterns, and clear ownership across the stack. |
+| `conversion-pillar-program-lifecycle` | Program lifecycle & RFP management — Ops has a cutover date. Tech has an RFP. Digital has a channel that cannot wait. We name the blocker, run the selection, land the vendor, and stay through cutover so the initiative does not die after the kickoff deck. |
+| `conversion-pillar-tech-stack` | Tech stack optimization — The operator needs one way to run the store. The technology lead needs fewer one-offs. We standardize POS, FOH, and BOH into an operating model crews can actually run — not a slide of logos. |
+| `conversion-pillar-ecosystem` | Ecosystem integration — Heads of digital inherit six vendors that do not talk. We filter what should never hit the stores, map the integrations that must, and make ownership explicit so ops is not debugging the stack on a Saturday. |
 
 ### conversionMenuItem (existing four IDs)
 
 | Entry ID | Title / body |
 | --- | --- |
-| `conversion-menu-revenue` | POS & core systems — migration without downtime theater / Vendor evaluation, cutover planning, phased rollouts, and post-go-live stabilization for Oracle, NCR, and the rest of the core stack. |
-| `conversion-menu-partnerships` | Kiosk & self-service — program management end to end / Vendor assessment, UI alignment, POS connectivity, menu config, and deployment coordination so kiosk does not die in pilot. |
-| `conversion-menu-delivery` | Delivery & e-commerce — volume without fee bleed / First- and third-party channel strategy that grows orders without quietly erasing margin in fees and promos. |
-| `conversion-menu-vendor-governance` | Vendor governance — who stays and who goes / Risk assessments, RFPs, and performance management so you stop paying for tools that never landed in every store. |
+| `conversion-menu-revenue` | POS & core systems — migration without downtime theater / The system the store actually runs on. We help operators, ops, and technology choose, cut over, and stabilize POS so the ticket, the kitchen, and the guest path agree. |
+| `conversion-menu-partnerships` | Kiosk & self-service — program management end to end / Kiosk only pays off when the menu, the labor plan, and the kitchen ticket agree. We treat it as an operations project with a screen on it, not a hardware drop. |
+| `conversion-menu-delivery` | Delivery & e-commerce — volume without fee bleed / First-party and marketplace orders hitting one kitchen. We sit with ops and the head of digital channels so the store can fulfill what the app promised. |
+| `conversion-menu-vendor-governance` | Vendor governance — who stays and who goes / You already bought more than you can land. We run the RFP, the risk call, and the performance review so technology and ops stop paying for tools that never made it to every store. |
 
 Optional same-type rows (link on homepage `menuItems`; seed creates these IDs):
 
 | Entry ID | Title / body |
 | --- | --- |
-| `conversion-menu-loyalty` | Loyalty, CRM & guest engagement / Platform selection, earn/burn logic, API / webhook contracts, and campaign architecture so loyalty is not a side system the stores ignore. |
-| `conversion-menu-data` | Data & analytics / KPI definition, cross-market reconciliation, and reporting that ops can actually run. Build the dashboard before the initiative. |
+| `conversion-menu-loyalty` | Loyalty, CRM & guest engagement / Points, offers, and identity only work if they survive the POS, the app, and the store playbook. We connect the program to the operation — not the other way around. |
+| `conversion-menu-data` | Data & analytics / One number for the operator, the ops lead, and the head of digital. We help you stop reconciling three dashboards after every period close. |
 
 ### conversionVendor (keep these eight IDs)
 
