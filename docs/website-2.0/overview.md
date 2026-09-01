@@ -17,7 +17,7 @@ Locked decisions: [`decisions.md`](./decisions.md).
 1. **Hero** — Value headline + primary CTA (“Book a Strategy Audit”) → contact
 2. **Authority** — Why FoodSense + founder wins (operator + technologist credibility)
 3. **Core pillars** — Kitchen throughput rollouts / hands-on support for lean local IT / regional & franchise ecosystem
-4. **Capabilities accordion** — POS, kiosk, delivery, vendor governance, loyalty, data
+4. **Capabilities accordion** — POS, kiosk, delivery, vendor accountability, loyalty, reporting
 5. **Vendors** — landscape we already know (logo cloud; not a partnership claim)
 6. **Contact** — Shared qualification form (personal info, brands, location band, type, POS, services)
 

@@ -32,6 +32,7 @@ This pass writes the conversion homepage as a **story for four rooms** — opera
 - **The scene:** corporate sent a stack, vendors sent a deck, Friday night still has to work.
 - **The offer:** sequence what they already bought; guide the team they already have; Advisory, then Fractional or Project.
 - **Pillars (owner copy):** kitchen-throughput rollouts · hands-on support for lean local IT · regional & franchise ecosystem (English and Spanish). Same three Contentful IDs.
+- **Menu:** decision-maker titles, no em-dash punchlines. Same four IDs plus optional loyalty and reporting rows.
 
 CTA stays **Book a Strategy Audit**. Field IDs and entry IDs do not change.
 
@@ -73,11 +74,11 @@ Fetched from `https://www.foodsense.tech` (Production reads `conversionHomepage`
 | `authorityBody` | “neutral operational bridge… digital transformation… 22% food costs… 7% net profit… 30+ markets” | Ban list: digital transformation, bridge-as-metaphor. **22% / 7% not in Brand OS.** Inflates prior-role proof into firm-wide outcomes. |
 | `founderWins` | Anonymized “tier-1 global QSR” / “SoftBank/Mubadala-backed” / “10 to 500+ units” | Resume-speak. SoftBank name-drop. 10–500 contradicts 10+ lock. Named in-role work (KFC, RBI, REEF) is stronger and already approved as **prior roles**. |
 | Pillars | Program lifecycle / tech stack / ecosystem | Replace with owner-approved three: kitchen throughput rollouts, lean local IT, regional & franchise ecosystem. Same three entry IDs. |
-| Menu (4 items) | Match seed — keep, **incomplete vs PDF 05** | Loyalty, kitchen/IoT, data, roadmapping missing from homepage. |
+| Menu (4 items) | Dash-and-slash punchlines (“downtime theater”, “fee bleed”) | Rewrite for decision makers. Same four IDs plus optional loyalty and reporting rows. |
 | Partners heading | “Trusted Integration Partners” | Implies partnership/resale. We are vendor-agnostic. |
 | Contact | “Book a Call” + good subhead | Restore Strategy Audit. |
 
-Pillars and the four menu rows are the only conversion copy that already sounds like FoodSense.
+Pillars now use owner copy. Menu is rewritten for franchisee, ops, technology, and digital-channel decision makers.
 
 ### About (`aboutUsTitleSubtitle` + `aboutUsCard`) — keep
 
@@ -137,7 +138,7 @@ Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9l
 | `pillarsEyebrow` | For the people who have to make it run |
 | `pillarsHeading` | What we do in the gap |
 | `menuEyebrow` | Capabilities |
-| `menuHeading` | The stack you already have. In the order the store can absorb. |
+| `menuHeading` | Programs a multi-unit group has to get right |
 | `partnersEyebrow` | The stack |
 | `partnersHeading` | Vendors we have run in the field |
 | `contactHeading` | Tell us where the gap is. |
@@ -161,19 +162,21 @@ Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9l
 
 ### conversionMenuItem (existing four IDs)
 
-| Entry ID | Title / body |
-| --- | --- |
-| `conversion-menu-revenue` | POS & core systems — migration without downtime theater / The system the store actually runs on. We help operators, ops, and technology choose, cut over, and stabilize POS so the ticket, the kitchen, and the guest path agree. |
-| `conversion-menu-partnerships` | Kiosk & self-service — program management end to end / Kiosk only pays off when the menu, the labor plan, and the kitchen ticket agree. We treat it as an operations project with a screen on it, not a hardware drop. |
-| `conversion-menu-delivery` | Delivery & e-commerce — volume without fee bleed / First-party and marketplace orders hitting one kitchen. We sit with ops and the head of digital channels so the store can fulfill what the app promised. |
-| `conversion-menu-vendor-governance` | Vendor governance — who stays and who goes / You already bought more than you can land. We run the RFP, the risk call, and the performance review so technology and ops stop paying for tools that never made it to every store. |
+Same entries. New titles. No em-dash punchlines. No slash constructions.
+
+| Entry ID | Title | Body |
+| --- | --- | --- |
+| `conversion-menu-revenue` | POS Migration for Multi-Unit Operations | We sequence vendor selection, market pilots, and overnight cutover so the new POS lands while kitchens keep ticket times and stores stay open. |
+| `conversion-menu-partnerships` | Kiosk Programs Your Store Team Can Run | We connect kiosk, POS, and kitchen display, then stay with local IT through activation so a rush of digital tickets does not stall the prep line. |
+| `conversion-menu-delivery` | Delivery Volume the Kitchen Can Fulfill | Marketplace and first-party orders hit the same line. We set what each store can take, then hold vendors and the promo calendar to that limit. |
+| `conversion-menu-vendor-governance` | Vendor Accountability Across Every Store | We run the RFP, debug live setups, and keep brand leads and regional vendors on a schedule. You stop funding software that never made it past the pilot. |
 
 Optional same-type rows (link on homepage `menuItems`; seed creates these IDs):
 
-| Entry ID | Title / body |
-| --- | --- |
-| `conversion-menu-loyalty` | Loyalty, CRM & guest engagement / Points, offers, and identity only work if they survive the POS, the app, and the store playbook. We connect the program to the operation — not the other way around. |
-| `conversion-menu-data` | Data & analytics / One number for the operator, the ops lead, and the head of digital. We help you stop reconciling three dashboards after every period close. |
+| Entry ID | Title | Body |
+| --- | --- | --- |
+| `conversion-menu-loyalty` | Loyalty the Store and the App Can Both Run | We connect offers, POS, and the cashier playbook before you scale loyalty across brands and markets. |
+| `conversion-menu-data` | Reporting Operators and Digital Leads Can Share | We define the numbers the franchisee, ops, and head of digital will use at period close, so markets are not reconciling three dashboards after every cycle. |
 
 ### conversionVendor (keep these eight IDs)
 

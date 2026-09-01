@@ -119,17 +119,17 @@ Existing four (built in Phase 1):
 
 | Entry ID | Open |
 | --- | --- |
-| `conversion-menu-revenue` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-menu-revenue) (POS & core) |
-| `conversion-menu-partnerships` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-menu-partnerships) (Kiosk) |
-| `conversion-menu-delivery` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-menu-delivery) |
-| `conversion-menu-vendor-governance` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-menu-vendor-governance) |
+| `conversion-menu-revenue` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-menu-revenue) — POS Migration for Multi-Unit Operations |
+| `conversion-menu-partnerships` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-menu-partnerships) — Kiosk Programs Your Store Team Can Run |
+| `conversion-menu-delivery` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-menu-delivery) — Delivery Volume the Kitchen Can Fulfill |
+| `conversion-menu-vendor-governance` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-menu-vendor-governance) — Vendor Accountability Across Every Store |
 
 Optional extra rows (same type — **no migration**). Seed will create + link these if you run `npm run contentful:seed`:
 
 | Entry ID | Open |
 | --- | --- |
-| `conversion-menu-loyalty` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-menu-loyalty) (Loyalty, CRM) |
-| `conversion-menu-data` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-menu-data) (Data & analytics) |
+| `conversion-menu-loyalty` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-menu-loyalty) — Loyalty the Store and the App Can Both Run |
+| `conversion-menu-data` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-menu-data) — Reporting Operators and Digital Leads Can Share |
 
 Fields: `title`, `body`
 
