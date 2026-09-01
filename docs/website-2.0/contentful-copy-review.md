@@ -1,9 +1,23 @@
 # Contentful copy review — Brand OS PDF pack
 
 **Date:** 1 September 2026  
-**Sources:** Brand OS PDFs 01–12 (ClickUp export), live `www.foodsense.tech`, repo seed `src/lib/content/conversion-seed.ts`, Contentful types `conversionHomepage` / `conversionPillar` / `conversionMenuItem` / `conversionVendor` / `aboutUs*`.
+**Sources:** Brand OS PDFs 01–12, live `www.foodsense.tech`, repo seed `src/lib/content/conversion-seed.ts`.
 
-This is the working brief for making foodsense.tech speak the Brand OS. Seed copy in the repo is updated to match. **Production Contentful still holds the live strings below until `npm run contentful:seed` is run against `master` (needs `CONTENTFUL_MANAGEMENT_TOKEN`).**
+**CMS structure (do not fork):** the Phase 1 lean model from migrations `002` + `003`, documented in [PR #18](https://github.com/foodsensedottech/foodsense-website/pull/18) and [`docs/engineering/contentful-editing-map.md`](../engineering/contentful-editing-map.md).
+
+This brief is **what words to paste**. The editing map is **which field / entry ID**. Copy changes stay on existing types:
+
+| Type | Count we keep |
+| --- | --- |
+| `conversionHomepage` | 1 entry `conversion-homepage-website-2` |
+| `conversionPillar` | 3 (program-lifecycle, tech-stack, ecosystem) |
+| `conversionMenuItem` | 4 existing + optional 2 of the **same type** (loyalty, data) |
+| `conversionVendor` | 8 (Oracle … Restaurant365) |
+| `aboutUsTitleSubtitle` + `aboutUsCard` | 1 + 4 (About route) |
+
+No new content types. No new `conversionHomepage` fields. Footer tagline, form labels, and `/services` stay in code (as PR #18 listed).
+
+Seed copy in the repo is updated to match. **Production Contentful still holds the live strings below until `npm run contentful:seed` is run against `master` (needs `CONTENTFUL_MANAGEMENT_TOKEN`).**
 
 ---
 
@@ -76,18 +90,18 @@ Generic “Fill out the form… as soon as possible.” Plus form labels **Optio
 1. **Re-seed `conversionHomepage` from the updated seed** so Production matches Brand OS voice. Paste pack is below if you edit in the UI instead.
 2. **Kill unsourced KPIs** until PDF 10 is filled.
 3. **Name prior-role proof**, with the About framing that these are not FoodSense client logos.
-4. **Add two accordion rows** from PDF 05: Loyalty & guest engagement, Data & analytics. Kitchen + roadmapping + maturity stay on `/services`.
-5. **Retitle the vendor row** so we do not claim partnership.
-6. **Restore Strategy Audit** as the only primary CTA.
+4. **Optional:** add two accordion rows of type `conversionMenuItem` (loyalty, data) and link them on `menuItems`. Kitchen + roadmapping stay on `/services` (code).
+5. **Retitle the vendor row** via `partnersHeading` (field ID unchanged) so we do not claim partnership.
+6. **Restore Strategy Audit** as the only primary CTA (`heroCta`, `chromeCtaLabel`, `contactHeading`).
 7. Owner follow-ups: fill PDFs 06 / 09–12; replace stock hero; rename ClickUp service labels.
 
 ---
 
 ## Contentful paste pack (master)
 
-Entry ID `conversion-homepage-website-2`. Linked pillars/menu/vendors keep existing IDs; add two menu entries if using the UI.
+Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-homepage-website-2)** — same entry as the editing map. Field IDs below match migrations `002`/`003`. Deep links: [`contentful-editing-map.md`](../engineering/contentful-editing-map.md).
 
-### conversionHomepage
+### conversionHomepage (`conversion-homepage-website-2`)
 
 | Field | Paste |
 | --- | --- |
@@ -115,28 +129,43 @@ Entry ID `conversion-homepage-website-2`. Linked pillars/menu/vendors keep exist
 | `contactResponseNote` | Response within 24 hours. |
 | `contactCtaLabel` | Request audit |
 | `chromeCtaLabel` | Book a Strategy Audit |
+| `navAuthority` | About |
+| `navPillars` | What We Do |
+| `navMenu` | Services |
+| `navPartners` | Vendors |
+| `navContact` | Contact |
 
-### conversionPillar (keep)
+### conversionPillar (keep these three IDs)
 
-1. **Program lifecycle & RFP management** — Name the blocker, run the RFP, land the vendor, and own cutover — so the initiative does not stall after the kickoff deck.
-2. **Tech stack optimization** — Standardize POS, FOH, and BOH into one operating model. Fewer one-offs. Cleaner data. Crews that can actually run what you bought.
-3. **Ecosystem integration** — Filter bad software before it hits your stores. Validated vendors, integration patterns, and clear ownership across the stack.
+| Entry ID | Title / body |
+| --- | --- |
+| `conversion-pillar-program-lifecycle` | Program lifecycle & RFP management — Name the blocker, run the RFP, land the vendor, and own cutover — so the initiative does not stall after the kickoff deck. |
+| `conversion-pillar-tech-stack` | Tech stack optimization — Standardize POS, FOH, and BOH into one operating model. Fewer one-offs. Cleaner data. Crews that can actually run what you bought. |
+| `conversion-pillar-ecosystem` | Ecosystem integration — Filter bad software before it hits your stores. Validated vendors, integration patterns, and clear ownership across the stack. |
 
-### conversionMenuItem
+### conversionMenuItem (existing four IDs)
 
-Keep the four live rows. Add:
+| Entry ID | Title / body |
+| --- | --- |
+| `conversion-menu-revenue` | POS & core systems — migration without downtime theater / Vendor evaluation, cutover planning, phased rollouts, and post-go-live stabilization for Oracle, NCR, and the rest of the core stack. |
+| `conversion-menu-partnerships` | Kiosk & self-service — program management end to end / Vendor assessment, UI alignment, POS connectivity, menu config, and deployment coordination so kiosk does not die in pilot. |
+| `conversion-menu-delivery` | Delivery & e-commerce — volume without fee bleed / First- and third-party channel strategy that grows orders without quietly erasing margin in fees and promos. |
+| `conversion-menu-vendor-governance` | Vendor governance — who stays and who goes / Risk assessments, RFPs, and performance management so you stop paying for tools that never landed in every store. |
 
-5. **Loyalty, CRM & guest engagement** — Platform selection, earn/burn logic, API / webhook contracts, and campaign architecture so loyalty is not a side system the stores ignore.
-6. **Data & analytics** — KPI definition, cross-market reconciliation, and reporting that ops can actually run — dashboard before the initiative.
+Optional same-type rows (link on homepage `menuItems`; seed creates these IDs):
 
-### conversionVendor
+| Entry ID | Title / body |
+| --- | --- |
+| `conversion-menu-loyalty` | Loyalty, CRM & guest engagement / Platform selection, earn/burn logic, API / webhook contracts, and campaign architecture so loyalty is not a side system the stores ignore. |
+| `conversion-menu-data` | Data & analytics / KPI definition, cross-market reconciliation, and reporting that ops can actually run. Build the dashboard before the initiative. |
 
-Keep Oracle, NCR, Toast, Deliverect, Tillster, GRUBBRR, HME, Restaurant365. Do not add “preferred” copy.
+### conversionVendor (keep these eight IDs)
 
-### About (already good — optional heading tweak)
+`conversion-vendor-oracle`, `ncr`, `toast`, `deliverect`, `tillster`, `grubbrr`, `hme`, `r365` — names only. Do not add “preferred” copy.
 
-`heading`: About FoodSense  
-`subheading`: A boutique consultancy at the intersection of restaurant operations and technology. We help 10+ unit growth-stage brands and multi-unit franchisees build, integrate, and scale the stack that runs every shift.
+### About (already Brand OS)
+
+`aboutUsTitleSubtitle` `5tTay5jmvkeJCPx27jw2Dk` + four `aboutUsCard` IDs in the editing map. Leave as-is unless you want a heading tweak.
 
 ---
 

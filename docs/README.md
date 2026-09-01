@@ -11,6 +11,7 @@ This folder is the source of truth for **Website 2.0**. Prefer these docs over a
 | [`brand/`](./brand/) | Vision, ICP, services, voice, brand, operating logic |
 | [`website-2.0/`](./website-2.0/) | Current homepage direction + lean Contentful model |
 | [`engineering/`](./engineering/) | Local dev, revalidation, ClickUp, Contentful Phase 1 |
+| [`engineering/contentful-editing-map.md`](./engineering/contentful-editing-map.md) | **What goes where** — homepage section → Contentful fields + deep links |
 | [`engineering/clickup-field-alignment.md`](./engineering/clickup-field-alignment.md) | Form ↔ ClickUp custom field parity |
 | [`contentful/`](./contentful/) | Legacy CMS maps (franchisee homepage era) |
 | [`analytics/`](./analytics/) | GA4 / Clarity setup |
