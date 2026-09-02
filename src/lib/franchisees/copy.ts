@@ -262,7 +262,10 @@ export const franchiseeCopy = {
     next: "Continuar",
     back: "Atrás",
   },
-} as const;
+};
+
+/** Editable franchisee landing copy. Seeded to `franchiseeLandingPage`. */
+export type FranchiseeCopy = (typeof franchiseeCopy)["en"];
 
 export function getFranchiseeCopy(locale: FranchiseeLocale) {
   return franchiseeCopy[locale];

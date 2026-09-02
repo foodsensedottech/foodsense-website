@@ -236,7 +236,6 @@ export interface ContactSectionCopy {
 export interface SiteChrome {
   ctaLabel?: string;
   navAbout?: string;
-  navPains?: string;
   navOfferings?: string;
   navServices?: string;
   navContact?: string;

@@ -1,76 +1,34 @@
 import client from "@/lib/contentful/client";
-import { pickString } from "@/lib/contentful/fields";
+import {
+  assetAlt,
+  assetUrl,
+  isUnknownContentType,
+  linesFromText,
+  linkedEntries,
+  mapTitleBody,
+  pickString,
+} from "@/lib/contentful/fields";
 import {
   conversionSeed,
   type ConversionHomepage,
   type ConversionMenuItem,
   type ConversionPillar,
-  type ConversionVendor,
 } from "@/lib/content/conversion-seed";
 
-function assetUrl(field: unknown): string | undefined {
-  if (!field || typeof field !== "object") return undefined;
-  const file = (field as { fields?: { file?: { url?: string }; title?: string } })
-    .fields;
-  const url = file?.file?.url;
-  if (!url) return undefined;
-  return url.startsWith("http") ? url : `https:${url}`;
-}
-
-function assetAlt(field: unknown, fallback: string): string {
-  if (!field || typeof field !== "object") return fallback;
-  const title = (field as { fields?: { title?: string } }).fields?.title;
-  return title || fallback;
-}
-
-function linesFromText(value: string): string[] {
-  return value
-    .split(/\n+/)
-    .map((line) => line.replace(/^[-•*]\s*/, "").trim())
-    .filter(Boolean);
-}
-
 function mapPillar(fields: Record<string, unknown>): ConversionPillar | null {
-  const title = pickString(fields, ["title", "Title"]);
-  const body = pickString(fields, ["body", "Body", "description", "Description"]);
-  if (!title || !body) return null;
+  const item = mapTitleBody(fields);
+  if (!item) return null;
   return {
-    title,
-    body,
+    title: item.title,
+    body: item.body,
     lucideIcon: pickString(fields, ["lucideIcon", "LucideIcon"]) || "ListChecks",
   };
 }
 
-function mapMenuItem(fields: Record<string, unknown>): ConversionMenuItem | null {
-  const title = pickString(fields, ["title", "Title"]);
-  const body = pickString(fields, ["body", "Body", "description", "Description"]);
-  if (!title || !body) return null;
-  return { title, body };
-}
-
-function mapVendor(fields: Record<string, unknown>): ConversionVendor | null {
-  const name = pickString(fields, ["name", "Name", "title", "Title"]);
-  if (!name) return null;
-  return {
-    name,
-    logoUrl: assetUrl(fields.logo || fields.Logo || fields.image),
-  };
-}
-
-function linkedEntries(field: unknown): Record<string, unknown>[] {
-  if (!Array.isArray(field)) return [];
-  return field
-    .map((item) => {
-      if (!item || typeof item !== "object") return null;
-      const fields = (item as { fields?: Record<string, unknown> }).fields;
-      return fields || null;
-    })
-    .filter(Boolean) as Record<string, unknown>[];
-}
-
 /**
- * Lean CMS: one `conversionHomepage` entry (+ optional linked pillars/menu/vendors).
- * Falls back to seed so Preview stays usable before Contentful is filled.
+ * Lean CMS: one `conversionHomepage` entry (+ linked pillars/menu).
+ * Vendor logo cloud is retired (vendor-agnostic). Falls back to seed if
+ * the type is missing or unpublished.
  */
 export async function getConversionHomepage(): Promise<ConversionHomepage> {
   try {
@@ -88,11 +46,8 @@ export async function getConversionHomepage(): Promise<ConversionHomepage> {
       .map(mapPillar)
       .filter(Boolean) as ConversionPillar[];
     const menuItems = linkedEntries(fields.menuItems)
-      .map(mapMenuItem)
+      .map(mapTitleBody)
       .filter(Boolean) as ConversionMenuItem[];
-    const vendors = linkedEntries(fields.vendors)
-      .map(mapVendor)
-      .filter(Boolean) as ConversionVendor[];
 
     const winsRaw = pickString(fields, ["founderWins", "wins", "FounderWins"]);
     const wins = winsRaw ? linesFromText(winsRaw) : conversionSeed.authority.wins;
@@ -107,12 +62,20 @@ export async function getConversionHomepage(): Promise<ConversionHomepage> {
         navPillars:
           pickString(fields, ["navPillars"]) || conversionSeed.chrome.navPillars,
         navMenu: pickString(fields, ["navMenu"]) || conversionSeed.chrome.navMenu,
-        navPartners:
-          pickString(fields, ["navPartners"]) || conversionSeed.chrome.navPartners,
         navContact:
           pickString(fields, ["navContact"]) || conversionSeed.chrome.navContact,
-        // Footer tagline is code-only (no conversionHomepage field — see editing map).
-        footerTagline: conversionSeed.chrome.footerTagline,
+        footerTagline:
+          pickString(fields, ["footerTagline"]) ||
+          conversionSeed.chrome.footerTagline,
+        footerGeo:
+          pickString(fields, ["footerGeo"]) || conversionSeed.chrome.footerGeo,
+        footerEmail:
+          pickString(fields, ["footerEmail"]) || conversionSeed.chrome.footerEmail,
+        linkedInUrl:
+          pickString(fields, ["linkedInUrl"]) || conversionSeed.chrome.linkedInUrl,
+        instagramUrl:
+          pickString(fields, ["instagramUrl"]) ||
+          conversionSeed.chrome.instagramUrl,
       },
       hero: {
         brandLabel:
@@ -174,15 +137,6 @@ export async function getConversionHomepage(): Promise<ConversionHomepage> {
           pickString(fields, ["menuHeading"]) || conversionSeed.menuSection.heading,
       },
       menuItems: menuItems.length ? menuItems : conversionSeed.menuItems,
-      partnersSection: {
-        eyebrow:
-          pickString(fields, ["partnersEyebrow"]) ||
-          conversionSeed.partnersSection.eyebrow,
-        heading:
-          pickString(fields, ["partnersHeading"]) ||
-          conversionSeed.partnersSection.heading,
-      },
-      vendors: vendors.length ? vendors : conversionSeed.vendors,
       contact: {
         heading:
           pickString(fields, ["contactHeading"]) ||
@@ -198,8 +152,10 @@ export async function getConversionHomepage(): Promise<ConversionHomepage> {
           conversionSeed.contact.ctaLabel,
       },
     };
-  } catch {
-    // Type may not exist yet in Contentful
+  } catch (error) {
+    if (!isUnknownContentType(error)) {
+      console.error("Error fetching conversionHomepage:", error);
+    }
     return conversionSeed;
   }
 }

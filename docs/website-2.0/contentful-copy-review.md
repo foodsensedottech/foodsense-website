@@ -5,17 +5,20 @@
 
 **CMS structure (do not fork):** the Phase 1 lean model from migrations `002` + `003`, documented in [PR #18](https://github.com/foodsensedottech/foodsense-website/pull/18) and [`docs/engineering/contentful-editing-map.md`](../engineering/contentful-editing-map.md).
 
-This brief is **what words to paste**. The editing map is **which field / entry ID**. Copy changes stay on existing types:
+This brief is **what words to paste**. The editing map is **which field / entry ID**. Copy changes stay on existing types **plus** migration `004` (`servicesPage`, `franchiseeLandingPage`, footer fields).
 
 | Type | Count we keep |
 | --- | --- |
 | `conversionHomepage` | 1 entry `conversion-homepage-website-2` |
 | `conversionPillar` | 3 (program-lifecycle, tech-stack, ecosystem) |
-| `conversionMenuItem` | 4 existing + optional 2 of the **same type** (loyalty, data) |
-| `conversionVendor` | 8 (Oracle … Restaurant365) |
+| `conversionMenuItem` | homepage accordion + `/services` + `/franchisees` cards (distinct IDs) |
+| `servicesPage` | 1 entry `services-page-website-2` |
+| `franchiseeLandingPage` | 1 entry `franchisee-landing-website-2` |
 | `aboutUsTitleSubtitle` + `aboutUsCard` | 1 + 4 (About route) |
 
-No new content types. No new `conversionHomepage` fields. Footer tagline, form labels, and `/services` stay in code (as PR #18 listed).
+**Vendor logo cloud is retired.** Do not paste `conversionVendor` / `partnersHeading` / `navPartners`. Brand OS is vendor-agnostic (no resale, no commissions, no partnership claim).
+
+Footer tagline is a `conversionHomepage` field (`footerTagline`). Form labels stay in code. `/services` and `/franchisees` are CMS.
 
 Seed copy in the repo is updated to match. **Production Contentful still holds the live strings below until you paste the pack (or run `npm run contentful:seed` against `master` with `CONTENTFUL_MANAGEMENT_TOKEN`).** Do not seed from this agent — owner pastes.
 
@@ -107,8 +110,8 @@ Generic “Fill out the form… as soon as possible.” Plus form labels **Optio
 1. **Paste the conversion homepage pack below** (or re-seed from the updated seed) so Production matches this story: bridge + ICP + four rooms. Do not keep “Fractional tech and ops leadership…” or the live “Enterprise Restaurant Technology Architecture…” H1.
 2. **Kill unsourced KPIs** until PDF 10 is filled.
 3. **Name prior-role proof**, with the About framing that these are not FoodSense client logos.
-4. **Optional:** add two accordion rows of type `conversionMenuItem` (loyalty, data) and link them on `menuItems`. Kitchen + roadmapping stay on `/services` (code).
-5. **Retitle the vendor row** via `partnersHeading` (field ID unchanged) so we do not claim partnership.
+4. **Optional:** add two accordion rows of type `conversionMenuItem` (loyalty, data) and link them on `menuItems`. Kitchen + roadmapping stay on `/services`.
+5. **Remove the vendor row.** Do not retitle it. The site no longer renders `conversionVendor`.
 6. **Restore Strategy Audit** as the only primary CTA (`heroCta`, `chromeCtaLabel`, `contactHeading`).
 7. Owner follow-ups: fill PDFs 06 / 09–12; replace stock hero; rename ClickUp service labels.
 
@@ -139,8 +142,6 @@ Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9l
 | `pillarsHeading` | What we do in the gap |
 | `menuEyebrow` | Capabilities |
 | `menuHeading` | Programs a multi-unit group has to get right |
-| `partnersEyebrow` | The stack |
-| `partnersHeading` | Vendors we have run in the field |
 | `contactHeading` | Tell us where the gap is. |
 | `contactSubheading` | Operators, ops, technology, heads of digital. One conversation. We will tell you if a Strategy Audit is the right first move, or if you already know the blocker and need a scoped engagement. |
 | `contactResponseNote` | Response within 24 hours. |
@@ -149,8 +150,8 @@ Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9l
 | `navAuthority` | About |
 | `navPillars` | What We Do |
 | `navMenu` | Services |
-| `navPartners` | Vendors |
 | `navContact` | Contact |
+| `footerTagline` | We bridge restaurant technology and restaurant operations. |
 
 ### conversionPillar (keep these three IDs)
 
@@ -178,9 +179,7 @@ Optional same-type rows (link on homepage `menuItems`; seed creates these IDs):
 | `conversion-menu-loyalty` | Loyalty the Store and the App Can Both Run | We connect offers, POS, and the cashier playbook before you scale loyalty across brands and markets. |
 | `conversion-menu-data` | Reporting Operators and Digital Leads Can Share | We define the numbers the franchisee, ops, and head of digital will use at period close, so markets are not reconciling three dashboards after every cycle. |
 
-### conversionVendor (keep these eight IDs)
-
-`conversion-vendor-oracle`, `ncr`, `toast`, `deliverect`, `tillster`, `grubbrr`, `hme`, `r365` — names only. Do not add “preferred” copy.
+Do not seed vendor names.
 
 ### About (already Brand OS)
 

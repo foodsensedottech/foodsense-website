@@ -26,7 +26,7 @@ Recorded 27 August 2026. Updated 31 August 2026 after PR #10 merge. Agents and h
 ## Conversion path
 
 - **Primary now:** Website 2.0 conversion homepage — one shared contact form (`ContactForm`) on `#contact-section` and `/contact` → `POST /api/contact` → ClickUp. Homepage section copy may still say “Book a Strategy Audit”; underlying form is the same.
-- **Later:** `/franchisees` — see [Maturity quiz (deferred)](#maturity-quiz-deferred) below. Keep code; do not prioritize nav, sitemap, or ClickUp wiring until Phase 2 is underway.
+- **Later:** `/franchisees` landing is CMS-owned; the maturity **quiz** is still not the primary CTA. Do not put it in the main nav.
 - Do not run two competing primary CTAs on the homepage.
 
 ## Maturity quiz (deferred)
@@ -57,4 +57,7 @@ The maturity quiz still **scores only** (`captured: false`) until wired to Click
 
 - Lean the model for Website 2.0 — see [`contentful.md`](./contentful.md).
 - Do not grow the old 25-type franchisee homepage model.
-- Spanish localization remains paused until fields are intentionally localized.
+- **Marketing copy is CMS-owned** (`/`, `/about`, `/services`, `/franchisees`, `/contact`, footer). Seeds are fallback only.
+- **Vendor-agnostic:** no logo cloud, no `conversionVendor` on the live site, no partnership claim.
+- Spanish localization remains paused **except** `/es/franchisees`, which reads localized `franchiseeLandingPage` fields.
+- Rebuild / leftover wipe: [`engineering/contentful-rebuild.md`](../engineering/contentful-rebuild.md).

@@ -1,26 +1,29 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BaseLayout } from "@/components/layout";
-import { servicesPageCopy as copy } from "@/lib/content/services-page";
-
-export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "Advisory, fractional work, and project management for POS, kiosk, delivery, loyalty, and data — for 10+ unit QSR and franchise operators.",
-  openGraph: {
-    title: "Services | FoodSense",
-    description:
-      "Advisory, fractional work, and project management for 10+ unit restaurant operators.",
-    url: "https://foodsense.tech/services",
-    siteName: "FoodSense",
-    locale: "en_US",
-    type: "website",
-  },
-};
+import { getServicesPage } from "@/lib/contentful/services";
 
 export const revalidate = 3600;
 
-export default function ServicesPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const copy = await getServicesPage();
+  return {
+    title: copy.metaTitle,
+    description: copy.metaDescription,
+    openGraph: {
+      title: `${copy.metaTitle} | FoodSense`,
+      description: copy.metaDescription,
+      url: "https://foodsense.tech/services",
+      siteName: "FoodSense",
+      locale: "en_US",
+      type: "website",
+    },
+  };
+}
+
+export default async function ServicesPage() {
+  const copy = await getServicesPage();
+
   return (
     <BaseLayout>
       <article>

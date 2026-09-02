@@ -22,7 +22,7 @@
     "contentful:phase1": "node scripts/contentful/run-phase1.mjs",
     "contentful:migrate:staging": "CONTENTFUL_ENVIRONMENT=staging node scripts/contentful/apply-migrations.mjs",
     "contentful:migrate:master": "CONTENTFUL_ENVIRONMENT=master node scripts/contentful/apply-migrations.mjs",
-    "contentful:seed": "node scripts/contentful/seed-conversion-homepage.mjs",
+    "contentful:seed": "node --experimental-strip-types --no-warnings scripts/contentful/seed-conversion-homepage.mjs",
     "contentful:delete-unused": "node scripts/contentful/delete-unused-types.mjs"
   },
   "dependencies": {

@@ -12,6 +12,7 @@ This folder is the source of truth for **Website 2.0**. Prefer these docs over a
 | [`website-2.0/`](./website-2.0/) | Current homepage direction + lean Contentful model |
 | [`engineering/`](./engineering/) | Local dev, revalidation, ClickUp, Contentful Phase 1 |
 | [`engineering/contentful-editing-map.md`](./engineering/contentful-editing-map.md) | **What goes where** — homepage section → Contentful fields + deep links |
+| [`engineering/contentful-rebuild.md`](./engineering/contentful-rebuild.md) | **Wipe leftovers / vendor row retired** — CMS for every live marketing route |
 | [`engineering/clickup-field-alignment.md`](./engineering/clickup-field-alignment.md) | Form ↔ ClickUp custom field parity |
 | [`contentful/`](./contentful/) | Legacy CMS maps (franchisee homepage era) |
 | [`analytics/`](./analytics/) | GA4 / Clarity setup |
@@ -42,6 +43,7 @@ Also read root [`.cursorrules`](../.cursorrules) and [`AGENTS.md`](../AGENTS.md)
 - [`website-2.0/decisions.md`](./website-2.0/decisions.md) — locked CRM / conversion / brand decisions
 - [`website-2.0/overview.md`](./website-2.0/overview.md) — page IA + conversion sections
 - [`website-2.0/contentful.md`](./website-2.0/contentful.md) — lean CMS keep / retire / create
+- [`engineering/contentful-rebuild.md`](./engineering/contentful-rebuild.md) — leftover wipe; vendor row retired
 - [`website-2.0/contentful-copy-review.md`](./website-2.0/contentful-copy-review.md) — Brand OS PDF pack vs live CMS copy
 - [`website-2.0/git-workflow.md`](./website-2.0/git-workflow.md) — branch strategy + ClickUp task board
 
