@@ -58,3 +58,4 @@ The maturity quiz still **scores only** (`captured: false`) until wired to Click
 - Lean the model for Website 2.0 — see [`contentful.md`](./contentful.md).
 - Do not grow the old 25-type franchisee homepage model.
 - Spanish localization remains paused until fields are intentionally localized.
+- **Rebuild / wipe:** follow [`engineering/contentful-rebuild.md`](../engineering/contentful-rebuild.md). About `/about` is a real CMS page. `/franchisees` is not a new CMS type. Keep `conversionHomepage` IDs until code ships a rename. CTA remains **Book a Strategy Audit**. No unsourced 22%/7% proof metrics.
