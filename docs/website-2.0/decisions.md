@@ -1,20 +1,24 @@
 # Website 2.0 — locked owner decisions
 
-Recorded 27 August 2026. Updated 31 August 2026 after PR #10 merge. Agents and humans treat these as settled unless the owner revises this file.
+Recorded 27 August 2026. Updated 1 September 2026 after PR #19 merge. Agents and humans treat these as settled unless the owner revises this file.
 
-## Current priority (Aug 2026)
+## Current priority (1 Sep 2026)
 
-**Next:** Verify Preview on merged `fixes-20250301-195504`, **Promote to Production** when approved, then **Phase 2** content ([`assessment.md`](./assessment.md) §9.3–9.4).
+**Integration:** PR #19 merged → `fixes-20250301-195504` (`6ada7c2`). PR #18 closed (map absorbed into #19).
 
-**Phase 1 Contentful:** **Done** — 11 types, `conversion*` homepage seeded on master + staging. See [`engineering/contentful-phase1.md`](../engineering/contentful-phase1.md).
+**Production:** Last promoted code is **PR #16** (`30d4241`). Do not Promote Preview to Production unless the owner asks.
 
-**Website 2.0 code:** **Merged** — PR #10 → `fixes-20250301-195504` (`1691d6b`, 31 Aug 2026).
+**Next:** Publish the Contentful paste pack ([`contentful-copy-review.md`](./contentful-copy-review.md)), revalidate the host you are viewing, verify Preview, then Phase 2 content ([`assessment.md`](./assessment.md) §9.3–9.4).
 
-**Git:** Branch off `fixes-20250301-195504` for new work — [`git-workflow.md`](./git-workflow.md).
+**Phase 1 Contentful:** **Done** — 11 types, `conversion*` on master + staging. See [`engineering/contentful-phase1.md`](../engineering/contentful-phase1.md).
+
+**Website 2.0 code:** **Merged** — PR #10 (`1691d6b`) plus #11–#17 and **#19**.
+
+**Git:** Branch off `fixes-20250301-195504` — [`git-workflow.md`](./git-workflow.md).
 
 **Task tracking:** ClickUp **Website Redesign Tasks** board — [open board](https://app.clickup.com/90131064868/v/b/6-901328341052-2).
 
-**Not now:** `/franchisees` maturity quiz, Maturity Score/Band ClickUp fields, sitemap/nav debt.
+**Not now:** `/franchisees` maturity quiz, Maturity Score/Band ClickUp fields, sitemap/`noindex` debt (assessment 0.11–0.12).
 
 ## CRM
 

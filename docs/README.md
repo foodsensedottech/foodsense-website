@@ -7,7 +7,7 @@ This folder is the source of truth for **Website 2.0**. Prefer these docs over a
 | Path | Use when |
 | --- | --- |
 | [`website-2.0/assessment.md`](./website-2.0/assessment.md) | **Read first** — technical audit, phases 0–4, ClickUp field IDs |
-| [`website-2.0/git-workflow.md`](./website-2.0/git-workflow.md) | **Integration branch** — `fixes-20250301-195504`; PR #10 merged |
+| [`website-2.0/git-workflow.md`](./website-2.0/git-workflow.md) | **Integration branch** — `fixes-20250301-195504`; PR #19 merged (copy); Production last promoted PR #16 |
 | [`brand/`](./brand/) | Vision, ICP, services, voice, brand, operating logic |
 | [`website-2.0/`](./website-2.0/) | Current homepage direction + lean Contentful model |
 | [`engineering/`](./engineering/) | Local dev, revalidation, ClickUp, Contentful Phase 1 |
