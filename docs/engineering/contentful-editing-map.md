@@ -4,6 +4,8 @@
 
 Contentful’s editor **is** the CMS. This page is the navigation map: homepage section → fields → deep links.
 
+**Full wipe / rebuild:** [`contentful-rebuild.md`](./contentful-rebuild.md) — do not delete every type on `master` until that runbook says Phase C.
+
 Space: `es87a9loayi1` · Environment: **`master`** (Production + most Preview)
 
 Same structure as [PR #18](https://github.com/foodsensedottech/foodsense-website/pull/18). **Words** live in [`conversion-seed.ts`](../../src/lib/content/conversion-seed.ts) and the paste pack in [`contentful-copy-review.md`](../website-2.0/contentful-copy-review.md). Do not add content types for copy changes.

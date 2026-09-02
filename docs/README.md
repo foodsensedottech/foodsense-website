@@ -11,7 +11,7 @@ This folder is the source of truth for **Website 2.0**. Prefer these docs over a
 | [`brand/`](./brand/) | Vision, ICP, services, voice, brand, operating logic |
 | [`website-2.0/`](./website-2.0/) | Current homepage direction + lean Contentful model |
 | [`engineering/`](./engineering/) | Local dev, revalidation, ClickUp, Contentful Phase 1 |
-| [`engineering/contentful-editing-map.md`](./engineering/contentful-editing-map.md) | **What goes where** — homepage section → Contentful fields + deep links |
+| [`engineering/contentful-rebuild.md`](./engineering/contentful-rebuild.md) | **Wipe / rebuild Contentful** — what to delete, what to keep, code vs UI split |
 | [`engineering/clickup-field-alignment.md`](./engineering/clickup-field-alignment.md) | Form ↔ ClickUp custom field parity |
 | [`contentful/`](./contentful/) | Legacy CMS maps (franchisee homepage era) |
 | [`analytics/`](./analytics/) | GA4 / Clarity setup |
@@ -55,7 +55,7 @@ Also read root [`.cursorrules`](../.cursorrules) and [`AGENTS.md`](../AGENTS.md)
 | `archive/development-2025-02-22.md` | Stale Next notes; see `engineering/development.md` |
 | `archive/restaurant-webpage-designer-prd.md` | Adjacent product, not this marketing site |
 | `archive/restaurantiq-seo-analytics-prd.md` | Adjacent product, not this marketing site |
-| `archive/hubspot-properties.csv` | Former HubSpot property map; CRM is ClickUp-only |
+| `archive/contentful-rebuild-prompt.md` | Owner wipe prompt; execute [`engineering/contentful-rebuild.md`](../engineering/contentful-rebuild.md) instead |
 
 ## Rules of maintenance
 

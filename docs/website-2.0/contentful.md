@@ -8,6 +8,8 @@ Owner decisions: [`decisions.md`](./decisions.md). Brand/copy: `docs/brand/`. Pa
 
 Until the lean types below are published, Preview uses seed copy in `src/lib/content/conversion-seed.ts`.
 
+**Rebuild (wipe / new types):** [`engineering/contentful-rebuild.md`](../engineering/contentful-rebuild.md) — do not full-delete `master` until that runbook’s Phase B/C. Backup first.
+
 **Runbook:** [`engineering/contentful-phase1.md`](../engineering/contentful-phase1.md) — `npm run contentful:phase1`
 
 **Editing map (what goes where):** [`engineering/contentful-editing-map.md`](../engineering/contentful-editing-map.md) — homepage sections → fields → Contentful deep links. Use this instead of building a custom WYSIWYG.
