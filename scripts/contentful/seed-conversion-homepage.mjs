@@ -14,6 +14,7 @@ import {
   link,
   STAGING_ENV_ID,
   upsertEntry,
+  upsertEntryOnFirstType,
 } from "./lib.mjs";
 
 const environmentId = process.env.CONTENTFUL_ENVIRONMENT?.trim() || STAGING_ENV_ID;
@@ -169,22 +170,30 @@ async function seedServices(environment, servicesPageCopy) {
     if (entry) capLinks.push(link(entry.sys.id));
   }
 
-  await upsertEntry(environment, "servicesPage", SERVICES_PAGE_ID, {
-    metaTitle: localeFields(servicesPageCopy.metaTitle),
-    metaDescription: localeFields(servicesPageCopy.metaDescription),
-    eyebrow: localeFields(servicesPageCopy.eyebrow),
-    heading: localeFields(servicesPageCopy.heading),
-    intro: localeFields(servicesPageCopy.intro),
-    modes: localeFields(modeLinks),
-    capabilitiesEyebrow: localeFields(servicesPageCopy.capabilitiesEyebrow),
-    capabilitiesHeading: localeFields(servicesPageCopy.capabilitiesHeading),
-    capabilities: localeFields(capLinks),
-    notHeading: localeFields(servicesPageCopy.notHeading),
-    notItems: localeFields(servicesPageCopy.notItems.join("\n")),
-    ctaHeading: localeFields(servicesPageCopy.ctaHeading),
-    ctaBody: localeFields(servicesPageCopy.ctaBody),
-    ctaLabel: localeFields(servicesPageCopy.ctaLabel),
-  });
+  await upsertEntryOnFirstType(
+    environment,
+    ["services", "servicesPage"],
+    SERVICES_PAGE_ID,
+    {
+      metaTitle: localeFields(servicesPageCopy.metaTitle),
+      metaDescription: localeFields(servicesPageCopy.metaDescription),
+      eyebrow: localeFields(servicesPageCopy.eyebrow),
+      heading: localeFields(servicesPageCopy.heading),
+      intro: localeFields(servicesPageCopy.intro),
+      modes: localeFields(modeLinks),
+      engagementModes: localeFields(modeLinks),
+      capabilitiesEyebrow: localeFields(servicesPageCopy.capabilitiesEyebrow),
+      capabilitiesHeading: localeFields(servicesPageCopy.capabilitiesHeading),
+      capabilities: localeFields(capLinks),
+      notHeading: localeFields(servicesPageCopy.notHeading),
+      notThisHeading: localeFields(servicesPageCopy.notHeading),
+      notItems: localeFields(servicesPageCopy.notItems.join("\n")),
+      notThisItems: localeFields(servicesPageCopy.notItems.join("\n")),
+      ctaHeading: localeFields(servicesPageCopy.ctaHeading),
+      ctaBody: localeFields(servicesPageCopy.ctaBody),
+      ctaLabel: localeFields(servicesPageCopy.ctaLabel),
+    }
+  );
 }
 
 async function seedFranchisees(environment, franchiseeCopy) {
@@ -219,7 +228,11 @@ async function seedFranchisees(environment, franchiseeCopy) {
     if (entry) offerLinks.push(link(entry.sys.id));
   }
 
-  await upsertEntry(environment, "franchiseeLandingPage", FRANCHISEE_PAGE_ID, {
+  await upsertEntryOnFirstType(
+    environment,
+    ["franchiseeLandingPage", "franchisee", "franchisees"],
+    FRANCHISEE_PAGE_ID,
+    {
     metaTitle: both(en.metaTitle, es.metaTitle),
     metaDescription: both(en.metaDescription, es.metaDescription),
     htmlLang: both(en.htmlLang, es.htmlLang),
@@ -261,7 +274,8 @@ async function seedFranchisees(environment, franchiseeCopy) {
     resultsRestart: both(en.results.restart, es.results.restart),
     nextLabel: both(en.next, es.next),
     backLabel: both(en.back, es.back),
-  });
+    }
+  );
 }
 
 async function seedAbout(environment, aboutSeed, titleId) {

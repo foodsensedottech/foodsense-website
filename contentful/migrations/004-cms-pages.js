@@ -42,6 +42,7 @@ module.exports = function migration(migration) {
     helpText: "Markets line under the tagline.",
   });
 
+  // Site also accepts UI type id `services` if this migration is not used.
   const services = migration
     .createContentType("servicesPage")
     .name("Services Page")

@@ -19,7 +19,10 @@ const TYPES_TO_KEEP = new Set([
   "aboutUsTitleSubtitle",
   "aboutUsCard",
   "servicesPage",
+  "services",
   "franchiseeLandingPage",
+  "franchisee",
+  "franchisees",
   "seoMetadata",
 ]);
 

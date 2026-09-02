@@ -1,8 +1,7 @@
-import client from "@/lib/contentful/client";
 import {
-  isUnknownContentType,
+  fetchFirstEntryFields,
+  firstLinkedCards,
   linesFromText,
-  linkedEntries,
   mapTitleBody,
   pickString,
 } from "@/lib/contentful/fields";
@@ -12,62 +11,65 @@ import {
   type ServicesPageCopy,
 } from "@/lib/content/services-page";
 
+/** UI-created type is often `services`; migration `004` uses `servicesPage`. */
+export const SERVICES_CONTENT_TYPES = ["services", "servicesPage"] as const;
+
+export function mapServicesFields(
+  fields: Record<string, unknown>
+): ServicesPageCopy {
+  const modes = firstLinkedCards(fields, ["engagementModes", "modes"], mapTitleBody);
+  const capabilities = firstLinkedCards(
+    fields,
+    ["capabilities"],
+    mapTitleBody
+  );
+  const notRaw = pickString(fields, ["notThisItems", "notItems"]);
+  const notItems = notRaw ? linesFromText(notRaw) : servicesPageCopy.notItems;
+
+  return {
+    metaTitle:
+      pickString(fields, ["metaTitle"]) || servicesPageCopy.metaTitle,
+    metaDescription:
+      pickString(fields, ["metaDescription"]) ||
+      servicesPageCopy.metaDescription,
+    eyebrow: pickString(fields, ["eyebrow"]) || servicesPageCopy.eyebrow,
+    heading: pickString(fields, ["heading"]) || servicesPageCopy.heading,
+    intro: pickString(fields, ["intro"]) || servicesPageCopy.intro,
+    modes: modes.length ? (modes as ServicesCard[]) : servicesPageCopy.modes,
+    capabilitiesEyebrow:
+      pickString(fields, ["capabilitiesEyebrow"]) ||
+      servicesPageCopy.capabilitiesEyebrow,
+    capabilitiesHeading:
+      pickString(fields, ["capabilitiesHeading"]) ||
+      servicesPageCopy.capabilitiesHeading,
+    capabilities: capabilities.length
+      ? (capabilities as ServicesCard[])
+      : servicesPageCopy.capabilities,
+    notHeading:
+      pickString(fields, ["notThisHeading", "notHeading"]) ||
+      servicesPageCopy.notHeading,
+    notItems: notItems.length ? notItems : servicesPageCopy.notItems,
+    ctaHeading:
+      pickString(fields, ["ctaHeading"]) || servicesPageCopy.ctaHeading,
+    ctaBody: pickString(fields, ["ctaBody"]) || servicesPageCopy.ctaBody,
+    ctaLabel: pickString(fields, ["ctaLabel"]) || servicesPageCopy.ctaLabel,
+  };
+}
+
 /**
- * `/services` from `servicesPage`. Linked modes/capabilities reuse
- * `conversionMenuItem` (title + body) so we do not add a card type.
+ * `/services` from Contentful. Accepts type ID `services` (Contentful UI
+ * default from the name "Services") or `servicesPage` (migration `004`).
+ * Linked modes/capabilities reuse `conversionMenuItem` (title + body).
  */
 export async function getServicesPage(): Promise<ServicesPageCopy> {
   try {
-    const response = await client.getEntries({
-      content_type: "servicesPage",
-      limit: 1,
+    const fields = await fetchFirstEntryFields([...SERVICES_CONTENT_TYPES], {
       include: 2,
-      order: ["-sys.updatedAt"],
     });
-    const item = response.items[0];
-    if (!item) return servicesPageCopy;
-
-    const fields = (item.fields || {}) as Record<string, unknown>;
-    const modes = linkedEntries(fields.modes)
-      .map(mapTitleBody)
-      .filter(Boolean) as ServicesCard[];
-    const capabilities = linkedEntries(fields.capabilities)
-      .map(mapTitleBody)
-      .filter(Boolean) as ServicesCard[];
-    const notRaw = pickString(fields, ["notItems"]);
-    const notItems = notRaw ? linesFromText(notRaw) : servicesPageCopy.notItems;
-
-    return {
-      metaTitle:
-        pickString(fields, ["metaTitle"]) || servicesPageCopy.metaTitle,
-      metaDescription:
-        pickString(fields, ["metaDescription"]) ||
-        servicesPageCopy.metaDescription,
-      eyebrow: pickString(fields, ["eyebrow"]) || servicesPageCopy.eyebrow,
-      heading: pickString(fields, ["heading"]) || servicesPageCopy.heading,
-      intro: pickString(fields, ["intro"]) || servicesPageCopy.intro,
-      modes: modes.length ? modes : servicesPageCopy.modes,
-      capabilitiesEyebrow:
-        pickString(fields, ["capabilitiesEyebrow"]) ||
-        servicesPageCopy.capabilitiesEyebrow,
-      capabilitiesHeading:
-        pickString(fields, ["capabilitiesHeading"]) ||
-        servicesPageCopy.capabilitiesHeading,
-      capabilities: capabilities.length
-        ? capabilities
-        : servicesPageCopy.capabilities,
-      notHeading:
-        pickString(fields, ["notHeading"]) || servicesPageCopy.notHeading,
-      notItems: notItems.length ? notItems : servicesPageCopy.notItems,
-      ctaHeading:
-        pickString(fields, ["ctaHeading"]) || servicesPageCopy.ctaHeading,
-      ctaBody: pickString(fields, ["ctaBody"]) || servicesPageCopy.ctaBody,
-      ctaLabel: pickString(fields, ["ctaLabel"]) || servicesPageCopy.ctaLabel,
-    };
+    if (!fields) return servicesPageCopy;
+    return mapServicesFields(fields);
   } catch (error) {
-    if (!isUnknownContentType(error)) {
-      console.error("Error fetching servicesPage:", error);
-    }
+    console.error("Error fetching services page:", error);
     return servicesPageCopy;
   }
 }

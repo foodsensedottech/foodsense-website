@@ -1,5 +1,6 @@
 /**
- * Canonical /services copy. Seeded to `servicesPage` + linked `conversionMenuItem`s.
+ * Canonical /services copy. Seeded to `services` or `servicesPage` + linked
+ * `conversionMenuItem`s.
  * Keep aligned with docs/brand/03-services.md.
  */
 export type ServicesCard = {

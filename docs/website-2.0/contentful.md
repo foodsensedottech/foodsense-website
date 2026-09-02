@@ -27,8 +27,8 @@ Until the types below are published, Preview uses seed files (`conversion-seed.t
 | `conversionHomepage` | Homepage + `/contact` + nav/footer chrome |
 | `conversionPillar` | Three homepage pillar cards |
 | `conversionMenuItem` | Title + body cards: homepage accordion, `/services` modes/capabilities, `/franchisees` pains/offers |
-| `servicesPage` | Singleton `/services` |
-| `franchiseeLandingPage` | Singleton `/franchisees` (+ localized `es` for `/es/franchisees`) |
+| `services` (Contentful UI) or `servicesPage` (migration `004`) | Singleton `/services` |
+| `franchiseeLandingPage` (set this ID **before** first Save; `franchisee` / `franchisees` also work) | Singleton `/franchisees` (+ localized `es` for `/es/franchisees`) |
 | `aboutUsTitleSubtitle` + `aboutUsCard` | `/about` |
 | `seoMetadata` | Keep; homepage SEO still uses hero fields |
 
@@ -168,17 +168,21 @@ Reused for homepage accordion, `/services` modes + capabilities, `/franchisees` 
 
 Do not seed `vendors` / `navPartners` / `partnersHeading`. Those fields may still exist on older entries; the site ignores them.
 
-### `servicesPage` (one entry `services-page-website-2`)
+### `services` / `servicesPage` (one entry)
 
-| Field | Type |
-| --- | --- |
-| `metaTitle` / `metaDescription` | SEO |
-| `eyebrow` / `heading` / `intro` | Hero |
-| `modes` | References → `conversionMenuItem` (Advisory / Fractional / Project) |
-| `capabilitiesEyebrow` / `capabilitiesHeading` | Section chrome |
-| `capabilities` | References → `conversionMenuItem` |
-| `notHeading` / `notItems` | Long text, one line per “what we don’t do” |
-| `ctaHeading` / `ctaBody` / `ctaLabel` | Strategy Audit CTA |
+Contentful UI names the type `services` when you call it “Services”. You cannot rename that ID later. The site queries both.
+
+| Field ID | Also accepted | Type |
+| --- | --- | --- |
+| `metaTitle` / `metaDescription` | | SEO |
+| `eyebrow` / `heading` | | Short text |
+| `intro` | | **Long text** (not Short text — the paste is >256 characters) |
+| `modes` | `engagementModes` | References → `conversionMenuItem` only |
+| `capabilitiesEyebrow` / `capabilitiesHeading` | | Section chrome |
+| `capabilities` | | References → `conversionMenuItem` only |
+| `notHeading` | `notThisHeading` | Short text |
+| `notItems` | `notThisItems` | Long text, one line per “what we don’t do” |
+| `ctaHeading` / `ctaBody` / `ctaLabel` | | Strategy Audit CTA |
 
 ### `franchiseeLandingPage` (one entry `franchisee-landing-website-2`)
 

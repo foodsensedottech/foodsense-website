@@ -150,15 +150,21 @@ Heading, subhead, response note, and submit label come from the **same** `conver
 
 ### `/services`
 
-**[Services Page](https://app.contentful.com/spaces/es87a9loayi1/entries/services-page-website-2)** · `servicesPage` · ID `services-page-website-2`
+Content type API ID is **`services`** if you created it in the UI (name “Services”). Migration `004` uses `servicesPage`. The site accepts both.
 
-Modes and capabilities are linked `conversionMenuItem`s (`services-mode-*`, `services-cap-*`).
+One entry. Suggested ID `services-page-website-2`.
+
+Modes and capabilities are linked `conversionMenuItem`s (`services-mode-*`, `services-cap-*`). Field IDs `engagementModes` / `notThisHeading` / `notThisItems` are accepted as aliases of `modes` / `notHeading` / `notItems`.
+
+**Intro must be Long text**, not Short text. You cannot switch the type in place: omit the Intro field, delete it, add a new Long text field with Field ID `intro`.
 
 ### `/franchisees`
 
-**[Franchisee Landing](https://app.contentful.com/spaces/es87a9loayi1/entries/franchisee-landing-website-2)** · `franchiseeLandingPage` · ID `franchisee-landing-website-2`
+Set the type API identifier to **`franchiseeLandingPage` before the first Save**. If Contentful already guessed `franchisees` or `franchisee`, leave it — the site accepts those too.
 
-Localize fields for `/es/franchisees`. Pains/offers are linked `conversionMenuItem`s (`franchisee-pain-*`, `franchisee-offer-*`). Question JSON: edit labels only, never option `value` keys.
+One entry. Suggested ID `franchisee-landing-website-2`.
+
+Localize fields for `/es/franchisees`. Pains/offers are linked `conversionMenuItem`s (`franchisee-pain-*`, `franchisee-offer-*`). Skip quiz JSON (`questions`, capture, results) unless you want the maturity tool copy in CMS too. Landing uses `assessmentHeading` / `assessmentIntro` / `assessmentCta`.
 
 ### Do **not** edit for the live site
 

@@ -25,14 +25,31 @@ Owner direction (Sep 2026):
 | Type | Route |
 | --- | --- |
 | `conversionHomepage` + `conversionPillar` + `conversionMenuItem` | `/`, `/contact`, header/footer |
-| `servicesPage` + linked `conversionMenuItem` | `/services` |
-| `franchiseeLandingPage` + linked `conversionMenuItem` | `/franchisees`, `/es/franchisees` |
+| `services` **or** `servicesPage` + linked `conversionMenuItem` | `/services` |
+| `franchiseeLandingPage` (or `franchisee` / `franchisees`) + linked `conversionMenuItem` | `/franchisees`, `/es/franchisees` |
 | `aboutUsTitleSubtitle` + `aboutUsCard` | `/about` |
 | `seoMetadata` | keep |
 
 **Delete when cleaning leftovers:** `conversionVendor`, `heroFields`, `franchiseePainsTitle`, `franchiseePainCard`, `franchiseeOfferCard`, blog/testimonial/faq leftovers.
 
 Helper: `node scripts/contentful/delete-unused-types.mjs` (review), then `--apply`. Keep list matches the table above.
+
+---
+
+## Creating types in the Contentful UI
+
+You **cannot** change a content type’s API identifier after the first Save. Contentful greys it out. That is not a missing menu — there is no rename.
+
+| When | What to do |
+| --- | --- |
+| **Before** first Save | Click the identifier under the type name. Type the ID the site uses (`franchiseeLandingPage`). Then Save. |
+| **After** first Save | Leave it. The site now reads `services` (the ID Contentful guessed from “Services”) as well as `servicesPage`. |
+
+Field **names** can be English. Field **IDs** should match the editing map, or the aliases below. Field **type** (Short text vs Long text) cannot be switched in place: omit/delete the field, add it again as Long text, keep the same Field ID.
+
+**Services type you already created (`services`):** do not recreate it. Next UI fix is **Intro → Long text** (the paste is longer than 256 characters). Then restrict Engagement Modes and Capabilities to **Conversion Menu Item** only.
+
+**Franchisee type (not created yet):** on the create screen, set API identifier to `franchiseeLandingPage` **before** Save. Display field: `heroHeadline`.
 
 ---
 

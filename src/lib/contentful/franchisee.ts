@@ -1,7 +1,6 @@
-import client from "@/lib/contentful/client";
 import {
   contentfulLocale,
-  isUnknownContentType,
+  fetchFirstEntryFields,
   linkedEntries,
   mapTitleBody,
   pickJson,
@@ -127,8 +126,15 @@ function mergeCopy(
   };
 }
 
+/** Set this API ID before the first Save. UI guesses (`franchisees`) also work. */
+export const FRANCHISEE_CONTENT_TYPES = [
+  "franchiseeLandingPage",
+  "franchisee",
+  "franchisees",
+] as const;
+
 /**
- * `/franchisees` from `franchiseeLandingPage`. Linked pains/offers reuse
+ * `/franchisees` from Contentful. Linked pains/offers reuse
  * `conversionMenuItem`. Locale `es` reads Contentful locale `es`.
  */
 export async function getFranchiseePage(
@@ -136,20 +142,14 @@ export async function getFranchiseePage(
 ): Promise<FranchiseeCopy> {
   const seed = structuredClone(getFranchiseeCopy(locale)) as FranchiseeCopy;
   try {
-    const response = await client.getEntries({
-      content_type: "franchiseeLandingPage",
-      limit: 1,
+    const fields = await fetchFirstEntryFields([...FRANCHISEE_CONTENT_TYPES], {
       include: 2,
       locale: contentfulLocale(locale),
-      order: ["-sys.updatedAt"],
     });
-    const item = response.items[0];
-    if (!item) return seed;
-    return mergeCopy(seed, (item.fields || {}) as Record<string, unknown>);
+    if (!fields) return seed;
+    return mergeCopy(seed, fields);
   } catch (error) {
-    if (!isUnknownContentType(error)) {
-      console.error("Error fetching franchiseeLandingPage:", error);
-    }
+    console.error("Error fetching franchisee landing page:", error);
     return seed;
   }
 }

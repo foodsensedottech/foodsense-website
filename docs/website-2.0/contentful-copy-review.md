@@ -12,7 +12,7 @@ This brief is **what words to paste**. The editing map is **which field / entry 
 | `conversionHomepage` | 1 entry `conversion-homepage-website-2` |
 | `conversionPillar` | 3 (program-lifecycle, tech-stack, ecosystem) |
 | `conversionMenuItem` | homepage accordion + `/services` + `/franchisees` cards (distinct IDs) |
-| `servicesPage` | 1 entry `services-page-website-2` |
+| `services` or `servicesPage` | 1 Services entry |
 | `franchiseeLandingPage` | 1 entry `franchisee-landing-website-2` |
 | `aboutUsTitleSubtitle` + `aboutUsCard` | 1 + 4 (About route) |
 

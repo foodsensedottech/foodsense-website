@@ -118,6 +118,19 @@ export function localeFields(en, es) {
   return fields;
 }
 
+export async function upsertEntryOnFirstType(
+  environment,
+  typeIds,
+  entryId,
+  fields
+) {
+  for (const contentType of typeIds) {
+    const entry = await upsertEntry(environment, contentType, entryId, fields);
+    if (entry) return entry;
+  }
+  return null;
+}
+
 export async function upsertEntry(environment, contentType, entryId, fields) {
   let known;
   try {
