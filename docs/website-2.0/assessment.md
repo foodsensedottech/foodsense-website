@@ -2,41 +2,64 @@
 
 **Repository:** `foodsense-website`
 **Live site:** https://www.foodsense.tech
-**Assessment date:** 27 August 2026
+**Original assessment:** 27 August 2026  
+**Last status pass:** 1 September 2026 (PR #19 merged)
 **Purpose:** Handoff document. Read this before making changes.
 
 **Canonical path:** `docs/website-2.0/assessment.md` (this file). Locked product decisions that supersede parts of the remediation sequence live in [`decisions.md`](./decisions.md).
 
-### Implementation status (post-merge, Aug 2026)
+Findings below keep the 27 Aug evidence. **Status (1 Sep 2026)** lines say what is true on the integration branch now. Do not re-open closed items from the original wording.
 
-**Merged:** PR #10 → `fixes-20250301-195504` (`1691d6b`, 31 Aug 2026).
+---
 
-**Owner priority:** Verify Preview on merged branch → Promote to Production → Phase 2 content. Track work on ClickUp **Website Redesign Tasks** ([board](https://app.clickup.com/90131064868/v/b/6-901328341052-2)).
+### Current state (1 September 2026)
 
-**Git:** Integration branch `fixes-20250301-195504`; new work branches off it — see [`git-workflow.md`](./git-workflow.md).
+| Layer | What is true |
+| --- | --- |
+| **Integration branch** | `fixes-20250301-195504` at merge `6ada7c2` — **PR #19** (Brand OS copy, conversion seed, editing map). PR #18 closed as absorbed into #19. |
+| **Production (`www.foodsense.tech`)** | Last **promoted** code was **PR #16** (`30d4241`, stop querying deleted `franchiseeOffersTitle`). Promoting Preview is a separate Vercel step. Do not Promote unless the owner asks. |
+| **Contentful `master`** | Homepage still reads published `conversionHomepage` + linked pillars/menu/vendors. Repo seed is the paste pack; the live CMS is stale until the owner **Publishes** entries and revalidates ([`revalidation.md`](../engineering/revalidation.md)). |
+| **Preview** | Vercel Preview of `fixes-20250301-195504` has PR #19 code. CMS cache is per-host; the webhook targets Production `www` only. |
+
+**Merged onto integration after Website 2.0 (PR #10):** #11 docs · #12–#14 HubSpot/build · #15 Node 24 + lazy Contentful preview · #16 franchisee type query · #17 CMS eyebrows/H2s · **#19 Brand OS copy**.
+
+**Owner priority now:**
+
+1. Paste the pack in [`contentful-copy-review.md`](./contentful-copy-review.md) → **Publish** (homepage + each pillar + each menu row).
+2. Revalidate the host you are looking at (`/api/revalidate?secret=…&path=/`). Preview ≠ Production.
+3. Verify Preview of `fixes-20250301-195504`. **Promote to Production only when asked.**
+4. Then Phase 2 content (§9.3–9.4).
+
+Track work on ClickUp **Website Redesign Tasks** ([board](https://app.clickup.com/90131064868/v/b/6-901328341052-2)).
+
+**Git:** Branch off `fixes-20250301-195504` — [`git-workflow.md`](./git-workflow.md).
 
 | Phase 0 task | Status |
 | --- | --- |
-| 0.1 Maturity Score + Band fields in ClickUp | **Deferred** — only needed if `/franchisees` is revived; not Website 2.0 |
+| 0.1 Maturity Score + Band fields in ClickUp | **Deferred** — only if `/franchisees` is revived |
 | 0.2 `clickup/client.ts` | **Done** |
-| 0.3 Drop phantom field, Project = Website, dedupe | **Done** — unified contact form (homepage + `/contact`) |
-| 0.4–0.6 Assessment → ClickUp | **Deferred** — `/franchisees` not in scope |
-| 0.7 Strip HubSpot from contact | **Done** — ClickUp-only `/api/contact` |
-| 0.8–0.10 Remove HubSpot package | **Done** — `src/lib/hubspot/` deleted; package removed; property map archived |
-| 0.11–0.14 Sitemap / nav / GSC | **Deferred** |
+| 0.3 Drop phantom field, Project = Website, dedupe | **Done** — `create-contact-lead.ts`; lookup by email |
+| 0.4–0.6 Assessment → ClickUp | **Deferred** — `/franchisees` scores locally (`captured: false`) |
+| 0.7 Strip HubSpot from contact | **Done** — PR #13, ClickUp-only `/api/contact` |
+| 0.8–0.10 Remove HubSpot package | **Done** — `src/lib/hubspot/` gone; property map archived |
+| 0.11 Sitemap consolidation | **Partial** — `postbuild` runs `next-sitemap`; `src/app/sitemap.ts` still absent (`.bak` only) |
+| 0.12 `noindex` on `/ui-showcase` | **Open** |
+| 0.13–0.14 Franchisees in nav + GSC | **Deferred** |
 | 0.15 Vercel Pro | **Owner decision** |
 
 | Phase 1 task | Status |
 | --- | --- |
 | 1.1 Create `staging` | **Done** |
 | 1.2 Fix `seoMetadata.pageId` | **Done** (master + staging) |
-| 1.3–1.6 `caseStudy` / `framework` / etc. | **Phase 2** — not Phase 1 per [`decisions.md`](./decisions.md) |
-| 1.7–1.9 Retire legacy types | **Done** — 11 types remain on master + staging |
+| 1.3–1.6 `caseStudy` / `framework` / etc. | **Phase 2** — [`decisions.md`](./decisions.md) |
+| 1.7–1.9 Retire legacy types | **Done** — 11 types on master + staging |
 | 1.10 Create `conversion*` + seed homepage | **Done** |
-| Unified contact form + ClickUp field alignment | **Done** — single form, Leads dropdowns/labels wired |
+| Editing map (what field is which section) | **Done** — [`contentful-editing-map.md`](../engineering/contentful-editing-map.md) (PR #18 absorbed by #19) |
+| Brand OS conversion copy in repo | **Done** — PR #19 seed + paste pack. **CMS publish is owner.** |
+| Unified contact form + ClickUp field alignment | **Done** |
 | Contact form UX (intl phone, compact country selector) | **Done** |
 
-**Product note:** Website 2.0 primary conversion is the **conversion homepage** with one shared contact form. The `/franchisees` maturity quiz is legacy code in the repo, not an owner-designed Website 2.0 feature ([`decisions.md`](./decisions.md)).
+**Product note:** Primary conversion is the **conversion homepage** + one shared contact form. `/franchisees` stays in the repo, not in nav ([`decisions.md`](./decisions.md)).
 
 ---
 
@@ -97,6 +120,7 @@ components. Findings that touch these are INFERRED.
 | Charts | `recharts` 2.15.1 |
 | Monitoring | `@sentry/nextjs` 9.2.0, Vercel Analytics, Speed Insights |
 | Hosting | Vercel, Hobby plan |
+| Runtime | Node 24.x (`package.json` engines; PR #15) |
 | Testing | Jest 29 + Testing Library |
 
 The stack is sound and matches the target architecture. **No rewrite is
@@ -107,6 +131,8 @@ warranted.** Everything below is debt and wiring, not architecture.
 ## 3. Findings — Critical
 
 ### 3.1 The maturity assessment captures zero leads — VERIFIED
+
+**Status (1 Sep 2026):** HubSpot path is **gone** (PR #13). `/api/assessment` still returns `captured: false` **on purpose** until `/franchisees` is wired to ClickUp. Not a Website 2.0 launch blocker. Original write-up below.
 
 **File:** `src/app/api/assessment/route.ts`
 
@@ -137,6 +163,8 @@ lead is **silently discarded**. There is no ClickUp code path in this file.
 
 ### 3.2 `@hubspot/api-client` cannot be removed yet — VERIFIED
 
+**Status (1 Sep 2026):** **Closed.** Package and `src/lib/hubspot/` removed in PR #13. Assessment route no longer imports HubSpot.
+
 `src/app/api/assessment/route.ts` imports from `@/lib/hubspot/client`. Removing
 the package or the `src/lib/hubspot/` directory before §3.1 is fixed **will
 break the build**. Order matters.
@@ -146,6 +174,8 @@ break the build**. Order matters.
 ## 4. Findings — High
 
 ### 4.1 Phantom ClickUp custom field — VERIFIED
+
+**Status (1 Sep 2026):** **Closed.** Phantom `source` ID is gone. Leads write lives in `src/lib/clickup/create-contact-lead.ts`.
 
 **File:** `src/lib/clickup/create-lead.ts`
 
@@ -171,6 +201,8 @@ validation on unknown field IDs, every submission returns a 502.
 
 ### 4.2 Lead source is not tracked at all — VERIFIED
 
+**Status (1 Sep 2026):** **Closed.** Contact create sets `Project = Website` (`CLICKUP_PROJECT_WEBSITE`).
+
 Task `86ak79n4g` came through the website form with the `Project` dropdown
 **empty**. A website lead, a LinkedIn lead, and a referral are indistinguishable
 in the pipeline.
@@ -188,6 +220,8 @@ The mechanism already exists and is unused:
 
 ### 4.3 No deduplication — "one task = one lead" is not enforced — VERIFIED
 
+**Status (1 Sep 2026):** **Closed for the contact form.** `findLeadByEmail` then comment/enrich on match (`create-contact-lead.ts`). Still **not** wired for `/franchisees`.
+
 The Leads list description states the operating rule: *"One task = one lead.
 Status is the pipeline."*
 
@@ -204,6 +238,8 @@ produce a duplicate lead, never a lost one.
 ---
 
 ### 4.4 `seoMetadata.pageId` blocks every new page — VERIFIED
+
+**Status (1 Sep 2026):** Phase 1.2 marked **Done** on master + staging (free slug). Confirm in Contentful before adding `caseStudy` pages. Original closed-enum write-up below.
 
 **Content type:** `seoMetadata`
 
@@ -230,20 +266,15 @@ Recommend option 1.
 
 ### 4.5 Three competing sitemap mechanisms — VERIFIED
 
+**Status (1 Sep 2026):** **Partial.** `package.json` now has `postbuild: next-sitemap`. `src/app/sitemap.ts` is still only a `.bak`. `public/sitemap.xml` remains. `/franchisees` still excluded. Consolidation is still Phase 0.11.
+
 | Source | State |
 |---|---|
-| `public/sitemap.xml` | Committed static file |
-| `src/app/sitemap.ts` | Active, hardcoded 7 routes |
-| `next-sitemap.config.js` | `outDir: "public"` — collides with the above |
+| `public/sitemap.xml` | Still committed |
+| `src/app/sitemap.ts` | Missing — only `sitemap.ts.bak` |
+| `next-sitemap.config.js` | Runs on `postbuild`, `outDir: "public"` |
 
-`package.json` has **no `postbuild` script**. `next-sitemap` only runs via
-`postbuild`. It has therefore never executed on a deploy. `public/sitemap.xml`
-is a stale hand-made artifact.
-
-`src/app/sitemap.ts.bak` and `src/app/robots.ts.bak` are committed, which
-suggests a prior route-vs-public-file conflict was resolved by disabling the
-dynamic versions. INFERRED — verify which file actually serves `/sitemap.xml`
-in production before changing anything.
+`package.json` now has a `postbuild` script (`next-sitemap`). The original audit said it did not; that is stale. `public/sitemap.xml` can still collide with generated output. `src/app/sitemap.ts.bak` remains committed.
 
 Additionally, `next-sitemap.config.js` explicitly excludes `/franchisees` and
 `/es/franchisees` — the maturity assessment pages.
@@ -255,6 +286,8 @@ self-register. Same treatment for `public/robots.txt` vs `src/app/robots.ts`.
 ---
 
 ### 4.6 The maturity assessment is built but unreachable — VERIFIED (existence) / INFERRED (completeness)
+
+**Status (1 Sep 2026):** Still true, and **intentional**. Not in nav. Not Website 2.0 primary CTA. Do not surface until the owner asks.
 
 These exist:
 
@@ -288,6 +321,8 @@ dimensions returning `{ score, band, isMultiUnit, breakdown }`.
 ## 5. Findings — Medium
 
 ### 5.1 Contentful model bloat — VERIFIED
+
+**Status (1 Sep 2026):** **Superseded for Website 2.0.** Lean model is live: **11 types** on `master` + `staging`, including `conversionHomepage`, `conversionPillar`, `conversionMenuItem`, `conversionVendor`. Do not grow the old 25-type franchisee homepage. Original 27 Aug count below.
 
 **25 content types, 136 fields, 0 localized fields, 0 RichText fields,
 0 Array fields.**
@@ -487,23 +522,32 @@ non-branded, problem-led content targeting the pain points in
 
 ### 6.4 Brand documentation contradicts the live site — VERIFIED
 
-| Topic | Brand docs | Live site |
+**Status (1 Sep 2026):** **Mostly closed in repo.** Brand OS PDFs 01–12 are ingested under `docs/brand/`. Site framing is locked: **10+ units**, three modes (Advisory / Fractional / Project), ClickUp-only. Named in-role proof (KFC, RBI, REEF) is **principal history**, not FoodSense-the-firm logos.
+
+Still open:
+
+- Production **CMS strings** can still be the old “Enterprise Architecture” homepage until the owner pastes [`contentful-copy-review.md`](./contentful-copy-review.md) and Publishes.
+- Stock / Unsplash hero (§9.4).
+- Incomplete PDFs 06, 09–12 — do not invent case studies or rates.
+
+**27 Aug snapshot (historical):**
+
+| Topic | Brand docs then | Live site then |
 |---|---|---|
 | Client size | 20–500 units; under 10 is "Not Right Now" | 10+ units; invites 3+ with a 5–7 year growth pipeline |
-| Engagement models | Five (Advisory Retainer, Project-Based, Embedded/Fractional CTO, Workshops & Assessments, Referral) | Three (Advisory, Fractional work, Project management) |
-| Market count | "10+ markets" | "36 countries" |
-| Photography | "Never: stock photos" | Homepage hero is an Unsplash file |
+| Engagement models | Five commercial shapes | Three (Advisory, Fractional, Project) |
+| Market count | "10+ markets" | "36 countries" (in-role proof, not firm logos) |
+| Photography | "Never: stock photos" | Homepage hero is stock |
 
-The live site's version is generally tighter. **The docs should be updated to
-match the site**, not the reverse — otherwise all future copy drifts back toward
-the stale framing.
+The **repo** now matches the live Website 2.0 locks (10+ units, three modes). Do not drift copy back to 20–500 or five commercial SKUs. PDF Hell Yes of 20–500 stays a sales note, not homepage copy.
 
-The hero image is a direct violation of `docs/brand/06-brand-guidelines.md` and the
-most visible brand inconsistency on the page.
+The hero image is still a stock/Unsplash file — a direct violation of `docs/brand/06-brand-guidelines.md` and the most visible remaining brand inconsistency.
 
 ---
 
 ### 6.5 Missing content types for planned work — VERIFIED
+
+**Status (1 Sep 2026):** Conversion homepage types exist. Vendors are `conversionVendor` (names/logos), not a partnership claim. Still missing for Phase 2: `caseStudy`, `framework`, owned RichText articles. Free tier room remains; do not invent types mid-task.
 
 Nothing in the model supports: case studies, frameworks, proof metrics,
 partners, or owned long-form articles.
@@ -518,7 +562,7 @@ Phases are ordered by dependency, not by value. **Do not reorder.**
 
 ### Phase 0 — Data integrity
 
-Ships first because §3.1 is losing leads every day it stands.
+Ships first because §3.1 was losing HubSpot-era leads. **HubSpot is gone.** Remaining Phase 0 is sitemap / ui-showcase / GSC / Vercel plan — not CRM.
 
 | # | Task | Depends on |
 |---|---|---|
@@ -538,7 +582,7 @@ Ships first because §3.1 is losing leads every day it stands.
 | 0.14 | Request indexing in Google Search Console | 0.11 |
 | 0.15 | Move Vercel Hobby → Pro | — |
 
-**0.8 must not precede 0.6.** See §3.2.
+**0.8–0.10 are done.** Do not re-add HubSpot. 0.4–0.6 stay deferred with `/franchisees`.
 
 **Acceptance:** submit the contact form twice with one email → one task, one
 comment. Complete the assessment → task appears with score and band.
@@ -567,7 +611,7 @@ in the web UI. Retire in two steps: rename to `DEPRECATED_*`, confirm the build
 is clean and nothing references it, delete a week later. A deleted field takes
 its data with it.
 
-**Website 2.0 note:** Phase 1 also includes creating the four `conversion*` types for the Strategy Audit homepage — see [`contentful.md`](./contentful.md).
+**Website 2.0 note:** Four `conversion*` types + seed + editing map are **done**. Copy changes stay on those types — [`contentful.md`](./contentful.md), [`contentful-editing-map.md`](../engineering/contentful-editing-map.md).
 
 ---
 
@@ -638,20 +682,20 @@ email            b950a0d8-08de-41ad-beb1-f4c5197cbba3   (required)
 phone            8efc4847-ebc0-4d9c-a1b9-7fbfe387399f
 company          2117e392-e716-4fa3-95b4-9b6c4c1ef77a
 brands           ca2b5438-e0f7-4965-86e7-805f9c066be5
-locations        c0844048-4fc4-4b56-9c3f-e660627c8fd0
-restaurantType   1fd7a4e1-a561-4bc3-b4ea-fb264154ac0c
-posSystem        fd69d7a3-158f-4baa-8e2e-b5930e7933f6
-whatsBreaking    3c093ec2-8abf-4f6f-8ed6-b7a749d28d41
+locations        f4c1099e-1ad3-49a9-ad48-4ae2a99f8afe   (env override CLICKUP_FIELD_LOCATIONS)
+restaurantType   35c3b88c-51a3-4400-a749-dce2d2f55160
+posSystem        6fd69de1-c6ca-4a6a-ab8a-ceeb2b06243b
+serviceInterests 5a0d0fa1-107d-4f41-83de-6c7b127c1fd8   (labels: POS, kiosk, loyalty, delivery, data, vendor)
 growthPipeline   777f440f-fe21-41ac-98d4-afa3760b8b87
 project          b8734eca-e728-415d-9e9a-096baf15e4d1
   └─ Website     f52ad055-0eee-4d74-a389-6d15e4aa3ee8
-
-DOES NOT EXIST   f429cf6f-58b1-4cb3-8eb8-e30b80711711   ← remove from code
 ```
 
-Code mirror: `src/lib/clickup/constants.ts`. Wiring guide: [`engineering/clickup.md`](../engineering/clickup.md).
+Phantom ID `f429cf6f-58b1-4cb3-8eb8-e30b80711711` is **removed from code**.
 
-Verification task: `86ak79n4g` (test lead, safe to delete).
+Code mirror: `src/lib/clickup/constants.ts`. Wiring: [`engineering/clickup.md`](../engineering/clickup.md), [`engineering/clickup-field-alignment.md`](../engineering/clickup-field-alignment.md).
+
+Owner: rename ClickUp **Services Interested in** option labels to match the form (UUIDs stay). See copy-review ClickUp list.
 
 ### 8.2 Google Calendar booking — known limitation
 
@@ -670,8 +714,12 @@ Consequences:
 
 ### 8.3 Contentful
 
-Space `es87a9loayi1` · Environment `master` · Locales `en-US` (default), `es`
-25 content types · 136 fields · 0 localized · 0 RichText · 0 Array
+Space `es87a9loayi1` · Environment `master` (Preview usually `master` too) · Locales `en-US` (default), `es`  
+**11 types** on master + staging after Phase 1 retire. Conversion homepage: `conversionHomepage` + 3 pillars + menu items + 8 vendors. Spanish fields still not localized.
+
+Editing map: [`engineering/contentful-editing-map.md`](../engineering/contentful-editing-map.md).  
+Paste pack: [`contentful-copy-review.md`](./contentful-copy-review.md).  
+Revalidate: [`engineering/revalidation.md`](../engineering/revalidation.md) — webhook hits `www.foodsense.tech` only; Preview needs its own `/api/revalidate`.
 
 Free tier: 48 content types, 25k records, 2 locales, 5 users.
 
@@ -690,7 +738,7 @@ Central American Market — Kiosk Program, Zero to Live."*
 
 **9.4 — Photography.** **Phase 2.** Interim: diagrammatic navy/yellow art; typographic heroes. Locked aspect-ratio slots in Contentful for later swap-in.
 
-**9.5 — Which brand docs get updated** to match the live site (§6.4).
+**9.5 — Brand docs vs live copy.** **Done in repo (PR #19).** Brand OS ingested; Website 2.0 locks documented. Remaining owner work: paste CMS pack, replace stock hero (§9.4), fill incomplete PDFs 06 / 09–12.
 
 **9.6 — Anonymization standard.** All client references are anonymized.
 Convention: descriptor + scale + market — e.g. *"Caribbean QSR Franchisee ·
@@ -714,16 +762,15 @@ technical specificity, and operational depth.
 
 ## 10. Summary
 
-The architecture is correct and the build is competent. What exists is roughly a
-year of accumulated debt plus wiring gaps on routes that are **not** the current
-Website 2.0 priority.
+The architecture is correct. Website 2.0 conversion homepage + ClickUp + lean Contentful are on the integration branch.
 
-**Owner priority (Aug 2026):** Website 2.0 merged to `fixes-20250301-195504`. Verify Preview → Promote to Production → Phase 2 content. Phase 1 Contentful is **complete** (11 types on master + staging).
+**Owner priority (1 Sep 2026):** PR #19 is **merged** to `fixes-20250301-195504`. Production code is still last-promoted **PR #16** until Vercel Promote. CMS words follow **Publish + revalidate**, not the git merge.
 
-Highest-value work aligned to that priority:
+Highest-value work now:
 
-1. **Preview verify + Production promote** — CMS homepage + unified contact form → ClickUp on Vercel.
-2. **Phase 2** — kiosk case study content (§9.3), photography approach (§9.4), wire `seoMetadata` to routes.
-3. **Later** — `/franchisees` maturity quiz ClickUp wiring (only if that route is surfaced again).
+1. **Paste and Publish** conversion homepage + pillars + menu in Contentful `master`. Revalidate the URL you have open.
+2. **Verify Preview** of `fixes-20250301-195504`. Promote to Production only when asked.
+3. **Phase 2** — kiosk case study (§9.3), photography (§9.4).
+4. **Later** — `/franchisees` ClickUp wiring; sitemap/`noindex` debt (0.11–0.12).
 
-The hidden `/franchisees` quiz scores locally only (`captured: false`) until ClickUp wiring; that is documented debt, not a blocker for Website 2.0 launch on the conversion homepage + lean CMS.
+The hidden quiz still scores only (`captured: false`). That is documented debt, not a blocker for the conversion homepage.

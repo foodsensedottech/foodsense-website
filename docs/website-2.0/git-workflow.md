@@ -2,6 +2,8 @@
 
 **Integration branch:** `fixes-20250301-195504`  
 **Website 2.0 merge:** PR #10 squash-merged 31 Aug 2026 → commit `1691d6b`  
+**Copy / Brand OS:** PR #19 merged 1 Sep 2026 → commit `6ada7c2` (PR #18 closed; editing map lives on this branch)  
+**Production:** Last promoted code was PR #16 (`30d4241`). Preview of this branch ≠ Production.  
 **Preview / Production:** Vercel deploys from the integration branch (and PR previews for feature branches)
 
 Do not develop on `website-ia-refresh`, `main`, or archived feature branches unless explicitly reviving old work.
