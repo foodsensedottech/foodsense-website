@@ -95,9 +95,9 @@ Live About is already Brand OS:
 
 Tighten page chrome only (empty “Our Team”, “Ready to Optimize Your Restaurant?”).
 
-### `/services` — not Contentful, still indexed
+### `/services`
 
-Hardcoded SaaS leftovers: Menu Optimization, Cost Management, Analytics Dashboard, Inventory Management, Staff Optimization, Consulting. That is the **old independent-restaurant product**, the opposite of PDF 01 “who we aren’t.” This page is rewritten in code from PDF 05.
+Paste pack is in this file (below) and in `src/lib/content/services-page.ts`. Until a Services entry is **published**, Preview still shows that seed. Do not reuse the old SaaS leftovers (Menu Optimization, Cost Management, etc.).
 
 ### `/contact`
 
@@ -180,6 +180,55 @@ Optional same-type rows (link on homepage `menuItems`; seed creates these IDs):
 | `conversion-menu-data` | Reporting Operators and Digital Leads Can Share | We define the numbers the franchisee, ops, and head of digital will use at period close, so markets are not reconciling three dashboards after every cycle. |
 
 Do not seed vendor names.
+
+### Services (`services` type — one entry)
+
+Canonical words: [`src/lib/content/services-page.ts`](../../src/lib/content/services-page.ts). Brand source: [`docs/brand/03-services.md`](../brand/03-services.md).
+
+Create **new** Conversion Menu Item entries for the three modes and eight capabilities. Do not reuse the homepage accordion items on this entry.
+
+| Your field (Contentful UI) | Paste |
+| --- | --- |
+| Meta Title | Services |
+| Meta Description | Advisory, fractional work, and project management for POS, kiosk, delivery, loyalty, and data — for 10+ unit QSR and franchise operators. |
+| Eyebrow | How we engage |
+| Heading | Advisory, Fractional, Project. |
+| Intro (must be **Long text**) | FoodSense is a focused consultancy at the gap between restaurant technology and restaurant operations. We work with multi-unit, multi-brand franchisees in the US, LATAM, and the Caribbean — operators, ops, technology, and heads of digital channels. We guide the teams you already have. We do not become extra FTE, and we do not sell a platform. Advisory, then Fractional or Project. Test, prove, scale. |
+| Capabilities Eyebrow | Capabilities |
+| Capabilities Heading | What those modes cover |
+| Not This Heading (`notThisHeading`) | What we don't do |
+| Not This Items (`notThisItems`, one line each) | Software product development — we architect and guide; we do not ship a platform |
+| | Brand or marketing strategy |
+| | Single-unit independents |
+| | Hardware procurement |
+| | Help desk / managed services |
+| | Strategy decks with no execution path |
+| CTA Heading | Book a Strategy Audit |
+| CTA Body | Operators, ops, technology, heads of digital. Tell us where the vendor roadmap and the stores have stopped lining up. |
+| CTA Label | Book a Strategy Audit |
+
+**Engagement Modes** — three Conversion Menu Items (Title / Body):
+
+| Title | Body |
+| --- | --- |
+| Advisory | For the decision-maker at 10+ units who needs the gap named and a sequence for what to standardize. We name what is fractured and guide the teams that already exist. |
+| Fractional work | Embedded leadership cadence without another FTE. Roadmap ownership, vendor relationships, and decision support beside the operator's clock. |
+| Project management | Bounded initiatives with a clear start and end — RFP, cutover, kiosk program, migration. Scoped deliverables and milestones. |
+
+**Capabilities** — eight Conversion Menu Items:
+
+| Title | Body |
+| --- | --- |
+| POS Migration for Multi-Unit Operations | We sequence vendor selection, market pilots, and overnight cutover so the new POS lands while kitchens keep ticket times and stores stay open. |
+| Kiosk Programs Your Store Team Can Run | We connect kiosk, POS, and kitchen display, then stay with local IT through activation so a rush of digital tickets does not stall the prep line. |
+| Loyalty the Store and the App Can Both Run | We connect offers, POS, and the cashier playbook before you scale loyalty across brands and markets. |
+| Delivery Volume the Kitchen Can Fulfill | Marketplace and first-party orders hit the same line. We set what each store can take, then hold vendors and the promo calendar to that limit. |
+| Kitchen Management and IoT | Kitchen display, production, and sensors for cook time and food safety where they earn their place in the store. |
+| Reporting Operators and Digital Leads Can Share | We define the numbers the franchisee, ops, and head of digital will use at period close, so markets are not reconciling three dashboards after every cycle. |
+| Digital Strategy and Roadmapping | Multi-year technology roadmaps tied to store growth and channel mix, with a sequence the existing team can run. |
+| Vendor Accountability Across Every Store | We run the RFP, debug live setups, and keep brand leads and regional vendors on a schedule. You stop funding software that never made it past the pilot. |
+
+Publish the menu items, then the Services entry. Check Preview `/services`.
 
 ### About (already Brand OS)
 
