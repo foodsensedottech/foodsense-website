@@ -85,8 +85,8 @@ Linked pillars and menu items are edited as **separate entries**. Leave `vendors
 | Hero brand chip | `heroBrandLabel` | ICP chip (“Multi-unit · Multi-brand franchisees”). Logo already says FoodSense. |
 | Authority H2 | `authorityHeading` | Section SEO phrase |
 | Authority eyebrow | `authorityEyebrow` | Short label, not the main keyword dump |
-| Pillars H2 | `pillarsHeading` | e.g. services / “what we do” variants |
-| Menu H2 | `menuHeading` | Secondary services cluster |
+| Pillars H2 | `pillarsHeading` | How we work — not a capability list |
+| Menu H2 | `menuHeading` | Programs a multi-unit group has to get right |
 | Contact H2 | `contactHeading` | CTA language (“Strategy Audit”, etc.) |
 | Footer | `footerTagline` | Same line as the homepage H1 is fine |
 

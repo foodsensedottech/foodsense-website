@@ -38,6 +38,26 @@ This pass writes the conversion homepage as a **story for four rooms** — opera
 
 CTA stays **Book a Strategy Audit**. Field IDs and entry IDs do not change.
 
+### Pillars vs Menu (write copy against this)
+
+These are not two names for the same list. They sit in order after Authority:
+
+| | **Pillars** (nav: What We Do) | **Menu** (nav: Services, on this page) |
+| --- | --- | --- |
+| Job | How FoodSense shows up in the gap | What program you might hire us to run |
+| Count | **Exactly three** cards | **Four to six** accordion rows |
+| Reader question | “Why you, in my markets / my kitchen / my IT bench?” | “Do you do POS / kiosk / delivery / vendors / loyalty / reporting?” |
+| Title | One operating idea. Not a product name. | A program a 10+ unit group already has on the calendar |
+| Body | How we work, who we sit with, what stays true across jobs | What happens in the stores if this program is the one |
+
+**Pillars** are the three ways we operate. Keep these three IDs: kitchen-throughput rollouts, lean local IT, regional & franchise ecosystem (English and Spanish). Do not add a fourth. Do not turn them into POS / kiosk / loyalty — that is the menu.
+
+**Menu** is the capability accordion. POS, kiosk, delivery, vendor accountability, plus optional loyalty and reporting. Titles a GM or head of digital would recognize. Body = store outcome, not a vendor list.
+
+**Not here:** Advisory / Fractional / Project. Those are how you **buy**. They live on `/services`, not in Pillars or Menu.
+
+Do not reuse `/services` Conversion Menu Items on the homepage accordion. Distinct entries.
+
 ---
 
 ## What I understood from the 12 PDFs
