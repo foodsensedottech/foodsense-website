@@ -34,7 +34,7 @@ Almost all homepage copy lives on **one** entry. Open this first:
 **[Conversion Homepage — Website 2.0](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-homepage-website-2)**  
 Type: `conversionHomepage` · ID: `conversion-homepage-website-2`
 
-Linked pillars and menu items are edited as **separate entries**. The vendor logo cloud is retired.
+Linked pillars and menu items are edited as **separate entries**. Leave `vendors` / `partnersHeading` / `navPartners` empty. The site ignores them. Footer fields (`footerTagline`, `footerGeo`, `footerEmail`, `linkedInUrl`, `instagramUrl`) are optional — add them on the type only if you want CMS-owned footer; Preview already seeds those lines.
 
 ---
 

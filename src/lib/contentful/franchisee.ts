@@ -1,6 +1,6 @@
+import { fetchFirstEntryFields } from "@/lib/contentful/fetch-entry";
 import {
   contentfulLocale,
-  fetchFirstEntryFields,
   linkedEntries,
   mapTitleBody,
   pickJson,

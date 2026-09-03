@@ -118,7 +118,11 @@ Generic “Fill out the form… as soon as possible.” Plus form labels **Optio
 
 ## Contentful paste pack (master)
 
-Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-homepage-website-2)** — same entry as the editing map. Field IDs below match migrations `002`/`003`. Deep links: [`contentful-editing-map.md`](../engineering/contentful-editing-map.md).
+Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-homepage-website-2)**. Field IDs below match the live `conversionHomepage` type (JSON 3 Sep 2026). Do **not** paste into `vendors`, `navPartners`, `partnersEyebrow`, or `partnersHeading` — the site ignores those leftover fields.
+
+`heroHeading` is Short text (256 characters). The H1 below fits.
+
+Footer fields (`footerTagline`, `footerGeo`, `footerEmail`, `linkedInUrl`, `instagramUrl`) are **not on this type yet**. Skip them. Preview uses seed for footer until you add those five Short text fields (same Field IDs).
 
 ### conversionHomepage (`conversion-homepage-website-2`)
 
@@ -150,7 +154,8 @@ Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9l
 | `navPillars` | What We Do |
 | `navMenu` | Services |
 | `navContact` | Contact |
-| `footerTagline` | We bridge restaurant technology and restaurant operations. |
+
+Do not paste `footerTagline` until that field exists on the type. Seed already shows the same line in the footer on Preview.
 
 ### conversionPillar (keep these three IDs)
 

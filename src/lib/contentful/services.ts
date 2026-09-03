@@ -1,5 +1,5 @@
+import { fetchFirstEntryFields } from "@/lib/contentful/fetch-entry";
 import {
-  fetchFirstEntryFields,
   firstLinkedCards,
   linesFromText,
   mapTitleBody,
