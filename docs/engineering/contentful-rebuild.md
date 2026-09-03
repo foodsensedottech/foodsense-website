@@ -5,7 +5,7 @@ Backup is **already done**. Do **not** wipe `master` until migration `004` is on
 Owner direction (Sep 2026):
 
 1. **Vendor-agnostic** — no logo cloud, no “Trusted Integration Partners,” no `conversionVendor` on the live site.
-2. **No hardcoded marketing copy** — `/`, `/about`, `/services`, `/franchisees`, `/contact`, and footer chrome come from Contentful. Seeds are unpublished-CMS fallback only.
+2. **No hardcoded marketing copy** — `/`, `/about`, `/services`, `/contact`, and footer chrome come from Contentful. Seeds are unpublished-CMS fallback only.
 3. **No bloat** — do not recreate the old 25-type model or the vendor row.
 
 ---
@@ -26,7 +26,7 @@ Owner direction (Sep 2026):
 | --- | --- |
 | `conversionHomepage` + `conversionPillar` + `conversionMenuItem` | `/`, `/contact`, header/footer |
 | `services` **or** `servicesPage` + linked `conversionMenuItem` | `/services` |
-| `franchiseeLandingPage` (or `franchisee` / `franchisees`) + linked `conversionMenuItem` | `/franchisees`, `/es/franchisees` |
+| `franchiseeLandingPage` | Unused — `/franchisees` redirects home. Quiz is off the site. |
 | `aboutUsTitleSubtitle` + `aboutUsCard` | `/about` |
 | `seoMetadata` | keep |
 
@@ -49,7 +49,7 @@ Field **names** can be English. Field **IDs** should match the editing map, or t
 
 **Services type you already created (`services`):** do not recreate it. Next UI fix is **Intro → Long text** (the paste is longer than 256 characters). Then restrict Engagement Modes and Capabilities to **Conversion Menu Item** only.
 
-**Franchisee type (not created yet):** on the create screen, set API identifier to `franchiseeLandingPage` **before** Save. Display field: `heroHeadline`.
+**Franchisee type:** you already created `franchiseeLandingPage`. Leave it empty. Quiz is off the site; `/franchisees` redirects home.
 
 ---
 

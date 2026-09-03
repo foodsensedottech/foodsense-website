@@ -16,10 +16,10 @@ Guidance for Cursor agents working on the FoodSense website.
 ## Product direction (Website 2.0)
 
 - Primary conversion path: **conversion homepage** with unified contact form (homepage + `/contact`)
-- `/franchisees` landing copy is CMS-owned; the maturity **quiz** is not the primary CTA
+- Live IA: who we are, what we do, how we engage, services, contact. **No franchisee maturity quiz on the website.** `/franchisees` and `/es/franchisees` redirect home.
 - Preview deployments first; **do not Promote to Production** unless the user explicitly asks
-- Lean Contentful — every live marketing route is a CMS type; seeds are fallback only. Do not recreate the vendor logo cloud.
-- Spanish paused except `/es/franchisees` (localized `franchiseeLandingPage`)
+- Lean Contentful — conversion routes (`/`, `/about`, `/services`, `/contact`, chrome) are CMS. Seeds are fallback only. Do not recreate the vendor logo cloud.
+- Spanish paused
 - Brand docs follow **live site framing** (10+ units; Advisory / Fractional / Project)
 
 ## CRM

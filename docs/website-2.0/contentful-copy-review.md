@@ -11,14 +11,13 @@ This brief is **what words to paste**. The editing map is **which field / entry 
 | --- | --- |
 | `conversionHomepage` | 1 entry `conversion-homepage-website-2` |
 | `conversionPillar` | 3 (program-lifecycle, tech-stack, ecosystem) |
-| `conversionMenuItem` | homepage accordion + `/services` + `/franchisees` cards (distinct IDs) |
+| `conversionMenuItem` | homepage accordion + `/services` cards (distinct IDs) |
 | `services` or `servicesPage` | 1 Services entry |
-| `franchiseeLandingPage` | 1 entry `franchisee-landing-website-2` |
 | `aboutUsTitleSubtitle` + `aboutUsCard` | 1 + 4 (About route) |
 
 **Vendor logo cloud is retired.** Do not paste `conversionVendor` / `partnersHeading` / `navPartners`. Brand OS is vendor-agnostic (no resale, no commissions, no partnership claim).
 
-Footer tagline is a `conversionHomepage` field (`footerTagline`). Form labels stay in code. `/services` and `/franchisees` are CMS.
+Footer tagline is a `conversionHomepage` field (`footerTagline`). Form labels stay in code. `/services` is CMS. `/franchisees` is not a live route.
 
 Seed copy in the repo is updated to match. **Production Contentful still holds the live strings below until you paste the pack (or run `npm run contentful:seed` against `master` with `CONTENTFUL_MANAGEMENT_TOKEN`).** Do not seed from this agent — owner pastes.
 
@@ -230,77 +229,9 @@ Create **new** Conversion Menu Item entries for the three modes and eight capabi
 
 Publish the menu items, then the Services entry. Check Preview `/services`.
 
-### Franchisee landing (`franchiseeLandingPage`)
+### Franchisee landing — do not use on the live site
 
-**Create the type first.** Content model → Add content type.
-
-1. Name: `Franchisee Landing Page`
-2. **Before Save:** API identifier must be `franchiseeLandingPage` (click it and type that). After Save it cannot change.
-3. Display field: Hero Headline (`heroHeadline`)
-4. Add only the fields below. Skip quiz JSON, capture, and results — seed covers those.
-5. For each field: set **Field ID** to the ID column. Names can be English. Long text where noted.
-6. Pain Cards and Offer Cards: Array of references, accept **Conversion Menu Item** only.
-7. Save the content type.
-
-| Field name | Field ID | Type |
-| --- | --- | --- |
-| Meta Title | `metaTitle` | Short text |
-| Meta Description | `metaDescription` | Long text |
-| Hero Eyebrow | `heroEyebrow` | Short text |
-| Hero Headline | `heroHeadline` | Long text |
-| Hero Subheadline | `heroSubheadline` | Long text |
-| Hero Primary CTA | `heroPrimaryCta` | Short text |
-| Hero Secondary CTA | `heroSecondaryCta` | Short text |
-| Trust Metric | `trustMetric` | Long text |
-| Pains Heading | `painsHeading` (also `painHeading`) | Short text |
-| Pains Intro | `painsIntro` (also `painIntro`) | Long text |
-| Pain Cards | `pains` | **References, many** → Conversion Menu Item |
-| Offers Heading | `offersHeading` | Short text |
-| Offers Intro | `offersIntro` | Long text |
-| Offer Cards | `offers` | **References, many** → Conversion Menu Item |
-| Assessment Heading | `assessmentHeading` | Short text |
-| Assessment Intro | `assessmentIntro` | Long text |
-| Assessment CTA | `assessmentCta` | Short text |
-
-Canonical words: [`src/lib/franchisees/copy.ts`](../../src/lib/franchisees/copy.ts) (`en`). Spanish later.
-
-**Landing entry paste (English):**
-
-| Field | Paste |
-| --- | --- |
-| Meta Title | Restaurant Tech for Multi-Unit Franchisees |
-| Meta Description | Next-gen restaurant technology for multi-unit franchisees across the US, Latin America, and the Caribbean. POS, kiosk, payments, and data governance at scale. |
-| Hero Eyebrow | US · Latin America · Caribbean |
-| Hero Headline | Next-Gen Restaurant Tech for Multi-Unit Franchisees. |
-| Hero Subheadline | We turn global enterprise strategy into scalable store-level architecture across POS, kiosk, payments, and data governance. |
-| Hero Primary CTA | Get your Tech Maturity Score |
-| Hero Secondary CTA | Talk to our team |
-| Trust Metric | Scaled technology across 2,200+ restaurants and 39 markets in US & LAC |
-| Pains Heading | What breaks when you scale past 10 units |
-| Pains Intro | Multi-unit operators need predictable execution, labor efficiency, third-party margin protection, and uniform visibility across stores. |
-| Offers Heading | Packaged systems, not general consulting |
-| Offers Intro | Repeatable, enterprise-tested offerings built for franchisee groups running 10+ units. |
-| Assessment Heading | 2-minute Technology Maturity Score |
-| Assessment Intro | Tell us your store count and stack. We’ll score fragmentation, delivery margin control, and payment governance — then route you to the right next step. |
-| Assessment CTA | Start assessment |
-
-**Pain cards** — three new Conversion Menu Items:
-
-| Title | Body |
-| --- | --- |
-| Fragmented tech stacks | Three POS versions or mismatched KDS/KMS across 15 locations. Every store becomes a one-off, and enterprise playbooks never land. |
-| Margin loss | Un-optimized third-party delivery fees and promo spend quietly erase the profit you thought the extra volume would create. |
-| Vendor lock-in & rogue tooling | Store GMs deploy non-compliant apps or unapproved payment processors. Corporate loses control of data, fees, and risk. |
-
-**Offer cards** — three new Conversion Menu Items:
-
-| Title | Body |
-| --- | --- |
-| Franchisee Tech Maturity Assessment | A structured scorecard of tech adoption, readiness, and ROI across your locations — using the same discipline as enterprise (Yum!) playbooks. |
-| POS & Kiosk Migration Management | Risk-controlled platform transitions, BOH integration (Restaurant365, accounting), and store training so cutover does not stall operations. |
-| Payment Lifecycle & Wallet Architecture | Lower processing fees via RTP/FedNow rails and tighten card/POS payment workflows so every unit runs the same approved stack. |
-
-Publish the six cards, then the landing entry. Check Preview `/franchisees`. Do not add this page to the main nav.
+The maturity quiz and `/franchisees` are **off the conversion website**. Those URLs redirect to `/`. Do **not** paste assessment copy. Do not fill `assessmentHeading` / `assessmentIntro` / `assessmentCta`. The `franchiseeLandingPage` type can stay empty in Contentful.
 
 ### About (already Brand OS)
 

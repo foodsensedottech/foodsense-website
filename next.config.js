@@ -60,6 +60,21 @@ const nextConfig = {
   experimental: {
     // optimizePackageImports: ['lucide-react'],
   },
+
+  async redirects() {
+    return [
+      {
+        source: "/franchisees",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/es/franchisees",
+        destination: "/",
+        permanent: true,
+      },
+    ];
+  },
 }
 
 module.exports = nextConfig; 

@@ -28,7 +28,7 @@ We guide existing teams. We do **not** move as the trench crew. Engagements ofte
 - **Data & analytics** — Reporting frameworks, KPI definition, cross-market reconciliation.
 - **Digital strategy & roadmapping** — Multi-year tech roadmaps, channel strategy, prioritization.
 - **Vendor governance & assessment** — Risk assessments, RFP management, performance management.
-- **Franchise technology maturity assessment** — Benchmarking digital readiness and phased investment plans (site path: `/franchisees`, after Strategy Audit is primary).
+- **Franchise technology maturity assessment** — internal scoping tool only. **Not on the website.** `/franchisees` redirects home.
 
 ## Network
 

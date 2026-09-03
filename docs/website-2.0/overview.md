@@ -10,7 +10,7 @@ Locked decisions: [`decisions.md`](./decisions.md).
 
 ## Primary conversion
 
-**Unified contact form** on homepage (`#contact-section`) and `/contact` → ClickUp Leads. Homepage section copy may still say “Book a Strategy Audit”; it is the same form. The `/franchisees` maturity tool stays for a later phase (not the primary CTA). The **landing copy** on `/franchisees` is CMS-owned.
+**Unified contact form** on homepage (`#contact-section`) and `/contact` → ClickUp Leads. Primary CTA: **Book a Strategy Audit**. The franchisee maturity quiz is **off the site**; `/franchisees` redirects home.
 
 ## Page structure
 

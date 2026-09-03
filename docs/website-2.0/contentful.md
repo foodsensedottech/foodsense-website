@@ -2,7 +2,7 @@
 
 **Goal:** Marketing copy for every live route lives in Contentful. Not a 25-type sprawl. Not a vendor logo cloud.
 
-**Current priority (Sep 2026):** Homepage, `/about`, `/services`, `/franchisees`, `/contact`, and header/footer chrome are CMS-owned. Migration `004-cms-pages.js` adds `servicesPage` + `franchiseeLandingPage` + footer fields. Seed: `npm run contentful:seed`.
+**Current priority (Sep 2026):** Homepage, `/about`, `/services`, `/contact`, and header/footer chrome are CMS-owned. `/franchisees` redirects home (quiz off the site).
 
 Owner decisions: [`decisions.md`](./decisions.md). Brand/copy: `docs/brand/`. Page IA: [`overview.md`](./overview.md).
 
@@ -26,9 +26,8 @@ Until the types below are published, Preview uses seed files (`conversion-seed.t
 | --- | --- |
 | `conversionHomepage` | Homepage + `/contact` + nav/footer chrome |
 | `conversionPillar` | Three homepage pillar cards |
-| `conversionMenuItem` | Title + body cards: homepage accordion, `/services` modes/capabilities, `/franchisees` pains/offers |
+| `conversionMenuItem` | Title + body cards: homepage accordion, `/services` modes/capabilities |
 | `services` (Contentful UI) or `servicesPage` (migration `004`) | Singleton `/services` |
-| `franchiseeLandingPage` (set this ID **before** first Save; `franchisee` / `franchisees` also work) | Singleton `/franchisees` (+ localized `es` for `/es/franchisees`) |
 | `aboutUsTitleSubtitle` + `aboutUsCard` | `/about` |
 | `seoMetadata` | Keep; homepage SEO still uses hero fields |
 
@@ -58,7 +57,6 @@ Do **not** invent types mid-task. Prefer seed until a type is on this list.
 | Copy | Why |
 | --- | --- |
 | Contact form labels, placeholders, ClickUp option UUIDs | CRM field parity — [`clickup-field-alignment.md`](../engineering/clickup-field-alignment.md) |
-| Assessment scoring keys (`1-9`, `one`, `standard`, …) | `src/lib/franchisees/score.ts` — labels are CMS; values are logic |
 | Legal pages | `/privacy-policy`, `/terms-and-conditions`, `/accessibility` |
 
 ---
@@ -135,7 +133,7 @@ Phases match [`assessment.md`](./assessment.md); Contentful work is **Phase 1** 
 | `title` | Short text (localized) |
 | `body` | Long text (localized) |
 
-Reused for homepage accordion, `/services` modes + capabilities, `/franchisees` pains + offers. Distinct entry IDs; do not mix them on the wrong page.
+Reused for homepage accordion and `/services` modes + capabilities. Distinct entry IDs; do not mix them on the wrong page.
 
 ### `conversionHomepage` (one entry)
 
@@ -184,9 +182,9 @@ Contentful UI names the type `services` when you call it “Services”. You can
 | `notItems` | `notThisItems` | Long text, one line per “what we don’t do” |
 | `ctaHeading` / `ctaBody` / `ctaLabel` | | Strategy Audit CTA |
 
-### `franchiseeLandingPage` (one entry `franchisee-landing-website-2`)
+### `franchiseeLandingPage`
 
-Localized `en-US` + `es`. Linked `pains` / `offers` are `conversionMenuItem`. `questions` is JSON — **do not change option `value` keys**.
+Exists in the space from the CMS pass. **Unused on the live site.** `/franchisees` redirects home. Do not paste quiz copy.
 
 ---
 

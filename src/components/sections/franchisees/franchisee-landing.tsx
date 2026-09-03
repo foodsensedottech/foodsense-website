@@ -1,7 +1,6 @@
 import { BaseLayout } from "@/components/layout";
 import { FranchiseePainsSection } from "@/components/sections/franchisees/pains-section";
 import { FranchiseeOffersSection } from "@/components/sections/franchisees/offers-section";
-import { FranchiseeMaturityCta } from "@/components/sections/franchisees/maturity-cta";
 import { getFranchiseePage } from "@/lib/contentful/franchisee";
 import type { FranchiseeCopy, FranchiseeLocale } from "@/lib/franchisees/copy";
 import Link from "next/link";
@@ -64,11 +63,6 @@ export async function FranchiseeLanding({ locale }: FranchiseeLandingProps) {
           heading={copy.offersHeading}
           intro={copy.offersIntro}
           cards={copy.offers}
-        />
-        <FranchiseeMaturityCta
-          heading={copy.assessmentHeading}
-          intro={copy.assessmentIntro}
-          ctaLabel={copy.heroPrimaryCta}
         />
       </article>
     </BaseLayout>

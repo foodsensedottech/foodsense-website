@@ -13,7 +13,7 @@ export const franchiseeCopy = {
     heroHeadline: "Next-Gen Restaurant Tech for Multi-Unit Franchisees.",
     heroSubheadline:
       "We turn global enterprise strategy into scalable store-level architecture across POS, kiosk, payments, and data governance.",
-    heroPrimaryCta: "Get your Tech Maturity Score",
+    heroPrimaryCta: "Book a Strategy Audit",
     heroSecondaryCta: "Talk to our team",
     trustMetric:
       "Scaled technology across 2,200+ restaurants and 39 markets in US & LAC",
@@ -39,8 +39,8 @@ export const franchiseeCopy = {
       "Repeatable, enterprise-tested offerings built for franchisee groups running 10+ units.",
     offers: [
       {
-        title: "Franchisee Tech Maturity Assessment",
-        body: "A structured scorecard of tech adoption, readiness, and ROI across your locations — using the same discipline as enterprise (Yum!) playbooks.",
+        title: "Strategy Audit for 10+ unit groups",
+        body: "We name what is fractured across POS, kiosk, delivery, and data, then sequence what to standardize. Advisory first. Then Fractional or Project.",
       },
       {
         title: "POS & Kiosk Migration Management",
@@ -143,7 +143,7 @@ export const franchiseeCopy = {
       "Tecnología restaurantera de nueva generación para franquiciatarios multi-unidad.",
     heroSubheadline:
       "Convertimos la estrategia empresarial global en arquitectura escalable a nivel de tienda: POS, kiosco, pagos y gobierno de datos.",
-    heroPrimaryCta: "Obtén tu puntaje de madurez tecnológica",
+    heroPrimaryCta: "Reservar una auditoría de estrategia",
     heroSecondaryCta: "Habla con el equipo",
     trustMetric:
       "Tecnología escalada en más de 2,200 restaurantes y 39 mercados en EE.UU. y LAC",
@@ -169,8 +169,8 @@ export const franchiseeCopy = {
       "Ofertas repetibles, probadas a nivel enterprise, para grupos franquiciatarios de 10+ unidades.",
     offers: [
       {
-        title: "Evaluación de madurez tecnológica del franquiciatario",
-        body: "Un scorecard estructurado de adopción, preparación y ROI en tus sucursales, con la misma disciplina de playbooks enterprise (Yum!).",
+        title: "Auditoría de estrategia para grupos de 10+ unidades",
+        body: "Nombramos lo que está fragmentado en POS, kiosco, delivery y datos, y secuenciamos qué estandarizar. Primero Advisory. Luego Fractional o Project.",
       },
       {
         title: "Gestión de migración de POS y kiosco",

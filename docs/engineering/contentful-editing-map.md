@@ -160,11 +160,7 @@ Modes and capabilities are linked `conversionMenuItem`s (`services-mode-*`, `ser
 
 ### `/franchisees`
 
-Set the type API identifier to **`franchiseeLandingPage` before the first Save**. If Contentful already guessed `franchisees` or `franchisee`, leave it — the site accepts those too.
-
-One entry. Suggested ID `franchisee-landing-website-2`.
-
-Localize fields for `/es/franchisees`. Pains/offers are linked `conversionMenuItem`s (`franchisee-pain-*`, `franchisee-offer-*`). Skip quiz JSON (`questions`, capture, results) unless you want the maturity tool copy in CMS too. Landing uses `assessmentHeading` / `assessmentIntro` / `assessmentCta`.
+**Not a live conversion route.** Redirects to `/`. Do not paste assessment copy. `franchiseeLandingPage` can stay unused.
 
 ### Do **not** edit for the live site
 
@@ -181,7 +177,6 @@ Localize fields for `/es/franchisees`. Pains/offers are linked `conversionMenuIt
 | Copy | Where |
 | --- | --- |
 | Contact form labels, placeholders, dropdown options | `src/components/sections/contact/` + `src/lib/constants/form-fields.ts` + ClickUp option UUIDs |
-| Assessment scoring keys | `src/lib/franchisees/score.ts` |
 | Legal pages | `/privacy-policy`, `/terms-and-conditions`, `/accessibility` |
 
 ---
