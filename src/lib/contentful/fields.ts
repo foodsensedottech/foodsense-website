@@ -56,8 +56,8 @@ export function assetAlt(field: unknown, fallback: string): string {
 }
 
 export function linkedEntries(field: unknown): Record<string, unknown>[] {
-  if (!Array.isArray(field)) return [];
-  return field
+  const items = Array.isArray(field) ? field : field ? [field] : [];
+  return items
     .map((item) => {
       if (!item || typeof item !== "object") return null;
       const fields = (item as { fields?: Record<string, unknown> }).fields;

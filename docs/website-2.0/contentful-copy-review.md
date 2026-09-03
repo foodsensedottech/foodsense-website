@@ -252,12 +252,12 @@ Publish the menu items, then the Services entry. Check Preview `/services`.
 | Hero Primary CTA | `heroPrimaryCta` | Short text |
 | Hero Secondary CTA | `heroSecondaryCta` | Short text |
 | Trust Metric | `trustMetric` | Long text |
-| Pains Heading | `painHeading` | Short text |
-| Pains Intro | `painIntro` | Long text |
-| Pain Cards | `pains` | References → Conversion Menu Item |
+| Pains Heading | `painsHeading` (also `painHeading`) | Short text |
+| Pains Intro | `painsIntro` (also `painIntro`) | Long text |
+| Pain Cards | `pains` | **References, many** → Conversion Menu Item |
 | Offers Heading | `offersHeading` | Short text |
 | Offers Intro | `offersIntro` | Long text |
-| Offer Cards | `offers` | References → Conversion Menu Item |
+| Offer Cards | `offers` | **References, many** → Conversion Menu Item |
 | Assessment Heading | `assessmentHeading` | Short text |
 | Assessment Intro | `assessmentIntro` | Long text |
 | Assessment CTA | `assessmentCta` | Short text |
