@@ -16,10 +16,10 @@ Guidance for Cursor agents working on the FoodSense website.
 ## Product direction (Website 2.0)
 
 - Primary conversion path: **conversion homepage** with unified contact form (homepage + `/contact`)
-- `/franchisees` maturity tool: keep for later; do not make it the primary CTA yet
+- Live IA: who we are, what we do, how we engage, services, contact. **No franchisee maturity quiz on the website.** `/franchisees` and `/es/franchisees` redirect home.
 - Preview deployments first; **do not Promote to Production** unless the user explicitly asks
-- Lean Contentful only — prefer seed content over inventing new CMS types mid-task
-- Spanish paused until fields are intentionally localized
+- Lean Contentful — conversion routes (`/`, `/about`, `/services`, `/contact`, chrome) are CMS. Seeds are fallback only. Do not recreate the vendor logo cloud.
+- Spanish paused
 - Brand docs follow **live site framing** (10+ units; Advisory / Fractional / Project)
 
 ## CRM
@@ -35,6 +35,7 @@ Guidance for Cursor agents working on the FoodSense website.
 - Contentful revalidation: `docs/engineering/revalidation.md`
 - Contentful Phase 1 runbook: `docs/engineering/contentful-phase1.md`
 - Contentful editing map (section → field → entry links): `docs/engineering/contentful-editing-map.md`
+- Contentful rebuild (wipe leftovers, vendor row retired): `docs/engineering/contentful-rebuild.md`
 - ClickUp CRM: `docs/engineering/clickup.md`
 
 ## Docs hygiene

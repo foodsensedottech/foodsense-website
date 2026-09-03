@@ -1,7 +1,7 @@
 import { getConversionHomepage } from "@/lib/contentful/conversion";
 import type { SiteChrome } from "@/lib/contentful/types";
 
-/** Map lean conversion chrome onto the shared SiteChrome shape used by header/footer. */
+/** Map conversion chrome onto the shared SiteChrome shape used by header/footer. */
 export async function getSiteChrome(): Promise<SiteChrome | null> {
   try {
     const page = await getConversionHomepage();
@@ -10,13 +10,12 @@ export async function getSiteChrome(): Promise<SiteChrome | null> {
       navAbout: page.chrome.navAuthority,
       navOfferings: page.chrome.navPillars,
       navServices: page.chrome.navMenu,
-      navPains: page.chrome.navPartners,
       navContact: page.chrome.navContact,
       footerTagline: page.chrome.footerTagline,
-      footerGeo: "Latin America · Caribbean · United States",
-      footerEmail: "fabio@foodsense.tech",
-      linkedInUrl: "https://www.linkedin.com/company/foodsensedottech/",
-      instagramUrl: "https://www.instagram.com/foodsense.tech/",
+      footerGeo: page.chrome.footerGeo,
+      footerEmail: page.chrome.footerEmail,
+      linkedInUrl: page.chrome.linkedInUrl,
+      instagramUrl: page.chrome.instagramUrl,
     };
   } catch {
     return null;

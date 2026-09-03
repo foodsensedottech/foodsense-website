@@ -36,12 +36,31 @@ function pathsForContentType(contentType: string | undefined): string[] {
   const paths = new Set<string>(["/"]);
 
   switch (contentType) {
+    case "conversionHomepage":
+    case "conversionPillar":
+      paths.add("/contact");
+      break;
+    case "conversionMenuItem":
+      paths.add("/contact");
+      paths.add("/services");
+      paths.add("/franchisees");
+      paths.add("/es/franchisees");
+      break;
+    case "aboutUsTitleSubtitle":
+    case "aboutUsCard":
+      paths.add("/about");
+      break;
+    case "franchiseeLandingPage":
+    case "franchisee":
+    case "franchisees":
     case "franchiseePainsTitle":
     case "franchiseePainCard":
     case "franchiseeOfferCard":
       paths.add("/franchisees");
       paths.add("/es/franchisees");
       break;
+    case "services":
+    case "servicesPage":
     case "servicesCard":
     case "servicesTitleAndSubtitle":
     case "serviceOption":

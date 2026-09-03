@@ -9,11 +9,6 @@ export type ConversionMenuItem = {
   body: string;
 };
 
-export type ConversionVendor = {
-  name: string;
-  logoUrl?: string;
-};
-
 export type ConversionSectionChrome = {
   eyebrow?: string;
   heading: string;
@@ -43,8 +38,6 @@ export type ConversionHomepage = {
   pillars: ConversionPillar[];
   menuSection: ConversionSectionChrome;
   menuItems: ConversionMenuItem[];
-  partnersSection: ConversionSectionChrome;
-  vendors: ConversionVendor[];
   contact: {
     heading: string;
     subheading: string;
@@ -56,9 +49,12 @@ export type ConversionHomepage = {
     navAuthority: string;
     navPillars: string;
     navMenu: string;
-    navPartners: string;
     navContact: string;
     footerTagline: string;
+    footerGeo: string;
+    footerEmail: string;
+    linkedInUrl: string;
+    instagramUrl: string;
   };
 };
 
@@ -72,10 +68,13 @@ export const conversionSeed: ConversionHomepage = {
     navAuthority: "About",
     navPillars: "What We Do",
     navMenu: "Services",
-    navPartners: "Vendors",
     navContact: "Contact",
     footerTagline:
       "We bridge restaurant technology and restaurant operations.",
+    footerGeo: "Latin America · Caribbean · United States",
+    footerEmail: "fabio@foodsense.tech",
+    linkedInUrl: "https://www.linkedin.com/company/foodsensedottech/",
+    instagramUrl: "https://www.instagram.com/foodsense.tech/",
   },
   hero: {
     brandLabel: "Multi-unit · Multi-brand franchisees",
@@ -147,20 +146,6 @@ export const conversionSeed: ConversionHomepage = {
       title: "Reporting Operators and Digital Leads Can Share",
       body: "We define the numbers the franchisee, ops, and head of digital will use at period close, so markets are not reconciling three dashboards after every cycle.",
     },
-  ],
-  partnersSection: {
-    eyebrow: "The stack",
-    heading: "Vendors we have run in the field",
-  },
-  vendors: [
-    { name: "Oracle" },
-    { name: "NCR" },
-    { name: "Toast" },
-    { name: "Deliverect" },
-    { name: "Tillster" },
-    { name: "GRUBBRR" },
-    { name: "HME" },
-    { name: "Restaurant365" },
   ],
   contact: {
     heading: "Tell us where the gap is.",

@@ -5,7 +5,7 @@ export type SiteNavItem = {
   href: string;
 };
 
-/** Conversion homepage nav built from chrome labels. */
+/** Conversion homepage nav built from chrome labels. No vendor/partners item. */
 export function buildSiteNav(chrome: SiteChrome | null | undefined): SiteNavItem[] {
   return [
     {
@@ -19,10 +19,6 @@ export function buildSiteNav(chrome: SiteChrome | null | undefined): SiteNavItem
     {
       label: chrome?.navServices || "Services",
       href: "#menu-section",
-    },
-    {
-      label: chrome?.navPains || "Partners",
-      href: "#partners-section",
     },
     {
       label: chrome?.navContact || "Contact",

@@ -15,16 +15,6 @@ const nextConfig = {
   // Disable middleware
   skipTrailingSlashRedirect: true,
 
-  async redirects() {
-    return [
-      {
-        source: "/franchisees",
-        destination: "/",
-        permanent: false,
-      },
-    ];
-  },
-  
   images: {
     remotePatterns: [
       {
@@ -69,6 +59,21 @@ const nextConfig = {
   // Disable experimental features for more stability
   experimental: {
     // optimizePackageImports: ['lucide-react'],
+  },
+
+  async redirects() {
+    return [
+      {
+        source: "/franchisees",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/es/franchisees",
+        destination: "/",
+        permanent: true,
+      },
+    ];
   },
 }
 

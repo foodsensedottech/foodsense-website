@@ -6,7 +6,7 @@ Contentful’s editor **is** the CMS. This page is the navigation map: homepage 
 
 Space: `es87a9loayi1` · Environment: **`master`** (Production + most Preview)
 
-Same structure as [PR #18](https://github.com/foodsensedottech/foodsense-website/pull/18). **Words** live in [`conversion-seed.ts`](../../src/lib/content/conversion-seed.ts) and the paste pack in [`contentful-copy-review.md`](../website-2.0/contentful-copy-review.md). Do not add content types for copy changes.
+Same structure as [PR #18](https://github.com/foodsensedottech/foodsense-website/pull/18), plus migration `004` for `/services`, `/franchisees`, and footer fields. **Words** live in seed files and the paste pack in [`contentful-copy-review.md`](../website-2.0/contentful-copy-review.md). Rebuild notes: [`contentful-rebuild.md`](./contentful-rebuild.md).
 
 ---
 
@@ -34,7 +34,7 @@ Almost all homepage copy lives on **one** entry. Open this first:
 **[Conversion Homepage — Website 2.0](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-homepage-website-2)**  
 Type: `conversionHomepage` · ID: `conversion-homepage-website-2`
 
-Linked pillars / menu / vendors are edited as **separate entries** (linked from this page). Use the reference fields or the deep links below.
+Linked pillars and menu items are edited as **separate entries**. Leave `vendors` / `partnersHeading` / `navPartners` empty. The site ignores them. Footer fields (`footerTagline`, `footerGeo`, `footerEmail`, `linkedInUrl`, `instagramUrl`) are optional — add them on the type only if you want CMS-owned footer; Preview already seeds those lines.
 
 ---
 
@@ -43,8 +43,8 @@ Linked pillars / menu / vendors are edited as **separate entries** (linked from 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │  NAV + HEADER CTA                                               │
-│  chromeCtaLabel, navAuthority, navPillars, navMenu,             │
-│  navPartners, navContact                                        │
+│  chromeCtaLabel, navAuthority, navPillars, navMenu, navContact  │
+│  footerTagline, footerGeo, footerEmail, linkedInUrl, instagramUrl │
 ├─────────────────────────────────────────────────────────────────┤
 │  HERO                                                           │
 │  heroBrandLabel  → small label above H1 (ICP chip: multi-unit / multi-brand)   │
@@ -66,11 +66,6 @@ Linked pillars / menu / vendors are edited as **separate entries** (linked from 
 │  menuEyebrow / menuHeading                                      │
 │  menuItems → conversionMenuItem (title, body)                   │
 ├─────────────────────────────────────────────────────────────────┤
-│  PARTNERS / VENDORS                                             │
-│  partnersEyebrow / partnersHeading   ← field IDs stay these     │
-│  vendors → conversionVendor (name, optional logo)               │
-│  (Brand OS copy: “Vendors we have run in the field”)              │
-├─────────────────────────────────────────────────────────────────┤
 │  CONTACT                                                        │
 │  contactHeading / contactSubheading / contactResponseNote       │
 │  contactCtaLabel  (submit button)                               │
@@ -90,10 +85,10 @@ Linked pillars / menu / vendors are edited as **separate entries** (linked from 
 | Hero brand chip | `heroBrandLabel` | ICP chip (“Multi-unit · Multi-brand franchisees”). Logo already says FoodSense. |
 | Authority H2 | `authorityHeading` | Section SEO phrase |
 | Authority eyebrow | `authorityEyebrow` | Short label, not the main keyword dump |
-| Pillars H2 | `pillarsHeading` | e.g. services / “what we do” variants |
-| Menu H2 | `menuHeading` | Secondary services cluster |
-| Partners H2 | `partnersHeading` | Integration / vendor-landscape phrases (field ID stays `partnersHeading`) |
+| Pillars H2 | `pillarsHeading` | How we work — not a capability list |
+| Menu H2 | `menuHeading` | Programs a multi-unit group has to get right |
 | Contact H2 | `contactHeading` | CTA language (“Strategy Audit”, etc.) |
+| Footer | `footerTagline` | Same line as the homepage H1 is fine |
 
 Eyebrows and H2s are optional Symbols on the homepage entry — edit them anytime after migration `003`.
 
@@ -133,26 +128,11 @@ Optional extra rows (same type — **no migration**). Seed will create + link th
 
 Fields: `title`, `body`
 
-To add a row: create a `conversionMenuItem`, then link it on the homepage `menuItems` field (order = display order). Kitchen, roadmapping, and maturity stay on `/services` (code), not new types.
-
-### Partners (`conversionVendor`)
-
-| Entry ID | Open |
-| --- | --- |
-| `conversion-vendor-oracle` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-vendor-oracle) |
-| `conversion-vendor-ncr` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-vendor-ncr) |
-| `conversion-vendor-toast` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-vendor-toast) |
-| `conversion-vendor-deliverect` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-vendor-deliverect) |
-| `conversion-vendor-tillster` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-vendor-tillster) |
-| `conversion-vendor-grubbrr` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-vendor-grubbrr) |
-| `conversion-vendor-hme` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-vendor-hme) |
-| `conversion-vendor-r365` | [Edit](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-vendor-r365) |
-
-Fields: `name`, `logo` (optional)
+To add a homepage accordion row: create a `conversionMenuItem`, then link it on the homepage `menuItems` field (order = display order).
 
 ---
 
-## Other routes still on CMS
+## Other routes
 
 ### `/about`
 
@@ -164,22 +144,31 @@ Fields: `name`, `logo` (optional)
 | Card | `aboutUsCard` | [ut5Pk0Znki7QJRqqZAU7d](https://app.contentful.com/spaces/es87a9loayi1/entries/ut5Pk0Znki7QJRqqZAU7d) |
 | Card | `aboutUsCard` | [8KX0fVS0xR93B3Alft7Ib](https://app.contentful.com/spaces/es87a9loayi1/entries/8KX0fVS0xR93B3Alft7Ib) |
 
-`/about` reads those five entries. Empty “Our Story” / “Our Team” chrome was removed from `src/app/about/page.tsx`.
-
 ### `/contact`
 
-Heading, subhead, response note, and submit label come from the **same** `conversionHomepage` contact fields as the homepage form (`getConversionHomepage()`). Form labels are still code (below).
+Heading, subhead, response note, and submit label come from the **same** `conversionHomepage` contact fields as the homepage form. Form labels are still code (below).
 
-### `/franchisees` (deferred)
+### `/services`
 
-Uses leftover franchisee types + static copy fallbacks. Not the primary conversion path — see [`decisions.md`](../website-2.0/decisions.md).
+Content type API ID is **`services`** if you created it in the UI (name “Services”). Migration `004` uses `servicesPage`. The site accepts both.
 
-### Do **not** edit for the live homepage
+One entry. Suggested ID `services-page-website-2`.
+
+Modes and capabilities are linked `conversionMenuItem`s (`services-mode-*`, `services-cap-*`). Field IDs `engagementModes` / `notThisHeading` / `notThisItems` are accepted as aliases of `modes` / `notHeading` / `notItems`.
+
+**Intro must be Long text**, not Short text. You cannot switch the type in place: omit the Intro field, delete it, add a new Long text field with Field ID `intro`.
+
+### `/franchisees`
+
+**Not a live conversion route.** Redirects to `/`. Do not paste assessment copy. `franchiseeLandingPage` can stay unused.
+
+### Do **not** edit for the live site
 
 | Type | Why |
 | --- | --- |
-| `heroFields` | Legacy franchisee-era hero — conversion homepage uses `conversionHomepage` |
-| Old `seoMetadata` home title | Homepage `<title>` / OG come from conversion hero fields |
+| `conversionVendor` | Retired — vendor-agnostic, no logo cloud |
+| `heroFields` | Retired — franchisee hero is on `franchiseeLandingPage` |
+| Old franchisee pain/offer types | Folded into `franchiseeLandingPage` |
 
 ---
 
@@ -188,23 +177,22 @@ Uses leftover franchisee types + static copy fallbacks. Not the primary conversi
 | Copy | Where |
 | --- | --- |
 | Contact form labels, placeholders, dropdown options | `src/components/sections/contact/` + `src/lib/constants/form-fields.ts` + ClickUp option UUIDs |
-| Footer tagline / geo / email / socials | `src/lib/contentful/site-chrome.ts` + seed `chrome.footerTagline` — **no CMS field** |
-| `/services` page (engagement modes + full capabilities) | `src/lib/content/services-page.ts` — do not add a `servicesCard` type |
+| Legal pages | `/privacy-policy`, `/terms-and-conditions`, `/accessibility` |
 
 ---
 
 ## Reseed from repo (optional)
 
-Canonical seed: `src/lib/content/conversion-seed.ts`  
-Publish to Contentful:
+Publish homepage, services, franchisees, about, and footer chrome:
 
 ```bash
+CONTENTFUL_ENVIRONMENT=master npm run contentful:migrate:master
 CONTENTFUL_ENVIRONMENT=master npm run contentful:seed
 ```
 
 Requires `CONTENTFUL_MANAGEMENT_TOKEN`. Prefer editing in Contentful for day-to-day SEO tweaks; reseed when you want repo → CMS sync.
 
-Seed writes **only** fields that already exist on `conversionHomepage` / linked types (migrations `002` + `003`). It does not create types.
+Migration `004` creates `servicesPage`, `franchiseeLandingPage`, and footer fields. Seed skips unknown fields if `004` has not been applied yet.
 
 ---
 

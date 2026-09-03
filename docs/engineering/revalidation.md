@@ -43,8 +43,12 @@ The endpoint returns `500 Revalidation is not configured` if this variable is mi
      Use the same value as `CONTENTFUL_REVALIDATION_SECRET` in Vercel.
 
    - Triggers: Create, Save, Publish, Unpublish, and Delete for Entries
-   - Content types (Website 2.0 lean model): `conversionHomepage`, `conversionPillar`, `conversionMenuItem`, `conversionVendor`, `aboutUsTitleSubtitle`, `aboutUsCard`, `heroFields`, `franchiseePainsTitle`, `franchiseePainCard`, `franchiseeOfferCard`, `seoMetadata`
-   - Include Entry Body: Yes (used to pick extra paths such as `/about`)
+   - Content types (Website 2.0 lean model): `conversionHomepage`, `conversionPillar`, `conversionMenuItem`, `aboutUsTitleSubtitle`, `aboutUsCard`, `services` (UI) / `servicesPage`, `franchiseeLandingPage` (or `franchisee` / `franchisees`), `seoMetadata`. Old leftovers (`conversionVendor`, `heroFields`, `servicesCard`, franchisee card types) can stay on the webhook until deleted.
+   - Include Entry Body: Yes (used to pick extra paths such as `/about` and `/services`)
+
+The webhook URL above hits **Production**. Preview of this PR will not update from that webhook. After a Contentful Publish, either wait up to an hour (ISR) or open:
+
+`https://<this-preview-host>/api/revalidate?secret=YOUR_SECRET&path=/services`
 
 If the payload has no content type, the API still revalidates `/`.
 

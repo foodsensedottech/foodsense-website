@@ -59,6 +59,8 @@ Migrations live in `contentful/migrations/`. **Never hand-edit field IDs in the 
 ## Troubleshooting
 
 - **`Missing CONTENTFUL_MANAGEMENT_TOKEN`** — add CMA token (see above).
-- **`usageExceeded` / cannot create ContentType** — the space had **25 content types** (free-tier cap). Phase 1 retired unused types; **11 remain** on master + staging. If you hit the cap again, see [`contentful.md`](../website-2.0/contentful.md) retire list.
-- **Migration already applied** — safe to re-run `001`; `002` fails if types exist (run seed only).
+- **`usageExceeded` / cannot create ContentType** — the space had **25 content types** (free-tier cap). Review leftovers with `node scripts/contentful/delete-unused-types.mjs` (vendor / `heroFields` / old franchisee cards are now REMOVE).
+- **Migration already applied** — safe to re-run `001`; later migrations fail if types/fields exist (run seed only).
 - **Staging not ready** — wait and retry; large spaces can take several minutes to fork.
+
+**Website 2.0 pages (Sep 2026):** after Phase 1, apply migration `004-cms-pages.js` (`npm run contentful:migrate:master`) then `npm run contentful:seed`. See [`contentful-rebuild.md`](./contentful-rebuild.md).

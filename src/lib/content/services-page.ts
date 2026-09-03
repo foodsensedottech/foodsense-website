@@ -1,8 +1,34 @@
 /**
- * /services page copy — Brand OS capabilities + three live engagement modes.
- * Not a CMS type yet (lean model). Keep aligned with docs/brand/03-services.md.
+ * Canonical /services copy. Seeded to `services` or `servicesPage` + linked
+ * `conversionMenuItem`s.
+ * Keep aligned with docs/brand/03-services.md.
  */
-export const servicesPageCopy = {
+export type ServicesCard = {
+  title: string;
+  body: string;
+};
+
+export type ServicesPageCopy = {
+  metaTitle: string;
+  metaDescription: string;
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  modes: ServicesCard[];
+  capabilitiesEyebrow: string;
+  capabilitiesHeading: string;
+  capabilities: ServicesCard[];
+  notHeading: string;
+  notItems: string[];
+  ctaHeading: string;
+  ctaBody: string;
+  ctaLabel: string;
+};
+
+export const servicesPageCopy: ServicesPageCopy = {
+  metaTitle: "Services",
+  metaDescription:
+    "Advisory, fractional work, and project management for POS, kiosk, delivery, loyalty, and data — for 10+ unit QSR and franchise operators.",
   eyebrow: "How we engage",
   heading: "Advisory, Fractional, Project.",
   intro:
@@ -70,4 +96,4 @@ export const servicesPageCopy = {
   ctaBody:
     "Operators, ops, technology, heads of digital. Tell us where the vendor roadmap and the stores have stopped lining up.",
   ctaLabel: "Book a Strategy Audit",
-} as const;
+};

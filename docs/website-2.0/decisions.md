@@ -14,30 +14,26 @@ Recorded 27 August 2026. Updated 31 August 2026 after PR #10 merge. Agents and h
 
 **Task tracking:** ClickUp **Website Redesign Tasks** board — [open board](https://app.clickup.com/90131064868/v/b/6-901328341052-2).
 
-**Not now:** `/franchisees` maturity quiz, Maturity Score/Band ClickUp fields, sitemap/nav debt.
+**Not now:** franchisee maturity quiz (off the site), Maturity Score/Band ClickUp fields, sitemap/nav debt.
 
 ## CRM
 
-- **ClickUp is the permanent destination for all website forms** (unified contact form on homepage + `/contact`; maturity quiz deferred).
+- **ClickUp is the permanent destination for all website forms** (unified contact form on homepage + `/contact`).
 - HubSpot has been removed from the codebase (ClickUp-only).
 - Operating rule: one ClickUp task = one lead; enrich / comment on match, never lose a lead on lookup failure.
 - Set `Project = Website` on create. Field parity guide: [`engineering/clickup-field-alignment.md`](../engineering/clickup-field-alignment.md).
 
 ## Conversion path
 
-- **Primary now:** Website 2.0 conversion homepage — one shared contact form (`ContactForm`) on `#contact-section` and `/contact` → `POST /api/contact` → ClickUp. Homepage section copy may still say “Book a Strategy Audit”; underlying form is the same.
-- **Later:** `/franchisees` — see [Maturity quiz (deferred)](#maturity-quiz-deferred) below. Keep code; do not prioritize nav, sitemap, or ClickUp wiring until Phase 2 is underway.
+- **Primary now:** Website 2.0 conversion homepage — one shared contact form (`ContactForm`) on `#contact-section` and `/contact` → `POST /api/contact` → ClickUp. CTA: **Book a Strategy Audit**.
+- **Off the site:** franchisee maturity quiz / Tech Maturity Score. `/franchisees` and `/es/franchisees` redirect to `/`. Do not put them in the main nav.
 - Do not run two competing primary CTAs on the homepage.
 
-## Maturity quiz (deferred)
+## Maturity quiz (off the website)
 
-**You did not design this for Website 2.0.** It is **existing repo code** on `/franchisees`:
+Owner lock (Sep 2026): **do not ship the franchisee assessment.** It is leftover from the prior franchisee-era site. `/franchisees` redirects home. `/api/assessment` returns 410. Do not add Maturity Score/Band ClickUp fields. Do not paste assessment copy into Contentful for the live site.
 
-- Six-question “Franchisee Tech Maturity Assessment” (locations, region, POS, KDS, delivery, payments)
-- `scoreAssessment()` in `src/lib/franchisees/score.ts` returns a numeric **score** (roughly 0–100) and a **band**: `optimized` (≥80), `scaling` (≥55), or `fragmented`
-- Hero CTA on that page: “Get your Tech Maturity Score”
-
-The maturity quiz still **scores only** (`captured: false`) until wired to ClickUp. That is **not** on the Website 2.0 critical path. When we revisit `/franchisees`, add optional ClickUp fields **Maturity Score** (number) and **Maturity Band** (dropdown: optimized / scaling / fragmented) — no owner action needed until then.
+`franchiseeLandingPage` may exist in the space from the CMS pass; it is unused until the owner asks for a conversion landing with **no quiz**.
 
 ## Content & proof
 
@@ -57,4 +53,7 @@ The maturity quiz still **scores only** (`captured: false`) until wired to Click
 
 - Lean the model for Website 2.0 — see [`contentful.md`](./contentful.md).
 - Do not grow the old 25-type franchisee homepage model.
-- Spanish localization remains paused until fields are intentionally localized.
+- **Marketing copy is CMS-owned** (`/`, `/about`, `/services`, `/contact`, footer). Seeds are fallback only.
+- **Vendor-agnostic:** no logo cloud, no `conversionVendor` on the live site, no partnership claim.
+- Spanish localization remains paused.
+- `/franchisees` is not a live conversion route.

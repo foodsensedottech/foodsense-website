@@ -5,17 +5,19 @@
 
 **CMS structure (do not fork):** the Phase 1 lean model from migrations `002` + `003`, documented in [PR #18](https://github.com/foodsensedottech/foodsense-website/pull/18) and [`docs/engineering/contentful-editing-map.md`](../engineering/contentful-editing-map.md).
 
-This brief is **what words to paste**. The editing map is **which field / entry ID**. Copy changes stay on existing types:
+This brief is **what words to paste**. The editing map is **which field / entry ID**. Copy changes stay on existing types **plus** migration `004` (`servicesPage`, `franchiseeLandingPage`, footer fields).
 
 | Type | Count we keep |
 | --- | --- |
 | `conversionHomepage` | 1 entry `conversion-homepage-website-2` |
 | `conversionPillar` | 3 (program-lifecycle, tech-stack, ecosystem) |
-| `conversionMenuItem` | 4 existing + optional 2 of the **same type** (loyalty, data) |
-| `conversionVendor` | 8 (Oracle … Restaurant365) |
+| `conversionMenuItem` | homepage accordion + `/services` cards (distinct IDs) |
+| `services` or `servicesPage` | 1 Services entry |
 | `aboutUsTitleSubtitle` + `aboutUsCard` | 1 + 4 (About route) |
 
-No new content types. No new `conversionHomepage` fields. Footer tagline, form labels, and `/services` stay in code (as PR #18 listed).
+**Vendor logo cloud is retired.** Do not paste `conversionVendor` / `partnersHeading` / `navPartners`. Brand OS is vendor-agnostic (no resale, no commissions, no partnership claim).
+
+Footer tagline is a `conversionHomepage` field (`footerTagline`). Form labels stay in code. `/services` is CMS. `/franchisees` is not a live route.
 
 Seed copy in the repo is updated to match. **Production Contentful still holds the live strings below until you paste the pack (or run `npm run contentful:seed` against `master` with `CONTENTFUL_MANAGEMENT_TOKEN`).** Do not seed from this agent — owner pastes.
 
@@ -35,6 +37,26 @@ This pass writes the conversion homepage as a **story for four rooms** — opera
 - **Menu:** decision-maker titles, no em-dash punchlines. Same four IDs plus optional loyalty and reporting rows.
 
 CTA stays **Book a Strategy Audit**. Field IDs and entry IDs do not change.
+
+### Pillars vs Menu (write copy against this)
+
+These are not two names for the same list. They sit in order after Authority:
+
+| | **Pillars** (nav: What We Do) | **Menu** (nav: Services, on this page) |
+| --- | --- | --- |
+| Job | How FoodSense shows up in the gap | What program you might hire us to run |
+| Count | **Exactly three** cards | **Four to six** accordion rows |
+| Reader question | “Why you, in my markets / my kitchen / my IT bench?” | “Do you do POS / kiosk / delivery / vendors / loyalty / reporting?” |
+| Title | One operating idea. Not a product name. | A program a 10+ unit group already has on the calendar |
+| Body | How we work, who we sit with, what stays true across jobs | What happens in the stores if this program is the one |
+
+**Pillars** are the three ways we operate. Keep these three IDs: kitchen-throughput rollouts, lean local IT, regional & franchise ecosystem (English and Spanish). Do not add a fourth. Do not turn them into POS / kiosk / loyalty — that is the menu.
+
+**Menu** is the capability accordion. POS, kiosk, delivery, vendor accountability, plus optional loyalty and reporting. Titles a GM or head of digital would recognize. Body = store outcome, not a vendor list.
+
+**Not here:** Advisory / Fractional / Project. Those are how you **buy**. They live on `/services`, not in Pillars or Menu.
+
+Do not reuse `/services` Conversion Menu Items on the homepage accordion. Distinct entries.
 
 ---
 
@@ -92,9 +114,9 @@ Live About is already Brand OS:
 
 Tighten page chrome only (empty “Our Team”, “Ready to Optimize Your Restaurant?”).
 
-### `/services` — not Contentful, still indexed
+### `/services`
 
-Hardcoded SaaS leftovers: Menu Optimization, Cost Management, Analytics Dashboard, Inventory Management, Staff Optimization, Consulting. That is the **old independent-restaurant product**, the opposite of PDF 01 “who we aren’t.” This page is rewritten in code from PDF 05.
+Paste pack is in this file (below) and in `src/lib/content/services-page.ts`. Until a Services entry is **published**, Preview still shows that seed. Do not reuse the old SaaS leftovers (Menu Optimization, Cost Management, etc.).
 
 ### `/contact`
 
@@ -107,8 +129,8 @@ Generic “Fill out the form… as soon as possible.” Plus form labels **Optio
 1. **Paste the conversion homepage pack below** (or re-seed from the updated seed) so Production matches this story: bridge + ICP + four rooms. Do not keep “Fractional tech and ops leadership…” or the live “Enterprise Restaurant Technology Architecture…” H1.
 2. **Kill unsourced KPIs** until PDF 10 is filled.
 3. **Name prior-role proof**, with the About framing that these are not FoodSense client logos.
-4. **Optional:** add two accordion rows of type `conversionMenuItem` (loyalty, data) and link them on `menuItems`. Kitchen + roadmapping stay on `/services` (code).
-5. **Retitle the vendor row** via `partnersHeading` (field ID unchanged) so we do not claim partnership.
+4. **Optional:** add two accordion rows of type `conversionMenuItem` (loyalty, data) and link them on `menuItems`. Kitchen + roadmapping stay on `/services`.
+5. **Remove the vendor row.** Do not retitle it. The site no longer renders `conversionVendor`.
 6. **Restore Strategy Audit** as the only primary CTA (`heroCta`, `chromeCtaLabel`, `contactHeading`).
 7. Owner follow-ups: fill PDFs 06 / 09–12; replace stock hero; rename ClickUp service labels.
 
@@ -116,7 +138,11 @@ Generic “Fill out the form… as soon as possible.” Plus form labels **Optio
 
 ## Contentful paste pack (master)
 
-Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-homepage-website-2)** — same entry as the editing map. Field IDs below match migrations `002`/`003`. Deep links: [`contentful-editing-map.md`](../engineering/contentful-editing-map.md).
+Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9loayi1/entries/conversion-homepage-website-2)**. Field IDs below match the live `conversionHomepage` type (JSON 3 Sep 2026). Do **not** paste into `vendors`, `navPartners`, `partnersEyebrow`, or `partnersHeading` — the site ignores those leftover fields.
+
+`heroHeading` is Short text (256 characters). The H1 below fits.
+
+Footer fields (`footerTagline`, `footerGeo`, `footerEmail`, `linkedInUrl`, `instagramUrl`) are **not on this type yet**. Skip them. Preview uses seed for footer until you add those five Short text fields (same Field IDs).
 
 ### conversionHomepage (`conversion-homepage-website-2`)
 
@@ -139,8 +165,6 @@ Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9l
 | `pillarsHeading` | What we do in the gap |
 | `menuEyebrow` | Capabilities |
 | `menuHeading` | Programs a multi-unit group has to get right |
-| `partnersEyebrow` | The stack |
-| `partnersHeading` | Vendors we have run in the field |
 | `contactHeading` | Tell us where the gap is. |
 | `contactSubheading` | Operators, ops, technology, heads of digital. One conversation. We will tell you if a Strategy Audit is the right first move, or if you already know the blocker and need a scoped engagement. |
 | `contactResponseNote` | Response within 24 hours. |
@@ -149,8 +173,9 @@ Edit **[conversion-homepage-website-2](https://app.contentful.com/spaces/es87a9l
 | `navAuthority` | About |
 | `navPillars` | What We Do |
 | `navMenu` | Services |
-| `navPartners` | Vendors |
 | `navContact` | Contact |
+
+Do not paste `footerTagline` until that field exists on the type. Seed already shows the same line in the footer on Preview.
 
 ### conversionPillar (keep these three IDs)
 
@@ -178,9 +203,60 @@ Optional same-type rows (link on homepage `menuItems`; seed creates these IDs):
 | `conversion-menu-loyalty` | Loyalty the Store and the App Can Both Run | We connect offers, POS, and the cashier playbook before you scale loyalty across brands and markets. |
 | `conversion-menu-data` | Reporting Operators and Digital Leads Can Share | We define the numbers the franchisee, ops, and head of digital will use at period close, so markets are not reconciling three dashboards after every cycle. |
 
-### conversionVendor (keep these eight IDs)
+Do not seed vendor names.
 
-`conversion-vendor-oracle`, `ncr`, `toast`, `deliverect`, `tillster`, `grubbrr`, `hme`, `r365` — names only. Do not add “preferred” copy.
+### Services (`services` type — one entry)
+
+Canonical words: [`src/lib/content/services-page.ts`](../../src/lib/content/services-page.ts). Brand source: [`docs/brand/03-services.md`](../brand/03-services.md).
+
+Create **new** Conversion Menu Item entries for the three modes and eight capabilities. Do not reuse the homepage accordion items on this entry.
+
+| Your field (Contentful UI) | Paste |
+| --- | --- |
+| Meta Title | Services |
+| Meta Description | Advisory, fractional work, and project management for POS, kiosk, delivery, loyalty, and data — for 10+ unit QSR and franchise operators. |
+| Eyebrow | How we engage |
+| Heading | Advisory, Fractional, Project. |
+| Intro (must be **Long text**) | FoodSense is a focused consultancy at the gap between restaurant technology and restaurant operations. We work with multi-unit, multi-brand franchisees in the US, LATAM, and the Caribbean — operators, ops, technology, and heads of digital channels. We guide the teams you already have. We do not become extra FTE, and we do not sell a platform. Advisory, then Fractional or Project. Test, prove, scale. |
+| Capabilities Eyebrow | Capabilities |
+| Capabilities Heading | What those modes cover |
+| Not This Heading (`notThisHeading`) | What we don't do |
+| Not This Items (`notThisItems`, one line each) | Software product development — we architect and guide; we do not ship a platform |
+| | Brand or marketing strategy |
+| | Single-unit independents |
+| | Hardware procurement |
+| | Help desk / managed services |
+| | Strategy decks with no execution path |
+| CTA Heading | Book a Strategy Audit |
+| CTA Body | Operators, ops, technology, heads of digital. Tell us where the vendor roadmap and the stores have stopped lining up. |
+| CTA Label | Book a Strategy Audit |
+
+**Engagement Modes** — three Conversion Menu Items (Title / Body):
+
+| Title | Body |
+| --- | --- |
+| Advisory | For the decision-maker at 10+ units who needs the gap named and a sequence for what to standardize. We name what is fractured and guide the teams that already exist. |
+| Fractional work | Embedded leadership cadence without another FTE. Roadmap ownership, vendor relationships, and decision support beside the operator's clock. |
+| Project management | Bounded initiatives with a clear start and end — RFP, cutover, kiosk program, migration. Scoped deliverables and milestones. |
+
+**Capabilities** — eight Conversion Menu Items:
+
+| Title | Body |
+| --- | --- |
+| POS Migration for Multi-Unit Operations | We sequence vendor selection, market pilots, and overnight cutover so the new POS lands while kitchens keep ticket times and stores stay open. |
+| Kiosk Programs Your Store Team Can Run | We connect kiosk, POS, and kitchen display, then stay with local IT through activation so a rush of digital tickets does not stall the prep line. |
+| Loyalty the Store and the App Can Both Run | We connect offers, POS, and the cashier playbook before you scale loyalty across brands and markets. |
+| Delivery Volume the Kitchen Can Fulfill | Marketplace and first-party orders hit the same line. We set what each store can take, then hold vendors and the promo calendar to that limit. |
+| Kitchen Management and IoT | Kitchen display, production, and sensors for cook time and food safety where they earn their place in the store. |
+| Reporting Operators and Digital Leads Can Share | We define the numbers the franchisee, ops, and head of digital will use at period close, so markets are not reconciling three dashboards after every cycle. |
+| Digital Strategy and Roadmapping | Multi-year technology roadmaps tied to store growth and channel mix, with a sequence the existing team can run. |
+| Vendor Accountability Across Every Store | We run the RFP, debug live setups, and keep brand leads and regional vendors on a schedule. You stop funding software that never made it past the pilot. |
+
+Publish the menu items, then the Services entry. Check Preview `/services`.
+
+### Franchisee landing — do not use on the live site
+
+The maturity quiz and `/franchisees` are **off the conversion website**. Those URLs redirect to `/`. Do **not** paste assessment copy. Do not fill `assessmentHeading` / `assessmentIntro` / `assessmentCta`. The `franchiseeLandingPage` type can stay empty in Contentful.
 
 ### About (already Brand OS)
 

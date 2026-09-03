@@ -10,7 +10,7 @@ Locked decisions: [`decisions.md`](./decisions.md).
 
 ## Primary conversion
 
-**Unified contact form** on homepage (`#contact-section`) and `/contact` → ClickUp Leads. Homepage section copy may still say “Book a Strategy Audit”; it is the same form. The `/franchisees` maturity tool stays for a later phase.
+**Unified contact form** on homepage (`#contact-section`) and `/contact` → ClickUp Leads. Primary CTA: **Book a Strategy Audit**. The franchisee maturity quiz is **off the site**; `/franchisees` redirects home.
 
 ## Page structure
 
@@ -18,8 +18,7 @@ Locked decisions: [`decisions.md`](./decisions.md).
 2. **Authority** — Why FoodSense + founder wins (operator + technologist credibility)
 3. **Core pillars** — Kitchen throughput rollouts / hands-on support for lean local IT / regional & franchise ecosystem
 4. **Capabilities accordion** — POS, kiosk, delivery, vendor accountability, loyalty, reporting
-5. **Vendors** — landscape we already know (logo cloud; not a partnership claim)
-6. **Contact** — Shared qualification form (personal info, brands, location band, type, POS, services)
+5. **Contact** — Shared qualification form (personal info, brands, location band, type, POS, services)
 
 ## Brand constraints (non-negotiable)
 

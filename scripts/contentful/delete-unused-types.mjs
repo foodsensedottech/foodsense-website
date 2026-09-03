@@ -16,13 +16,13 @@ const TYPES_TO_KEEP = new Set([
   "conversionHomepage",
   "conversionPillar",
   "conversionMenuItem",
-  "conversionVendor",
   "aboutUsTitleSubtitle",
   "aboutUsCard",
-  "heroFields",
-  "franchiseePainsTitle",
-  "franchiseePainCard",
-  "franchiseeOfferCard",
+  "servicesPage",
+  "services",
+  "franchiseeLandingPage",
+  "franchisee",
+  "franchisees",
   "seoMetadata",
 ]);
 

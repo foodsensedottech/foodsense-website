@@ -1,33 +1,46 @@
 # Website 2.0 — lean Contentful model
 
-**Goal:** A small, owner-editable model for the Strategy Audit homepage — not another 25-type sprawl.
+**Goal:** Marketing copy for every live route lives in Contentful. Not a 25-type sprawl. Not a vendor logo cloud.
 
-**Current priority (Aug 2026):** Phase 1 is **complete** (11 types on master). Phase 2 types (`caseStudy`, etc.) — see [`decisions.md`](./decisions.md).
+**Current priority (Sep 2026):** Homepage, `/about`, `/services`, `/contact`, and header/footer chrome are CMS-owned. `/franchisees` redirects home (quiz off the site).
 
 Owner decisions: [`decisions.md`](./decisions.md). Brand/copy: `docs/brand/`. Page IA: [`overview.md`](./overview.md).
 
-Until the lean types below are published, Preview uses seed copy in `src/lib/content/conversion-seed.ts`.
+Until the types below are published, Preview uses seed files (`conversion-seed.ts`, `services-page.ts`, `franchisees/copy.ts`, `about-seed.ts`). Seeds are **unpublished-CMS fallback**, not a second site.
 
-**Runbook:** [`engineering/contentful-phase1.md`](../engineering/contentful-phase1.md) — `npm run contentful:phase1`
+**Rebuild / wipe:** [`engineering/contentful-rebuild.md`](../engineering/contentful-rebuild.md).
 
-**Editing map (what goes where):** [`engineering/contentful-editing-map.md`](../engineering/contentful-editing-map.md) — homepage sections → fields → Contentful deep links. Use this instead of building a custom WYSIWYG.
+**Runbook:** [`engineering/contentful-phase1.md`](../engineering/contentful-phase1.md) — then migration `004` + seed.
 
-**Copy vs Brand OS:** [`contentful-copy-review.md`](./contentful-copy-review.md) — live Production strings, gaps, and the paste pack for the same fields.
+**Editing map:** [`engineering/contentful-editing-map.md`](../engineering/contentful-editing-map.md).
+
+**Copy vs Brand OS:** [`contentful-copy-review.md`](./contentful-copy-review.md).
 
 ---
 
 ## Target model (create these)
 
-### Now — conversion homepage (4 types)
+### Live routes
 
 | Type | Purpose |
 | --- | --- |
-| `conversionHomepage` | Single homepage entry (hero, authority, contact, chrome, refs) |
-| `conversionPillar` | Core pillar cards (expect 3) |
-| `conversionMenuItem` | Specialized menu accordion rows |
-| `conversionVendor` | Partner / vendor names (+ optional logo) |
+| `conversionHomepage` | Homepage + `/contact` + nav/footer chrome |
+| `conversionPillar` | Three homepage pillar cards |
+| `conversionMenuItem` | Title + body cards: homepage accordion, `/services` modes/capabilities |
+| `services` (Contentful UI) or `servicesPage` (migration `004`) | Singleton `/services` |
+| `aboutUsTitleSubtitle` + `aboutUsCard` | `/about` |
+| `seoMetadata` | Keep; homepage SEO still uses hero fields |
 
-Field map for those four types: see **Field reference** at the bottom of this file.
+Field map: **Field reference** below and the editing map.
+
+### Do not recreate
+
+| Type | Why |
+| --- | --- |
+| `conversionVendor` | Retired. Vendor-agnostic — no logo cloud, no “Trusted Integration Partners.” Delete when wiping leftovers. |
+| `heroFields` | Retired. Franchisee hero is on `franchiseeLandingPage`. |
+| `franchiseePainsTitle` / `franchiseePainCard` / `franchiseeOfferCard` | Folded into `franchiseeLandingPage` + `conversionMenuItem`. |
+| `partner` / `partnerLogo` | Same as vendor cloud — do not add. |
 
 ### Next — Phase 2 content (only when building those pages)
 
@@ -36,19 +49,15 @@ Field map for those four types: see **Field reference** at the bottom of this fi
 | `caseStudy` | Anonymized results pages (`/results/[slug]`) — RichText body, metrics, SEO |
 | `framework` | Maturity / vendor-risk frameworks |
 | `metricStat` | Proof bar stats (value, label, sortOrder) |
-| `partner` | Named partners (e.g. Blackthorn) — name, blurb, url, logo |
-| `seoMetadata` | **Fix first:** `pageId` becomes a free unique Symbol slug (drop closed enum) |
 
-Do **not** invent types mid-task. Prefer seed or copy in Brand OS until a type is on this list.
+Do **not** invent types mid-task. Prefer seed until a type is on this list.
 
-### Keep for non-homepage routes (for now)
+### Stay in code (not CMS)
 
-| Type | Why keep |
+| Copy | Why |
 | --- | --- |
-| `aboutUsCard` / about title types used by `/about` | About page still needs CMS cards until rebuilt |
-| Contact / form chrome types still referenced by `/contact` or shared chrome | Only if live routes still fetch them |
-
-Re-audit these after About / Contact are folded into Website 2.0 or static Brand OS copy.
+| Contact form labels, placeholders, ClickUp option UUIDs | CRM field parity — [`clickup-field-alignment.md`](../engineering/clickup-field-alignment.md) |
+| Legal pages | `/privacy-policy`, `/terms-and-conditions`, `/accessibility` |
 
 ---
 
@@ -96,12 +105,12 @@ Phases match [`assessment.md`](./assessment.md); Contentful work is **Phase 1** 
 | --- | --- |
 | 1 | Create Contentful `staging` from `master` (confirm environment allowance on plan) |
 | 2 | Fix `seoMetadata.pageId` → free unique Symbol |
-| 3 | Create the 4 `conversion*` types + publish one homepage entry (linked pillars / menu / vendors) |
-| 4 | Point the Website 2.0 app at those types (already coded in `src/lib/contentful/conversion.ts`) |
+| 3 | Create conversion types + `servicesPage` + `franchiseeLandingPage` (migrations `002`–`004`) |
+| 4 | Point the app at those types (already coded) |
 | 5 | Rename unused types to `DEPRECATED_*` via `contentful-migration` scripts (never hand-edit field IDs in UI for destructive changes) |
 | 6 | Verify Preview; then apply migrations to `master` |
-| 7 | Delete `DEPRECATED_*` after a quiet week |
-| 8 | Only then add `caseStudy` / `framework` / `metricStat` / `partner` |
+| 7 | Delete `DEPRECATED_*` after a quiet week, including `conversionVendor` |
+| 8 | Only then add `caseStudy` / `framework` / `metricStat` |
 
 **Do not** add a generic `page` composition layer yet. That is Phase 3 debt after the site is converting.
 
@@ -121,15 +130,10 @@ Phases match [`assessment.md`](./assessment.md); Contentful work is **Phase 1** 
 
 | Field | Type |
 | --- | --- |
-| `title` | Short text |
-| `body` | Long text |
+| `title` | Short text (localized) |
+| `body` | Long text (localized) |
 
-### `conversionVendor`
-
-| Field | Type |
-| --- | --- |
-| `name` | Short text |
-| `logo` | Media (optional) |
+Reused for homepage accordion and `/services` modes + capabilities. Distinct entry IDs; do not mix them on the wrong page.
 
 ### `conversionHomepage` (one entry)
 
@@ -151,14 +155,36 @@ Phases match [`assessment.md`](./assessment.md); Contentful work is **Phase 1** 
 | `pillarsEyebrow` / `pillarsHeading` | Short text (section chrome) |
 | `menuItems` | References → many `conversionMenuItem` |
 | `menuEyebrow` / `menuHeading` | Short text (section chrome) |
-| `vendors` | References → many `conversionVendor` |
-| `partnersEyebrow` / `partnersHeading` | Short text (section chrome) |
 | `contactHeading` | Short text |
 | `contactSubheading` | Short text |
 | `contactResponseNote` | Short text |
 | `contactCtaLabel` | Short text |
 | `chromeCtaLabel` | Short text |
-| `navAuthority` / `navPillars` / `navMenu` / `navPartners` / `navContact` | Short text (optional) |
+| `navAuthority` / `navPillars` / `navMenu` / `navContact` | Short text (optional) |
+| `footerTagline` / `footerGeo` / `footerEmail` | Short text |
+| `linkedInUrl` / `instagramUrl` | Short text |
+
+Do not seed `vendors` / `navPartners` / `partnersHeading`. Those fields may still exist on older entries; the site ignores them.
+
+### `services` / `servicesPage` (one entry)
+
+Contentful UI names the type `services` when you call it “Services”. You cannot rename that ID later. The site queries both.
+
+| Field ID | Also accepted | Type |
+| --- | --- | --- |
+| `metaTitle` / `metaDescription` | | SEO |
+| `eyebrow` / `heading` | | Short text |
+| `intro` | | **Long text** (not Short text — the paste is >256 characters) |
+| `modes` | `engagementModes` | References → `conversionMenuItem` only |
+| `capabilitiesEyebrow` / `capabilitiesHeading` | | Section chrome |
+| `capabilities` | | References → `conversionMenuItem` only |
+| `notHeading` | `notThisHeading` | Short text |
+| `notItems` | `notThisItems` | Long text, one line per “what we don’t do” |
+| `ctaHeading` / `ctaBody` / `ctaLabel` | | Strategy Audit CTA |
+
+### `franchiseeLandingPage`
+
+Exists in the space from the CMS pass. **Unused on the live site.** `/franchisees` redirects home. Do not paste quiz copy.
 
 ---
 

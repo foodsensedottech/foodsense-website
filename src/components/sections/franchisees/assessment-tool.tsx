@@ -4,8 +4,7 @@ import * as React from "react";
 import { analytics } from "@/lib/analytics/tracking";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/form/input";
-import type { FranchiseeLocale } from "@/lib/franchisees/copy";
-import { getFranchiseeCopy } from "@/lib/franchisees/copy";
+import type { FranchiseeCopy, FranchiseeLocale } from "@/lib/franchisees/copy";
 import type {
   AssessmentAnswers,
   MaturityBand,
@@ -23,6 +22,7 @@ const STEPS: StepKey[] = [
 
 interface AssessmentToolProps {
   locale: FranchiseeLocale;
+  copy: FranchiseeCopy;
 }
 
 interface ScoreResult {
@@ -31,8 +31,7 @@ interface ScoreResult {
   captured: boolean;
 }
 
-export function AssessmentTool({ locale }: AssessmentToolProps) {
-  const copy = getFranchiseeCopy(locale);
+export function AssessmentTool({ locale, copy }: AssessmentToolProps) {
   const [stepIndex, setStepIndex] = React.useState(0);
   const [answers, setAnswers] = React.useState<Partial<AssessmentAnswers>>({});
   const [name, setName] = React.useState("");

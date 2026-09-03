@@ -1,165 +1,155 @@
-import client from "@/lib/contentful/client";
+import { fetchFirstEntryFields } from "@/lib/contentful/fetch-entry";
+import {
+  contentfulLocale,
+  linkedEntries,
+  mapTitleBody,
+  pickJson,
+  pickString,
+} from "@/lib/contentful/fields";
 import {
   getFranchiseeCopy,
+  type FranchiseeCopy,
   type FranchiseeLocale,
 } from "@/lib/franchisees/copy";
-import type {
-  FranchiseeCardEntry,
-  FranchiseeCardFields,
-  FranchiseeTitleEntry,
-  FranchiseeTitleFields,
-} from "@/lib/contentful/types";
+
+const QUESTION_KEYS = [
+  "locations",
+  "region",
+  "pos",
+  "kds",
+  "delivery",
+  "payments",
+] as const;
+
+type QuestionKey = (typeof QUESTION_KEYS)[number];
+
+function mergeQuestions(
+  seed: FranchiseeCopy["questions"],
+  cms: unknown
+): FranchiseeCopy["questions"] {
+  if (!cms || typeof cms !== "object") return structuredClone(seed);
+  const source = cms as Record<string, unknown>;
+  const next = structuredClone(seed);
+
+  for (const key of QUESTION_KEYS) {
+    const entry = source[key];
+    if (!entry || typeof entry !== "object") continue;
+    const record = entry as { label?: unknown; options?: unknown };
+    if (typeof record.label === "string" && record.label.trim()) {
+      next[key as QuestionKey].label = record.label.trim();
+    }
+    if (Array.isArray(record.options)) {
+      const options = record.options
+        .map((option) => {
+          if (!option || typeof option !== "object") return null;
+          const value = (option as { value?: unknown }).value;
+          const label = (option as { label?: unknown }).label;
+          if (typeof value !== "string" || typeof label !== "string") return null;
+          if (!value.trim() || !label.trim()) return null;
+          return { value: value.trim(), label: label.trim() };
+        })
+        .filter(Boolean) as FranchiseeCopy["questions"][QuestionKey]["options"];
+      if (options.length) {
+        next[key].options = options;
+      }
+    }
+  }
+
+  return next;
+}
+
+function mergeCards(
+  seed: FranchiseeCopy["pains"],
+  field: unknown
+): FranchiseeCopy["pains"] {
+  const cards = linkedEntries(field)
+    .map(mapTitleBody)
+    .filter(Boolean) as FranchiseeCopy["pains"];
+  return cards.length ? cards : seed.map((card) => ({ ...card }));
+}
+
+function mergeCopy(
+  seed: FranchiseeCopy,
+  fields: Record<string, unknown>
+): FranchiseeCopy {
+  const str = (keys: string[], fallback: string) =>
+    pickString(fields, keys) || fallback;
+
+  return {
+    htmlLang: str(["htmlLang"], seed.htmlLang),
+    metaTitle: str(["metaTitle"], seed.metaTitle),
+    metaDescription: str(["metaDescription"], seed.metaDescription),
+    navLabel: str(["navLabel"], seed.navLabel),
+    otherLocaleLabel: str(["otherLocaleLabel"], seed.otherLocaleLabel),
+    otherLocaleHref: str(["otherLocaleHref"], seed.otherLocaleHref),
+    heroEyebrow: str(["heroEyebrow"], seed.heroEyebrow),
+    heroHeadline: str(["heroHeadline"], seed.heroHeadline),
+    heroSubheadline: str(["heroSubheadline"], seed.heroSubheadline),
+    heroPrimaryCta: str(["heroPrimaryCta"], seed.heroPrimaryCta),
+    heroSecondaryCta: str(["heroSecondaryCta"], seed.heroSecondaryCta),
+    trustMetric: str(["trustMetric"], seed.trustMetric),
+    painHeading: str(["painHeading", "painsHeading"], seed.painHeading),
+    painIntro: str(["painIntro", "painsIntro"], seed.painIntro),
+    pains: mergeCards(seed.pains, fields.pains),
+    offersHeading: str(["offersHeading"], seed.offersHeading),
+    offersIntro: str(["offersIntro"], seed.offersIntro),
+    offers: mergeCards(seed.offers, fields.offers),
+    assessmentHeading: str(["assessmentHeading"], seed.assessmentHeading),
+    assessmentIntro: str(["assessmentIntro"], seed.assessmentIntro),
+    assessmentCta: str(["assessmentCta"], seed.assessmentCta),
+    questions: mergeQuestions(
+      seed.questions,
+      pickJson(fields, ["questions"]) ?? fields.questions
+    ),
+    capture: {
+      heading: str(["captureHeading"], seed.capture.heading),
+      intro: str(["captureIntro"], seed.capture.intro),
+      name: str(["captureName"], seed.capture.name),
+      email: str(["captureEmail"], seed.capture.email),
+      company: str(["captureCompany"], seed.capture.company),
+      submit: str(["captureSubmit"], seed.capture.submit),
+      submitting: str(["captureSubmitting"], seed.capture.submitting),
+      error: str(["captureError"], seed.capture.error),
+    },
+    results: {
+      heading: str(["resultsHeading"], seed.results.heading),
+      bands: {
+        optimized: str(["resultOptimized"], seed.results.bands.optimized),
+        scaling: str(["resultScaling"], seed.results.bands.scaling),
+        fragmented: str(["resultFragmented"], seed.results.bands.fragmented),
+      },
+      nextCta: str(["resultsNextCta"], seed.results.nextCta),
+      restart: str(["resultsRestart"], seed.results.restart),
+    },
+    next: str(["nextLabel"], seed.next),
+    back: str(["backLabel"], seed.back),
+  };
+}
+
+/** Set this API ID before the first Save. UI guesses (`franchisees`) also work. */
+export const FRANCHISEE_CONTENT_TYPES = [
+  "franchiseeLandingPage",
+  "franchisee",
+  "franchisees",
+] as const;
 
 /**
- * Content types that exist on Contentful master after Phase 1 cleanup.
- * `franchiseeOffersTitle` was deleted — do not query it (Contentful 400).
+ * `/franchisees` from Contentful. Linked pains/offers reuse
+ * `conversionMenuItem`. Locale `es` reads Contentful locale `es`.
  */
-export const FRANCHISEE_CONTENT_TYPES = {
-  painsTitle: "franchiseePainsTitle",
-  painCard: "franchiseePainCard",
-  offerCard: "franchiseeOfferCard",
-} as const;
-
-function pickString(fields: Record<string, unknown>, keys: string[]): string {
-  for (const key of keys) {
-    const value = fields[key];
-    if (typeof value === "string" && value.trim()) {
-      return value;
-    }
-  }
-  return "";
-}
-
-function normalizeTitleFields(
-  fields: Record<string, unknown>
-): FranchiseeTitleFields {
-  return {
-    heading: pickString(fields, ["heading", "Heading", "title", "Title"]),
-    subheading: pickString(fields, [
-      "subheading",
-      "Subheading",
-      "description",
-      "Description",
-    ]),
-  };
-}
-
-function normalizeCardFields(
-  fields: Record<string, unknown>
-): FranchiseeCardFields {
-  return {
-    title: pickString(fields, ["title", "Title"]),
-    description: pickString(fields, ["description", "Description"]),
-    lucideIcon: pickString(fields, ["lucideIcon", "LucideIcon", "lucideicon"]),
-  };
-}
-
-function isUnknownContentType(error: unknown): boolean {
-  if (!error || typeof error !== "object") return false;
-  const details = (error as { details?: { errors?: { name?: string }[] } })
-    .details;
-  return Boolean(
-    details?.errors?.some((entry) => entry.name === "unknownContentType")
-  );
-}
-
-function staticTitle(
-  heading: string,
-  subheading: string
-): FranchiseeTitleEntry {
-  return {
-    sys: { id: "static-franchisee-title" },
-    fields: { heading, subheading },
-    metadata: { tags: [] },
-  } as FranchiseeTitleEntry;
-}
-
-async function getTitle(
-  contentType: string
-): Promise<FranchiseeTitleEntry | null> {
+export async function getFranchiseePage(
+  locale: FranchiseeLocale = "en"
+): Promise<FranchiseeCopy> {
+  const seed = structuredClone(getFranchiseeCopy(locale)) as FranchiseeCopy;
   try {
-    const response = await client.getEntries({
-      content_type: contentType,
-      limit: 1,
-      order: ["-sys.updatedAt"],
+    const fields = await fetchFirstEntryFields([...FRANCHISEE_CONTENT_TYPES], {
+      include: 2,
+      locale: contentfulLocale(locale),
     });
-    const item = response.items[0];
-    if (!item) return null;
-    const fields = normalizeTitleFields(
-      (item.fields || {}) as Record<string, unknown>
-    );
-    if (!fields.heading) return null;
-    return {
-      sys: item.sys,
-      fields,
-      metadata: item.metadata,
-    };
+    if (!fields) return seed;
+    return mergeCopy(seed, fields);
   } catch (error) {
-    if (isUnknownContentType(error)) {
-      console.warn(
-        `Contentful content type "${contentType}" is not on this environment — skipping`
-      );
-      return null;
-    }
-    console.error(`Error fetching ${contentType}:`, error);
-    return null;
+    console.error("Error fetching franchisee landing page:", error);
+    return seed;
   }
-}
-
-async function getCards(contentType: string): Promise<FranchiseeCardEntry[]> {
-  try {
-    const response = await client.getEntries({
-      content_type: contentType,
-      order: ["sys.createdAt"],
-    });
-    return response.items
-      .map((item) => ({
-        sys: item.sys,
-        fields: normalizeCardFields(
-          (item.fields || {}) as Record<string, unknown>
-        ),
-        metadata: item.metadata,
-      }))
-      .filter((item) => item.fields.title);
-  } catch (error) {
-    if (isUnknownContentType(error)) {
-      console.warn(
-        `Contentful content type "${contentType}" is not on this environment — skipping`
-      );
-      return [];
-    }
-    console.error(`Error fetching ${contentType}:`, error);
-    return [];
-  }
-}
-
-export async function getFranchiseePains(locale: FranchiseeLocale = "en") {
-  const copy = getFranchiseeCopy(locale);
-  const [heading, cards] = await Promise.all([
-    getTitle(FRANCHISEE_CONTENT_TYPES.painsTitle),
-    getCards(FRANCHISEE_CONTENT_TYPES.painCard),
-  ]);
-
-  return {
-    heading:
-      heading ??
-      (cards.length > 0
-        ? staticTitle(copy.painHeading, copy.painIntro)
-        : null),
-    cards,
-  };
-}
-
-export async function getFranchiseeOffers(locale: FranchiseeLocale = "en") {
-  const copy = getFranchiseeCopy(locale);
-  // Title type was retired from master; cards may still exist.
-  const cards = await getCards(FRANCHISEE_CONTENT_TYPES.offerCard);
-
-  return {
-    heading:
-      cards.length > 0
-        ? staticTitle(copy.offersHeading, copy.offersIntro)
-        : null,
-    cards,
-  };
 }

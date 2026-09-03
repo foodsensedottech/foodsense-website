@@ -109,3 +109,73 @@ export function runMigrationFile(fileName, spaceId, accessToken, environmentId) 
 export function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+export function localeFields(en, es) {
+  const fields = { "en-US": en };
+  if (es !== undefined) {
+    fields.es = es;
+  }
+  return fields;
+}
+
+export async function upsertEntryOnFirstType(
+  environment,
+  typeIds,
+  entryId,
+  fields
+) {
+  for (const contentType of typeIds) {
+    const entry = await upsertEntry(environment, contentType, entryId, fields);
+    if (entry) return entry;
+  }
+  return null;
+}
+
+export async function upsertEntry(environment, contentType, entryId, fields) {
+  let known;
+  try {
+    const ct = await environment.getContentType(contentType);
+    known = new Set(ct.fields.map((field) => field.id));
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (message.includes("NotFound") || message.includes("404")) {
+      console.warn(`  skip ${contentType} (${entryId}) — type not on this environment`);
+      return null;
+    }
+    throw error;
+  }
+
+  const filtered = {};
+  for (const [key, value] of Object.entries(fields)) {
+    if (known.has(key)) {
+      filtered[key] = value;
+    } else {
+      console.warn(`  skip unknown field ${contentType}.${key}`);
+    }
+  }
+
+  try {
+    const entry = await environment.getEntry(entryId);
+    entry.fields = { ...entry.fields, ...filtered };
+    const updated = await entry.update();
+    const published = await updated.publish();
+    console.log(`  updated + published ${contentType} (${entryId})`);
+    return published;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (!message.includes("NotFound") && !message.includes("404")) {
+      throw error;
+    }
+  }
+
+  const created = await environment.createEntryWithId(contentType, entryId, {
+    fields: filtered,
+  });
+  const published = await created.publish();
+  console.log(`  created + published ${contentType} (${entryId})`);
+  return published;
+}
+
+export function link(entryId) {
+  return { sys: { type: "Link", linkType: "Entry", id: entryId } };
+}

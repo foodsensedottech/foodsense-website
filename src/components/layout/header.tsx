@@ -20,7 +20,7 @@ export function Header({ chrome = null }: HeaderProps) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const navItems = buildSiteNav(chrome);
-  const ctaLabel = chrome?.ctaLabel || "Get Started";
+  const ctaLabel = chrome?.ctaLabel || "Book a Strategy Audit";
 
   useEffect(() => {
     analytics.trackPageView(pathname);
